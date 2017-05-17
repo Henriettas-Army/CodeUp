@@ -17,7 +17,7 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Sub-Heading ##
-  > A networking application where people of similar software interests can collaborate and connect.
+  > A networking application where people of similar software interests can learn, collaborate and connect.
 
 ## Summary ##
   > As a CodeUp user, you will have access to a community of programmers who are open to collaborations and connections. You will be able to find a variety of users based on your interests. A chat platform will allow you to chat with other users. If you are interested in what is currently going on around you, check out the map feature, or if you'd like to create or attend an event, check out the events page.
