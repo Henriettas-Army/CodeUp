@@ -1,6 +1,6 @@
 # CodeUp
 
-> Pithy project description
+> A networking application where people of similar software interests can learn, collaborate and connect.
 
 ## Team
 
@@ -36,11 +36,9 @@
 
 From within the root directory:
 
-```sh
-sudo npm install -g bower
 npm install
-bower install
-```
+npm i -g webpack
+
 
 ### Roadmap
 
