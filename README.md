@@ -36,7 +36,7 @@
 
 From within the root directory:
 
-npm install
+npm install\n
 npm i -g webpack
 
 
