@@ -4,7 +4,7 @@
   "description": "> A networking application where people of similar software interests can learn, collaborate and connect.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
     "webpack": "cd client && webpack --watch"
   },
   "repository": {
