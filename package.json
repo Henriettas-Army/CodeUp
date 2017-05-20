@@ -5,24 +5,26 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "cd client && webpack --watch"
+    "webpack": "cd client && webpack --watch",
+    "start": "nodemon server/server.js",
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/techmexdev/CodeUp.git"
+    "url": "git+https://github.com/Henriettas-Army/CodeUp.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/techmexdev/CodeUp/issues"
+    "url": "https://github.com/Henriettas-Army/CodeUp/issues"
   },
-  "homepage": "https://github.com/techmexdev/CodeUp#readme",
+  "homepage": "https://github.com/Henriettas-Army/CodeUp#readme",
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
+    "nodemon": "^1.11.0",
     "react-router": "^4.1.1"
   },
   "dependencies": {
