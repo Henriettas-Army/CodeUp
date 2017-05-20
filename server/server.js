@@ -6,7 +6,7 @@ const db = require('./../db/config.js');
 
 const app = express();
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extend: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../client')));
 
@@ -16,4 +16,5 @@ app.listen('3034', () => {
 
 module.exports = {
   app,
+  db,
 };
