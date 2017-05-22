@@ -4,7 +4,6 @@
   "description": "> A networking application where people of similar software interests can learn, collaborate and connect.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "cd client && webpack --watch",
     "start": "nodemon server/server.js"
   },
