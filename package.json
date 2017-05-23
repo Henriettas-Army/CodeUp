@@ -37,6 +37,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.1",
+    "github-pagination": "^0.1.0",
     "mongoose": "^4.10.0",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
@@ -48,6 +49,8 @@
     "redux": "^3.6.0",
     "redux-api-middleware": "^1.0.3",
     "redux-thunk": "^2.2.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "webpack": "^2.5.1"
   }
 }
