@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    image: techmexdev/codeup:docker-setup
+    build: .
     command: "npm run production"
     ports:
       - "3034:3034"
