@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { loginUser } from '../redux/actions/loginActions';
 import Login from './components/Login';
+
 
 class App extends Component {
   render() {
@@ -20,12 +22,12 @@ class App extends Component {
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.isRequired,
-  errorMessage: PropTypes.string,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.func,
 };
 
 App.defaultProps = {
-  errorMessage: PropTypes.string,
+  errorMessage: PropTypes.func,
 };
 
 function mapStateToProps(state) {
