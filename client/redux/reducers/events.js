@@ -1,13 +1,13 @@
-var actions = require('../actions/actions');
+const eventActions = require('../actions/eventActions');
 
 const eventsReducer = (state = { events: [], status: 'READY' }, action) => {
   switch (action.type) {
-    case actions.GET_EVENTS:
-      
-      break;
-    case actions.POST_EVENT:
-
-      break;
+    case eventActions.LOADING_EVENTS:
+      return Object.assign({}, state, { status: 'LOADING' });
+    case eventActions.ERROR_EVENTS:
+      return Object.assign({}, state, { status: 'ERROR' });
+    case eventActions.SUCCESS_EVENTS:
+      return Object.assign({}, state, { status: 'READY' });
     default:
       return state;
   }
