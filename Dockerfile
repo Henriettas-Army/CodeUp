@@ -11,6 +11,3 @@ RUN npm install webpack -g
 
 # Bundle app source
 COPY . /usr/src/app
-
-EXPOSE 8080
-CMD [ "npm", "run", "production" ]
