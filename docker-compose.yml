@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    build: .
+    image: techmexdev/codeup:latest
     command: "npm run production"
     ports:
       - "3034:3034"
