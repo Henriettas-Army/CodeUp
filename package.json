@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "webpack": "cd client && webpack --watch",
-    "start": "nodemon server/server.js"
+    "start": "nodemon server/server.js",
+    "testClient": "jest client/spec/*.js",
+    "testClient": "jest server/spec/*.js"
   },
   "repository": {
     "type": "git",
