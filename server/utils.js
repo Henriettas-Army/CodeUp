@@ -3,7 +3,8 @@ const githubPagination = require('github-pagination');
 const Promise = require('bluebird');
 const UserController = require('./../db/controllers/UserController');
 
-const GITHUB_TOKEN = 'ed13d761ab8c2e44ca251db65fc0e679e12115c6';
+// uncomment when using tokens, including lines 16, 57, 91;
+// const GITHUB_TOKEN = '';
 
 // if user has over 100 repos then traverse through remaining repos pages
 // with Github API
@@ -12,7 +13,7 @@ const traversePages = (page, remainingPages, repos, username) => (
     requestP({
       uri: `https://api.github.com/users/${username}/repos`,
       qs: {
-        access_token: GITHUB_TOKEN,
+        // access_token: GITHUB_TOKEN,
         sort: 'updated',
         direction: 'desc',
         page,
@@ -53,7 +54,7 @@ const gitUserInfo = username => (
     requestP({
       uri: `https://api.github.com/users/${username}`,
       qs: {
-        access_token: GITHUB_TOKEN,
+        // access_token: GITHUB_TOKEN,
       },
       headers: {
         'User-Agent': 'CodeUp',
@@ -87,7 +88,7 @@ const gitUserRepos = username => (
     requestP({
       uri: `https://api.github.com/users/${username}/repos`,
       qs: {
-        access_token: GITHUB_TOKEN,
+        // access_token: GITHUB_TOKEN,
         sort: 'pushed',
         direction: 'desc',
         page: 1,
@@ -161,7 +162,7 @@ const grabUserInfoandSave = (username) => {
   });
 };
 
-grabUserInfoandSave('cdcjj');
+grabUserInfoandSave('aalcott14');
 
 module.exports = {
   traversePages,
