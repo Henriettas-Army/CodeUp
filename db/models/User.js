@@ -8,6 +8,15 @@ const userSchema = new Schema({
     unique: true,
     required: true,
   },
+  name: {
+    type: String,
+  },
+  img: {
+    type: String,
+  },
+  bio: {
+    type: String,
+  },
   skills: {
     type: [String],
   },
@@ -19,7 +28,12 @@ const userSchema = new Schema({
   },
   status: {
     type: String,
-    required: true,
+  },
+  repos: {
+    type: [String],
+  },
+  languages: {
+    type: String,
   },
 });
 

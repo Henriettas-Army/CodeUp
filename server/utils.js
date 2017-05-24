@@ -1,9 +1,12 @@
 const requestP = require('request-promise');
 const githubPagination = require('github-pagination');
 const Promise = require('bluebird');
+const UserController = require('./../db/controllers/UserController');
 
 const GITHUB_TOKEN = 'ed13d761ab8c2e44ca251db65fc0e679e12115c6';
 
+// if user has over 100 repos then traverse through remaining repos pages
+// with Github API
 const traversePages = (page, remainingPages, repos, username) => (
   new Promise((resolve, reject) => {
     requestP({
@@ -13,7 +16,7 @@ const traversePages = (page, remainingPages, repos, username) => (
         sort: 'updated',
         direction: 'desc',
         page,
-        per_page: 5,
+        per_page: 100,
       },
       headers: {
         'User-Agent': 'Request-Promise',
@@ -44,32 +47,37 @@ const traversePages = (page, remainingPages, repos, username) => (
   })
 );
 
-const gitUserInfo = (username) => {
-  requestP({
-    uri: `https://api.github.com/users/${username}`,
-    qs: {
-      access_token: GITHUB_TOKEN,
-    },
-    headers: {
-      'User-Agent': 'CodeUp',
-    },
-    json: true,
+// grab user information from Github user profile
+const gitUserInfo = username => (
+  new Promise((resolve, reject) => {
+    requestP({
+      uri: `https://api.github.com/users/${username}`,
+      qs: {
+        access_token: GITHUB_TOKEN,
+      },
+      headers: {
+        'User-Agent': 'CodeUp',
+      },
+      json: true,
+    })
+    .then((userInfo) => {
+      const userObj = {
+        username: userInfo.login,
+        name: userInfo.name,
+        img: userInfo.avatar_url,
+        bio: userInfo.bio || '',
+        location: userInfo.location.split(', ') || [],
+        repos: [],
+      };
+      resolve(userObj);
+    })
+    .catch((err) => {
+      reject(err);
+    });
   })
-  .then((userInfo) => {
-    const userObj = {
-      username: userInfo.login,
-      img: userInfo.avatar_url,
-      name: userInfo.name,
-      location: userInfo.location.split(', '),
-      repo_num: userInfo.public_repos,
-    };
-    return userObj;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-};
+);
 
+// grab all of user's repos
 const gitUserRepos = username => (
   new Promise((resolve, reject) => {
     let userRepos;
@@ -77,7 +85,7 @@ const gitUserRepos = username => (
       uri: `https://api.github.com/users/${username}/repos`,
       qs: {
         access_token: GITHUB_TOKEN,
-        sort: 'updated',
+        sort: 'pushed',
         direction: 'desc',
         page: 1,
         per_page: 5,
@@ -97,7 +105,6 @@ const gitUserRepos = username => (
 
         traversePages(pageNum, last - pageNum, userRepos, username)
         .then((finalRepos) => {
-          console.log('finalfinal repos', finalRepos.length);
           resolve(finalRepos);
         });
       }
@@ -108,6 +115,8 @@ const gitUserRepos = username => (
   })
 );
 
+// sort through all users repos and grabs top four based on stargazers_count
+// or if no stargazers for any repos--> grab based on most recent pushed
 const getFourReposInfo = (allRepos) => {
   let topFour;
   const starred = allRepos.slice().sort((a, b) => (
@@ -119,18 +128,32 @@ const getFourReposInfo = (allRepos) => {
     topFour = allRepos.slice().slice(0, 4);
   }
   return topFour.map(repo => (
-    {
+    JSON.stringify({
       name: repo.name,
       description: repo.description,
       language: repo.language,
-    }
+    })
   ));
 };
 
+const grabUserInfoandSave = (username) => {
+  gitUserInfo(username)
+  .then((user) => {
+    gitUserRepos(username)
+    .then((allRepos) => {
+      const userObj = Object.assign({}, user);
+      userObj.repos = getFourReposInfo(allRepos);
+      UserController.postUser(userObj);
+    });
+  });
+};
+
+grabUserInfoandSave('cdcjj');
 
 module.exports = {
   traversePages,
   gitUserRepos,
   getFourReposInfo,
   gitUserInfo,
+  grabUserInfoandSave,
 };
