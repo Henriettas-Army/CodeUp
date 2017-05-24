@@ -36,9 +36,10 @@
 
 From within the root directory:
 
-npm install  
-npm i -g webpack
-
+`
+$ npm install  
+$ npm i -g webpack
+`
 
 ### Roadmap
 

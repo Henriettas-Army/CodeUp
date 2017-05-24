@@ -10,3 +10,6 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+script:
+  - npm run testClient
+  - npm run testServer
