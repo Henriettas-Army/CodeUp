@@ -10,6 +10,7 @@ const postUser = (userObj) => {
     repos: userObj.repos,
     desired: [],
     skills: [],
+    access_token: userObj.access_token,
   });
   newUser.save()
   .then((data) => {
@@ -20,6 +21,22 @@ const postUser = (userObj) => {
   });
 };
 
+const getUserInfo = username => (
+  User.findOne({ username })
+);
+
+const postRepos = (username, fourRepos) => {
+  User.findOneAndUpdate({ username }, { repos: fourRepos })
+  .then((user) => {
+    console.log('successful update of user: ', user);
+  })
+  .catch((err) => {
+    console.error('error updating user repos', err);
+  });
+};
+
 module.exports = {
   postUser,
+  getUserInfo,
+  postRepos,
 };

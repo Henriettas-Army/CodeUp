@@ -2,9 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
-// const passport = require('passport');
-// const passportJWT = require('passport-jwt');
-// const jwt = require('jsonwebtoken');
 const db = require('./../db/config.js');
 const users = require('./routes/users.js');
 const utils = require('./utils');
@@ -21,7 +18,7 @@ app.listen('3034', () => {
 });
 
 // routes
-// app.use('/api/users', users);
+app.use('/api/users', users);
 
 module.exports = {
   app,

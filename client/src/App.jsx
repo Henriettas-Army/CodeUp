@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoginComponent from './components/LoginComponent';
 
-
 class App extends Component {
   render() {
     const { isAuthenticated } = this.props;
