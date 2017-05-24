@@ -20,17 +20,7 @@ app.listen('3034', () => {
   console.log('Listening on port 3034...');
 });
 
-// const options = {
-//   uri: 'https://api.github.com/users/cdcjj',
-//   headers: {
-//     'User-Agent': 'Request-Promise',
-//   },
-//   json: true,
-// };
-
-// https://github.com/${username};
-// https://api.github.com/${username}/repos;
-utils.gitUserRepos('techmexdev')
+utils.gitUserRepos('cdcjj')
   .then((repos) => {
     console.log(repos);
   });

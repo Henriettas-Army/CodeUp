@@ -10,7 +10,8 @@ const traversePages = (page, remainingPages, repos, username) => (
       uri: `https://api.github.com/users/${username}/repos`,
       qs: {
         access_token: GITHUB_TOKEN,
-        orderby: 'updated_at',
+        sort: 'updated',
+        direction: 'desc',
         page,
         per_page: 5,
       },
@@ -76,7 +77,8 @@ const gitUserRepos = username => (
       uri: `https://api.github.com/users/${username}/repos`,
       qs: {
         access_token: GITHUB_TOKEN,
-        orderby: 'updated_at',
+        sort: 'updated',
+        direction: 'desc',
         page: 1,
         per_page: 5,
       },
@@ -111,13 +113,20 @@ const getFourReposInfo = (allRepos) => {
   const starred = allRepos.slice().sort((a, b) => (
     b.stargazers_count - a.stargazers_count
   ));
-  if (starred[0].stargazer_count > 0) {
+  if (starred[0].stargazers_count > 0) {
     topFour = starred.slice(0, 4);
   } else {
-    topFour = allRepos.slice(0, 4);
+    topFour = allRepos.slice().slice(0, 4);
   }
-  topFour.map();
+  return topFour.map(repo => (
+    {
+      name: repo.name,
+      description: repo.description,
+      language: repo.language,
+    }
+  ));
 };
+
 
 module.exports = {
   traversePages,
