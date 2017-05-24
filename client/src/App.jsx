@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginUser } from '../redux/actions/loginActions';
-import Login from './components/Login';
+import LoginContainer from './containers/LoginContainer';
 
 
 class App extends Component {
   render() {
-    const { dispatch, isAuthenticated, errorMessage } = this.props;
+    const { isAuthenticated } = this.props;
     return (
       <div>
-        <Login
+        <LoginContainer
           isAuthenticated={isAuthenticated}
-          errorMessage={errorMessage}
-          dispatch={dispatch}
         />
       </div>
     );
@@ -21,23 +19,15 @@ class App extends Component {
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.func,
 };
 
-App.defaultProps = {
-  errorMessage: PropTypes.func,
-};
-
-function mapStateToProps(state) {
-  const { auth } = state;
-  const { isAuthenticated, errorMessage } = auth;
-
+const mapStateToProps = (state) => {
   return {
-    isAuthenticated,
-    errorMessage,
+    isAuthenticated: state.auth.isAuthenticated,
   };
-}
+};
 
-export default connect(mapStateToProps)(App);
+export default connect(
+  mapStateToProps,
+)(App);
