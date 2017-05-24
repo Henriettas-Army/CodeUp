@@ -35,6 +35,9 @@ const userSchema = new Schema({
   languages: {
     type: String,
   },
+  access_token: {
+    type: String,
+  },
 });
 
 const User = mongoose.model('user', userSchema);
