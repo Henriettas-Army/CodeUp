@@ -61,13 +61,16 @@ const gitUserInfo = username => (
       json: true,
     })
     .then((userInfo) => {
+      const location = userInfo.location === null ? [] : userInfo.location.split(', ');
+      const bio = userInfo.bio === null ? '' : userInfo.bio;
+      const name = userInfo.name === null ? '' : userInfo.name;
       const userObj = {
         username: userInfo.login,
-        name: userInfo.name,
         img: userInfo.avatar_url,
-        bio: userInfo.bio || '',
-        location: userInfo.location.split(', ') || [],
         repos: [],
+        name,
+        bio,
+        location,
       };
       resolve(userObj);
     })
@@ -88,7 +91,7 @@ const gitUserRepos = username => (
         sort: 'pushed',
         direction: 'desc',
         page: 1,
-        per_page: 5,
+        per_page: 100,
       },
       headers: {
         'User-Agent': 'CodeUp',
@@ -106,8 +109,12 @@ const gitUserRepos = username => (
         traversePages(pageNum, last - pageNum, userRepos, username)
         .then((finalRepos) => {
           resolve(finalRepos);
+        })
+        .catch((error) => {
+          reject(error);
         });
       }
+      resolve(userRepos);
     })
     .catch((err) => {
       reject(err);
@@ -144,7 +151,13 @@ const grabUserInfoandSave = (username) => {
       const userObj = Object.assign({}, user);
       userObj.repos = getFourReposInfo(allRepos);
       UserController.postUser(userObj);
+    })
+    .catch((error) => {
+      console.log('Error grabbing user repos ', error);
     });
+  })
+  .catch((err) => {
+    console.log('Error grabbing user info ', err);
   });
 };
 
