@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "webpack": "cd client && webpack --watch",
+    "production": "cd client && webpack && cd .. && node server/server.js",
     "start": "nodemon server/server.js",
     "testClient": "jest client/spec/*.js",
     "testServer": "jest server/spec/*.js"
