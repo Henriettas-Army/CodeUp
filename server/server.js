@@ -6,7 +6,7 @@ const path = require('path');
 // const passportJWT = require('passport-jwt');
 // const jwt = require('jsonwebtoken');
 const db = require('./../db/config.js');
-// const users = require('./routes/users.js');
+const users = require('./routes/users.js');
 const utils = require('./utils');
 
 const app = express();
@@ -19,6 +19,9 @@ app.use(express.static(path.join(__dirname, './../client')));
 app.listen('3034', () => {
   console.log('Listening on port 3034...');
 });
+
+// routes
+// app.use('/api/users', users);
 
 module.exports = {
   app,
