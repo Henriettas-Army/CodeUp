@@ -7,7 +7,6 @@ const auth = (state = {
   switch (action.type) {
     case LOGIN_USER:
       return Object.assign({}, state, {
-        isFetching: false,
         isAuthenticated: true,
       });
     default:

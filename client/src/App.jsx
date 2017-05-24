@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loginUser } from '../redux/actions/loginActions';
-import LoginContainer from './containers/LoginContainer';
+import LoginComponent from './components/LoginComponent';
 
 
 class App extends Component {
@@ -10,7 +9,7 @@ class App extends Component {
     const { isAuthenticated } = this.props;
     return (
       <div>
-        <LoginContainer
+        <LoginComponent
           isAuthenticated={isAuthenticated}
         />
       </div>
