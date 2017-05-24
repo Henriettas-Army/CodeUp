@@ -1,6 +1,7 @@
 const User = require('./../models/User');
 // save user to database
 const postUser = (userObj) => {
+  console.log('USER OBJ:', userObj);
   const newUser = new User({
     username: userObj.username,
     name: userObj.name,
@@ -12,13 +13,23 @@ const postUser = (userObj) => {
     skills: [],
     access_token: userObj.access_token,
   });
-  newUser.save()
-  .then((data) => {
-    console.info('saved: ', data);
-  })
-  .catch((err) => {
-    console.error('error saving new user to DB: ', err.message);
-  });
+  User.findOneAndUpdate(
+    { username: newUser.username },
+    newUser,
+    { upsert: true, new: true }, (err, user) => {
+      if (err) {
+        console.log('ERROR STORING/UPDATING USER');
+      }
+      console.log('SUCCESSFULLY ADDED/UPDATED USER', user);
+      return user.username;
+    }
+  );
+  // .then((data) => {
+  //   console.info('saved: ', data);
+  // })
+  // .catch((err) => {
+  //   console.error('error saving new user to DB: ', err.message);
+  // });
 };
 
 const getUserInfo = username => (
