@@ -3,16 +3,16 @@ const eventHelper = require('../../db/controllers/eventHelper');
 module.exports = {
   postEvent: (req, res) => {
     eventHelper.addEvent(req.body)
-    .then((evt) => {
-      res.status(200).send(`success insert event ${evt}`);
+    .then((event) => {
+      res.status(200).json({ event, ok: true });
     })
-    .catch((err) => {
-      res.status(400).send(`Error: ${err}`);
+    .catch((error) => {
+      res.status(200).json({ ok: false, error });
     });
   },
   getEvents: (req, res) => {
     eventHelper.getEvents()
-    .then(evts => res.status(200).send(JSON.stringify(evts)))
-    .catch(err => res.status(400).send(err));
+    .then(evts => res.status(200).json({ events: evts, ok: true }))
+    .catch(error => res.status(200).json({ ok: false, error }));
   },
 };

@@ -1,28 +1,28 @@
-const axios = require('axios');
+import axios from 'axios';
 
 /* Action Types */
 const LOADING = 'LOADING';
 const ERROR = 'ERROR';
-const SUCCESS = 'SUCCESS';
+const DATA = 'DATA';
 
 /* Action Creators */
 
 const errorEvents = error => ({ type: ERROR, error });
 const loadingEvents = () => ({ type: LOADING });
-const successEvents = events => ({ type: SUCCESS, events });
+const dataEvents = events => ({ type: DATA, events });
 
 const urlGetEvents = '/api/events';
 const urlPostEvents = '/api/events';
 
-const loadEventsAsync = () => (dispatch) => {
+export const loadEventsAsync = () => (dispatch) => {
   dispatch(loadingEvents());
 
   axios.get(urlGetEvents)
     .then((response) => {
-      if (response.ok === false) {
-        dispatch(errorEvents(response.err));
+      if (!response.data.ok) {
+        dispatch(errorEvents(response.data.error));
       } else {
-        dispatch(successEvents(response.events));
+        dispatch(dataEvents(response.data.events));
       }
     });
 };
@@ -32,7 +32,7 @@ const postEventAsync = event => (dispatch) => {
 
   axios.post(urlPostEvents, event)
     .then((response) => {
-      if (response.ok !== true) {
+      if (!response.data.ok) {
         throw new Error('Error posting event');
       }
       return response;
@@ -45,16 +45,16 @@ const postEventAsync = event => (dispatch) => {
     });
 };
 
-module.exports = {
+export default {
   /** Action Types */
-  SUCCESS,
+  DATA,
   ERROR,
   LOADING,
 
   /** Action Creators */
   errorEvents,
   loadingEvents,
-  successEvents,
+  dataEvents,
 
   /** Async Action Creators */
   postEventAsync,

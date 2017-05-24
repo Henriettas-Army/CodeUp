@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 
 const EventsList = ({ events, status }) => (<div>
-  {status === 'LOADING' && <p className="loading">Loading...</p>}
-  {status === 'ERROR' && <p className="error">Error loading or posting events...</p>}
-  {status === 'READY' &&
+  {status === 'LOADING' && <p className="loading">Loading ...</p>}
+  {status === 'ERROR' && <p className="error">Error loading or posting events ...</p>}
+  {
     <ul>
       {events.map(evt =>
         (<li><h1>{evt.title}</h1></li>),
