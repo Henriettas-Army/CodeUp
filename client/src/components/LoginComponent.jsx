@@ -1,10 +1,12 @@
 import React from 'react';
+import CLIENT_ID from '../../../server/config/github';
 
 const LoginComponent = () => {
+
   return (
-    <div>
-      <button href="https://github.com/login/oauth/authorize?client_id=...&scope=user,public_repo&redirect_uri=http://www.example.com/oauth_redirect">GITHUB LOGIN</button>
-    </div>
+    <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=http://localhost:3034/oauth_redirect`}>
+      Log In With GitHub
+    </a>
   );
 };
 
