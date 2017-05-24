@@ -7,9 +7,35 @@ services:
       - "3034:3034"
     volumes:
       - .:/app
-    links:
-      - db
-  db:
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "80:3034"
+    networks:
+      - webnet
+  mongo:
     image: "mongo"
     ports:
      - "27017:27017"
+    volumes:
+     - ./data:/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+networks:
+  webnet:
