@@ -16,3 +16,7 @@ jobs:
      script: npm run testClient
     -stage: testServer
      script: npm run testServer
+branches:
+  only:
+    - master
+    - userSearch
