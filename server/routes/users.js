@@ -1,10 +1,19 @@
 // users route
-
-const server = require('./../server.js');
-
-const app = server.app;
 const express = require('express');
-const router = express.Router();
 const userController = require('../../db/controllers/UserController');
 
-// router.get('/:username')
+const router = express.Router();
+
+// get individual user profile
+router.get('/:username', (req, res) => {
+  userController.getUserInfo('cdcjj')
+  .then((resp) => {
+    res.status(200).json(resp);
+  })
+  .catch((err) => {
+    res.json(err);
+  });
+});
+
+
+module.exports = router;
