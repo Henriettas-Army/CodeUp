@@ -1,13 +1,13 @@
-const eventActions = require('../actions/eventActions');
+const events = require('../actions/eventActions');
 
-const eventsReducer = (state = { events: [], status: 'READY' }, action) => {
+const eventsReducer = (state = { events: [], status: events.SUCCESS, error: null }, action) => {
   switch (action.type) {
-    case eventActions.LOADING_EVENTS:
+    case events.LOADING:
       return Object.assign({}, state, { status: 'LOADING' });
-    case eventActions.ERROR_EVENTS:
-      return Object.assign({}, state, { status: 'ERROR' });
-    case eventActions.SUCCESS_EVENTS:
-      return Object.assign({}, state, { status: 'READY' });
+    case events.ERROR:
+      return Object.assign({}, state, { status: 'ERROR', error: action.error });
+    case events.SUCCESS:
+      return Object.assign({}, state, { status: 'READY', events: action.events });
     default:
       return state;
   }

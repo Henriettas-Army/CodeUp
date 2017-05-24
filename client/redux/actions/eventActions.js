@@ -5,19 +5,9 @@ const LOADING = 'LOADING';
 const ERROR = 'ERROR';
 const SUCCESS = 'SUCCESS';
 
-/* STATUS */
-const StatusEnum = {
-  LOADING: 1,
-  READY: 2,
-  ERROR_LOADING: 4,
-  ERROR_POSTING: 8,
-};
-
-// add validation errors??
-
 /* Action Creators */
 
-const errorEvents = (errorType, error) => ({ type: ERROR, errorType, error });
+const errorEvents = error => ({ type: ERROR, error });
 const loadingEvents = () => ({ type: LOADING });
 const successEvents = events => ({ type: SUCCESS, events });
 
@@ -30,7 +20,7 @@ const loadEventsAsync = () => (dispatch) => {
   axios.get(urlGetEvents)
     .then((response) => {
       if (response.ok === false) {
-        dispatch(errorEvents(StatusEnum.ERROR_LOADING, response.err));
+        dispatch(errorEvents(response.err));
       } else {
         dispatch(successEvents(response.events));
       }
@@ -51,7 +41,7 @@ const postEventAsync = event => (dispatch) => {
       dispatch(loadEventsAsync());
     })
     .catch((err) => {
-      dispatch(errorEvents(StatusEnum.ERROR_POSTING, err));
+      dispatch(errorEvents(err));
     });
 };
 
@@ -69,8 +59,5 @@ module.exports = {
   /** Async Action Creators */
   postEventAsync,
   loadEventsAsync,
-
-  /** Status Values Enum */
-  StatusEnum,
 };
 

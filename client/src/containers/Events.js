@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import EventsList from '../components/EventsList';
+import eventActions from '../../actions/eventActions';
 
 let Events = ({ events, status, createEvent }) => {
 
@@ -49,3 +50,19 @@ Events.propTypes = {
   status: PropTypes.string.isRequired,
   createEvent: PropTypes.func.isRequired,
 };
+
+let mapStateToProps = (state, ownProps) {
+  return {
+    createEvent: eventActions.postEvent,
+    events:state.events.events,
+    status: state.events.status
+  }
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return  {
+    createEvent: (url) => dispatch(eventActions.postEventAsync(url)),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventsList);
