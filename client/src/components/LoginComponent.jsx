@@ -1,10 +1,13 @@
 import React from 'react';
-import CLIENT_ID from '../../../server/config/github';
+
+const GITHUB_API = require('../../../server/config/github');
+
+const CLIENT_ID = GITHUB_API.CLIENT_ID;
 
 const LoginComponent = () => {
 
   return (
-    <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=http://localhost:3034/oauth_redirect`}>
+    <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scopes=user,repo`}>
       Log In With GitHub
     </a>
   );
