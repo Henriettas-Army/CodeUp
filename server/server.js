@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const db = require('./../db/config.js');
 const users = require('./routes/users.js');
-const utils = require('./utils');
 
 const app = express();
 

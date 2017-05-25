@@ -3,3 +3,4 @@ client/dist/*
 Dockerfile
 docker-compose.yml
 *.md
+package.json
