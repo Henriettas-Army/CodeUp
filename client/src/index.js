@@ -7,6 +7,7 @@ import thunkMiddleware from 'redux-thunk';
 // import api from 'redux-api-middleware';
 import codeUpApp from '../redux/reducers/combineReducers';
 import App from './App';
+import './styles/styles.scss';
 
 const store = createStore(codeUpApp, applyMiddleware(thunkMiddleware));
 
