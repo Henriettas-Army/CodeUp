@@ -14,6 +14,7 @@ const config = {
 
 // if user has over 100 repos then traverse through remaining repos pages
 // with Github API
+// const traversePages = (page, remainingPages, repos, username, ghToken) => (
 const traversePages = (page, remainingPages, repos, username) => (
   new Promise((resolve, reject) => {
     axios.get(`https://api.github.com/users/${username}/repos`, {
@@ -53,7 +54,8 @@ const traversePages = (page, remainingPages, repos, username) => (
 );
 
 // grab all of user's repos
-                    // parameters should be (username, ghToken)
+// parameters should be (username, ghToken)
+// const gitUserRepos = (username, ghToken) => (
 const gitUserRepos = username => (
   new Promise((resolve, reject) => {
     let userRepos;
@@ -109,6 +111,7 @@ const getFourReposInfo = (allRepos) => {
       name: repo.name,
       description: repo.description,
       language: repo.language,
+      stargazers_count: repo.stargazers_count,
     })
   ));
 };
@@ -116,7 +119,6 @@ const getFourReposInfo = (allRepos) => {
 const grabUserReposandSave = (username, ghToken) => {
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
-      console.log(allRepos.length);
       const fourRepos = getFourReposInfo(allRepos);
       UserController.postRepos(username, fourRepos);
     })

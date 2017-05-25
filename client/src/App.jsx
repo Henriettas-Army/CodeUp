@@ -7,6 +7,7 @@ import Split from 'grommet/components/Split';
 
 import LoginComponent from './components/LoginComponent';
 import Events from './containers/Events';
+import Profile from './containers/Profile';
 
 const App = ({ isAuthenticated, status }) => (
   <GrommetApp>
