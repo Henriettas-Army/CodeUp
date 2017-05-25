@@ -14,7 +14,7 @@ const dataEvents = events => ({ type: DATA, events });
 const urlGetEvents = '/api/events';
 const urlPostEvents = '/api/events';
 
-export const loadEventsAsync = () => (dispatch) => {
+const loadEventsAsync = () => (dispatch) => {
   dispatch(loadingEvents());
 
   axios.get(urlGetEvents)
