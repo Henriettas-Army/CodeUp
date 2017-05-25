@@ -20,6 +20,24 @@ module.exports = {
           presets: ['es2015', 'react'],
         },
       },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/css/[name].css',
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'compressed',
+              includePaths: ['../node_modules'],
+            },
+          },
+        ],
+      },
     ],
   },
 };
