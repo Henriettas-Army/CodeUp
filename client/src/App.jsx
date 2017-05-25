@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoginComponent from './components/LoginComponent';
+import Events from './containers/Events';
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
         <LoginComponent
           isAuthenticated={isAuthenticated}
         />
+        <Events />
       </div>
     );
   }
