@@ -1,15 +1,14 @@
-/* global localStorage */
-
+import jwtDecode from 'jwt-decode';
 import { LOGIN_USER } from '../actions/loginActions';
 
 const auth = (state = {
-  isAuthenticated: localStorage.getItem('id_token') ? true : false,
   status: 'Unavailable',
+  isAuthenticated: false,
 }, action) => {
   switch (action.type) {
     case LOGIN_USER:
       return Object.assign({}, state, {
-        isAuthenticated: true,
+        isAuthenticated: jwtDecode(window.localStorage.getItem('token')),
         status: 'Available',
       });
     default:
