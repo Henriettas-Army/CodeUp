@@ -14,8 +14,6 @@ class Events extends React.Component {
     const status = this.props.status;
     const createEvent = this.props.createEvent;
 
-    let title;
-    let date;
     return (
       <div>
         <EventsList events={events} status={status} />
@@ -26,8 +24,6 @@ class Events extends React.Component {
   }
 }
 
-
-
 Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
@@ -35,17 +31,15 @@ Events.propTypes = {
   loadEvents: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return ({
-  // createEvent: eventActions.postEvent,
-    events: state.events.events,
-    status: state.events.status,
-  });
-};
+const mapStateToProps = state => ({
+// createEvent: eventActions.postEvent,
+  events: state.events.events,
+  status: state.events.status,
+});
 
 const mapDispatchToProps = dispatch => ({
   createEvent: url => dispatch(eventActions.postEventAsync(url)),
-  loadEvents: url => {
+  loadEvents: (url) => {
     console.log('loading Events');
     dispatch(eventActions.loadEventsAsync(url));
   },
