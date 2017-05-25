@@ -18,6 +18,10 @@ app.listen('3034', () => {
 
 // routes
 app.use('/api/users', users);
+// curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","date":"2014-03-04"}' http://localhost:3034/api/events
+app.post('/api/events', eventsRoute.postEvent);
+// curl -H "Content-Type: application/json" -X GET http://localhost:3034/api/events
+app.get('/api/events', eventsRoute.getEvents);
 
 module.exports = {
   app,
