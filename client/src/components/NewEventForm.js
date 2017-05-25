@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 class NewEventForm extends React.Component {
 
-  // it might become a stateful component in the future
   render() {
     const createEvent = this.props.createEvent;
 
@@ -64,3 +63,6 @@ class NewEventForm extends React.Component {
 NewEventForm.propTypes = {
   createEvent: PropTypes.func.isRequired,
 };
+
+
+export default NewEventForm;
