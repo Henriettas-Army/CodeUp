@@ -1,11 +1,11 @@
 import React from 'react';
 
-const userList = () => {
-  console.log('i am in wtf m8!!!!!')
-  return (
-    <div>This is userSEARCH!!!!!!</div>
-  );
-};
+const UserList = users => (
+  <div>
+    <ul>
+      {users.map(user => <li>{ user.username }</li>)}
+    </ul>
+  </div>
+);
 
-
-export default userList;
+export default UserList;
