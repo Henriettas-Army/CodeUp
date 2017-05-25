@@ -64,5 +64,4 @@ NewEventForm.propTypes = {
   createEvent: PropTypes.func.isRequired,
 };
 
-
 export default NewEventForm;
