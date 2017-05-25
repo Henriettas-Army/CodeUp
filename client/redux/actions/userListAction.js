@@ -7,9 +7,11 @@ const loading = () => ({ type: LOADING });
 
 const loadAllUsers = (dispatch) => {
   dispatch(listUsers());
-
+  console.log('query results');
   axios.get('/api/allusers')
-    .then(res => dispatch(listUsers(res.data.users)));
+    .then((res) => {
+      dispatch(listUsers(res.data.users));
+    });
 };
 exports.module = {
   LIST_USERS,
