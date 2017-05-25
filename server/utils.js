@@ -116,6 +116,7 @@ const getFourReposInfo = (allRepos) => {
 const grabUserReposandSave = (username, ghToken) => {
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
+      console.log(allRepos.length);
       const fourRepos = getFourReposInfo(allRepos);
       UserController.postRepos(username, fourRepos);
     })
@@ -123,20 +124,6 @@ const grabUserReposandSave = (username, ghToken) => {
       console.log('Error grabbing user repos ', error);
     });
 };
-
-// const userInfo = response.data;
-// const location = userInfo.location === null ? [] : userInfo.location.split(', ');
-// const bio = userInfo.bio === null ? '' : userInfo.bio;
-// const name = userInfo.name === null ? '' : userInfo.name;
-// const userObj = {
-//   username: userInfo.login,
-//   img: userInfo.avatar_url,
-//   repos: [],
-//   access_token: '', /// input access token here
-//   name,
-//   bio,
-//   location,
-// };
 
 module.exports = {
   traversePages,
