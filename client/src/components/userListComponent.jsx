@@ -1,6 +1,6 @@
 import React from 'react';
 
-const userSearch = () => {
+const userList = () => {
   console.log('i am in wtf m8!!!!!')
   return (
     <div>This is userSEARCH!!!!!!</div>
@@ -8,4 +8,4 @@ const userSearch = () => {
 };
 
 
-export default userSearch;
+export default userList;
