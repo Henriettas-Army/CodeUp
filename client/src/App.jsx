@@ -6,6 +6,7 @@ import Animate from 'grommet/components/Animate';
 import LoginComponent from './components/LoginComponent';
 import Events from './containers/Events';
 import Profile from './containers/Profile';
+import UserList from './containers/Users';
 
 const App = () => (
   <GrommetApp>
