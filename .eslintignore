@@ -1,0 +1,5 @@
+node_modules/*
+client/dist/*
+Dockerfile
+docker-compose.yml
+*.md
