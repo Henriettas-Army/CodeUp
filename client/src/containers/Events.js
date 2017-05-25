@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import EventsList from '../components/EventsList';
 import eventActions from '../../redux/actions/eventActions';
+import NewEventForm from '../components/NewEventForm';
 
 class Events extends React.Component {
   componentDidMount() {
@@ -21,11 +22,11 @@ class Events extends React.Component {
       <div>
         <EventsList events={events} status={status} />
         <h1>Create Event...</h1>
-        <NewEventForm createEvent={createEvent}>
+        <NewEventForm createEvent={createEvent} />
       </div>
     );
   }
-};
+}
 
 
 

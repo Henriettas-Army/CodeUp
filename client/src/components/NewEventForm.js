@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class NewEventForm extends React.Component {
 
-  // it might become a stateful component in the future???
+  // it might become a stateful component in the future
   render() {
     const createEvent = this.props.createEvent;
 
@@ -36,7 +36,7 @@ class NewEventForm extends React.Component {
         <option value="More than 3 hours">More than 3 hours</option>
       </select>
 
-      <label htmlFor="topics">Topics (Comma separated cause this is MVP)</label>
+      <label htmlFor="topics">Topics (Comma separated)</label>
       <input type="text" name="topics" ref={(n) => { topics = n; }} />
 
       <input
