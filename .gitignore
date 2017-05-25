@@ -2,3 +2,4 @@
 /client/dist
 /server/config
 npm-debug.log
+docker-cloud.yml
