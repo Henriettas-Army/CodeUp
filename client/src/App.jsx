@@ -10,11 +10,12 @@ import Events from './containers/Events';
 
 class App extends Component {
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, status } = this.props;
     return (
       <GrommetApp>
         <LoginComponent
           isAuthenticated={isAuthenticated}
+          status={status}
         />
         <Events />
         <Split>
@@ -40,11 +41,13 @@ class App extends Component {
 
 App.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
+    status: state.auth.status,
   };
 };
 

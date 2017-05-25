@@ -13,24 +13,21 @@ const postUser = (userObj) => {
     skills: [],
     access_token: userObj.access_token,
   });
-  User.findOneAndUpdate(
-    { username: newUser.username },
-    newUser,
-    { upsert: true, new: true }, (err, user) => {
-      if (err) {
-        console.log('ERROR STORING/UPDATING USER');
-      }
-      console.log('SUCCESSFULLY ADDED/UPDATED USER', user);
-      return user.username;
+  const data = { name: userObj.name,
+    img: userObj.img,
+    bio: userObj.bio,
+    location: userObj.location,
+    access_token: userObj.access_token
+  };
+  return User.findOne({ username: userObj.username })
+  .then((user) => {
+    if (user) {
+      return User.findOneAndUpdate({ username: userObj.username }, data);
     }
-  );
-  // .then((data) => {
-  //   console.info('saved: ', data);
-  // })
-  // .catch((err) => {
-  //   console.error('error saving new user to DB: ', err.message);
-  // });
+    return newUser.save();
+  });
 };
+
 
 const getUserInfo = username => (
   User.findOne({ username })

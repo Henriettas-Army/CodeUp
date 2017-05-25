@@ -15,8 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../client')));
 
-app.use('/api/users', users);
-
 app.listen('3034', () => {
   console.log('Listening on port 3034...');
 });

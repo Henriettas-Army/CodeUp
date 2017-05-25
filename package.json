@@ -47,6 +47,7 @@
     "github-pagination": "^0.1.0",
     "grommet": "^1.4.0",
     "jsonwebtoken": "^7.4.1",
+    "jwt-simple": "^0.5.1",
     "mongoose": "^4.10.0",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
