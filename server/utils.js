@@ -53,6 +53,7 @@ const traversePages = (page, remainingPages, repos, username) => (
 );
 
 // grab all of user's repos
+                    // parameters should be (username, ghToken)
 const gitUserRepos = username => (
   new Promise((resolve, reject) => {
     let userRepos;
