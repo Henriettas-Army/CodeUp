@@ -8,7 +8,7 @@
     "production": "cd client && webpack && cd .. && node server/server.js",
     "start": "nodemon server/server.js",
     "test": "npm run lint && npm run test-client && npm run test-server",
-    "lint": "./node_modules/.bin/eslint ./* || exit 0",
+    "lint": "./node_modules/.bin/eslint ./*",
     "test-client": "./node_modules/.bin/jest client/spec/*.js",
     "test-server": "./node_modules/.bin/jest server/spec/*.js"
   },
