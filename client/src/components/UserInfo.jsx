@@ -8,7 +8,7 @@ const UserInfo = ({ profile, status }) => (
     {status === 'ERROR' && <p className="error">Error loading user profile</p>}
     {status === 'READY' &&
       <div>
-        UserInfo
+        Info
         <h1>Username: {profile.username}</h1>
         <h2>Name: {profile.name}</h2>
         <h3>Status: {profile.status}</h3>

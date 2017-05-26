@@ -10,17 +10,27 @@ class Profile extends React.Component {
     // console.log(this.props.path);
     // do api call to server to get user profile from db
     // take username out of the url then get profile -- react router
-    this.props.loadProfile('cdcjj');
+    this.props.loadProfile(/* username */);
   }
   render() {
     const profile = this.props.profile;
     const status = this.props.status;
     const updateProfile = this.props.updateProfile;
+    const currentUser = this.props.isAuthenticated;
     return (
       <div>
-        <div> hello this is profile</div>
-        <UserInfo profile={profile} status={status} updateProfile={updateProfile} />
-        <UserRepos repos={profile.repos} status={status} />
+        <div> USER PROFILE </div>
+        <UserInfo
+          profile={profile}
+          status={status}
+          updateProfile={updateProfile}
+          currentUser={currentUser}
+        />
+        <UserRepos
+          repos={profile.repos}
+          status={status}
+          currentUser={currentUser}
+        />
       </div>
     );
   }
@@ -31,6 +41,7 @@ Profile.propTypes = {
   updateProfile: PropTypes.func.isRequired,
   // path: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
+  isAuthenticated: PropTypes.string.isRequired,
   profile: PropTypes.shape({
     username: PropTypes.string,
     name: PropTypes.string,
