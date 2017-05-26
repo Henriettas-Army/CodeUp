@@ -57,4 +57,4 @@ EventsList.propTypes = {
   deleteEvent: PropTypes.func.isRequired,
 };
 
-module.exports = EventsList;
+export default EventsList;
