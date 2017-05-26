@@ -23,13 +23,9 @@ class LoginComponent extends Component {
       axios.post('/api/users/login', { code })
       .then((token) => {
         window.localStorage.setItem('token', token.data);
-        // window.location.href = '/path';
-        console.log('BEFORE LOGIN', this.props.isAuthenticated, this.props.status);
         this.props.loginUser();
-        console.log('AFTER LOGIN', this.props.isAuthenticated, this.props.status);
       });
     }
-    window.localStorage.setItem('token', '');
   }
 
   render() {
@@ -49,13 +45,7 @@ class LoginComponent extends Component {
 }
 
 LoginComponent.propTypes = {
-  isAuthenticated: PropTypes.string,
-  status: PropTypes.string.isRequired,
   loginUser: PropTypes.func.isRequired,
-};
-
-LoginComponent.defaultProps = {
-  isAuthenticated: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
