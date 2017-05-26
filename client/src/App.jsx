@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import GrommetApp from 'grommet/components/App';
 import Box from 'grommet/components/Box';
 import Split from 'grommet/components/Split';
@@ -9,13 +8,10 @@ import LoginComponent from './components/LoginComponent';
 import Events from './containers/Events';
 import Profile from './containers/Profile';
 
-const App = ({ isAuthenticated, status }) => (
+const App = () => (
   <GrommetApp>
-    <LoginComponent
-      isAuthenticated={isAuthenticated}
-      status={status}
-    />
-    <Events />
+    <LoginComponent />
+    {/* <Events />
     <Split>
       <Box
         colorIndex={'neutral-1'}
@@ -34,20 +30,8 @@ const App = ({ isAuthenticated, status }) => (
         Right Side
       </Box>
     </Split>
-    <Profile />
+    <Profile /> */}
   </GrommetApp>
 );
 
-App.propTypes = {
-  isAuthenticated: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  status: state.auth.status,
-});
-
-export default connect(
-  mapStateToProps,
-)(App);
+export default connect()(App);

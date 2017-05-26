@@ -13,16 +13,13 @@ const CLIENT_ID = GITHUB_API.CLIENT_ID;
 class LoginComponent extends Component {
 
   componentWillMount() {
-    console.log(this);
     if (window.location.search) {
       const code = window.location.search.split('=')[1];
       axios.post('/api/users/login', { code })
       .then((token) => {
-        console.log('TOKEN BACK TO CLINT');
         window.localStorage.setItem('token', token.data);
-        console.log(this.props);
-        this.props.dispatch(loginUser(jwtDecode(window.localStorage.getItem('token')), 'Available'));
-        console.log('AFTER ACTION', this.props);
+        this.props.loginUser();
+        console.log('AFTER LOGIN', this.props.isAuthenticated, this.props.status);
       });
     }
     window.localStorage.setItem('token', '');
@@ -38,7 +35,27 @@ class LoginComponent extends Component {
 }
 
 LoginComponent.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string,
+  status: PropTypes.string.isRequired,
+  loginUser: PropTypes.func.isRequired,
 };
 
-export default connect()(LoginComponent);
+LoginComponent.defaultProps = {
+  isAuthenticated: PropTypes.string,
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  status: state.auth.status,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: () => {
+    dispatch(loginUser(jwtDecode(window.localStorage.getItem('token')), 'Available'));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LoginComponent);
