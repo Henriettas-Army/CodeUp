@@ -31,6 +31,11 @@ app.get('/api/events', eventsRoute.getEvents);
 // curl -H "Content-Type: application/json" -X POST -d '{"id": "aaaaaaaaaaaaaaaaaaaaaaaa"}' http://localhost:3034/api/events/delete
 app.post('/api/events/delete', eventsRoute.deleteEvent);
 
+// Send the rest of the requests to React Router
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
+
 module.exports = {
   app,
   db,
