@@ -17,9 +17,9 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
   {
     <Tiles fill flush={false}>
       {events.map(evt =>
-        (<Tile key={evt._id}>
+        (<Tile key={evt._id} align={'start'}>
           <Card
-            label={evt.username? <span>Created by <a>evt.username</a></span> : undefined}
+            label={evt.username ? <span>Created by <a>evt.username</a></span> : undefined}
             heading={evt.title}
             description={
               <Accordion>
