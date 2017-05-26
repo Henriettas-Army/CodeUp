@@ -28,6 +28,11 @@ app.post('/api/events', eventsRoute.postEvent);
 // curl -H "Content-Type: application/json" -X GET http://localhost:3034/api/events
 app.get('/api/events', eventsRoute.getEvents);
 
+// Send the rest of the requests to React Router
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
+
 module.exports = {
   app,
   db,
