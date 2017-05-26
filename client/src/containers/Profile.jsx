@@ -41,7 +41,7 @@ Profile.propTypes = {
   updateProfile: PropTypes.func.isRequired,
   // path: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  isAuthenticated: PropTypes.string.isRequired,
+  isAuthenticated: PropTypes.string,
   profile: PropTypes.shape({
     username: PropTypes.string,
     name: PropTypes.string,
@@ -52,6 +52,10 @@ Profile.propTypes = {
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
+};
+
+Profile.defaultProps = {
+  isAuthenticated: PropTypes.string,
 };
 
 const mapStateToProps = state => (

@@ -1,20 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import GrommetApp from 'grommet/components/App';
 import Box from 'grommet/components/Box';
 import Split from 'grommet/components/Split';
+import Animate from 'grommet/components/Animate';
 
 import LoginComponent from './components/LoginComponent';
 import Events from './containers/Events';
 import Profile from './containers/Profile';
 
-const App = ({ isAuthenticated, status }) => (
+const App = () => (
   <GrommetApp>
-    <LoginComponent
-      isAuthenticated={isAuthenticated}
-      status={status}
-    />
+    <Animate
+      enter={{ animation: 'fade', duration: 5000, delay: 0 }}
+      keep
+    >
+      <LoginComponent />
+    </Animate>
     <Events />
     <Split>
       <Box
@@ -38,16 +40,4 @@ const App = ({ isAuthenticated, status }) => (
   </GrommetApp>
 );
 
-App.propTypes = {
-  isAuthenticated: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  status: state.auth.status,
-});
-
-export default connect(
-  mapStateToProps,
-)(App);
+export default connect()(App);

@@ -1,10 +1,10 @@
-/* global window */
-import jwtDecode from 'jwt-decode';
+// /* global window */
+// import jwtDecode from 'jwt-decode';
 import { LOGIN_USER } from '../actions/loginActions';
 
 const auth = (state = {
   status: 'Unavailable',
-  isAuthenticated: window.localStorage.getItem('token') ? jwtDecode(window.localStorage.getItem('token')) : '',
+  isAuthenticated: '',
 }, action) => {
   switch (action.type) {
     case LOGIN_USER:
