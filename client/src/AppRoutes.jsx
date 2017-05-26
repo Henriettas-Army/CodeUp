@@ -10,8 +10,10 @@ import thunkMiddleware from 'redux-thunk';
 import codeUpApp from '../redux/reducers/combineReducers';
 import Search from './components/Search';
 import Login from './components/LoginComponent';
-import './styles/styles.scss';
 import App from './App';
+import Events from './containers/Events';
+import Profile from './containers/Profile';
+import './styles/styles.scss';
 
 const store = createStore(codeUpApp, applyMiddleware(thunkMiddleware));
 
@@ -22,6 +24,8 @@ const AppRoutes = () => (
         <Route exact path="/" component={App} />
         <Route path="/search" component={Search} />
         <Route path="/login" component={Login} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/events" component={Events} />
       </div>
     </Router>
   </Provider>
