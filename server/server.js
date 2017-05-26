@@ -28,6 +28,8 @@ app.use('/api/users', users);
 app.post('/api/events', eventsRoute.postEvent);
 // curl -H "Content-Type: application/json" -X GET http://localhost:3034/api/events
 app.get('/api/events', eventsRoute.getEvents);
+// curl -H "Content-Type: application/json" -X POST -d '{"id": "aaaaaaaaaaaaaaaaaaaaaaaa"}' http://localhost:3034/api/events/delete
+app.post('/api/events/delete', eventsRoute.deleteEvent);
 
 module.exports = {
   app,

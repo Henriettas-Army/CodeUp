@@ -1,20 +1,58 @@
 import React, { PropTypes } from 'react';
+import Card from 'grommet/components/Card';
+import Tile from 'grommet/components/Tile';
+import Tiles from 'grommet/components/Tiles';
+import Anchor from 'grommet/components/Anchor';
+import Paragraph from 'grommet/components/Paragraph';
+import Accordion from 'grommet/components/Accordion';
+import AccordionPanel from 'grommet/components/AccordionPanel';
+import Heading from 'grommet/components/Heading';
 
-const EventsList = ({ events, status }) => (<div>
+
+const EventsList = ({ events, status, deleteEvent }) => (<div>
   {status === 'LOADING' && <p className="loading">Loading ...</p>}
   {status === 'ERROR' && <p className="error">Error loading or posting events ...</p>}
   {
-    <ul>
+    <Tiles fill flush={false}>
       {events.map(evt =>
-        (<li><h1>{evt.title}</h1></li>),
+        (<Tile key={evt._id}>
+          <Card
+            label={evt.username? <span>Created by <a>evt.username</a></span> : undefined}
+            heading={evt.title}
+            description={
+              <Accordion>
+                <AccordionPanel heading={'Description'}>
+                  <Paragraph>
+                    {evt.description || 'No description provided for this event'}
+                  </Paragraph>
+                  <Heading tag={'h3'}>When?</Heading>
+                  <Paragraph>
+                    {evt.date || 'No date provided for this event'}
+                  </Paragraph>
+                  <Heading tag={'h3'}>Estimated Duration</Heading>
+                  <Paragraph>
+                    {evt.duration || 'No duration provided for this event'}
+                  </Paragraph>
+                </AccordionPanel>
+              </Accordion>}
+            link={<Anchor
+              onClick={(e) => {
+                e.preventDefault();
+                deleteEvent(evt._id);
+              }}
+              label={'delete this event'}
+            />}
+          />
+        </Tile>)
       )}
-    </ul>
+    </Tiles>
   }
 </div>);
 
 EventsList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
 };
 
 module.exports = EventsList;
