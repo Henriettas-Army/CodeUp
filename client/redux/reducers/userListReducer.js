@@ -6,6 +6,7 @@ const firstUser = [{
 }];
 
 const listUsers = (state = firstUser, action) => {
+  console.log(action.type, action);
   switch (action.type) {
     case LIST_USERS:
       return [{ username: 'SadlynotFliko', language: 'CSS' }, { username: 'FlikoIamnot', language: 'brainFuck' }, { username: 'notFliko', language: 'JavaScript' }];
@@ -14,4 +15,4 @@ const listUsers = (state = firstUser, action) => {
   }
 };
 
-exports.module = listUsers;
+export default listUsers;

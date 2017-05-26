@@ -7,7 +7,6 @@ class Users extends React.Component {
   componentDidMount() {
     this.props.listUsers();
   }
-
   render() {
     const users = this.props.users;
 
