@@ -7,7 +7,7 @@ const eventSchema = new Schema({
     type: String,
     required: true,
   },
-  userId: {
+  username: {
     type: Schema.Types.ObjectId,
     ref: 'user', //IN PRODUCTION TIME (OR BEFORE) THIS SHOULD BE REQUIRED: TRUE
   },

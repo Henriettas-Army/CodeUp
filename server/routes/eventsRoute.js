@@ -15,4 +15,9 @@ module.exports = {
     .then(evts => res.status(200).json({ events: evts, ok: true }))
     .catch(error => res.status(200).json({ ok: false, error }));
   },
+  deleteEvent: (req, res) => {
+    eventHelper.deleteEvent(req.body.id)
+      .then(() => res.json({ ok: true }))
+      .catch(error => res.json({ status: 'error', error }));
+  }
 };

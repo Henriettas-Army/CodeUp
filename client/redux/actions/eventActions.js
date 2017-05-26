@@ -13,6 +13,7 @@ const dataEvents = events => ({ type: DATA, events });
 
 const urlGetEvents = '/api/events';
 const urlPostEvents = '/api/events';
+const urlDeleteEvents = '/api/events/delete';
 
 const loadEventsAsync = () => (dispatch) => {
   dispatch(loadingEvents());
@@ -45,6 +46,26 @@ const postEventAsync = event => (dispatch) => {
     });
 };
 
+const deleteEventAsync = id => (dispatch) => {
+  dispatch(loadingEvents());
+
+  axios.post(urlDeleteEvents, { id })
+    .then((response) => {
+      if (!response.data.ok) {
+        throw new Error('Error deleting event');
+      }
+      return response;
+    })
+    .then(() => {
+      dispatch(loadEventsAsync());
+    })
+    .catch((err) => {
+      dispatch(errorEvents(err));
+    });
+};
+
+// TODO: Refactor delete and post events to relentlessly obliterate duplicate code.
+
 export default {
   /** Action Types */
   DATA,
@@ -59,5 +80,5 @@ export default {
   /** Async Action Creators */
   postEventAsync,
   loadEventsAsync,
+  deleteEventAsync,
 };
-
