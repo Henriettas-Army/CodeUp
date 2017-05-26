@@ -9,12 +9,6 @@ import Section from 'grommet/components/Section';
 // import StarIcon from 'grommet/components/icons/base/Star';
 
 const UserRepos = ({ repos, status, user }) => (
-  // <Box
-  //   align={'center'}
-  //   pad={'medium'}
-  //   margin={'small'}
-  //   colorIndex={'neutral-1'}
-  // >
   <Section>
     {status === 'LOADING' &&
       <p className="loading">
