@@ -21,17 +21,17 @@ class Profile extends React.Component {
     return (
       <div>
         <div> USER PROFILE </div>
-        {/* <UserInfo
+        <UserInfo
           profile={profile}
           status={status}
           updateProfile={updateProfile}
           currentUser={currentUser}
-        /> */}
-        <UserRepos
+        />
+        {/* <UserRepos
           repos={profile.repos}
           status={status}
           user={profile.username}
-        />
+        /> */}
       </div>
     );
   }
