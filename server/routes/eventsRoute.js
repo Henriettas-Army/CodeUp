@@ -2,7 +2,6 @@ const eventHelper = require('../../db/controllers/eventHelper');
 
 module.exports = {
   postEvent: (req, res) => {
-    console.log('########################', req.body)
     eventHelper.addEvent(req.body)
     .then((event) => {
       res.status(200).json({ event, ok: true });
