@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Box from 'grommet/components/Box';
 import UserInfo from '../components/UserInfo';
 import UserRepos from '../components/UserRepos';
 import profileActions from '../../redux/actions/profileActions';
 
 class Profile extends React.Component {
   componentDidMount() {
-    // console.log(this.props.path);
-    // do api call to server to get user profile from db
     // take username out of the url then get profile -- react router
     this.props.loadProfile('techmexdev');
   }
@@ -27,11 +24,11 @@ class Profile extends React.Component {
           updateProfile={updateProfile}
           currentUser={currentUser}
         />
-        {/* <UserRepos
+        <UserRepos
           repos={profile.repos}
           status={status}
           user={profile.username}
-        /> */}
+        />
       </div>
     );
   }
