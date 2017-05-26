@@ -2,10 +2,10 @@ import jwtDecode from 'jwt-decode';
 
 const LOGIN_USER = 'LOGIN_USER';
 
-const loginUser = () => ({
+const loginUser = (isAuthenticated, status) => ({
   type: LOGIN_USER,
-  isAuthenticated: jwtDecode(window.localStorage.getItem('token')),
-  status: 'Available',
+  isAuthenticated,
+  status,
 });
 
 module.exports = {

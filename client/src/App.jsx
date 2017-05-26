@@ -40,7 +40,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 };
 

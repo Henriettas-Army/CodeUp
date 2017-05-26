@@ -3,13 +3,13 @@ import { LOGIN_USER } from '../actions/loginActions';
 
 const auth = (state = {
   status: 'Unavailable',
-  isAuthenticated: false,
+  isAuthenticated: window.localStorage.getItem('token') ? jwtDecode(window.localStorage.getItem('token')) : '',
 }, action) => {
   switch (action.type) {
     case LOGIN_USER:
       return Object.assign({}, state, {
-        isAuthenticated: jwtDecode(window.localStorage.getItem('token')),
-        status: 'Available',
+        isAuthenticated: action.isAuthenticated,
+        status: action.status,
       });
     default:
       return state;
