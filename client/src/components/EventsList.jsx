@@ -7,6 +7,7 @@ import Paragraph from 'grommet/components/Paragraph';
 import Accordion from 'grommet/components/Accordion';
 import AccordionPanel from 'grommet/components/AccordionPanel';
 import Heading from 'grommet/components/Heading';
+import Timestamp from 'grommet/components/Timestamp';
 
 
 const EventsList = ({ events, status, deleteEvent }) => (<div>
@@ -27,7 +28,7 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
                   </Paragraph>
                   <Heading tag={'h3'}>When?</Heading>
                   <Paragraph>
-                    {evt.date || 'No date provided for this event'}
+                    {<Timestamp value={evt.date} /> || 'No date provided for this event'}
                   </Paragraph>
                   <Heading tag={'h3'}>Estimated Duration</Heading>
                   <Paragraph>
