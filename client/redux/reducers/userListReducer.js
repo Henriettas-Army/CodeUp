@@ -1,9 +1,9 @@
 import { LIST_USERS } from '../actions/userListAction';
 
-const firstUser = {
+const firstUser = [{
   username: 'Fliko',
   language: 'HTML',
-};
+}];
 
 const listUsers = (state = firstUser, action) => {
   switch (action.type) {
