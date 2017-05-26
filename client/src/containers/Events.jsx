@@ -15,7 +15,7 @@ import NewEventForm from '../components/NewEventForm';
 class Events extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showForm: true };
+    this.state = { showForm: false };
   }
 
   componentDidMount() {
