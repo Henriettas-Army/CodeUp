@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 
 const db = require('./../db/config.js');
 const eventsRoute = require('./routes/eventsRoute');
-
 const users = require('./routes/users');
 
 const app = express();
@@ -17,9 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../client')));
 
+/* eslint-disable no-console */
 app.listen('3034', () => {
   console.log('Listening on port 3034...');
 });
+/* eslint-enable no-console. */
 
 // routes
 app.use('/api/users', users);

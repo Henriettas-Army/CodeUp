@@ -33,18 +33,17 @@ const getUserInfo = username => (
   User.findOne({ username })
 );
 
-const postRepos = (username, fourRepos) => {
+const postRepos = (username, fourRepos) => (
   User.findOneAndUpdate({ username }, { repos: fourRepos })
-  .then((user) => {
-    console.log('successful update of user: ', user);
-  })
-  .catch((err) => {
-    console.error('error updating user repos', err);
-  });
-};
+);
+
+const updateUserInfo = (username, data) => (
+  User.findOneAndUpdate({ username }, data)
+);
 
 module.exports = {
   postUser,
   getUserInfo,
   postRepos,
+  updateUserInfo,
 };
