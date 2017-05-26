@@ -1,19 +1,22 @@
 import { LIST_USERS } from '../actions/userListAction';
 
-const firstUser = [{
-  username: 'Fliko',
-  skills: ['HTML'],
-  desired: ['brains'],
-  location: ['Austin', 'Tx'],
-  status: 'available',
-}];
+const firstUser = {
+  users: [
+    {
+      username: 'Fliko',
+      skills: ['HTML'],
+      desired: ['brains'],
+      location: ['Austin', 'Tx'],
+      status: 'available',
+    },
+  ],
+};
 
 const listUsers = (state = firstUser, action) => {
   console.log(action.type, action);
   switch (action.type) {
     case LIST_USERS:
-      console.log('----------------', action);
-      return { users: action.users };
+      return Object.assign({}, state, { users: action.users });
     default:
       return state;
   }

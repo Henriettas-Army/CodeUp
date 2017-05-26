@@ -13,7 +13,7 @@ class Users extends React.Component {
 
     return (
       <div>
-        <UserList users={users} />
+        <UserList users={users.users} />
       </div>
     );
   }
