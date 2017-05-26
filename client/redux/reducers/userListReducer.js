@@ -13,7 +13,6 @@ const firstUser = {
 };
 
 const listUsers = (state = firstUser, action) => {
-  console.log(action.type, action);
   switch (action.type) {
     case LIST_USERS:
       return Object.assign({}, state, { users: action.users });

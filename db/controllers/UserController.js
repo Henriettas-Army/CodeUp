@@ -49,6 +49,6 @@ module.exports = {
   postUser,
   getUserInfo,
   postRepos,
-  updateUserInfo,
+  // updateUserInfo,
   getAllUsers,
 };
