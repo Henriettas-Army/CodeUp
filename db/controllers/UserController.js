@@ -1,6 +1,7 @@
 const User = require('./../models/User');
 // save user to database
 const postUser = (userObj) => {
+  console.log('USER OBJ:', userObj);
   const newUser = new User({
     username: userObj.username,
     name: userObj.name,
@@ -12,14 +13,21 @@ const postUser = (userObj) => {
     skills: [],
     access_token: userObj.access_token,
   });
-  newUser.save()
-  .then((data) => {
-    console.info('saved: ', data);
-  })
-  .catch((err) => {
-    console.error('error saving new user to DB: ', err.message);
+  const data = { name: userObj.name,
+    img: userObj.img,
+    bio: userObj.bio,
+    location: userObj.location,
+    access_token: userObj.access_token
+  };
+  return User.findOne({ username: userObj.username })
+  .then((user) => {
+    if (user) {
+      return User.findOneAndUpdate({ username: userObj.username }, data);
+    }
+    return newUser.save();
   });
 };
+
 
 const getUserInfo = username => (
   User.findOne({ username })

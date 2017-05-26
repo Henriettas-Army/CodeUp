@@ -1,9 +1,9 @@
 const LOGIN_USER = 'LOGIN_USER';
 
-const loginUser = user => ({
+const loginUser = (isAuthenticated, status) => ({
   type: LOGIN_USER,
-  isAuthenticated: true,
-  id_token: user.id_token,
+  isAuthenticated,
+  status,
 });
 
 module.exports = {

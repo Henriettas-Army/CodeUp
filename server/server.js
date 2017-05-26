@@ -2,13 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+
 const db = require('./../db/config.js');
-const users = require('./routes/users.js');
-// const utils = require('./utils');
 const eventsRoute = require('./routes/eventsRoute');
+
+const users = require('./routes/users');
 
 const app = express();
 
+app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
