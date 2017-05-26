@@ -18,6 +18,7 @@ class LoginComponent extends Component {
       axios.post('/api/users/login', { code })
       .then((token) => {
         window.localStorage.setItem('token', token.data);
+        console.log('BEFORE LOGIN', this.props.isAuthenticated, this.props.status);
         this.props.loginUser();
         console.log('AFTER LOGIN', this.props.isAuthenticated, this.props.status);
       });
