@@ -15,7 +15,6 @@ const App = () => (
     >
       <LoginComponent />
     </Animate>
-    <Events />
     <Profile />
   </GrommetApp>
 );
