@@ -1,17 +1,19 @@
 import axios from 'axios';
 
-const LIST_USERS = 'LIST_USERS';
+export const LIST_USERS = 'LIST_USERS';
 
 const listUsers = users => ({ type: LIST_USERS, users });
 
-const loadAllUsers = (dispatch) => {
-  axios.get('/api/allusers')
-    .then((res) => {
-      dispatch(listUsers(res.data.users));
-    });
-};
+const loadAllUsers = () => (
+  function load(dispatch) {
+    axios.get('/api/allusers/userlist')
+      .then((res) => {
+        dispatch(listUsers(res.data));
+      });
+  }
+);
 
-exports.module = {
+export default {
   LIST_USERS,
 
   listUsers,

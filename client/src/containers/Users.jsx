@@ -8,6 +8,7 @@ class Users extends React.Component {
     this.props.listUsers();
   }
   render() {
+    console.log('PROPS MOTHSSDKJFK', this.props.users);
     const users = this.props.users;
 
     return (
@@ -18,18 +19,20 @@ class Users extends React.Component {
   }
 }
 
-Users.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.object).isRequired,
-  listUsers: PropTypes.func.isRequired,
+// Users.propTypes = {
+//   users: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   listUsers: PropTypes.func.isRequired,
+// };
+
+const mapStateToProps = state => {
+  console.log('STATE', state);
+  return {users: state.users}
 };
 
-const mapStateToProps = state => ({
-  users: state.users,
-});
-
 const mapDispatchToProps = dispatch => ({
-  listUsers: (url) => {
-    dispatch(userAction.loadAllUsers(url));
+  listUsers: () => {
+    console.log(userAction);
+    dispatch(userAction.loadAllUsers());
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

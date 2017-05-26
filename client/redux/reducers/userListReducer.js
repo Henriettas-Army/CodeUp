@@ -2,14 +2,18 @@ import { LIST_USERS } from '../actions/userListAction';
 
 const firstUser = [{
   username: 'Fliko',
-  language: 'HTML',
+  skills: ['HTML'],
+  desired: ['brains'],
+  location: ['Austin', 'Tx'],
+  status: 'available',
 }];
 
 const listUsers = (state = firstUser, action) => {
   console.log(action.type, action);
   switch (action.type) {
     case LIST_USERS:
-      return [{ username: 'SadlynotFliko', language: 'CSS' }, { username: 'FlikoIamnot', language: 'brainFuck' }, { username: 'notFliko', language: 'JavaScript' }];
+      console.log('----------------', action);
+      return { users: action.users };
     default:
       return state;
   }
