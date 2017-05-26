@@ -10,7 +10,7 @@ import Heading from 'grommet/components/Heading';
 const UserList = ({ users }) => (
   <Tiles fill flush={false}>
     {users.map(user =>
-      (<Tile key={user._id}>
+      (<Tile key={user._id} align={'start'}>
         <Card
           label={user.status}
           heading={user.username}
