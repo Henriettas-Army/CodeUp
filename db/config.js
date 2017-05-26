@@ -4,7 +4,7 @@ mongoose.Promise = Promise;
 
 // mongoose.connect('mongodb://db:27017');
 mongoose.connect('mongodb://localhost/codeupdb');
-
+// mongoose.connect('mongodb://localhost/test');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

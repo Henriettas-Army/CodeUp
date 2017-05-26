@@ -7,4 +7,5 @@ module.exports = {
   },
 
   getEvents: () => Event.find({}),
+  deleteEvent: id => Event.remove({ _id: id }),
 };
