@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const db = require('./../db/config.js');
 const eventsRoute = require('./routes/eventsRoute');
 const users = require('./routes/users');
+const allusers = require('./routes/userSearch');
 
 const app = express();
 
