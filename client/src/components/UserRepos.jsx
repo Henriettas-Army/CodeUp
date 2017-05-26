@@ -6,7 +6,9 @@ import Tiles from 'grommet/components/Tiles';
 import Tile from 'grommet/components/Tile';
 import Card from 'grommet/components/Card';
 import Section from 'grommet/components/Section';
-// import StarIcon from 'grommet/components/icons/base/Star';
+import Paragraph from 'grommet/components/Paragraph';
+import Anchor from 'grommet/components/Anchor';
+import StarIcon from 'grommet/components/icons/base/Star';
 
 const UserRepos = ({ repos, status, user }) => (
   <Section>
@@ -29,14 +31,19 @@ const UserRepos = ({ repos, status, user }) => (
           size={'small'}
           // onSelect={...}
         >
-          {repos ? repos.map(repo => (
-            <Tile>
-              <a href={`https://github.com/${user}/${repo.name}`} >
-                <Card
-                  heading={`${JSON.parse(repo).name}${JSON.parse(repo).stargazers_count > 0 ? `\nStars: ${JSON.parse(repo).stargazers_count}` : ''}`}
-                  description={`${JSON.parse(repo).language ? JSON.parse(repo).language : ''}\n${JSON.parse(repo).description ? `~~${JSON.parse(repo).description}` : ''}`}
-                />
-              </a>
+          {repos ? repos.map((repo, key) => (
+            <Tile key={+key + 1}>
+              <Card
+                heading={JSON.parse(repo).name}
+                description={<Paragraph>
+                  {JSON.parse(repo).stargazers_count > 0 ?
+                    <span>{JSON.parse(repo).stargazers_count } <StarIcon /></span>
+                    : ''}<br />
+                  {JSON.parse(repo).language ? JSON.parse(repo).language : ''}<br />
+                  {JSON.parse(repo).description ? JSON.parse(repo).description : ''}
+                </Paragraph>}
+                link={<Anchor href={`https://github.com/${user}/${JSON.parse(repo).name}`} label="Link to repo" />}
+              />
             </Tile>
           )) : ' ' }
         </Tiles>
