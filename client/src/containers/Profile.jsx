@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Box from 'grommet/components/Box';
 import UserInfo from '../components/UserInfo';
 import UserRepos from '../components/UserRepos';
 import profileActions from '../../redux/actions/profileActions';
@@ -10,7 +11,7 @@ class Profile extends React.Component {
     // console.log(this.props.path);
     // do api call to server to get user profile from db
     // take username out of the url then get profile -- react router
-    this.props.loadProfile(/* username */);
+    this.props.loadProfile('techmexdev');
   }
   render() {
     const profile = this.props.profile;
@@ -20,16 +21,16 @@ class Profile extends React.Component {
     return (
       <div>
         <div> USER PROFILE </div>
-        <UserInfo
+        {/* <UserInfo
           profile={profile}
           status={status}
           updateProfile={updateProfile}
           currentUser={currentUser}
-        />
+        /> */}
         <UserRepos
           repos={profile.repos}
           status={status}
-          currentUser={currentUser}
+          user={profile.username}
         />
       </div>
     );
@@ -55,13 +56,14 @@ Profile.propTypes = {
 };
 
 Profile.defaultProps = {
-  isAuthenticated: PropTypes.string,
+  isAuthenticated: undefined,
 };
 
 const mapStateToProps = state => (
   ({
     profile: state.profile.profile,
     status: state.profile.status,
+    isAuthenticated: state.auth.isAuthenticated,
   })
 );
 
