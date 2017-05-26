@@ -24,9 +24,7 @@ class LoginComponent extends Component {
       .then((token) => {
         window.localStorage.setItem('token', token.data);
         // window.location.href = '/path';
-        console.log('BEFORE LOGIN', this.props.isAuthenticated, this.props.status);
         this.props.loginUser();
-        console.log('AFTER LOGIN', this.props.isAuthenticated, this.props.status);
       });
     }
     window.localStorage.setItem('token', '');
