@@ -1,7 +1,6 @@
 const User = require('./../models/User');
 // save user to database
 const postUser = (userObj) => {
-  console.log('USER OBJ:', userObj);
   const newUser = new User({
     username: userObj.username,
     name: userObj.name,
@@ -9,6 +8,7 @@ const postUser = (userObj) => {
     bio: userObj.bio,
     location: userObj.location,
     repos: userObj.repos,
+    status: 'Available',
     desired: [],
     skills: [],
     access_token: userObj.access_token,
@@ -17,6 +17,7 @@ const postUser = (userObj) => {
     img: userObj.img,
     bio: userObj.bio,
     location: userObj.location,
+    status: 'Available',
     access_token: userObj.access_token
   };
   return User.findOne({ username: userObj.username })
@@ -33,15 +34,13 @@ const getUserInfo = username => (
   User.findOne({ username })
 );
 
-const postRepos = (username, fourRepos) => {
+const postRepos = (username, fourRepos) => (
   User.findOneAndUpdate({ username }, { repos: fourRepos })
-  .then((user) => {
-    console.log('successful update of user: ', user);
-  })
-  .catch((err) => {
-    console.error('error updating user repos', err);
-  });
-};
+);
+
+const updateUserInfo = (username, data) => (
+  User.findOneAndUpdate({ username }, data)
+);
 
 const getAllUsers = () => User.find({});
 
@@ -49,6 +48,6 @@ module.exports = {
   postUser,
   getUserInfo,
   postRepos,
-  // updateUserInfo,
+  updateUserInfo,
   getAllUsers,
 };
