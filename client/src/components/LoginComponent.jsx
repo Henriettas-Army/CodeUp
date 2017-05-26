@@ -22,8 +22,10 @@ class LoginComponent extends Component {
       const code = window.location.search.split('=')[1];
       axios.post('/api/users/login', { code })
       .then((token) => {
+        console.log('BEFORE STORAGE', this.props.isAuthenticated, this.props.status);
         window.localStorage.setItem('token', token.data);
         this.props.loginUser();
+        console.log('AFTER STORAGE', this.props.isAuthenticated, this.props.status);
       });
     }
   }
@@ -46,6 +48,12 @@ class LoginComponent extends Component {
 
 LoginComponent.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string,
+  status: PropTypes.string.isRequired,
+};
+
+LoginComponent.defaultProps = {
+  isAuthenticated: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
