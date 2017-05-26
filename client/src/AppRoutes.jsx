@@ -1,19 +1,20 @@
 import React from 'react';
 import {
-  StaticRouter,
+  BrowserRouter as Router,
   Route,
+  hashHistory
 } from 'react-router-dom';
 import Search from './components/Search';
 import Login from './components/LoginComponent';
 import './styles/styles.scss';
 
 const AppRoutes = () => (
-  <StaticRouter>
+  <Router history={hashHistory}>
     <div>
-      <Route exact path="/" component={App} />
+      <Route exact path="/" component={Login}/>
       <Route path="/search" component={Search} />
       <Route path="/login" component={Login} />
     </div>
-  </StaticRouter>
+  </Router>
 );
 export default AppRoutes;
