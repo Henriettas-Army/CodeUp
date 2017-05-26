@@ -34,6 +34,7 @@ const postEventAsync = event => (dispatch) => {
   axios.post(urlPostEvents, event)
     .then((response) => {
       if (!response.data.ok) {
+        console.log(response.data);
         throw new Error('Error posting event');
       }
       return response;
@@ -42,6 +43,7 @@ const postEventAsync = event => (dispatch) => {
       dispatch(loadEventsAsync());
     })
     .catch((err) => {
+      console.log(err);
       dispatch(errorEvents(err));
     });
 };
