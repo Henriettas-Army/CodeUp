@@ -51,6 +51,7 @@ router.get('/:username', (req, res) => {
   .then((resp) => {
     if (!resp) {
       res.status(200).json({ ok: false, user: null });
+      return;
     }
     res.status(200).json({ ok: true, user: resp });
   })

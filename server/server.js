@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 
 const db = require('./../db/config.js');
 const eventsRoute = require('./routes/eventsRoute');
-
 const users = require('./routes/users');
 
 const app = express();
@@ -33,5 +32,4 @@ app.get('/api/events', eventsRoute.getEvents);
 module.exports = {
   app,
   db,
-  utils,
 };
