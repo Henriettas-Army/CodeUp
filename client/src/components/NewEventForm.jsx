@@ -51,7 +51,8 @@ class NewEventForm extends React.Component {
             cols="30"
             rows="10"
             onChange={e => this.setState({ description: e.target.value })}
-          >{this.state.description}</textarea>
+            value={this.state.description}
+          ></textarea>
         </FormField>
         <FormField>
           <TextInput
