@@ -15,8 +15,7 @@ const App = ({ isAuthenticated, status }) => (
       isAuthenticated={isAuthenticated}
       status={status}
     />
-    <Profile />
-    {/* <Events />
+    <Events />
     <Split>
       <Box
         colorIndex={'neutral-1'}
@@ -34,7 +33,8 @@ const App = ({ isAuthenticated, status }) => (
       >
         Right Side
       </Box>
-    </Split> */}
+    </Split>
+    <Profile />
   </GrommetApp>
 );
 

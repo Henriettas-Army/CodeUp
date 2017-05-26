@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { Router, Route, browserHistory } from 'react-router';
+// import { Router, Route, browserHistory } from 'react-router';
 // import api from 'redux-api-middleware';
 import codeUpApp from '../redux/reducers/combineReducers';
 import App from './App';
