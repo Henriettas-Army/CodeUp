@@ -44,15 +44,16 @@ class NewEventForm extends React.Component {
             onChange={(e) => { this.setState({ date: e }); }} 
           />
         </FormField>
-        <FormField label="Event description">
+        <FormField>
           <textarea
+            placeholder="provide a description for your event"
             name=""
             id=""
             cols="30"
             rows="10"
             onChange={e => this.setState({ description: e.target.value })}
             value={this.state.description}
-          ></textarea>
+          />
         </FormField>
         <FormField>
           <TextInput
@@ -65,10 +66,9 @@ class NewEventForm extends React.Component {
         </FormField>
         <FormField>
           <Select
-            placeHolder={'Select estimated duration ...'}
+            placeHolder={'Select estimated duration'}
             inline={false}
             multiple={false}
-            onSearch={false}
             options={['Less than 1 hour', '1-2 hours', '2-3 hours', 'More than 3 hours']}
             value={this.state.duration}
             onChange={(e) => { this.setState({ duration: e }); }}
@@ -85,7 +85,7 @@ class NewEventForm extends React.Component {
         </FormField>
         <Footer pad={{ vertical: 'medium' }}>
           <Button
-            label={'Create'}
+            label={'Publish Event'}
             type={'submit'}
             primary
             onClick={(e) => {
@@ -94,7 +94,7 @@ class NewEventForm extends React.Component {
                 title: this.state.title,
                 duration: this.state.duration.value,
                 date: this.state.date,
-                topics: this.state.topics.split(',').map(st=>st.trim()),
+                topics: this.state.topics.split(',').map(st => st.trim()),
                 location: this.state.location,
                 description: this.state.description,
               };
