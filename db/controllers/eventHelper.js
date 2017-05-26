@@ -1,5 +1,4 @@
 const Event = require('../models/Event');
-const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
   addEvent: (evt) => {
@@ -8,5 +7,5 @@ module.exports = {
   },
 
   getEvents: () => Event.find({}),
-  deleteEvent: id => Event.remove({ _id: ObjectId(id) }),
+  deleteEvent: id => Event.remove({ _id: id }),
 };

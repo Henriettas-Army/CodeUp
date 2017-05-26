@@ -23,7 +23,6 @@ const loadEventsAsync = () => (dispatch) => {
       if (!response.data.ok) {
         dispatch(errorEvents(response.data.error));
       } else {
-        console.log('received events: ', response.data.events);
         dispatch(dataEvents(response.data.events));
       }
     });
@@ -50,9 +49,8 @@ const postEventAsync = event => (dispatch) => {
 const deleteEventAsync = id => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.post(urlDeleteEvents, {id: id})
+  axios.post(urlDeleteEvents, { id })
     .then((response) => {
-      console.log(response);
       if (!response.data.ok) {
         throw new Error('Error deleting event');
       }
