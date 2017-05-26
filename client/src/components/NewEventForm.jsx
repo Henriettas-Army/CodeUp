@@ -7,6 +7,7 @@ import FormField from 'grommet/components/FormField';
 import TextInput from 'grommet/components/TextInput';
 import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
+import Heading from 'grommet/components/Heading';
 
 const EMPTY_FORM = {
   title: '',
@@ -28,6 +29,7 @@ class NewEventForm extends React.Component {
     const createEvent = this.props.createEvent;
     return (
       <Form>
+        <Heading align="center">Create Event</Heading>
         <FormField>
           <TextInput
             id={'title'}
@@ -44,7 +46,7 @@ class NewEventForm extends React.Component {
             onChange={(e) => { this.setState({ date: e }); }} 
           />
         </FormField>
-        <FormField>
+        <FormField label="...">
           <textarea
             placeholder="provide a description for your event"
             name=""
@@ -69,6 +71,7 @@ class NewEventForm extends React.Component {
             placeHolder={'Select estimated duration'}
             inline={false}
             multiple={false}
+            onSearch={false}
             options={['Less than 1 hour', '1-2 hours', '2-3 hours', 'More than 3 hours']}
             value={this.state.duration}
             onChange={(e) => { this.setState({ duration: e }); }}
@@ -85,7 +88,7 @@ class NewEventForm extends React.Component {
         </FormField>
         <Footer pad={{ vertical: 'medium' }}>
           <Button
-            label={'Publish Event'}
+            label={'Create'}
             type={'submit'}
             primary
             onClick={(e) => {
@@ -100,6 +103,7 @@ class NewEventForm extends React.Component {
               };
               createEvent(event);
               this.setState(EMPTY_FORM);
+              this.props.onSubmit();
             }}
           />
         </Footer>

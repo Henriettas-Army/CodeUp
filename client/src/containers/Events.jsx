@@ -1,11 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import Accordion from 'grommet/components/Accordion';
+// import AccordionPanel from 'grommet/components/AccordionPanel';
+import Layer from 'grommet/components/Layer';
+import AddIcon from 'grommet/components/icons/base/Add';
+import Anchor from 'grommet/components/Anchor';
+
 import EventsList from '../components/EventsList';
 import eventActions from '../../redux/actions/eventActions';
 import NewEventForm from '../components/NewEventForm';
 
+
 class Events extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { showForm: true };
+  }
+
   componentDidMount() {
     this.props.loadEvents();
   }
@@ -18,9 +30,26 @@ class Events extends React.Component {
 
     return (
       <div>
+        <Anchor
+          icon={<AddIcon />}
+          label={'Add Event'}
+          onClick={(e) => { e.preventDefault(); this.setState({ showForm: true }); }}
+        />
+        {
+          this.state.showForm &&
+          <Layer
+            closer
+            flush
+            onClose={() => { this.setState({ showForm: false }); }}
+          >
+            <NewEventForm
+              createEvent={createEvent}
+              onSubmit={() => { this.setState({ showForm: false }); }}
+            />
+          </Layer>
+        }
+
         <EventsList events={events} status={status} deleteEvent={deleteEvent} />
-        <h1>Create Event...</h1>
-        <NewEventForm createEvent={createEvent} />
       </div>
     );
   }

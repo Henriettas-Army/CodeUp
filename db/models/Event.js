@@ -14,7 +14,7 @@ const eventSchema = new Schema({
   topics: [String],
   date: { type: Date, required: true },
   location: [String],
-  duration: Number,
+  duration: String,
   description: String,
 });
 
