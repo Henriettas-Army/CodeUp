@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import UserInfo from '../components/UserInfo';
 import UserRepos from '../components/UserRepos';
+import UserInfo from '../components/UserInfo';
 import profileActions from '../../redux/actions/profileActions';
 
 class Profile extends React.Component {
@@ -15,6 +15,8 @@ class Profile extends React.Component {
     const status = this.props.status;
     const updateProfile = this.props.updateProfile;
     const currentUser = this.props.isAuthenticated;
+    const editing = this.props.editing;
+    const editProfile = this.props.editProfile;
     return (
       <div>
         <div> USER PROFILE </div>
@@ -23,6 +25,8 @@ class Profile extends React.Component {
           status={status}
           updateProfile={updateProfile}
           currentUser={currentUser}
+          editing={editing}
+          editProfile={editProfile}
         />
         <UserRepos
           repos={profile.repos}
@@ -37,6 +41,8 @@ class Profile extends React.Component {
 Profile.propTypes = {
   loadProfile: PropTypes.func.isRequired,
   updateProfile: PropTypes.func.isRequired,
+  editProfile: PropTypes.func.isRequired,
+  editing: PropTypes.bool.isRequired,
   // path: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.string,
@@ -53,7 +59,7 @@ Profile.propTypes = {
 };
 
 Profile.defaultProps = {
-  isAuthenticated: undefined,
+  isAuthenticated: '',
 };
 
 const mapStateToProps = state => (
@@ -61,6 +67,7 @@ const mapStateToProps = state => (
     profile: state.profile.profile,
     status: state.profile.status,
     isAuthenticated: state.auth.isAuthenticated,
+    editing: state.profile.editing,
   })
 );
 
@@ -71,6 +78,9 @@ const mapDispatchToProps = dispatch => ({
   updateProfile: (userObj) => {
     dispatch(profileActions.updateProfileAsync(userObj));
   },
+  editProfile: () => {
+    dispatch(profileActions.editProfile());
+  }
 });
 
 export default connect(
