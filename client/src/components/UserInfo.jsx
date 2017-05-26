@@ -11,7 +11,8 @@ const UserInfo = ({ profile, status }) => (
         UserInfo
         <h1>Username: {profile.username}</h1>
         <h2>Name: {profile.name}</h2>
-        <h3>Location: {profile.location ? profile.location.join(', ') : ''}</h3>
+        <h3>Status: {profile.status}</h3>
+        <h4>Location: {profile.location ? profile.location.join(', ') : ''}</h4>
         <p>Technical Skills: {profile.skills ? profile.skills.map(skill => (
           <span>
             <span>{` ${skill} | `}</span>

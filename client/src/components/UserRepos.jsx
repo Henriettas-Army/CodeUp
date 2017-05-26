@@ -24,8 +24,12 @@ const UserRepos = ({ repos, status }) => (
 );
 
 UserRepos.propTypes = {
-  repos: PropTypes.arrayOf(PropTypes.string).isRequired,
   status: PropTypes.string.isRequired,
+  repos: PropTypes.arrayOf(PropTypes.string),
+};
+
+UserRepos.defaultProps = {
+  repos: undefined,
 };
 
 export default UserRepos;

@@ -43,17 +43,19 @@ router.post('/login', (req, res) => {
   .catch((err) => {
     console.log('ERROR GETTING TOKEN:', err);
   });
-};
+});
 
 // get individual user profile
 router.get('/:username', (req, res) => {
-  userController.getUserInfo(req.params.username)
+  UserController.getUserInfo(req.params.username)
   .then((resp) => {
     if (!resp) {
       res.status(200).json({ ok: false, user: null });
       return;
     }
-    res.status(200).json({ ok: true, user: resp });
+    const profile = Object.assign({}, { resp });
+    profile.resp.access_token = '';
+    res.status(200).json({ ok: true, user: profile.resp });
   })
   .catch((err) => {
     res.status(200).json({ ok: false, err });
@@ -77,7 +79,7 @@ router.put('/:username', (req, res) => {
       data = {};
       break;
   }
-  userController.updateUserInfo(req.params.username, data)
+  UserController.updateUserInfo(req.params.username, data)
   .then((resp) => {
     res.status(200).json({ ok: true, user: resp });
   })
