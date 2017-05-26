@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const db = require('./../db/config.js');
 const eventsRoute = require('./routes/eventsRoute');
 const users = require('./routes/users');
+const allusers = require('./routes/userSearch');
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.listen('3034', () => {
 
 // routes
 app.use('/api/users', users);
+
+app.use('/api/allusers', allusers);
 // curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","date":"2014-03-04"}' http://localhost:3034/api/events
 app.post('/api/events', eventsRoute.postEvent);
 // curl -H "Content-Type: application/json" -X GET http://localhost:3034/api/events

@@ -43,8 +43,12 @@ const postRepos = (username, fourRepos) => {
   });
 };
 
+const getAllUsers = () => User.find({});
+
 module.exports = {
   postUser,
   getUserInfo,
   postRepos,
+  // updateUserInfo,
+  getAllUsers,
 };
