@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import GrommetApp from 'grommet/components/App';
 import Box from 'grommet/components/Box';
 import Split from 'grommet/components/Split';
+import Animate from 'grommet/components/Animate';
 
 import LoginComponent from './components/LoginComponent';
 import Events from './containers/Events';
@@ -10,8 +11,13 @@ import Profile from './containers/Profile';
 
 const App = () => (
   <GrommetApp>
-    <LoginComponent />
-    {/* <Events />
+    <Animate
+      enter={{ animation: 'fade', duration: 5000, delay: 0 }}
+      keep
+    >
+      <LoginComponent />
+    </Animate>
+    <Events />
     <Split>
       <Box
         colorIndex={'neutral-1'}
@@ -30,7 +36,7 @@ const App = () => (
         Right Side
       </Box>
     </Split>
-    <Profile /> */}
+    <Profile />
   </GrommetApp>
 );
 
