@@ -1,20 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Split from 'grommet/components/Split';
+// import Split from 'grommet/components/Split';
 import Box from 'grommet/components/Box';
 import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
-
+import Section from 'grommet/components/Section';
 
 const UserInfo = ({ profile, status, updateProfile, currentUser }) => (
-  <Box
-    align={'center'}
-    pad={'medium'}
-    margin={'small'}
-    colorIndex={'neutral-1'}
-    appCentered
-    full
-  >
+  <Section>
     {status === 'LOADING' &&
       <p className="loading">
         Loading Profile...
@@ -23,139 +16,64 @@ const UserInfo = ({ profile, status, updateProfile, currentUser }) => (
     }
     {status === 'ERROR' && <p className="error">Error loading user profile</p>}
     {status === 'READY' &&
-    <Box
-      direction='row'
-    >
-    <Columns maxCount='3'
-      size='medium'
-      justify='start'
-    >
-      <Box align='center'
-        pad='medium'
-        margin='small'
-        colorIndex='light-2'
-        alignContent='start'
-        // full={'vertical'}
+    <Section>
+      <Columns
+        maxCount={'3'}
+        size={'medium'}
+        justify={'start'}
       >
-        <img src={profile.img} alt="user github profile" style={{ width: '220px' }} />
-        Box 1
+        <Box
+          align={'center'}
+          pad={'medium'}
+          margin={'small'}
+          colorIndex={'light-1'}
+          alignContent={'start'}
+        >
+          <img src={profile.img} alt="user github profile" style={{ width: '220px' }} />
+        </Box>
+        <Box
+          align={'center'}
+          pad={'medium'}
+          margin={'small'}
+          colorIndex={'light-1'}
+        >
+          <h3>{profile.username}</h3>
+          <h4>{profile.name}</h4>
+          <p>{profile.bio}</p>
+          <p>{profile.location ? profile.location.join(', ') : ''}</p>
+        </Box>
+        <Box
+          align={'center'}
+          pad={'medium'}
+          margin={'small'}
+          colorIndex={'light-1'}
+        >
+          <h3>Status: {profile.status}</h3>
+        </Box>
+      </Columns>
+      <Box
+        align={'left'}
+        pad={'medium'}
+        margin={'small'}
+        colorIndex={'light-1'}
+        textAlign={'left'}
+      >
+        <p>Technical Skills: {profile.skills ? profile.skills.map(skill => (
+          <span>
+            <span>{` ${skill} | `}</span>
+          </span>
+        )) : ' ' }
+        </p>
+        <p>Learning: {profile.desired ? profile.skills.map(desired => (
+          <span>
+            <span>{` ${desired} | `}</span>
+          </span>
+          )) : ' ' }
+        </p>
       </Box>
-      <Box align='center'
-        pad='medium'
-        margin='small'
-        colorIndex='light-2'>
-        Box 2
-        <h4>{profile.username}</h4>
-        <h5>{profile.name}</h5>
-        <p>{profile.bio}</p>
-        <h4>{profile.location ? profile.location.join(', ') : ''}</h4>
-      </Box>
-      <Box align='center'
-        pad='medium'
-        margin='small'
-        colorIndex='light-2'>
-        Box 3
-        <h3>Status: {profile.status}</h3>
-      </Box>
-      {/* <Box align='center'
-        pad='medium'
-        margin='small'
-        colorIndex='light-2'>
-        Box 5
-      </Box>
-      <Box align='center'
-        pad='medium'
-        margin='small'
-        colorIndex='light-2'>
-        Box 6
-      </Box> */}
-    </Columns>
-    <Box align='center'
-      pad='medium'
-      margin='small'
-      colorIndex='light-2'>
-      Box 4
-      <p>Technical Skills: {profile.skills ? profile.skills.map(skill => (
-        <span>
-          <span>{` ${skill} | `}</span>
-        </span>
-      )) : ' ' }
-    </p>
-    <p>Learning: {profile.desired ? profile.skills.map(desired => (
-      <span>
-        <span>{` ${desired} | `}</span>
-      </span>
-    )) : ' ' }
-  </p>
-</Box>
-</Box>
-    }
-    {/* // <Split
-      //   separator={false}
-      //   fixed={false}
-      //   flex={'left'}
-      //   priority={'left'}
-      //   showOnResponsive={'both'}
-      // >
-      //   <Box
-      //     colorIndex={'neutral-1'}
-      //     justify={'left'}
-      //     align={'left'}
-      //     alignSelf={'center'}
-      //     pad={'none'}
-      //   >
-      //     <Columns
-      //       maxCount={3}
-      //       size={'medium'}
-      //       responsive={false}
-      //       masonry
-      //     >
-      //       <Box
-      //         align={'left'}
-      //         margin={'small'}
-      //       >
-      //         <img src={profile.img} alt="user github profile" style={{ width: '220px' }} />
-      //       </Box>
-      //       <Box
-      //         align={'left'}
-      //         basis={'small'}
-      //         margin={'small'}
-      //       >
-      //         <h4>{profile.username}</h4>
-      //         <h5>{profile.name}</h5>
-      //         <p>{profile.bio}</p>
-      //         <h4>{profile.location ? profile.location.join(', ') : ''}</h4>
-      //       </Box>
-      //       <Box
-      //         colorIndex={'neutral-2'}
-      //         justify={'left'}
-      //         align={'left'}
-      //         pad={'none'}
-      //         >
-      //           <h3>Status: {profile.status}</h3>
-      //         </Box>
-      //     </Columns>
-      //     <Box
-      //       align={'left'}
-      //       basis={'small'}
-      //       margin={'small'}
-      //     >
-      //       <p>Technical Skills: {profile.skills ? profile.skills.map(skill => (
-      //         <span>
-      //           <span>{` ${skill} | `}</span>
-      //         </span>
-      //         )) : ' ' }
-      //       </p>
-      //       <p>Learning: {profile.desired ? profile.skills.map(desired => (
-      //         <span>
-      //           <span>{` ${desired} | `}</span>
-      //         </span>
-      //         )) : ' ' }
-      //       </p>
-      //     </Box>
-      //   </Box>
-      // </Split> */}
-  </Box>
+    </Section>
+  }
+  </Section>
 );
 
 UserInfo.propTypes = {
