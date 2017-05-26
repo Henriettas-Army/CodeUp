@@ -1,5 +1,3 @@
-import jwtDecode from 'jwt-decode';
-
 const LOGIN_USER = 'LOGIN_USER';
 
 const loginUser = (isAuthenticated, status) => ({

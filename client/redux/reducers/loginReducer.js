@@ -1,3 +1,4 @@
+/* global window */
 import jwtDecode from 'jwt-decode';
 import { LOGIN_USER } from '../actions/loginActions';
 
