@@ -10,7 +10,7 @@ import thunkMiddleware from 'redux-thunk';
 import codeUpApp from '../redux/reducers/combineReducers';
 import Search from './components/Search';
 import Login from './components/LoginComponent';
-import App from './App';
+import App from './components/App';
 import Events from './containers/Events';
 import Profile from './containers/Profile';
 import './styles/styles.scss';
