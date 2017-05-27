@@ -28,6 +28,8 @@ class LoginComponent extends Component {
         window.localStorage.setItem('token', token.data);
         this.props.loginUser();
         console.log('AFTER STORAGE', this.props.isAuthenticated, this.props.status);
+      }).then( () => {
+        window.location.href = `/${this.props.isAuthenticated}`;
       });
     }
   }
