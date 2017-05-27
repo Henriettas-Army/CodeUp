@@ -6,7 +6,7 @@ const listUsers = users => ({ type: LIST_USERS, users });
 
 const loadAllUsers = () => (
   function load(dispatch) {
-    return axios.get('/api/allusers/userlist')
+    return axios.get('/api/users/list')
       .then((res) => {
         dispatch(listUsers(res.data));
       });

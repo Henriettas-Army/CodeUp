@@ -49,4 +49,14 @@ router.post('/login', (req, res) => {
   });
 });
 
+router.get('/list', (req, res) => {
+  UserController.getAllUsers()
+  .then((data) => {
+    res.status(200).json(data);
+  })
+  .catch((err) => {
+    res.json(err);
+  });
+});
+
 module.exports = router;
