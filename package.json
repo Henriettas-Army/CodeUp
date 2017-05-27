@@ -8,7 +8,7 @@
     "webpack-dev-server": "./node_modules/.bin/webpack-dev-server ./client/webpack.config.js",
     "production": "cd client && webpack && cd .. && node server/server.js",
     "start": "nodemon server/server.js",
-    "test": "npm run lint && npm run test-client && npm run test-server",
+    "test": "npm run lint && npm run test-client && npm run test-server -- --watch",
     "lint": "./node_modules/.bin/eslint ./*",
     "test-client": "./node_modules/.bin/jest client/spec/*.js",
     "test-server": "./node_modules/.bin/jest server/spec/*.js"
@@ -23,7 +23,13 @@
     "url": "https://github.com/Henriettas-Army/CodeUp/issues"
   },
   "homepage": "https://github.com/Henriettas-Army/CodeUp#readme",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.2.0",
@@ -32,9 +38,13 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "jest": "^20.0.4",
+    "jest-cli": "^20.0.4",
+    "nock": "^9.0.13",
     "node-sass-chokidar": "0.0.1",
     "nodemon": "^1.11.0",
     "react-router": "^4.1.1",
+    "react-test-renderer": "^15.5.4",
+    "redux-mock-store": "^1.2.3",
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
