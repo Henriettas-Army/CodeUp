@@ -12,46 +12,21 @@ import TechEditForm from './TechEditForm';
 
 const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editProfile }) => (
   <Section>
-    {status === 'LOADING' &&
-      <p className="loading">
-        Loading Profile... <Spinning />
-      </p>
-    }
+    {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
     {status === 'ERROR' && <p className="error">Error loading user profile</p>}
     {status === 'READY' &&
     <Section>
-      <Columns
-        maxCount={3}
-        size={'medium'}
-        justify={'start'}
-      >
-        <Box
-          align={'center'}
-          pad={'medium'}
-          margin={'small'}
-          colorIndex={'light-1'}
-          alignContent={'start'}
-        >
-
+      <Columns maxCount={3} size={'medium'} justify={'start'} >
+        <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} alignContent={'start'} >
           <Image src={profile.img} alt="user github avatar" size={'small'} />
         </Box>
-        <Box
-          align={'center'}
-          pad={'medium'}
-          margin={'small'}
-          colorIndex={'light-1'}
-        >
+        <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
           <h3>{profile.username}</h3>
           <h4>{profile.name}</h4>
           <p>{profile.bio}</p>
           <p>{profile.location ? profile.location.join(', ') : ''}</p>
         </Box>
-        <Box
-          align={'center'}
-          pad={'medium'}
-          margin={'small'}
-          colorIndex={'light-1'}
-        >
+        <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
           {profile.username === currentUser ?
             <UserStatus
               user={profile.username}
@@ -62,21 +37,8 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           }
         </Box>
       </Columns>
-      <Split
-        priority={'left'}
-        flex={'left'}
-        showOnResponsive={'both'}
-        fixed={false}
-      >
-        <Box
-          align={'start'}
-          pad={'medium'}
-          margin={'small'}
-          colorIndex={'light-1'}
-          textAlign={'left'}
-          flex
-          full={false}
-        >
+      <Split priority={'left'} flex={'left'} showOnResponsive={'both'} fixed={false} >
+        <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
           <p>
             <Label>Technical Skills: </Label>
             {profile.skills ? profile.skills.map((skill, key) => (
@@ -90,15 +52,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
             )) : ' ' }
           </p>
         </Box>
-        <Box
-          align={'start'}
-          pad={'medium'}
-          margin={'small'}
-          colorIndex={'light-1'}
-          textAlign={'left'}
-          flex
-          full={false}
-        >
+        <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
           { profile.username === currentUser ?
             <TechEditForm
               user={currentUser}

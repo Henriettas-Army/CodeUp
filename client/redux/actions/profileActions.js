@@ -69,7 +69,6 @@ const updateProfileAsync = updateObj => (
         dispatch(errorProfile('unable to update user info'));
       } else {
         dispatch(updateProfile(response.data.user));
-        dispatch(profileData(response.data.user));
       }
     })
     .catch((err) => {
