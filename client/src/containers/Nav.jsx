@@ -7,6 +7,7 @@ import Box from 'grommet/components/Box';
 import Search from 'grommet/components/Search';
 import Menu from 'grommet/components/Menu';
 import UserSettingsIcon from 'grommet/components/icons/base/UserSettings';
+import InheritIcon from 'grommet/components/icons/base/Inherit';
 import Anchor from 'grommet/components/Anchor';
 import loginActions from '../../redux/actions/loginActions';
 
@@ -18,7 +19,13 @@ const Nav = ({ logoutUser }) => (
     size="small"
   >
     <Title>
-      codeUp
+      <Anchor
+        href="#"
+        path="/"
+        className="active"
+      >
+        codeUp
+      </Anchor>
     </Title>
     <Box
       flex
@@ -33,12 +40,12 @@ const Nav = ({ logoutUser }) => (
         placeHolder="Search"
         dropAlign={{ right: 'right' }}
       />
-      <div
-        className="exploreLink"
-        style={{ fontSize: '18px', paddingTop: '15px', paddingBottom: '15px', paddingLeft: '50px', paddingRight: '50px' }}
-      >
-        Explore
-      </div>
+      <Anchor
+        icon={<InheritIcon />}
+        href="#"
+        path="/explore"
+        className="active"
+      />
       <Menu
         icon={
           <UserSettingsIcon />
@@ -47,6 +54,7 @@ const Nav = ({ logoutUser }) => (
       >
         <Anchor
           href="#"
+          path="/profile"
           className="active"
         >
           Profile
