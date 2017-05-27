@@ -19,6 +19,8 @@ router.post('/login', (req, res) => {
     console.log('ACCESS TOKEN================>', TOKEN);
     axios(`https://api.github.com/user?access_token=${TOKEN}`)
     .then((resp) => {
+      const token = jwt.encode(resp.data.login, 'secret');
+      res.json(token);
       const newUser = {
         username: resp.data.login,
         name: resp.data.name === null ? '' : resp.data.name,
@@ -32,10 +34,7 @@ router.post('/login', (req, res) => {
       };
       UserController.postUser(newUser)
       .then((user) => {
-        const token = jwt.encode(user.username, 'secret');
-        console.log('SENDING TOKEN');
         Utils.grabUserReposandSave(user.username, user.access_token);
-        res.json(token);
       })
       .catch((err) => {
         console.log('ERROR LOGGING IN:', err);
