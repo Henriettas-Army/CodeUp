@@ -17,6 +17,22 @@ const TechEditForm = ({ user, updateProfile, skills, desired, location, editProf
   let skillsInput = '';
   let desiredInput = '';
   let locationInput = '';
+  const formSubmit = () => {
+    const updateObj = { username: user, toUpdate: [] };
+    if (skillsInput.length > 0) {
+      const skillsData = { data: skillsInput.split(', '), typeUpdate: 'skills' };
+      updateObj.toUpdate.push(skillsData);
+    }
+    if (desiredInput.length > 0) {
+      const desiredData = { data: desiredInput.split(', '), typeUpdate: 'desired' };
+      updateObj.toUpdate.push(desiredData);
+    }
+    if (locationInput.length > 0) {
+      const locationData = { data: locationInput.split(', '), typeUpdate: 'location' };
+      updateObj.toUpdate.push(locationData);
+    }
+    updateProfile(updateObj);
+  };
   return (
     <Section>
       <Button
@@ -77,24 +93,7 @@ const TechEditForm = ({ user, updateProfile, skills, desired, location, editProf
                 label={'Submit'}
                 type={'submit'}
                 primary
-                onClick={(e) => {
-                  e.preventDefault();
-                  const updateObj = { username: user, toUpdate: [] };
-                  if (skillsInput.length > 0) {
-                    const skillsData = { data: skillsInput.split(', '), typeUpdate: 'skills' };
-                    updateObj.toUpdate.push(skillsData);
-                  }
-                  if (desiredInput.length > 0) {
-                    const desiredData = { data: desiredInput.split(', '), typeUpdate: 'desired' };
-                    updateObj.toUpdate.push(desiredData);
-                  }
-                  if (locationInput.length > 0) {
-                    const locationData = { data: locationInput.split(', '), typeUpdate: 'location' };
-                    updateObj.toUpdate.push(locationData);
-                  }
-                  updateProfile(updateObj);
-                }
-                }
+                onClick={formSubmit}
               />
               <Button
                 type={'button'}
