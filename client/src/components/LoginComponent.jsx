@@ -1,7 +1,6 @@
 /* global window */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import jwtDecode from 'jwt-decode';
 import SocialGithubIcon from 'grommet/components/icons/base/SocialGithub';
@@ -18,21 +17,6 @@ const style = {
 };
 
 class LoginComponent extends Component {
-
-  componentWillMount() {
-    if (window.location.search) {
-      const code = window.location.search.split('=')[1];
-      axios.post('/api/users/login', { code })
-      .then((token) => {
-        console.log('BEFORE STORAGE', this.props.isAuthenticated, this.props.status);
-        window.localStorage.setItem('token', token.data);
-        this.props.loginUser();
-        console.log('AFTER STORAGE', this.props.isAuthenticated, this.props.status);
-      }).then( () => {
-        window.location.href = `/${this.props.isAuthenticated}`;
-      });
-    }
-  }
 
   render() {
     return (

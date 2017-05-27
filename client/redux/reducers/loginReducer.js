@@ -1,9 +1,9 @@
-// /* global window */
+/* global window */
 import jwtDecode from 'jwt-decode';
 import { LOGIN_USER, LOGOUT_USER } from '../actions/loginActions';
 
 const auth = (state = {
-  status:  window.localStorage.token ? 'Available' : 'Unavailable',
+  status: window.localStorage.token ? 'Available' : 'Unavailable',
   isAuthenticated: window.localStorage.token ? jwtDecode(window.localStorage.getItem('token')) : '',
 }, action) => {
   switch (action.type) {
@@ -14,7 +14,7 @@ const auth = (state = {
       });
     case LOGOUT_USER:
       window.localStorage.removeItem('token');
-      window.location.href = '/login'
+      window.location.href = '/login';
       return Object.assign({}, state, {
         isAuthenticated: action.isAuthenticated,
         status: action.status,
