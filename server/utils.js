@@ -116,9 +116,41 @@ const getFourReposInfo = (allRepos) => {
   ));
 };
 
+const getLanguageData = repo => (
+  // new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
+    axios.get(repo.languages_url)
+    .then((res) => {
+      resolve(res.data);
+    });
+  })
+  //   allRepos.map(repo => console.log)
+  // })
+  // .then((languages) => {
+  //   console.log(language);
+  // })
+);
+
 const grabUserReposandSave = (username, ghToken) => {
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
+      new Promise((resolve, reject) => {
+        const languageObj = [];
+        for (let i = 0; i < allRepos.length; i += 1) {
+          getLanguageData(allRepos[i])
+          .then((res) => {
+            console.log('GETTING RESPONSE FROM GET LANGUAGE DATA', res);
+            languageObj.push(res);
+            console.log(languageObj);
+          })
+          .then(() => {
+            resolve(languageObj);
+          });
+        }
+      })
+      .then((resp) => {
+        console.log('respfrom getlanguage', resp);
+      });
       const fourRepos = getFourReposInfo(allRepos);
       UserController.postRepos(username, fourRepos);
     })
