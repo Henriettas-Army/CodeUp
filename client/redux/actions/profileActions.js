@@ -5,6 +5,7 @@ const PROFILE_DATA = 'PROFILE_DATA';
 const LOAD_PROFILE = 'LOAD_PROFILE';
 const ERROR_PROFILE = 'ERROR_PROFILE';
 const UPDATE_PROFILE = 'UPDATE_PROFILE';
+const EDIT_PROFILE = 'EDIT_PROFILE';
 
 /* Action Creators */
 const loadProfile = () => ({
@@ -23,6 +24,9 @@ const errorProfile = () => ({
 const profileData = profile => ({
   type: PROFILE_DATA,
   profile,
+});
+const editProfile = () => ({
+  type: EDIT_PROFILE,
 });
 
 const fetchProfile = username => (
@@ -48,13 +52,11 @@ const loadProfileAsync = username => (
 // typeUpdate (status, skills, learn);
 const putProfileUpdate = (updateObj) => {
   const username = updateObj.username;
-  const data = updateObj.data;
-  const typeUpdate = updateObj.typeUpdate;
-  axios.put(`/api/users/${username}`,
+  const toUpdate = updateObj.toUpdate;
+  return axios.put(`/api/users/${username}`,
     {
       username,
-      data,
-      typeUpdate,
+      toUpdate,
     });
 };
 
@@ -66,6 +68,7 @@ const updateProfileAsync = updateObj => (
       if (!response.data.ok) {
         dispatch(errorProfile('unable to update user info'));
       } else {
+        dispatch(updateProfile(response.data.user));
         dispatch(profileData(response.data.user));
       }
     })
@@ -81,12 +84,14 @@ export default {
   LOAD_PROFILE,
   ERROR_PROFILE,
   UPDATE_PROFILE,
+  EDIT_PROFILE,
 
   /* Action Creators */
   profileData,
   loadProfile,
   errorProfile,
   updateProfile,
+  editProfile,
 
   /* Async Action Creators */
   loadProfileAsync,

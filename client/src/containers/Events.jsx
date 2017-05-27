@@ -72,7 +72,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createEvent: url => dispatch(eventActions.postEventAsync(url)),
   loadEvents: (url) => {
-    console.log('loading Events');
     dispatch(eventActions.loadEventsAsync(url));
   },
   deleteEvent: (id) => {

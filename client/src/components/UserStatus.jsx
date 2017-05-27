@@ -12,10 +12,9 @@ const UserStatus = ({ user, updateProfile, status }) => (
       multiple={false}
       options={['Available', 'Unavailable', 'Code Now']}
       value={status}
-      onChange={({ value }) => (updateProfile({ username: user, data: value, typeUpdate: 'status' }))}
+      onChange={({ value }) => (updateProfile({ username: user, toUpdate: [{ data: value, typeUpdate: 'status' }] }))}
     />
   </Section>
-
 );
 
 UserStatus.propTypes = {

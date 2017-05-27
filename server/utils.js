@@ -127,57 +127,26 @@ const grabUserReposandSave = (username, ghToken) => {
     });
 };
 
-const gitUserInfo = username => (
-  new Promise((resolve, reject) => {
-    axios.get(`https://api.github.com/users/${username}`, {
-      params: {
-        // access_token: GITHUB_TOKEN,
-      },
-      config,
-    })
-    .then((response) => {
-      const userInfo = response.data;
-      const location = userInfo.location === null ? [] : userInfo.location.split(', ');
-      const bio = userInfo.bio === null ? '' : userInfo.bio;
-      const name = userInfo.name === null ? '' : userInfo.name;
-      const userObj = {
-        username: userInfo.login,
-        img: userInfo.avatar_url,
-        repos: [],
-        name,
-        bio,
-        location,
-      };
-      resolve(userObj);
-    })
-    .catch((err) => {
-      reject(err);
-    });
+const grabUserInfo = (username, req, res) => {
+  UserController.getUserInfo(username)
+  .then((resp) => {
+    if (!resp) {
+      res.status(200).json({ ok: false, user: null });
+      return;
+    }
+    const profile = Object.assign({}, { resp });
+    profile.resp.access_token = '';
+    res.status(200).json({ ok: true, user: profile.resp });
   })
-);
-gitUserInfo('gjblanco')
-.then((userObj) => {
-  UserController.postUser(userObj);
-});
-
-gitUserInfo('cdcjj')
-.then((userObj) => {
-  UserController.postUser(userObj);
-});
-
-gitUserInfo('thor0688')
-.then((userObj) => {
-  UserController.postUser(userObj);
-});
-
-gitUserInfo('aalcott14')
-.then((userObj) => {
-  UserController.postUser(userObj);
-});
+  .catch((err) => {
+    res.status(200).json({ ok: false, err });
+  });
+};
 
 module.exports = {
   traversePages,
   gitUserRepos,
   getFourReposInfo,
   grabUserReposandSave,
+  grabUserInfo,
 };
