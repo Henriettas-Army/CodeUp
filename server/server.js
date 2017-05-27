@@ -32,6 +32,10 @@ app.get('/api/events', eventsRoute.getEvents);
 app.post('/api/events/delete', eventsRoute.deleteEvent);
 
 // Send the rest of the requests to React Router
+
+app.get('/loggedin', ()=> {
+
+})
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
