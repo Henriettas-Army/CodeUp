@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import GrommetApp from 'grommet/components/App';
 import Animate from 'grommet/components/Animate';
 import LoginComponent from './LoginComponent';
-import Events from './EventsList';
+import Nav from '../containers/Nav';
 import Profile from '../containers/Profile';
 
 const App = () => (
@@ -14,7 +14,7 @@ const App = () => (
     >
       <LoginComponent />
     </Animate>
-    {/* <Events /> */}
+    <Nav />
     <Profile />
   </GrommetApp>
 );

@@ -13,6 +13,8 @@ const auth = (state = {
         status: action.status,
       });
     case LOGOUT_USER:
+      window.localStorage.removeItem('token');
+      window.location.href = '/login'
       return Object.assign({}, state, {
         isAuthenticated: action.isAuthenticated,
         status: action.status,
