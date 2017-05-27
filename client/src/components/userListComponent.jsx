@@ -12,22 +12,24 @@ const UserList = ({ users }) => (
     {users.map(user =>
       (<Tile key={user._id} align={'start'}>
         <Card
+          thumbnail={user.img}
+          contentPad="small"
           label={user.status}
           heading={user.username}
           description={
             <Accordion>
-              <AccordionPanel heading={'User Info'}>
-                <Heading tag={'h3'}>Skills:</Heading>
+              <AccordionPanel heading={user.skills}>
+                <Heading tag={'h3'}>Location:</Heading>
                 <Paragraph>
-                  {user.skills}
+                  {user.location}
                 </Paragraph>
                 <Heading tag={'h3'}>Skills Developing:</Heading>
                 <Paragraph>
                   {user.desired}
                 </Paragraph>
-                <Heading tag={'h3'}>location:</Heading>
+                <Heading tag={'h3'}>About:</Heading>
                 <Paragraph>
-                  {user.location }
+                  {user.bio }
                 </Paragraph>
               </AccordionPanel>
             </Accordion>}
