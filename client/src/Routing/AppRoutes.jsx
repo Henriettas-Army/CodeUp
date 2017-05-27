@@ -24,7 +24,7 @@ const AppRoutes = () => (
     <Router history={hashHistory}>
       <div>
         <Route path="/login" component={Login} />
-        <Route exact path="/" component={App} />
+        <Route exact path="/" component={Login} />
         <Route path="/profile/:username" component={Profile} />
         <PrivateRoute path="/search" component={Search} />
         <PrivateRoute path="/events" component={Events} />

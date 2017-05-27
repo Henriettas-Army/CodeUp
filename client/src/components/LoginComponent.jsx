@@ -29,7 +29,7 @@ class LoginComponent extends Component {
         this.props.loginUser();
         console.log('AFTER STORAGE', this.props.isAuthenticated, this.props.status);
       }).then( () => {
-        window.location.href = `/${this.props.isAuthenticated}`;
+        window.location.href = `/profile/${this.props.isAuthenticated}`;
       });
     }
   }
