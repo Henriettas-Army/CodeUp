@@ -9,10 +9,10 @@ import Accordion from 'grommet/components/Accordion';
 import AccordionPanel from 'grommet/components/AccordionPanel';
 import Heading from 'grommet/components/Heading';
 import Timestamp from 'grommet/components/Timestamp';
-
+import Spinning from 'grommet/components/icons/Spinning';
 
 const EventsList = ({ events, status, deleteEvent }) => (<div>
-  {status === 'LOADING' && <p className="loading">Loading ...</p>}
+  {status === 'LOADING' && <p className="loading">Loading ...<Spinning /></p>}
   {status === 'ERROR' && <p className="error">Error loading or posting events ...</p>}
   {
     <Tiles fill flush={false}>

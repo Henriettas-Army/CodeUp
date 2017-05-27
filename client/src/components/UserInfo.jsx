@@ -1,27 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Layer from 'grommet/components/Layer';
-import Form from 'grommet/components/Form';
-import Header from 'grommet/components/Header';
-import Heading from 'grommet/components/Heading';
-import Footer from 'grommet/components/Footer';
-import Button from 'grommet/components/Button';
-import FormFields from 'grommet/components/FormFields';
 import Box from 'grommet/components/Box';
 import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
-import Edit from 'grommet/components/icons/base/Edit';
 import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
 import Split from 'grommet/components/Split';
+import Label from 'grommet/components/Label';
 import UserStatus from './UserStatus';
+import TechEditForm from './TechEditForm';
 
 const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editProfile }) => (
   <Section>
     {status === 'LOADING' &&
       <p className="loading">
-        Loading Profile...
-        <Spinning />
+        Loading Profile... <Spinning />
       </p>
     }
     {status === 'ERROR' && <p className="error">Error loading user profile</p>}
@@ -59,7 +52,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           margin={'small'}
           colorIndex={'light-1'}
         >
-          {profile.username === 'techmexdev' ?
+          {profile.username === currentUser ?
             <UserStatus
               user={profile.username}
               updateProfile={updateProfile}
@@ -73,6 +66,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
         priority={'left'}
         flex={'left'}
         showOnResponsive={'both'}
+        fixed={false}
       >
         <Box
           align={'start'}
@@ -80,18 +74,20 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           margin={'small'}
           colorIndex={'light-1'}
           textAlign={'left'}
+          flex
+          full={false}
         >
-          <p>Technical Skills: {profile.skills ? profile.skills.map(skill => (
-            <span>
-              <span>{` ${skill} | `}</span>
-            </span>
+          <p>
+            <Label>Technical Skills: </Label>
+            {profile.skills ? profile.skills.map((skill, key) => (
+              <span key={+key + 1} > {key > 0 ? ` |-|  ${skill} ` : skill }</span>
             )) : ' ' }
           </p>
-          <p>Learning: {profile.desired ? profile.skills.map(desired => (
-            <span>
-              <span>{` ${desired} | `}</span>
-            </span>
-          )) : ' ' }
+          <p>
+            <Label> Learning: </Label>
+            {profile.desired ? profile.desired.map((desired, key) => (
+              <span key={+key + 1}>{key > 0 ? `  |-|  ${desired} ` : desired }</span>
+            )) : ' ' }
           </p>
         </Box>
         <Box
@@ -100,18 +96,20 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           margin={'small'}
           colorIndex={'light-1'}
           textAlign={'left'}
+          flex
+          full={false}
         >
-          <Button
-            icon={<Edit />}
-            onClick={editProfile}
-            plain
-            critical={false}
-            accent={false}
-            secondary={false}
-            primary={false}
-            hoverIndicator={{ background: 'light-2' }}
-            size={'small'}
-          />
+          { profile.username === currentUser ?
+            <TechEditForm
+              user={currentUser}
+              updateProfile={updateProfile}
+              skills={profile.skills}
+              desired={profile.desired}
+              location={profile.location}
+              editProfile={editProfile}
+              editing={editing}
+            />
+          : ''}
         </Box>
       </Split>
     </Section>

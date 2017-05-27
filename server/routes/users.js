@@ -59,32 +59,21 @@ router.get('/list', (req, res) => {
   });
 });
 
-//get individual user profile
+// get individual user profile
 router.get('/:username', (req, res) => {
   Utils.grabUserInfo(req.params.username, req, res);
 });
 
 // update user profile
 router.put('/:username', (req, res) => {
-  console.log(req.body);
-  let data;
-  switch (req.body.typeUpdate) {
-    case 'skills':
-      data = { skills: req.body.data };
-      break;
-    case 'desired':
-      data = { desired: req.body.data };
-      break;
-    case 'status':
-      data = { status: req.body.data };
-      break;
-    default:
-      data = {};
-      break;
-  }
+  const body = req.body;
+  const data = {};
+  body.toUpdate.forEach((update) => {
+    data[update.typeUpdate] = update.data;
+  });
   UserController.updateUserInfo(req.params.username, data)
-  .then((resp) => {
-    res.status(200).json({ ok: true, user: resp });
+  .then(() => {
+    Utils.grabUserInfo(req.params.username, req, res);
   })
   .catch((err) => {
     res.status(200).json({ ok: false, err });

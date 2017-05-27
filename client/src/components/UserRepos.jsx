@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Spinning from 'grommet/components/icons/Spinning';
-// import Box from 'grommet/components//Box';
 import Tiles from 'grommet/components/Tiles';
 import Tile from 'grommet/components/Tile';
 import Card from 'grommet/components/Card';
@@ -20,21 +19,19 @@ const UserRepos = ({ repos, status, user }) => (
     }
     {status === 'ERROR' && <p className="error">Error loading user profile</p>}
     {status === 'READY' &&
-      <div>
+      <article>
         <h3>{repos && JSON.parse(repos[0]).stargazers_count > 0 ? 'Top Four Starred Repos' : 'Most Recently Pushed Repos'}</h3>
-
         <Tiles
-          fill={false}
+          fill
           flush={false}
-          // onMore={...}
           selectable
           size={'small'}
-          // onSelect={...}
         >
           {repos ? repos.map((repo, key) => (
             <Tile key={+key + 1}>
               <Card
-                heading={JSON.parse(repo).name}
+                heading={<h3>{JSON.parse(repo).name}</h3>}
+                size={'medium'}
                 description={<Paragraph>
                   {JSON.parse(repo).stargazers_count > 0 ?
                     <span>{JSON.parse(repo).stargazers_count } <StarIcon /></span>
@@ -47,7 +44,7 @@ const UserRepos = ({ repos, status, user }) => (
             </Tile>
           )) : ' ' }
         </Tiles>
-      </div>
+      </article>
     }
   </Section>
 );
