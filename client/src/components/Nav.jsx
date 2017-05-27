@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Header from 'grommet/components/Header';
 import Title from 'grommet/components/Title';
 import Box from 'grommet/components/Box';
@@ -9,9 +8,8 @@ import Menu from 'grommet/components/Menu';
 import UserSettingsIcon from 'grommet/components/icons/base/UserSettings';
 import InheritIcon from 'grommet/components/icons/base/Inherit';
 import Anchor from 'grommet/components/Anchor';
-import loginActions from '../../redux/actions/loginActions';
 
-const Nav = ({ logoutUser }) => (
+const Nav = props => (
   <Header
     fixed
     float
@@ -39,6 +37,7 @@ const Nav = ({ logoutUser }) => (
         size="medium"
         placeHolder="Search"
         dropAlign={{ right: 'right' }}
+        onDOMChange={(e)=>{ console.log(e.target.value); }}
       />
       <Anchor
         icon={<InheritIcon />}
@@ -60,7 +59,7 @@ const Nav = ({ logoutUser }) => (
           Profile
         </Anchor>
         <Anchor
-          onClick={logoutUser}
+          onClick={props.logoutUser}
         >
           Logout
         </Anchor>
@@ -73,17 +72,4 @@ Nav.propTypes = {
   logoutUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-const mapDispatchToProps = dispatch => ({
-  logoutUser: () => {
-    dispatch(loginActions.logoutUser('', 'Unavailable'));
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Nav);
+export default Nav;

@@ -3,11 +3,11 @@ import Tabs from 'grommet/components/Tabs';
 import Tab from 'grommet/components/Tab';
 import Events from '../containers/Events';
 import Users from '../containers/Users';
-import Nav from '../containers/Nav';
+import NavContainer from '../containers/NavContainer';
 
 const Explore = () => (
   <div>
-    <Nav />
+    <NavContainer />
     <br />
     <br />
     <br />
