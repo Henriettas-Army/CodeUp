@@ -39,7 +39,7 @@ const userSchema = new Schema({
     type: String,
   },
   meter: {
-    type: [Schema.Types.Mixed],
+    type: [String],
   }
 });
 

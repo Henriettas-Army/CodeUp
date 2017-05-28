@@ -34,8 +34,12 @@ const getUserInfo = username => (
   User.findOne({ username })
 );
 
-const postRepos = (username, fourRepos) => (
-  User.findOneAndUpdate({ username }, { repos: fourRepos })
+const postRepos = (username, fourRepos, languageArr) => (
+  User.findOneAndUpdate({ username }, { repos: fourRepos }, { meter: languageArr })
+  .then(() => {
+    console.log('FOUR REPOS:', fourRepos);
+    console.log('LANGUAGES:', languageArr);
+  })
 );
 
 const updateUserInfo = (username, data) => (

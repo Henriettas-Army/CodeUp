@@ -121,38 +121,39 @@ const getLanguageData = repo => (
   new Promise((resolve, reject) => {
     axios.get(repo.languages_url)
     .then((res) => {
-      resolve(res.data);
+      resolve(JSON.stringify(res.data));
+    })
+    .catch((err) => {
+      reject(err);
     });
   })
-  //   allRepos.map(repo => console.log)
-  // })
-  // .then((languages) => {
-  //   console.log(language);
-  // })
 );
 
 const grabUserReposandSave = (username, ghToken) => {
+  const languageArr = [];
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
       new Promise((resolve, reject) => {
-        const languageObj = [];
         for (let i = 0; i < allRepos.length; i += 1) {
           getLanguageData(allRepos[i])
           .then((res) => {
-            console.log('GETTING RESPONSE FROM GET LANGUAGE DATA', res);
-            languageObj.push(res);
-            console.log(languageObj);
+            languageArr.push(res);
+            resolve(languageArr);
+            console.log(languageArr);
           })
-          .then(() => {
-            resolve(languageObj);
+          .catch((err) => {
+            reject(err);
           });
+          // .then(() => {
+          //   // just move resolve to after for loop with no then statement
+          //   resolve(languageArr);
+          // });
         }
       })
       .then((resp) => {
-        console.log('respfrom getlanguage', resp);
+        const fourRepos = getFourReposInfo(allRepos);
+        UserController.postRepos(username, fourRepos, resp);
       });
-      const fourRepos = getFourReposInfo(allRepos);
-      UserController.postRepos(username, fourRepos);
     })
     .catch((error) => {
       console.log('Error grabbing user repos ', error);
