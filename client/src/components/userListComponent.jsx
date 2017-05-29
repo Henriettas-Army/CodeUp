@@ -31,7 +31,7 @@ const UserList = ({ users }) => (
                 <Paragraph>
                   {user.location.length > 0 ? user.location.join(', ') : 'N/A'}
                 </Paragraph>
-                <Heading tag={'h3'}>Skills Developing:</Heading>
+                <Heading tag={'h3'}>Skills in Development:</Heading>
                 <Paragraph>
                   {user.desired.join('  |  ')}
                 </Paragraph>

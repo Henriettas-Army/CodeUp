@@ -33,7 +33,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
               updateProfile={updateProfile}
               status={profile.status}
             />
-            : <h4>Status: {profile.status}</h4>
+            : <h4>Status: <br /> {profile.status}</h4>
           }
         </Box>
       </Columns>
@@ -41,15 +41,15 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
         <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
           <p>
             <Label>Technical Skills: </Label>
-            {profile.skills ? profile.skills.map((skill, key) => (
+            {profile.skills && profile.skills.length > 0 ? profile.skills.map((skill, key) => (
               <span key={+key + 1} > {key > 0 ? ` |-|  ${skill} ` : skill }</span>
-            )) : ' ' }
+            )) : 'N/A' }
           </p>
           <p>
-            <Label> Learning: </Label>
-            {profile.desired ? profile.desired.map((desired, key) => (
+            <Label> Skills in Development: </Label>
+            {profile.desired && profile.desired.lenght > 0 ? profile.desired.map((desired, key) => (
               <span key={+key + 1}>{key > 0 ? `  |-|  ${desired} ` : desired }</span>
-            )) : ' ' }
+            )) : 'N/A' }
           </p>
         </Box>
         <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
