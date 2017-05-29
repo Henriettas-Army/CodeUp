@@ -10,10 +10,10 @@ class Users extends React.Component {
   }
   render() {
     const users = this.props.users;
-
+    const filtered = users.users.filter(user => (user.username !== this.props.isAuthenticated));
     return (
       <div>
-        <UserList users={users.users} />
+        <UserList users={filtered} isAuthenticated={this.props.isAuthenticated} />
       </div>
     );
   }
@@ -22,10 +22,16 @@ class Users extends React.Component {
 Users.propTypes = {
   users: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
   listUsers: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string,
+};
+
+Users.defaultProps = {
+  isAuthenticated: '',
 };
 
 const mapStateToProps = state => ({
   users: state.users,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({
