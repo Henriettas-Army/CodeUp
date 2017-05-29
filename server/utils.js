@@ -116,12 +116,33 @@ const getFourReposInfo = (allRepos) => {
   ));
 };
 
-const getLanguageData = repo => (
-  // new Promise((resolve, reject) => {
+const getLanguageData = (repo, ghToken) => (
   new Promise((resolve, reject) => {
-    axios.get(repo.languages_url)
+    // hardcoded access token
+    axios.get(repo.languages_url, { params: { access_token: ghToken }, config })
     .then((res) => {
-      resolve(JSON.stringify(res.data));
+      resolve(res.data);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  })
+);
+
+const asyncLanguageData = (allRepos, ghToken) => (
+  new Promise((resolve, reject) => {
+    const languageArr = [];
+    Promise.all(allRepos.map(repo => (
+      getLanguageData(repo, ghToken)
+      .then((res) => {
+        languageArr.push(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    )))
+    .then(() => {
+      resolve(languageArr);
     })
     .catch((err) => {
       reject(err);
@@ -130,29 +151,37 @@ const getLanguageData = repo => (
 );
 
 const grabUserReposandSave = (username, ghToken) => {
-  const languageArr = [];
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
       new Promise((resolve, reject) => {
-        for (let i = 0; i < allRepos.length; i += 1) {
-          getLanguageData(allRepos[i])
-          .then((res) => {
-            languageArr.push(res);
-            resolve(languageArr);
-            console.log(languageArr);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-          // .then(() => {
-          //   // just move resolve to after for loop with no then statement
-          //   resolve(languageArr);
-          // });
-        }
+        asyncLanguageData(allRepos, ghToken)
+        .then((languageArr) => {
+          resolve(languageArr);
+        })
+        .catch((err) => {
+          reject(err);
+        });
       })
-      .then((resp) => {
+      .then((languageArr) => {
+        const languageObj = {};
+        const languageData = [];
+        languageArr.forEach((repo) => {
+          for (const key in repo) {
+            if (languageObj[key]) {
+              languageObj[key] += repo[key];
+            } else {
+              languageObj[key] = repo[key];
+            }
+          }
+        });
+        for (const key in languageObj) {
+          const language = {};
+          language.label = key;
+          language.value = languageObj[key];
+          languageData.push(language);
+        }
         const fourRepos = getFourReposInfo(allRepos);
-        UserController.postRepos(username, fourRepos, resp);
+        UserController.postRepos(username, fourRepos, languageData);
       });
     })
     .catch((error) => {
