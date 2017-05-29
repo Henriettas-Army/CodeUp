@@ -43,7 +43,7 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
       <Anchor
         icon={<InheritIcon />}
         href="#"
-        path="/explore"
+        path="/ "
         className="active"
       />
       <Menu
