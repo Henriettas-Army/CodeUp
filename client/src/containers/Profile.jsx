@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import GrommetApp from 'grommet/components/App';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
 import profileActions from '../../redux/actions/profileActions';
+import '../styles/styles.scss';
 
 class Profile extends React.Component {
   componentDidMount() {
     // take username out of the url then get profile -- react router
     this.props.loadProfile(this.props.isAuthenticated);
+    this.props.loadProfile(this.props.match.params.username);
   }
   render() {
     const profile = this.props.profile;
@@ -18,22 +21,24 @@ class Profile extends React.Component {
     const editing = this.props.editing;
     const editProfile = this.props.editProfile;
     return (
-      <div>
-        <div> USER PROFILE </div>
-        <UserInfo
-          profile={profile}
-          status={status}
-          updateProfile={updateProfile}
-          currentUser={currentUser}
-          editing={editing}
-          editProfile={editProfile}
-        />
-        <UserRepos
-          repos={profile.repos}
-          status={status}
-          user={profile.username}
-        />
-      </div>
+      <GrommetApp>
+        <div>
+          <div> USER PROFILE </div>
+          <UserInfo
+            profile={profile}
+            status={status}
+            updateProfile={updateProfile}
+            currentUser={currentUser}
+            editing={editing}
+            editProfile={editProfile}
+          />
+          <UserRepos
+            repos={profile.repos}
+            status={status}
+            user={profile.username}
+          />
+        </div>
+      </GrommetApp>
     );
   }
 }
