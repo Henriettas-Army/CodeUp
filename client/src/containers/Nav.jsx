@@ -11,7 +11,7 @@ import InheritIcon from 'grommet/components/icons/base/Inherit';
 import Anchor from 'grommet/components/Anchor';
 import loginActions from '../../redux/actions/loginActions';
 
-const Nav = ({ logoutUser }) => (
+const Nav = ({ logoutUser, isAuthenticated }) => (
   <Header
     fixed
     float
@@ -54,7 +54,7 @@ const Nav = ({ logoutUser }) => (
       >
         <Anchor
           href="#"
-          path="/profile"
+          path={`/profile/${isAuthenticated}`}
           className="active"
         >
           Profile
@@ -71,6 +71,11 @@ const Nav = ({ logoutUser }) => (
 
 Nav.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string,
+};
+
+Nav.defaultProps = {
+  isAuthenticated: '',
 };
 
 const mapStateToProps = state => ({

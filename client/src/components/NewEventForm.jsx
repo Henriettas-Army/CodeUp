@@ -43,7 +43,7 @@ class NewEventForm extends React.Component {
           <DateTime
             name={'dateTime'}
             value={this.state.date}
-            onChange={(e) => { this.setState({ date: e }); }} 
+            onChange={(e) => { this.setState({ date: e }); }}
           />
         </FormField>
         <FormField label="...">
@@ -113,6 +113,7 @@ class NewEventForm extends React.Component {
 
 NewEventForm.propTypes = {
   createEvent: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default NewEventForm;
