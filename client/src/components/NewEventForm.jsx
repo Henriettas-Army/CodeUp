@@ -42,6 +42,14 @@ class NewEventForm extends React.Component {
       address,
     });
   }
+  // geocodeByAddress(address)
+  // .then((results) => getLatLng(results[0]))
+  // .then(({lat, lng}) => {
+  //   console.log('success', {lat, lng});
+  //   this.setState({geocodeResults: this.renderGeocodeSuccess(lat, lng),
+  //   loading: false,
+  //   });
+  // });
 
   render() {
     const createEvent = this.props.createEvent;
