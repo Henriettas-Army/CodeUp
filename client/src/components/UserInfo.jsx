@@ -73,7 +73,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           {profile.meter ?
             <AnnotatedMeter
               type="circle"
-              units={"bytes"}
+              units={'bytes'}
               series={profile.meter.sort((a, b) => b.value - a.value).slice(0, 8)}
               legend
             /> : ''}
