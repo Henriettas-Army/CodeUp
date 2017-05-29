@@ -1,11 +1,11 @@
-/* global describe it expect afterEach*/
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import nock from 'nock';
+/* global describe it expect */
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+// import nock from 'nock';
 import actions from '../redux/actions/profileActions';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+// const middlewares = [thunk];
+// const mockStore = configureMockStore(middlewares);
 
 describe('action creators', () => {
   it('should create an action to change status to loading', () => {
