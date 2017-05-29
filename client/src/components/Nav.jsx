@@ -38,6 +38,8 @@ const Nav = props => (
         placeHolder="Search"
         dropAlign={{ right: 'right' }}
         onDOMChange={(e)=>{ console.log(e.target.value); }}
+        suggestions={['lala', 'lolo', 'lili']}
+        dropAllign={'bottom'}
       />
       <Anchor
         icon={<InheritIcon />}

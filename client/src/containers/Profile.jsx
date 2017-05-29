@@ -8,7 +8,7 @@ import profileActions from '../../redux/actions/profileActions';
 class Profile extends React.Component {
   componentDidMount() {
     // take username out of the url then get profile -- react router
-    this.props.loadProfile('techmexdev');
+    this.props.loadProfile(this.props.isAuthenticated);
   }
   render() {
     const profile = this.props.profile;
