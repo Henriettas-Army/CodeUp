@@ -9,7 +9,7 @@ import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
 import CheckBox from 'grommet/components/CheckBox';
-
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 const EMPTY_FORM = {
   title: '',
@@ -26,10 +26,55 @@ class NewEventForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = EMPTY_FORM;
+    this.handleSelect = this.handleSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  handleSelect(address) {
+    this.setState({
+      address,
+      loading: true,
+    });
+  }
+
+  handleChange(address) {
+    this.setState({
+      address,
+    });
+  }
+  // geocodeByAddress(address)
+  // .then((results) => getLatLng(results[0]))
+  // .then(({lat, lng}) => {
+  //   console.log('success', {lat, lng});
+  //   this.setState({geocodeResults: this.renderGeocodeSuccess(lat, lng),
+  //   loading: false,
+  //   });
+  // });
 
   render() {
     const createEvent = this.props.createEvent;
+    const style = {
+      height: 100
+    };
+    const AutocompleteItem = ({ formattedSuggestion }) => (
+      <div className="Demo__suggestion-item">
+        <i className='fa fa-map-marker Demo__suggestion-icon'/>
+        <strong>{formattedSuggestion.mainText}</strong>{' '}
+        <small className="text-muted">{formattedSuggestion.secondaryText}</small>
+      </div>);
+
+    const inputProps = {
+      type: "text",
+      value: this.state.address,
+      onChange: this.handleChange,
+      onBlur: () => { console.log('Blur event!'); },
+      onFocus: () => { console.log('Focused!'); },
+      autoFocus: true,
+      placeholder: "Search Places",
+      name: 'Demo__input',
+      id: "my-input-id",
+    };
+
     return (
       <Form>
         <Heading align="center">Create Event</Heading>
@@ -66,13 +111,20 @@ class NewEventForm extends React.Component {
           />
         </FormField>
         <FormField>
-          <TextInput
+          <PlacesAutocomplete
+            onSelect={this.handleSelect}
+            autocompleteItem={AutocompleteItem}
+            onEnterKeyDown={this.handleSelect}
+            inputProps={inputProps}
+            style={style}
+          />
+          {/* <TextInput
             id={'location'}
             name={'location'}
             placeHolder={'location'}
             value={this.state.location}
             onDOMChange={e => this.setState({ location: e.target.value })}
-          />
+          /> */}
         </FormField>
         <FormField>
           <Select
