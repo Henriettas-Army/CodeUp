@@ -14,12 +14,12 @@ const config = {
 
 // if user has over 100 repos then traverse through remaining repos pages
 // with Github API
-// const traversePages = (page, remainingPages, repos, username, ghToken) => (
-const traversePages = (page, remainingPages, repos, username) => (
+// const traversePages = (page, remainingPages, repos, username) => (
+const traversePages = (page, remainingPages, repos, username, ghToken) => (
   new Promise((resolve, reject) => {
     axios.get(`https://api.github.com/users/${username}/repos`, {
       params: {
-        // access_token: ghToken,
+        access_token: ghToken,
         sort: 'pushed',
         direction: 'desc',
         page,
@@ -35,7 +35,7 @@ const traversePages = (page, remainingPages, repos, username) => (
       if (remainingPages > 0) {
         newPage = page + 1;
         nowRemainingPages = remainingPages - 1;
-        traversePages(newPage, nowRemainingPages, totalRepos, username)
+        traversePages(newPage, nowRemainingPages, totalRepos, username, ghToken)
         .then((recurseRepos) => {
           totalRepos = recurseRepos;
           resolve(totalRepos);
@@ -55,13 +55,13 @@ const traversePages = (page, remainingPages, repos, username) => (
 
 // grab all of user's repos
 // parameters should be (username, ghToken)
-// const gitUserRepos = (username, ghToken) => (
-const gitUserRepos = username => (
+// const gitUserRepos = username => (
+const gitUserRepos = (username, ghToken) => (
   new Promise((resolve, reject) => {
     let userRepos;
     axios.get(`https://api.github.com/users/${username}/repos`, {
       params: {
-        // access_token: ghToken,
+        access_token: ghToken,
         sort: 'pushed',
         direction: 'desc',
         page: 1,

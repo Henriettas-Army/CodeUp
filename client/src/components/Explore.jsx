@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Tabs from 'grommet/components/Tabs';
 import Tab from 'grommet/components/Tab';
+import loginActions from '../../redux/actions/loginActions';
 import Events from '../containers/Events';
 import Users from '../containers/Users';
 import Nav from '../containers/Nav';
-
 
 class Explore extends Component {
   componentWillMount() {
@@ -15,10 +16,8 @@ class Explore extends Component {
       const code = window.location.search.split('=')[1];
       axios.post('/api/users/login', { code })
       .then((token) => {
-        console.log('BEFORE STORAGE', this.props.isAuthenticated, this.props.status);
         window.localStorage.setItem('token', token.data);
         this.props.loginUser();
-        console.log('AFTER STORAGE', this.props.isAuthenticated, this.props.status);
       }).then(() => {
         window.location.href = `/${this.props.isAuthenticated}`;
       });
@@ -49,12 +48,25 @@ class Explore extends Component {
 Explore.propTypes = {
   loginUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string,
-  status: PropTypes.string,
 };
 
 Explore.defaultProps = {
   isAuthenticated: '',
-  status: 'Unavailable',
 };
 
-export default Explore;
+const mapStateToProps = state => (
+  ({
+    isAuthenticated: state.auth.isAuthenticated,
+  })
+);
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: (username) => {
+    dispatch(loginActions.loginUser(username));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Explore);
