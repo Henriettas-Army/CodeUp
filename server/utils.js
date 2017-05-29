@@ -118,7 +118,6 @@ const getFourReposInfo = (allRepos) => {
 
 const getLanguageData = (repo, ghToken) => (
   new Promise((resolve, reject) => {
-    // hardcoded access token
     axios.get(repo.languages_url, { params: { access_token: ghToken }, config })
     .then((res) => {
       resolve(res.data);

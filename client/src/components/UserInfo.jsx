@@ -70,11 +70,12 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           </p>
         </Box>
         <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
-          <AnnotatedMeter
-            type="circle"
-            series={[{ label: 'First', value: 20 }, { label: 'Second', value: 50 }]}
-            legend
-          />
+          {profile.meter ?
+            <AnnotatedMeter
+              type="circle"
+              series={profile.meter}
+              legend
+            /> : ''}
         </Box>
       </Columns>
       {/* </Split> */}
@@ -98,6 +99,7 @@ UserInfo.propTypes = {
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),
+    meter: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
 };
 

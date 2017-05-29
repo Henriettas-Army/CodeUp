@@ -59,6 +59,7 @@ Profile.propTypes = {
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),
+    meter: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
   match: PropTypes.shape({
     isExact: PropTypes.bool,
