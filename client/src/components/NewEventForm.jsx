@@ -9,7 +9,7 @@ import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
 import CheckBox from 'grommet/components/CheckBox';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 const EMPTY_FORM = {
   title: '',
@@ -53,12 +53,9 @@ class NewEventForm extends React.Component {
 
   render() {
     const createEvent = this.props.createEvent;
-    const style = {
-      height: 100
-    };
     const AutocompleteItem = ({ formattedSuggestion }) => (
       <div className="Demo__suggestion-item">
-        <i className='fa fa-map-marker Demo__suggestion-icon'/>
+        <i className="fa fa-map-marker Demo__suggestion-icon" />
         <strong>{formattedSuggestion.mainText}</strong>{' '}
         <small className="text-muted">{formattedSuggestion.secondaryText}</small>
       </div>);
@@ -116,15 +113,7 @@ class NewEventForm extends React.Component {
             autocompleteItem={AutocompleteItem}
             onEnterKeyDown={this.handleSelect}
             inputProps={inputProps}
-            style={style}
           />
-          {/* <TextInput
-            id={'location'}
-            name={'location'}
-            placeHolder={'location'}
-            value={this.state.location}
-            onDOMChange={e => this.setState({ location: e.target.value })}
-          /> */}
         </FormField>
         <FormField>
           <Select
