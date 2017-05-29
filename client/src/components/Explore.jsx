@@ -1,6 +1,7 @@
 /* global window */
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import Tabs from 'grommet/components/Tabs';
 import Tab from 'grommet/components/Tab';
 import Events from '../containers/Events';
@@ -18,7 +19,7 @@ class Explore extends Component {
         window.localStorage.setItem('token', token.data);
         this.props.loginUser();
         console.log('AFTER STORAGE', this.props.isAuthenticated, this.props.status);
-      }).then( () => {
+      }).then(() => {
         window.location.href = `/${this.props.isAuthenticated}`;
       });
     }
@@ -42,7 +43,18 @@ class Explore extends Component {
         </Tabs>
       </div>
     );
-  };
+  }
 }
+
+Explore.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string,
+  status: PropTypes.string,
+};
+
+Explore.defaultProps = {
+  isAuthenticated: '',
+  status: 'Unavailable',
+};
 
 export default Explore;

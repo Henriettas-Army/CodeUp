@@ -17,7 +17,7 @@ const UserRepos = ({ repos, status, user }) => (
       <article>
         <h3>{repos && JSON.parse(repos[0]).stargazers_count > 0 ? 'Top Four Starred Repos' : 'Most Recently Pushed Repos'}</h3>
         <Tiles fill flush={false} selectable size={'small'} >
-          {repos ? repos.map((repo, key) => (
+          {repos && repos.length > 0 ? repos.map((repo, key) => (
             <Tile key={+key + 1}>
               <Card
                 heading={<h3>{JSON.parse(repo).name}</h3>}
@@ -32,7 +32,7 @@ const UserRepos = ({ repos, status, user }) => (
                 link={<Anchor href={`https://github.com/${user}/${JSON.parse(repo).name}`} label="Link to repo" />}
               />
             </Tile>
-          )) : ' ' }
+          )) : 'No repos' }
         </Tiles>
       </article>
     }
