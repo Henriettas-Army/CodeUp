@@ -10,6 +10,8 @@ import '../styles/styles.scss';
 
 class Profile extends React.Component {
   componentDidMount() {
+    // take username out of the url then get profile -- react router
+    this.props.loadProfile(this.props.isAuthenticated);
     this.props.loadProfile(this.props.match.params.username);
   }
   render() {

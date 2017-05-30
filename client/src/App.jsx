@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import GrommetApp from 'grommet/components/App';
 
 import LoginComponent from './components/LoginComponent';
-import Nav from './containers/Nav';
+import NavContainer from './containers/NavContainer';
 import Events from './containers/Events';
 import Profile from './containers/Profile';
 import UserList from './containers/Users';
@@ -11,7 +11,7 @@ import UserList from './containers/Users';
 const App = () => (
   <GrommetApp>
     <LoginComponent />
-    <Nav />
+    <NavContainer />
     <UserList />
     <Events />
     <Profile />

@@ -21,7 +21,7 @@ class Events extends React.Component {
   }
 
   render() {
-    const events = this.props.events;
+    const events = this.props.events.filter(e => e.title.includes(this.props.searchQuery));
     const status = this.props.status;
     const createEvent = this.props.createEvent;
     const deleteEvent = this.props.deleteEvent;
@@ -65,6 +65,7 @@ Events.propTypes = {
 
 const mapStateToProps = state => ({
   events: state.events.events,
+  searchQuery: state.search.searchQuery,
   status: state.events.status,
   isAuthenticated: state.auth.isAuthenticated,
 });

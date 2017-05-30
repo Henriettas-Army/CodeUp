@@ -22,7 +22,7 @@ const AppRoutes = () => (
   <Provider store={store}>
     <Router history={hashHistory}>
       <div>
-        <Route path="/login" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Explore} />
         <Route path="/profile/:username" component={Profile} />
         <PrivateRoute path="/events" component={Events} />

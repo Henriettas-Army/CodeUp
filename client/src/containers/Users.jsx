@@ -5,15 +5,14 @@ import UserList from '../components/userListComponent';
 import userAction from '../../redux/actions/userListAction';
 
 class Users extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.listUsers();
   }
   render() {
-    const users = this.props.users;
-    const filtered = users.users.filter(user => (user.username !== this.props.isAuthenticated));
+    const users = this.props.users.users.filter(u => u.username.includes(this.props.searchQuery));
     return (
       <div>
-        <UserList users={filtered} isAuthenticated={this.props.isAuthenticated} />
+        <UserList users={users} />
       </div>
     );
   }
@@ -21,17 +20,12 @@ class Users extends React.Component {
 
 Users.propTypes = {
   users: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
-  listUsers: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.string,
-};
-
-Users.defaultProps = {
-  isAuthenticated: '',
+  searchQuery: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   users: state.users,
-  isAuthenticated: state.auth.isAuthenticated,
+  searchQuery: state.search.searchQuery,
 });
 
 const mapDispatchToProps = dispatch => ({
