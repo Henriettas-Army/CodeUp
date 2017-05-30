@@ -71,7 +71,6 @@ class NewEventForm extends React.Component {
             placeHolder={'Select estimated duration'}
             inline={false}
             multiple={false}
-            onSearch={false}
             options={['Less than 1 hour', '1-2 hours', '2-3 hours', 'More than 3 hours']}
             value={this.state.duration}
             onChange={(e) => { this.setState({ duration: e }); }}

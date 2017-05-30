@@ -23,7 +23,7 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
             heading={evt.title}
             description={
               <Accordion>
-                <AccordionPanel heading={'Description'}>
+                <AccordionPanel heading={`Topics: ${evt.topics.join(', ')}`}>
                   <Paragraph>
                     {evt.description || 'No description provided for this event'}
                   </Paragraph>
