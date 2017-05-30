@@ -10,7 +10,12 @@ class Users extends React.Component {
   }
   render() {
     let users = this.props.users.users;
-    users = users.filter(u => u.username.includes(this.props.searchQuery));
+    users = users.filter(u =>
+      u.username.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(u.meter).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(u.location).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(u.skills).toLowerCase().includes(this.props.searchQuery.toLowerCase())
+    );
     return (
       <div>
         <UserList users={users} />
