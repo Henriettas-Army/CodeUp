@@ -72,7 +72,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           </Section>
         </Box>
         <Box align={'center'} colorIndex={'light-1'} textAlign={'center'} flex full={false} >
-          <p>
+          <Section>
             <Label>Top 5 Languages</Label>
             {profile.meter ?
               <AnnotatedMeter
@@ -82,7 +82,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
                 legend
               /> : ''
             }
-          </p>
+          </Section>
         </Box>
       </Columns>
     </Section>
