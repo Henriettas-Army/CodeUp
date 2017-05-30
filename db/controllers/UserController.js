@@ -35,7 +35,15 @@ const getUserInfo = username => (
 );
 
 const postRepos = (username, fourRepos, languageData) => (
+  // console.log('IN POST REPOS:', fourRepos, languageData);
   User.findOneAndUpdate({ username }, { repos: fourRepos, meter: languageData })
+  // .then((resp) => {
+  //   console.log(resp);
+  //   getUserInfo(username)
+  //   .then((user) => {
+  //     console.log(user);
+  //   });
+  // });
 );
 
 const updateUserInfo = (username, data) => (

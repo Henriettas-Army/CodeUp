@@ -12,11 +12,9 @@ const SECRET = GITHUB_API.CLIENT_SECRET;
 
 router.post('/login', (req, res) => {
   const CODE = req.body.code;
-  console.log('CODE==================>', CODE);
   axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://localhost:3034/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
   .then((response) => {
     const TOKEN = response.data.split('&')[0].split('=')[1];
-    console.log('ACCESS TOKEN================>', TOKEN);
     axios(`https://api.github.com/user?access_token=${TOKEN}`)
     .then((resp) => {
       const token = jwt.encode(resp.data.login, 'secret');
