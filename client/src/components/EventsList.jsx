@@ -19,7 +19,7 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
       {events.map(evt =>
         (<Tile key={evt._id} align={'start'}>
           <Card
-            label={evt.username ? <span>Created by <a>evt.username</a></span> : undefined}
+            label={evt.username ? <span>Created by <a>{evt.username}</a></span> : undefined}
             heading={evt.title}
             description={
               <Accordion>
@@ -27,9 +27,17 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
                   <Paragraph>
                     {evt.description || 'No description provided for this event'}
                   </Paragraph>
+                  <Heading tag={'h3'}>Topics</Heading>
+                  <Paragraph>
+                    {evt.topics ? evt.topics.join(', ') : 'No topics provided for this event'}
+                  </Paragraph>
                   <Heading tag={'h3'}>When?</Heading>
                   <Paragraph>
                     {<Timestamp value={evt.date} /> || 'No date provided for this event'}
+                  </Paragraph>
+                  <Heading tag={'h3'}>Where?</Heading>
+                  <Paragraph>
+                    {evt.location || 'No locationg provided for this event'}
                   </Paragraph>
                   <Heading tag={'h3'}>Estimated Duration</Heading>
                   <Paragraph>
