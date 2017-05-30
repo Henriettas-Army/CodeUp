@@ -11,7 +11,7 @@ import Heading from 'grommet/components/Heading';
 import Timestamp from 'grommet/components/Timestamp';
 import Spinning from 'grommet/components/icons/Spinning';
 
-const EventsList = ({ events, status, deleteEvent }) => (<div>
+const EventsList = ({ events, status, deleteEvent, isAuthenticated }) => (<div>
   {status === 'LOADING' && <p className="loading">Loading ...<Spinning /></p>}
   {status === 'ERROR' && <p className="error">Error loading or posting events ...</p>}
   {
@@ -45,13 +45,16 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
                   </Paragraph>
                 </AccordionPanel>
               </Accordion>}
-            link={<Anchor
-              onClick={(e) => {
-                e.preventDefault();
-                deleteEvent(evt._id);
-              }}
-              label={'delete this event'}
-            />}
+            link={evt.username === isAuthenticated ?
+              <Anchor
+                onClick={(e) => {
+                  e.preventDefault();
+                  deleteEvent(evt._id);
+                }}
+                label={'Delete this event'}
+              /> :
+              ''
+            }
           />
         </Tile>)
       )}
@@ -63,6 +66,7 @@ EventsList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
   deleteEvent: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string.isRequired,
 };
 
 export default EventsList;
