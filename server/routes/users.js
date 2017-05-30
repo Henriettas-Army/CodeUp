@@ -50,10 +50,11 @@ router.post('/login', (req, res) => {
 router.get('/list', (req, res) => {
   UserController.getAllUsers()
   .then((data) => {
-    res.status(200).json({ status: 'good', users: data });
+    const usersData = data.filter(user => user.username !== req.query.username);
+    res.status(200).json({ status: true, users: usersData });
   })
   .catch((err) => {
-    res.json({ status: 'error', error: err });
+    res.json({ status: false, error: err });
   });
 });
 
