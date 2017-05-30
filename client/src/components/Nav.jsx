@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import Header from 'grommet/components/Header';
 import Title from 'grommet/components/Title';
 import Box from 'grommet/components/Box';
-import Search from 'grommet/components/Search';
 import Menu from 'grommet/components/Menu';
 import UserSettingsIcon from 'grommet/components/icons/base/UserSettings';
 import InheritIcon from 'grommet/components/icons/base/Inherit';
 import Anchor from 'grommet/components/Anchor';
+import SearchContainer from '../containers/SearchContainer';
 
-const Nav = ({ logoutUser, isAuthenticated }) => (
+const Nav = props => (
   <Header
     fixed
     float
@@ -31,20 +31,11 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
       direction="row"
       responsive={false}
     >
-      <Search
-        inline
-        fill
-        size="medium"
-        placeHolder="Search"
-        dropAlign={{ right: 'right' }}
-        onDOMChange={(e)=>{ console.log(e.target.value); }}
-        suggestions={['lala', 'lolo', 'lili']}
-        dropAllign={'bottom'}
-      />
+      <SearchContainer />
       <Anchor
         icon={<InheritIcon />}
         href="#"
-        path="/"
+        path="/explore"
         className="active"
       />
       <Menu
@@ -55,13 +46,13 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
       >
         <Anchor
           href="#"
-          path={`/profile/${isAuthenticated}`}
+          path="/profile"
           className="active"
         >
           Profile
         </Anchor>
         <Anchor
-          onClick={logoutUser}
+          onClick={props.logoutUser}
         >
           Logout
         </Anchor>
@@ -72,11 +63,6 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
 
 Nav.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.string,
-};
-
-Nav.defaultProps = {
-  isAuthenticated: '',
 };
 
 export default Nav;
