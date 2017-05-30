@@ -26,21 +26,6 @@ class NewEventForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = EMPTY_FORM;
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleSelect(address) {
-    this.setState({
-      address,
-      loading: true,
-    });
-  }
-
-  handleChange(address) {
-    this.setState({
-      address,
-    });
   }
   // geocodeByAddress(address)
   // .then((results) => getLatLng(results[0]))
@@ -109,10 +94,10 @@ class NewEventForm extends React.Component {
         </FormField>
         <FormField>
           <PlacesAutocomplete
-            onSelect={this.handleSelect}
             autocompleteItem={AutocompleteItem}
-            onEnterKeyDown={this.handleSelect}
             inputProps={inputProps}
+            value={this.state.location}
+            onChange={e => this.setState({ location: e.target.value })}
           />
         </FormField>
         <FormField>
