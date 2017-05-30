@@ -53,7 +53,7 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated }) => (<div>
                 }}
                 label={'Delete this event'}
               /> :
-              ''
+              null
             }
           />
         </Tile>)

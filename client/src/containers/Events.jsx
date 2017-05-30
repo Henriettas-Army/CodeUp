@@ -21,7 +21,13 @@ class Events extends React.Component {
   }
 
   render() {
-    const events = this.props.events.filter(e => e.title.includes(this.props.searchQuery));
+    const events = this.props.events.filter(e =>
+      e.title.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      e.username.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      e.description.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(e.location).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(e.topics).toLowerCase().includes(this.props.searchQuery.toLowerCase())
+    );
     const status = this.props.status;
     const createEvent = this.props.createEvent;
     const deleteEvent = this.props.deleteEvent;
@@ -67,7 +73,7 @@ Events.propTypes = {
   loadEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
-  searchQuery: PropTypes.isRequired,
+  searchQuery: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
