@@ -67,7 +67,7 @@ Events.propTypes = {
   loadEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
-  searchQuery: PropTypes.isRequired,
+  searchQuery: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
