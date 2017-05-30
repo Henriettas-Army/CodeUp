@@ -166,7 +166,6 @@ const grabUserReposandSave = (username, ghToken) => {
         const languageData = [];
         languageArr.forEach((repo) => {
           const keys = Object.keys(repo);
-          console.log('KEYS', keys);
           for (let i = 0; i < keys.length; i += 1) {
             if (languageObj[keys[i]]) {
               languageObj[keys[i]] += repo[keys[i]];
@@ -182,7 +181,6 @@ const grabUserReposandSave = (username, ghToken) => {
           language.value = languageObj[keys[i]];
           languageData.push(language);
         }
-        console.log('LANGUAGE DATA:', languageData);
         const fourRepos = getFourReposInfo(allRepos);
         UserController.postRepos(username, fourRepos, languageData);
       });
