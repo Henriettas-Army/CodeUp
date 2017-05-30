@@ -59,6 +59,7 @@
     "express": "^4.15.3",
     "github-pagination": "^0.1.0",
     "grommet": "^1.4.0",
+    "grommet-addons": "^0.3.0",
     "jsonwebtoken": "^7.4.1",
     "jwt-decode": "^2.2.0",
     "jwt-simple": "^0.5.1",
