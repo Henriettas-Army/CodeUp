@@ -116,11 +116,76 @@ const getFourReposInfo = (allRepos) => {
   ));
 };
 
+const getLanguageData = (repo, ghToken) => (
+  new Promise((resolve, reject) => {
+    axios.get(repo.languages_url, { params: { access_token: ghToken }, config })
+    .then((res) => {
+      resolve(res.data);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  })
+);
+
+const asyncLanguageData = (allRepos, ghToken) => (
+  new Promise((resolve, reject) => {
+    const languageArr = [];
+    Promise.all(allRepos.map(repo => (
+      getLanguageData(repo, ghToken)
+      .then((res) => {
+        languageArr.push(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    )))
+    .then(() => {
+      resolve(languageArr);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  })
+);
+
 const grabUserReposandSave = (username, ghToken) => {
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
-      const fourRepos = getFourReposInfo(allRepos);
-      UserController.postRepos(username, fourRepos);
+      new Promise((resolve, reject) => {
+        asyncLanguageData(allRepos, ghToken)
+        .then((languageArr) => {
+          resolve(languageArr);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+      })
+      .then((languageArr) => {
+        const languageObj = {};
+        const languageData = [];
+        languageArr.forEach((repo) => {
+          const keys = Object.keys(repo);
+          console.log('KEYS', keys);
+          for (let i = 0; i < keys.length; i += 1) {
+            if (languageObj[keys[i]]) {
+              languageObj[keys[i]] += repo[keys[i]];
+            } else {
+              languageObj[keys[i]] = repo[keys[i]];
+            }
+          }
+        });
+        const keys = Object.keys(languageObj);
+        for (let i = 0; i < keys.length; i += 1) {
+          const language = {};
+          language.label = keys[i];
+          language.value = languageObj[keys[i]];
+          languageData.push(language);
+        }
+        console.log('LANGUAGE DATA:', languageData);
+        const fourRepos = getFourReposInfo(allRepos);
+        UserController.postRepos(username, fourRepos, languageData);
+      });
     })
     .catch((error) => {
       console.log('Error grabbing user repos ', error);

@@ -5,7 +5,8 @@ import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
 import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
-import Split from 'grommet/components/Split';
+import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
+// import Split from 'grommet/components/Split';
 import Label from 'grommet/components/Label';
 import UserStatus from './UserStatus';
 import TechEditForm from './TechEditForm';
@@ -37,7 +38,8 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           }
         </Box>
       </Columns>
-      <Split priority={'left'} flex={'left'} showOnResponsive={'both'} fixed={false} >
+      {/* <Split priority={'left'} flex={'left'} showOnResponsive={'both'} fixed={false} > */}
+      <Columns maxCount={3} size={'medium'} justify={'start'} >
         <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
           <p>
             <Label>Technical Skills: </Label>
@@ -47,25 +49,37 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           </p>
           <p>
             <Label> Skills in Development: </Label>
-            {profile.desired && profile.desired.lenght > 0 ? profile.desired.map((desired, key) => (
+            {profile.desired && profile.desired.length > 0 ? profile.desired.map((desired, key) => (
               <span key={+key + 1}>{key > 0 ? `  |-|  ${desired} ` : desired }</span>
             )) : 'N/A' }
           </p>
         </Box>
-        <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
-          { profile.username === currentUser ?
-            <TechEditForm
-              user={currentUser}
-              updateProfile={updateProfile}
-              skills={profile.skills}
-              desired={profile.desired}
-              location={profile.location}
-              editProfile={editProfile}
-              editing={editing}
-            />
-          : ''}
+        <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
+          <p>
+            { profile.username === currentUser ?
+              <TechEditForm
+                user={currentUser}
+                updateProfile={updateProfile}
+                skills={profile.skills}
+                desired={profile.desired}
+                location={profile.location}
+                editProfile={editProfile}
+                editing={editing}
+              />
+            : ''}
+          </p>
         </Box>
-      </Split>
+        <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
+          {profile.meter ?
+            <AnnotatedMeter
+              type="circle"
+              units={'bytes'}
+              series={profile.meter.sort((a, b) => b.value - a.value).slice(0, 8)}
+              legend
+            /> : ''}
+        </Box>
+      </Columns>
+      {/* </Split> */}
     </Section>
   }
   </Section>
@@ -86,6 +100,7 @@ UserInfo.propTypes = {
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),
+    meter: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
 };
 

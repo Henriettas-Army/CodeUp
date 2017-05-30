@@ -38,6 +38,9 @@ const userSchema = new Schema({
   access_token: {
     type: String,
   },
+  meter: {
+    type: [Schema.Types.Mixed],
+  }
 });
 
 const User = mongoose.model('user', userSchema);
