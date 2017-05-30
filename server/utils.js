@@ -182,7 +182,10 @@ const grabUserReposandSave = (username, ghToken) => {
           languageData.push(language);
         }
         const fourRepos = getFourReposInfo(allRepos);
-        UserController.postRepos(username, fourRepos, languageData);
+        UserController.postRepos(username, fourRepos, languageData)
+        .then((res) => {
+          console.log(res);
+        });
       });
     })
     .catch((error) => {
