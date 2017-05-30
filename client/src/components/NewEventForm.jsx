@@ -16,7 +16,8 @@ const EMPTY_FORM = {
   date: new Date(),
   description: '',
   duration: '',
-  location: '',
+  location: 'Austin, Tx',
+  geocodeResults: null,
   topics: '',
   private: false,
 };
@@ -26,15 +27,21 @@ class NewEventForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = EMPTY_FORM;
+    this.handleSelect = this.handleSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-  // geocodeByAddress(address)
-  // .then((results) => getLatLng(results[0]))
-  // .then(({lat, lng}) => {
-  //   console.log('success', {lat, lng});
-  //   this.setState({geocodeResults: this.renderGeocodeSuccess(lat, lng),
-  //   loading: false,
-  //   });
-  // });
+
+  handleSelect(address) {
+    this.setState({
+      location: address,
+    });
+  }
+
+  handleChange(address) {
+    this.setState({
+      address,
+    });
+  }
 
   render() {
     const createEvent = this.props.createEvent;
@@ -46,15 +53,15 @@ class NewEventForm extends React.Component {
       </div>);
 
     const inputProps = {
-      type: "text",
+      type: 'text',
       value: this.state.address,
       onChange: this.handleChange,
       onBlur: () => { console.log('Blur event!'); },
       onFocus: () => { console.log('Focused!'); },
       autoFocus: true,
-      placeholder: "Search Places",
+      placeholder: 'Search Places',
       name: 'Demo__input',
-      id: "my-input-id",
+      id: 'my-input-id',
     };
 
     return (
@@ -94,6 +101,8 @@ class NewEventForm extends React.Component {
         </FormField>
         <FormField>
           <PlacesAutocomplete
+            onSelect={this.handleSelect}
+            onEnterKeyDown={this.handleSelect}
             autocompleteItem={AutocompleteItem}
             inputProps={inputProps}
             value={this.state.location}
