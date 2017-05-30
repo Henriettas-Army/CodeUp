@@ -9,7 +9,7 @@ import InheritIcon from 'grommet/components/icons/base/Inherit';
 import Anchor from 'grommet/components/Anchor';
 import SearchContainer from '../containers/SearchContainer';
 
-const Nav = props => (
+const Nav = ({ logoutUser, isAuthenticated }) => (
   <Header
     fixed
     float
@@ -46,13 +46,13 @@ const Nav = props => (
       >
         <Anchor
           href="#"
-          path={`/profile/${props.isAuthenticated}`}
+          path={`/profile/${isAuthenticated}`}
           className="active"
         >
           Profile
         </Anchor>
         <Anchor
-          onClick={props.logoutUser}
+          onClick={logoutUser}
         >
           Logout
         </Anchor>

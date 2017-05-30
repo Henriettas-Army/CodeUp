@@ -1,8 +1,11 @@
 /* global window */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Tabs from '../components/Tabs';
 import NavContainer from '../containers/NavContainer';
+import loginActions from '../../redux/actions/loginActions';
 
 class Explore extends Component {
   componentWillMount() {
@@ -33,5 +36,28 @@ class Explore extends Component {
     );
   }
 }
+Explore.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string,
+};
 
-export default Explore;
+Explore.defaultProps = {
+  isAuthenticated: '',
+};
+
+const mapStateToProps = state => (
+  ({
+    isAuthenticated: state.auth.isAuthenticated,
+  })
+);
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: (username) => {
+    dispatch(loginActions.loginUser(username));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Explore);
