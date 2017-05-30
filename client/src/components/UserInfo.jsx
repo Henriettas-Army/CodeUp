@@ -67,14 +67,18 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
             : ''}
           </Section>
         </Box>
-        <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
-          {profile.meter ?
-            <AnnotatedMeter
-              type="circle"
-              units={'bytes'}
-              series={profile.meter.sort((a, b) => b.value - a.value).slice(0, 8)}
-              legend
-            /> : ''}
+        <Box align={'center'} colorIndex={'light-1'} textAlign={'center'} flex full={false} >
+          <p>
+            <Label>Top 5 Languages</Label>
+            {profile.meter ?
+              <AnnotatedMeter
+                type={'circle'}
+                units={'%'}
+                series={profile.meter.sort((a, b) => b.value - a.value).slice(0, 5)}
+                legend
+              /> : ''
+            }
+          </p>
         </Box>
       </Columns>
     </Section>

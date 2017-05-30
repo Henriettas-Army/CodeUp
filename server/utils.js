@@ -164,13 +164,16 @@ const grabUserReposandSave = (username, ghToken) => {
       .then((languageArr) => {
         const languageObj = {};
         const languageData = [];
+        let byteCount = 0;
         languageArr.forEach((repo) => {
           const keys = Object.keys(repo);
           for (let i = 0; i < keys.length; i += 1) {
             if (languageObj[keys[i]]) {
               languageObj[keys[i]] += repo[keys[i]];
+              byteCount += repo[keys[i]];
             } else {
               languageObj[keys[i]] = repo[keys[i]];
+              byteCount += repo[keys[i]];
             }
           }
         });
@@ -178,7 +181,7 @@ const grabUserReposandSave = (username, ghToken) => {
         for (let i = 0; i < keys.length; i += 1) {
           const language = {};
           language.label = keys[i];
-          language.value = languageObj[keys[i]];
+          language.value = Math.round((languageObj[keys[i]] / byteCount) * 100);
           languageData.push(language);
         }
         const fourRepos = getFourReposInfo(allRepos);
