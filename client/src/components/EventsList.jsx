@@ -19,7 +19,7 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
       {events.map(evt =>
         (<Tile key={evt._id} align={'start'}>
           <Card
-            label={evt.username ? <span>Created by <a>{evt.username}</a></span> : undefined}
+            label={evt.username ? <span>Created by <a href={`/profile/${evt.username}`}>{evt.username}</a></span> : undefined}
             heading={evt.title}
             description={
               <Accordion>
