@@ -25,6 +25,7 @@ class Events extends React.Component {
     const status = this.props.status;
     const createEvent = this.props.createEvent;
     const deleteEvent = this.props.deleteEvent;
+    const isAuthenticated = this.props.isAuthenticated;
 
     return (
       <div>
@@ -43,12 +44,17 @@ class Events extends React.Component {
             <NewEventForm
               createEvent={createEvent}
               onSubmit={() => { this.setState({ showForm: false }); }}
-              isAuthenticated={this.props.isAuthenticated}
+              isAuthenticated={isAuthenticated}
             />
           </Layer>
         }
 
-        <EventsList events={events} status={status} deleteEvent={deleteEvent} />
+        <EventsList
+          events={events}
+          status={status}
+          deleteEvent={deleteEvent}
+          isAuthenticated={isAuthenticated}
+        />
       </div>
     );
   }

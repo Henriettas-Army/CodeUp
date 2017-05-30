@@ -6,6 +6,11 @@ module.exports = {
     return newEvt.save();
   },
 
-  getEvents: () => Event.find({}),
+  getEvents: () => {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return Event.find({ date: { $gte: yesterday } });
+  },
+
   deleteEvent: id => Event.remove({ _id: id }),
 };
