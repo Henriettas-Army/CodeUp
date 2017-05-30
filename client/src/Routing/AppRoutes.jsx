@@ -13,7 +13,7 @@ import codeUpApp from '../../redux/reducers/combineReducers';
 import Login from '../components/LoginComponent';
 import Events from '../containers/Events';
 import Profile from '../containers/Profile';
-import Explore from '../components/Explore';
+import Explore from '../containers/Explore';
 import '../styles/styles.scss';
 
 const store = createStore(codeUpApp, composeWithDevTools(applyMiddleware(thunkMiddleware)));
