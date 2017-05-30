@@ -24,6 +24,9 @@ const LoginComponent = () => (
     <div className="welcome" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <p style={{ fontSize: '80px' }}>Welcome to</p><br />
       <p style={style}>codeUp</p><br />
+      <p style={{ textAlign: 'center' }}>
+        Find someone to code with, attend events, and get involved with the coding community
+      </p>
       <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user,repo`}>
         <SocialGithubIcon
           size={'xlarge'}
