@@ -14,12 +14,12 @@ const config = {
 
 // if user has over 100 repos then traverse through remaining repos pages
 // with Github API
-// const traversePages = (page, remainingPages, repos, username, ghToken) => (
-const traversePages = (page, remainingPages, repos, username) => (
+// const traversePages = (page, remainingPages, repos, username) => (
+const traversePages = (page, remainingPages, repos, username, ghToken) => (
   new Promise((resolve, reject) => {
     axios.get(`https://api.github.com/users/${username}/repos`, {
       params: {
-        // access_token: ghToken,
+        access_token: ghToken,
         sort: 'pushed',
         direction: 'desc',
         page,
@@ -35,7 +35,7 @@ const traversePages = (page, remainingPages, repos, username) => (
       if (remainingPages > 0) {
         newPage = page + 1;
         nowRemainingPages = remainingPages - 1;
-        traversePages(newPage, nowRemainingPages, totalRepos, username)
+        traversePages(newPage, nowRemainingPages, totalRepos, username, ghToken)
         .then((recurseRepos) => {
           totalRepos = recurseRepos;
           resolve(totalRepos);
@@ -55,13 +55,13 @@ const traversePages = (page, remainingPages, repos, username) => (
 
 // grab all of user's repos
 // parameters should be (username, ghToken)
-// const gitUserRepos = (username, ghToken) => (
-const gitUserRepos = username => (
+// const gitUserRepos = username => (
+const gitUserRepos = (username, ghToken) => (
   new Promise((resolve, reject) => {
     let userRepos;
     axios.get(`https://api.github.com/users/${username}/repos`, {
       params: {
-        // access_token: ghToken,
+        access_token: ghToken,
         sort: 'pushed',
         direction: 'desc',
         page: 1,
@@ -116,11 +116,77 @@ const getFourReposInfo = (allRepos) => {
   ));
 };
 
+const getLanguageData = (repo, ghToken) => (
+  new Promise((resolve, reject) => {
+    axios.get(repo.languages_url, { params: { access_token: ghToken }, config })
+    .then((res) => {
+      resolve(res.data);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  })
+);
+
+const asyncLanguageData = (allRepos, ghToken) => (
+  new Promise((resolve, reject) => {
+    const languageArr = [];
+    Promise.all(allRepos.map(repo => (
+      getLanguageData(repo, ghToken)
+      .then((res) => {
+        languageArr.push(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    )))
+    .then(() => {
+      resolve(languageArr);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  })
+);
+
 const grabUserReposandSave = (username, ghToken) => {
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
-      const fourRepos = getFourReposInfo(allRepos);
-      UserController.postRepos(username, fourRepos);
+      new Promise((resolve, reject) => {
+        asyncLanguageData(allRepos, ghToken)
+        .then((languageArr) => {
+          resolve(languageArr);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+      })
+      .then((languageArr) => {
+        const languageObj = {};
+        const languageData = [];
+        languageArr.forEach((repo) => {
+          const keys = Object.keys(repo);
+          for (let i = 0; i < keys.length; i += 1) {
+            if (languageObj[keys[i]]) {
+              languageObj[keys[i]] += repo[keys[i]];
+            } else {
+              languageObj[keys[i]] = repo[keys[i]];
+            }
+          }
+        });
+        const keys = Object.keys(languageObj);
+        for (let i = 0; i < keys.length; i += 1) {
+          const language = {};
+          language.label = keys[i];
+          language.value = languageObj[keys[i]];
+          languageData.push(language);
+        }
+        const fourRepos = getFourReposInfo(allRepos);
+        UserController.postRepos(username, fourRepos, languageData)
+        .then((res) => {
+          console.log(res);
+        });
+      });
     })
     .catch((error) => {
       console.log('Error grabbing user repos ', error);

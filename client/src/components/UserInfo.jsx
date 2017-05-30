@@ -5,7 +5,7 @@ import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
 import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
-import Split from 'grommet/components/Split';
+import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
 import Label from 'grommet/components/Label';
 import UserStatus from './UserStatus';
 import TechEditForm from './TechEditForm';
@@ -33,39 +33,50 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
               updateProfile={updateProfile}
               status={profile.status}
             />
-            : <h4>Status: {profile.status}</h4>
+            : <h4>Status: <br /> {profile.status}</h4>
           }
         </Box>
       </Columns>
-      <Split priority={'left'} flex={'left'} showOnResponsive={'both'} fixed={false} >
+      <Columns maxCount={3} size={'medium'} justify={'start'} >
         <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
           <p>
-            <Label>Technical Skills: </Label>
-            {profile.skills ? profile.skills.map((skill, key) => (
-              <span key={+key + 1} > {key > 0 ? ` |-|  ${skill} ` : skill }</span>
-            )) : ' ' }
+            <Label>Technical Skills: </Label><br />
+            {profile.skills && profile.skills.length > 0 ? profile.skills.map((skill, key) => (
+              <span key={+key + 1} > {key > 0 ? `, ${skill}` : skill }</span>
+            )) : 'N/A' }
           </p>
           <p>
-            <Label> Learning: </Label>
-            {profile.desired ? profile.desired.map((desired, key) => (
-              <span key={+key + 1}>{key > 0 ? `  |-|  ${desired} ` : desired }</span>
-            )) : ' ' }
+            <Label> Skills in Development: </Label><br />
+            {profile.desired && profile.desired.length > 0 ? profile.desired.map((desired, key) => (
+              <span key={+key + 1}>{key > 0 ? `, ${desired}` : desired }</span>
+            )) : 'N/A' }
           </p>
         </Box>
-        <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
-          { profile.username === currentUser ?
-            <TechEditForm
-              user={currentUser}
-              updateProfile={updateProfile}
-              skills={profile.skills}
-              desired={profile.desired}
-              location={profile.location}
-              editProfile={editProfile}
-              editing={editing}
-            />
-          : ''}
+        <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
+          <Section>
+            { profile.username === currentUser ?
+              <TechEditForm
+                user={currentUser}
+                updateProfile={updateProfile}
+                skills={profile.skills}
+                desired={profile.desired}
+                location={profile.location}
+                editProfile={editProfile}
+                editing={editing}
+              />
+            : ''}
+          </Section>
         </Box>
-      </Split>
+        <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
+          {profile.meter ?
+            <AnnotatedMeter
+              type="circle"
+              units={'bytes'}
+              series={profile.meter.sort((a, b) => b.value - a.value).slice(0, 8)}
+              legend
+            /> : ''}
+        </Box>
+      </Columns>
     </Section>
   }
   </Section>
@@ -86,6 +97,7 @@ UserInfo.propTypes = {
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),
+    meter: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
 };
 

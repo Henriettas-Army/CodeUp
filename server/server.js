@@ -24,18 +24,9 @@ app.listen('3034', () => {
 
 // routes
 app.use('/api/users', users);
-// curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","date":"2014-03-04"}' http://localhost:3034/api/events
 app.post('/api/events', eventsRoute.postEvent);
-// curl -H "Content-Type: application/json" -X GET http://localhost:3034/api/events
 app.get('/api/events', eventsRoute.getEvents);
-// curl -H "Content-Type: application/json" -X POST -d '{"id": "aaaaaaaaaaaaaaaaaaaaaaaa"}' http://localhost:3034/api/events/delete
 app.post('/api/events/delete', eventsRoute.deleteEvent);
-
-// Send the rest of the requests to React Router
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
-});
 
 // Send the rest of the requests to React Router
 app.get('*', (req, res) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GrommetApp from 'grommet/components/App';
+import Nav from './Nav';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
 import profileActions from '../../redux/actions/profileActions';
@@ -22,6 +23,7 @@ class Profile extends React.Component {
     const editProfile = this.props.editProfile;
     return (
       <GrommetApp>
+        <Nav />
         <div>
           <div> USER PROFILE </div>
           <UserInfo
@@ -48,7 +50,6 @@ Profile.propTypes = {
   updateProfile: PropTypes.func.isRequired,
   editProfile: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
-  // path: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.string,
   profile: PropTypes.shape({
@@ -60,6 +61,15 @@ Profile.propTypes = {
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),
+    meter: PropTypes.arrayOf(PropTypes.shape),
+  }).isRequired,
+  match: PropTypes.shape({
+    isExact: PropTypes.bool,
+    path: PropTypes.string,
+    url: PropTypes.string,
+    params: PropTypes.shape({
+      username: PropTypes.string,
+    }),
   }).isRequired,
 };
 
@@ -85,7 +95,7 @@ const mapDispatchToProps = dispatch => ({
   },
   editProfile: () => {
     dispatch(profileActions.editProfile());
-  }
+  },
 });
 
 export default connect(

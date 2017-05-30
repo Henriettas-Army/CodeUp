@@ -20,7 +20,6 @@ class Users extends React.Component {
 
 Users.propTypes = {
   users: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
-  listUsers: PropTypes.func.isRequired,
   searchQuery: PropTypes.string.isRequired,
 };
 

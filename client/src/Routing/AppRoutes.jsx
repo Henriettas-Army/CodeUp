@@ -10,7 +10,6 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import PrivateRoute from './PrivateRoute';
 import codeUpApp from '../../redux/reducers/combineReducers';
-import Search from '../components/Search';
 import Login from '../components/LoginComponent';
 import Events from '../containers/Events';
 import Profile from '../containers/Profile';
@@ -26,7 +25,6 @@ const AppRoutes = () => (
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Explore} />
         <Route path="/profile/:username" component={Profile} />
-        <PrivateRoute path="/search" component={Search} />
         <PrivateRoute path="/events" component={Events} />
         <PrivateRoute path="/explore" component={Explore} />
       </div>

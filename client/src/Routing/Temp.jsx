@@ -1,4 +1,5 @@
-import 'react';
+import React from 'react';
+
 const Temp = () => (
   <div>Temp</div>
 );

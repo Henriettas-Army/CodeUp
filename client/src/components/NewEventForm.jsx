@@ -43,7 +43,7 @@ class NewEventForm extends React.Component {
           <DateTime
             name={'dateTime'}
             value={this.state.date}
-            onChange={(e) => { this.setState({ date: e }); }} 
+            onChange={(e) => { this.setState({ date: e }); }}
           />
         </FormField>
         <FormField label="...">
@@ -71,7 +71,6 @@ class NewEventForm extends React.Component {
             placeHolder={'Select estimated duration'}
             inline={false}
             multiple={false}
-            onSearch={false}
             options={['Less than 1 hour', '1-2 hours', '2-3 hours', 'More than 3 hours']}
             value={this.state.duration}
             onChange={(e) => { this.setState({ duration: e }); }}
@@ -95,6 +94,7 @@ class NewEventForm extends React.Component {
               e.preventDefault();
               const event = {
                 title: this.state.title,
+                username: this.props.isAuthenticated,
                 duration: this.state.duration.value,
                 date: this.state.date,
                 topics: this.state.topics.split(',').map(st => st.trim()),
@@ -113,6 +113,8 @@ class NewEventForm extends React.Component {
 
 NewEventForm.propTypes = {
   createEvent: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string.isRequired,
 };
 
 export default NewEventForm;

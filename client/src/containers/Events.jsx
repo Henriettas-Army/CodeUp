@@ -43,6 +43,7 @@ class Events extends React.Component {
             <NewEventForm
               createEvent={createEvent}
               onSubmit={() => { this.setState({ showForm: false }); }}
+              isAuthenticated={this.props.isAuthenticated}
             />
           </Layer>
         }
@@ -59,12 +60,14 @@ Events.propTypes = {
   createEvent: PropTypes.func.isRequired,
   loadEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   events: state.events.events,
   searchQuery: state.search.searchQuery,
   status: state.events.status,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({
