@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Header from 'grommet/components/Header';
 import Title from 'grommet/components/Title';
 import Box from 'grommet/components/Box';
-import Search from 'grommet/components/Search';
 import Menu from 'grommet/components/Menu';
 import UserSettingsIcon from 'grommet/components/icons/base/UserSettings';
 import InheritIcon from 'grommet/components/icons/base/Inherit';
 import Anchor from 'grommet/components/Anchor';
+import SearchContainer from '../containers/SearchContainer';
 
 const Nav = props => (
   <Header
@@ -31,16 +31,7 @@ const Nav = props => (
       direction="row"
       responsive={false}
     >
-      <Search
-        inline
-        fill
-        size="medium"
-        placeHolder="Search"
-        dropAlign={{ right: 'right' }}
-        onDOMChange={(e)=>{ console.log(e.target.value); }}
-        suggestions={['lala', 'lolo', 'lili']}
-        dropAllign={'bottom'}
-      />
+      <SearchContainer />
       <Anchor
         icon={<InheritIcon />}
         href="#"

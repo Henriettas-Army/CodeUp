@@ -5,15 +5,14 @@ import UserList from '../components/userListComponent';
 import userAction from '../../redux/actions/userListAction';
 
 class Users extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.listUsers();
   }
   render() {
-    const users = this.props.users;
-
+    const users = this.props.users.users.filter(u => u.username.includes(this.props.searchQuery));
     return (
       <div>
-        <UserList users={users.users} />
+        <UserList users={users} />
       </div>
     );
   }
@@ -22,10 +21,12 @@ class Users extends React.Component {
 Users.propTypes = {
   users: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
   listUsers: PropTypes.func.isRequired,
+  searchQuery: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   users: state.users,
+  searchQuery: state.search.searchQuery,
 });
 
 const mapDispatchToProps = dispatch => ({

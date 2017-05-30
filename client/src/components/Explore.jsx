@@ -1,10 +1,7 @@
 /* global window */
 import React, { Component } from 'react';
 import axios from 'axios';
-import Tabs from 'grommet/components/Tabs';
-import Tab from 'grommet/components/Tab';
-import Events from '../containers/Events';
-import Users from '../containers/Users';
+import Tabs from '../components/Tabs';
 import NavContainer from '../containers/NavContainer';
 
 class Explore extends Component {
@@ -31,17 +28,10 @@ class Explore extends Component {
         <br />
         <br />
         <br />
-        <Tabs>
-          <Tab title="Events">
-            <Events />
-          </Tab>
-          <Tab title="Users">
-            <Users />
-          </Tab>
-        </Tabs>
+        <Tabs />
       </div>
     );
-  };
+  }
 }
 
 export default Explore;

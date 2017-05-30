@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import Accordion from 'grommet/components/Accordion';
-// import AccordionPanel from 'grommet/components/AccordionPanel';
 import Layer from 'grommet/components/Layer';
 import AddIcon from 'grommet/components/icons/base/Add';
 import Anchor from 'grommet/components/Anchor';
@@ -23,7 +21,7 @@ class Events extends React.Component {
   }
 
   render() {
-    const events = this.props.events;
+    const events = this.props.events.filter(e => e.title.includes(this.props.searchQuery));
     const status = this.props.status;
     const createEvent = this.props.createEvent;
     const deleteEvent = this.props.deleteEvent;
@@ -64,8 +62,8 @@ Events.propTypes = {
 };
 
 const mapStateToProps = state => ({
-// createEvent: eventActions.postEvent,
   events: state.events.events,
+  searchQuery: state.search.searchQuery,
   status: state.events.status,
 });
 
