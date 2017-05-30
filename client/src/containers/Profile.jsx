@@ -5,6 +5,7 @@ import GrommetApp from 'grommet/components/App';
 import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
+import EndorsementCreatorContainer from '../containers/EndorsementCreatorContainer';
 import EndorsementsContainer from '../containers/EndorsementsContainer';
 import profileActions from '../../redux/actions/profileActions';
 import '../styles/styles.scss';
@@ -42,6 +43,7 @@ class Profile extends React.Component {
             status={status}
             user={profile.username}
           />
+          <EndorsementCreatorContainer />
           <EndorsementsContainer />
         </div>
       </GrommetApp>
