@@ -7,10 +7,11 @@ const eventSchema = new Schema({
     type: String,
     required: true,
   },
-  username: {
-    type: Schema.Types.ObjectId,
-    ref: 'user', //IN PRODUCTION TIME (OR BEFORE) THIS SHOULD BE REQUIRED: TRUE
-  },
+  // username: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'user', //IN PRODUCTION TIME (OR BEFORE) THIS SHOULD BE REQUIRED: TRUE
+  // },
+  username: String,
   topics: [String],
   date: { type: Date, required: true },
   location: [String],
