@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GrommetApp from 'grommet/components/App';
-import Nav from './Nav';
+import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
 import profileActions from '../../redux/actions/profileActions';
@@ -23,7 +23,7 @@ class Profile extends React.Component {
     const editProfile = this.props.editProfile;
     return (
       <GrommetApp>
-        <Nav />
+        <NavContainer />
         <div>
           <div> USER PROFILE </div>
           <UserInfo
