@@ -23,7 +23,7 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
             heading={evt.title}
             description={
               <Accordion>
-                <AccordionPanel heading={`Topics: ${evt.topics.join(', ')}`}>
+                <AccordionPanel heading={'Description'}>
                   <Paragraph>
                     {evt.description || 'No description provided for this event'}
                   </Paragraph>
@@ -37,7 +37,7 @@ const EventsList = ({ events, status, deleteEvent }) => (<div>
                   </Paragraph>
                   <Heading tag={'h3'}>Where?</Heading>
                   <Paragraph>
-                    {evt.location || 'No locationg provided for this event'}
+                    {evt.location || 'No location provided for this event'}
                   </Paragraph>
                   <Heading tag={'h3'}>Estimated Duration</Heading>
                   <Paragraph>
