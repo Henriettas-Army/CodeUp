@@ -35,7 +35,7 @@ const Nav = props => (
       <Anchor
         icon={<InheritIcon />}
         href="#"
-        path="/explore"
+        path="/"
         className="active"
       />
       <Menu
@@ -46,7 +46,7 @@ const Nav = props => (
       >
         <Anchor
           href="#"
-          path="/profile"
+          path={`/profile/${props.isAuthenticated}`}
           className="active"
         >
           Profile
@@ -63,6 +63,11 @@ const Nav = props => (
 
 Nav.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string,
+};
+
+Nav.defaultProps = {
+  isAuthenticated: '',
 };
 
 export default Nav;
