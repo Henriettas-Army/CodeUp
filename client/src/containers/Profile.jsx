@@ -14,6 +14,11 @@ class Profile extends React.Component {
     this.props.loadProfile(this.props.isAuthenticated);
     this.props.loadProfile(this.props.match.params.username);
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.username !== nextProps.match.params.username) {
+      this.props.loadProfile(nextProps.match.params.username);
+    }
+  }
   render() {
     const profile = this.props.profile;
     const status = this.props.status;
@@ -25,7 +30,6 @@ class Profile extends React.Component {
       <GrommetApp>
         <NavContainer />
         <div>
-          <div> USER PROFILE </div>
           <UserInfo
             profile={profile}
             status={status}

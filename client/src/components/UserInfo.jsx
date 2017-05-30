@@ -7,6 +7,8 @@ import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
 import Label from 'grommet/components/Label';
+import Heading from 'grommet/components/Heading';
+import Paragraph from 'grommet/components/Paragraph';
 import UserStatus from './UserStatus';
 import TechEditForm from './TechEditForm';
 
@@ -21,10 +23,10 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           <Image src={profile.img} alt="user github avatar" size={'small'} />
         </Box>
         <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
-          <h3>{profile.username}</h3>
-          <h4>{profile.name}</h4>
-          <p>{profile.bio}</p>
-          <p>{profile.location ? profile.location.join(', ') : ''}</p>
+          <Heading tag="h2">{profile.username}</Heading>
+          <Heading tag="h4">{profile.name}</Heading>
+          <Paragraph>{profile.bio}</Paragraph>
+          <Paragraph>{profile.location ? profile.location.join(', ') : ''}</Paragraph>
         </Box>
         <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
           {profile.username === currentUser ?
@@ -33,24 +35,26 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
               updateProfile={updateProfile}
               status={profile.status}
             />
-            : <h4>Status: <br /> {profile.status}</h4>
+            : <h4>Status:<br />{profile.status}
+              {/* add chat messaging button here */}
+            </h4>
           }
         </Box>
       </Columns>
       <Columns maxCount={3} size={'medium'} justify={'start'} >
         <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
-          <p>
+          <Paragraph>
             <Label>Technical Skills: </Label><br />
             {profile.skills && profile.skills.length > 0 ? profile.skills.map((skill, key) => (
               <span key={+key + 1} > {key > 0 ? `, ${skill}` : skill }</span>
             )) : 'N/A' }
-          </p>
-          <p>
+          </Paragraph>
+          <Paragraph>
             <Label> Skills in Development: </Label><br />
             {profile.desired && profile.desired.length > 0 ? profile.desired.map((desired, key) => (
               <span key={+key + 1}>{key > 0 ? `, ${desired}` : desired }</span>
             )) : 'N/A' }
-          </p>
+          </Paragraph>
         </Box>
         <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
           <Section>
