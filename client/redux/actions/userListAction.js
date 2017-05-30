@@ -6,9 +6,13 @@ export const ERROR = 'ERROR';
 const listUsers = users => ({ type: LIST_USERS, users });
 const error = err => ({ type: ERROR, err });
 
-const loadAllUsers = () => (
+const loadAllUsers = username => (
   function load(dispatch) {
-    return axios.get('/api/users/list')
+    return axios.get('/api/users/list', {
+      params: {
+        username,
+      },
+    })
       .then((res) => {
         if (res.data.users) {
           dispatch(listUsers(res.data.users));
