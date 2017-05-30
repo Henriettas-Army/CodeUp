@@ -6,7 +6,6 @@ import Spinning from 'grommet/components/icons/Spinning';
 import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
-// import Split from 'grommet/components/Split';
 import Label from 'grommet/components/Label';
 import UserStatus from './UserStatus';
 import TechEditForm from './TechEditForm';
@@ -38,24 +37,23 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
           }
         </Box>
       </Columns>
-      {/* <Split priority={'left'} flex={'left'} showOnResponsive={'both'} fixed={false} > */}
       <Columns maxCount={3} size={'medium'} justify={'start'} >
         <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
           <p>
-            <Label>Technical Skills: </Label>
+            <Label>Technical Skills: </Label><br />
             {profile.skills && profile.skills.length > 0 ? profile.skills.map((skill, key) => (
-              <span key={+key + 1} > {key > 0 ? ` |-|  ${skill} ` : skill }</span>
+              <span key={+key + 1} > {key > 0 ? `, ${skill}` : skill }</span>
             )) : 'N/A' }
           </p>
           <p>
-            <Label> Skills in Development: </Label>
+            <Label> Skills in Development: </Label><br />
             {profile.desired && profile.desired.length > 0 ? profile.desired.map((desired, key) => (
-              <span key={+key + 1}>{key > 0 ? `  |-|  ${desired} ` : desired }</span>
+              <span key={+key + 1}>{key > 0 ? `, ${desired}` : desired }</span>
             )) : 'N/A' }
           </p>
         </Box>
         <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
-          <p>
+          <Section>
             { profile.username === currentUser ?
               <TechEditForm
                 user={currentUser}
@@ -67,7 +65,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
                 editing={editing}
               />
             : ''}
-          </p>
+          </Section>
         </Box>
         <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
           {profile.meter ?
@@ -79,7 +77,6 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
             /> : ''}
         </Box>
       </Columns>
-      {/* </Split> */}
     </Section>
   }
   </Section>
