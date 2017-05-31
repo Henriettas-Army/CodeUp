@@ -13,6 +13,7 @@ import codeUpApp from '../../redux/reducers/combineReducers';
 import Login from '../components/LoginComponent';
 import Profile from '../containers/Profile';
 import Explore from '../containers/Explore';
+import Welcome from '../containers/Welcome';
 import '../styles/styles.scss';
 
 const store = createStore(codeUpApp, composeWithDevTools(applyMiddleware(thunkMiddleware)));
@@ -23,7 +24,7 @@ const AppRoutes = () => (
       <div>
         <Route exact path="/login" component={Login} />
         {/* change root path to welcome page/waiting page */}
-        <Route exact path="/" component={Explore} />
+        <Route exact path="/" component={Welcome} />
         <PrivateRoute path="/profile/:username" component={Profile} />
         <PrivateRoute path="/explore" component={Explore} />
       </div>
