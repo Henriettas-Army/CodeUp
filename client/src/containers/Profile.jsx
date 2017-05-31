@@ -9,10 +9,12 @@ import profileActions from '../../redux/actions/profileActions';
 import '../styles/styles.scss';
 
 class Profile extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
+    console.log(this.props.match.params.username);
     this.props.loadProfile(this.props.match.params.username);
   }
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.match.params.username);
     if (this.props.match.params.username !== nextProps.match.params.username) {
       this.props.loadProfile(nextProps.match.params.username);
     }

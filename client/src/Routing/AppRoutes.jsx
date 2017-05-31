@@ -8,11 +8,10 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import PrivateRoute from './PrivateRoute';
+import requireAuth from './routeAuth';
 import codeUpApp from '../../redux/reducers/combineReducers';
-import Login from '../components/LoginComponent';
 import Profile from '../containers/Profile';
-import Explore from '../containers/Explore';
+import Explore from '../components/Explore';
 import Welcome from '../containers/Welcome';
 import '../styles/styles.scss';
 
@@ -22,11 +21,9 @@ const AppRoutes = () => (
   <Provider store={store}>
     <Router history={hashHistory}>
       <div>
-        <Route exact path="/login" component={Login} />
-        {/* change root path to welcome page/waiting page */}
         <Route exact path="/" component={Welcome} />
-        <PrivateRoute path="/profile/:username" component={Profile} />
-        <PrivateRoute path="/explore" component={Explore} />
+        <Route path="/profile/:username" component={Profile} onEnter={requireAuth} />
+        <Route exact path="/explore" component={Explore} onEnter={requireAuth} />
       </div>
     </Router>
   </Provider>

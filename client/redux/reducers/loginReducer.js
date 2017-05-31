@@ -1,6 +1,6 @@
 /* global window */
 import jwtDecode from 'jwt-decode';
-import { LOGIN_USER, LOGOUT_USER } from '../actions/loginActions';
+import { LOGIN_USER, LOGOUT_USER, LOAD_LOGIN } from '../actions/loginActions';
 
 const auth = (state = {
   status: window.localStorage.token ? 'READY' : '',
@@ -14,11 +14,13 @@ const auth = (state = {
       });
     case LOGOUT_USER:
       window.localStorage.removeItem('token');
-      window.location.href = '/login';
+      window.location.href = '/';
       return Object.assign({}, state, {
         isAuthenticated: action.isAuthenticated,
         status: action.status,
       });
+    case LOAD_LOGIN:
+      return Object.assign({}, state, { status: 'LOADING' });
     default:
       return state;
   }
