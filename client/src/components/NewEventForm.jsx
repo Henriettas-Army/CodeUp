@@ -8,6 +8,8 @@ import TextInput from 'grommet/components/TextInput';
 import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
+import CheckBox from 'grommet/components/CheckBox';
+
 
 const EMPTY_FORM = {
   title: '',
@@ -16,6 +18,7 @@ const EMPTY_FORM = {
   duration: '',
   location: '',
   topics: '',
+  private: false,
 };
 
 class NewEventForm extends React.Component {
@@ -30,6 +33,11 @@ class NewEventForm extends React.Component {
     return (
       <Form>
         <Heading align="center">Create Event</Heading>
+        <CheckBox
+          label="Make event private*"
+          checked={this.state.private}
+          onChange={() => this.setState({ private: !this.state.private })}
+        />
         <FormField>
           <TextInput
             id={'title'}
@@ -86,6 +94,7 @@ class NewEventForm extends React.Component {
           />
         </FormField>
         <Footer pad={{ vertical: 'medium' }}>
+          <p>*Private events will not publicly display the location</p>
           <Button
             label={'Create'}
             type={'submit'}
@@ -100,6 +109,7 @@ class NewEventForm extends React.Component {
                 topics: this.state.topics.split(',').map(st => st.trim()),
                 location: this.state.location,
                 description: this.state.description,
+                private: this.state.private,
               };
               createEvent(event);
               this.setState(EMPTY_FORM);
