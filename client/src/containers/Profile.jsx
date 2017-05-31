@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GrommetApp from 'grommet/components/App';
+import Edit from 'grommet/components/icons/base/Edit';
 import Button from 'grommet/components/Button';
 import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
@@ -51,7 +52,7 @@ class Profile extends React.Component {
             user={profile.username}
           />
           <Button
-            // icon={<Edit />}
+            icon={<Edit />}
             label="Endorse this person"
             onClick={() => { this.setState({ endorsementCreatorOpen: true }); }}
             primary
