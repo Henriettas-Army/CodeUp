@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const endorsementSchema = new Schema({
+  endorser_username: String,
+  endorser_img: String,
+  skills: [String],
+  comment: String
+});
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -40,6 +47,9 @@ const userSchema = new Schema({
   },
   meter: {
     type: [Schema.Types.Mixed],
+  },
+  endorsements: {
+    type: [endorsementSchema]
   }
 });
 
