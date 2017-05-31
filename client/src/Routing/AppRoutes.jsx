@@ -11,7 +11,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import PrivateRoute from './PrivateRoute';
 import codeUpApp from '../../redux/reducers/combineReducers';
 import Login from '../components/LoginComponent';
-import Events from '../containers/Events';
 import Profile from '../containers/Profile';
 import Explore from '../containers/Explore';
 import '../styles/styles.scss';
@@ -23,9 +22,9 @@ const AppRoutes = () => (
     <Router history={hashHistory}>
       <div>
         <Route exact path="/login" component={Login} />
+        {/* change root path to welcome page/waiting page */}
         <Route exact path="/" component={Explore} />
-        <Route path="/profile/:username" component={Profile} />
-        <PrivateRoute path="/events" component={Events} />
+        <PrivateRoute path="/profile/:username" component={Profile} />
         <PrivateRoute path="/explore" component={Explore} />
       </div>
     </Router>
