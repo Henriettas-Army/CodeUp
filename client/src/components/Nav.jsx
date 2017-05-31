@@ -19,7 +19,7 @@ const Nav = props => (
     <Title>
       <Anchor
         href="#"
-        path="/"
+        path="/explore"
         className="active"
       >
         codeUp
@@ -32,10 +32,11 @@ const Nav = props => (
       responsive={false}
     >
       <SearchContainer />
+      <br />
       <Anchor
         icon={<InheritIcon />}
         href="#"
-        path="/"
+        path="/explore"
         className="active"
       />
       <Menu
