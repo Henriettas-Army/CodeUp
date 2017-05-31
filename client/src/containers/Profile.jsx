@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GrommetApp from 'grommet/components/App';
+import Button from 'grommet/components/Button';
 import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
@@ -11,6 +12,9 @@ import profileActions from '../../redux/actions/profileActions';
 import '../styles/styles.scss';
 
 class Profile extends React.Component {
+  componentWillMount() {
+    this.state = { endorsementCreatorOpen: false };
+  }
   componentDidMount() {
     this.props.loadProfile(this.props.match.params.username);
   }
@@ -18,6 +22,9 @@ class Profile extends React.Component {
     if (this.props.match.params.username !== nextProps.match.params.username) {
       this.props.loadProfile(nextProps.match.params.username);
     }
+  }
+  closeEC() {
+    this.setState({ endorsementCreatorOpen: false });
   }
   render() {
     const profile = this.props.profile;
@@ -43,7 +50,16 @@ class Profile extends React.Component {
             status={status}
             user={profile.username}
           />
-          <EndorsementCreatorContainer />
+          <Button
+            // icon={<Edit />}
+            label="Endorse this person"
+            onClick={() => { this.setState({ endorsementCreatorOpen: true }); }}
+            primary
+          />
+          { this.state.endorsementCreatorOpen ?
+            <EndorsementCreatorContainer closeEC={() => { this.closeEC(); }} />
+            : null
+          }
           <EndorsementsContainer />
         </div>
       </GrommetApp>
