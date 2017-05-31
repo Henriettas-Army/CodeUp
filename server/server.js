@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const db = require('./../db/config.js');
 const eventsRoute = require('./routes/eventsRoute');
 const users = require('./routes/users');
+const endorsement = require('./routes/endorsement');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/api/users', users);
 app.post('/api/events', eventsRoute.postEvent);
 app.get('/api/events', eventsRoute.getEvents);
 app.post('/api/events/delete', eventsRoute.deleteEvent);
+app.post('/api/endorsement', endorsement);
 
 // Send the rest of the requests to React Router
 app.get('*', (req, res) => {

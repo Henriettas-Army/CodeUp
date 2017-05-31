@@ -25,7 +25,7 @@ const userSchema = new Schema({
   languages: String,
   access_token: String,
   meter: [Schema.Types.Mixed],
-  endorsement: [endorsementSchema]
+  endorsements: [endorsementSchema]
 });
 
 const User = mongoose.model('user', userSchema);
