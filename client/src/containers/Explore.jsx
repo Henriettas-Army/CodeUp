@@ -38,10 +38,33 @@ class Explore extends Component {
 Explore.propTypes = {
   loginUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string,
+  // match: PropTypes.shape({
+  //   isExact: PropTypes.bool,
+  //   path: PropTypes.string,
+  //   url: PropTypes.string,
+  // }),
+  // history: PropTypes.shape({
+  //   action: PropTypes.string,
+  //   block: PropTypes.func,
+  //   createHref: PropTypes.func,
+  //   go: PropTypes.func,
+  //   length: PropTypes.string,
+  //   listen: PropTypes.func,
+  // }),
+  // location: PropTypes.shape({
+  //   hash: PropTypes.string,
+  //   pathname: PropTypes.string,
+  //   search: PropTypes.string,
+  // }),
+  // staticContext: PropTypes.string,
 };
 
 Explore.defaultProps = {
   isAuthenticated: '',
+  // staticContext: undefined,
+  // history: {},
+  // match: {},
+  // location: {},
 };
 
 const mapStateToProps = state => (
