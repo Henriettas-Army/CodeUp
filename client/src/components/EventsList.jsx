@@ -42,7 +42,7 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated }) => (<div>
                   </Paragraph>
                   <Heading tag={'h3'}>Where?</Heading>
                   <Paragraph>
-                    {evt.location || 'No location provided for this event'}
+                    {evt.private ? '*Please contact event creator for location' : evt.location || 'No location provided for this event'}
                   </Paragraph>
                   <Heading tag={'h3'}>Estimated Duration</Heading>
                   <Paragraph>
