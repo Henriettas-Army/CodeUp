@@ -12,7 +12,7 @@ module.exports = {
   },
   getEvents: (req, res) => {
     eventHelper.getEvents()
-    .then(evts => res.status(200).json({ events: evts, ok: true }))
+    .then(evts => res.status(200).json({ events: evts.sort((a, b) => a.date - b.date), ok: true }))
     .catch(error => res.status(200).json({ ok: false, error }));
   },
   deleteEvent: (req, res) => {
