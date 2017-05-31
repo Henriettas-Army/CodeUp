@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import jwtDecode from 'jwt-decode';
 import SocialGithubIcon from 'grommet/components/icons/base/SocialGithub';
 import Animate from 'grommet/components/Animate';
-
 import { loginUser } from '../../redux/actions/loginActions';
 
 const GITHUB_API = require('../../../server/config/github');
