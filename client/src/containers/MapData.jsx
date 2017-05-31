@@ -37,7 +37,6 @@ class MapData extends React.Component {
 
   componentWillMount() {
     const events = this.props.events;
-    getUserPos();
     this.getPosition(events);
   }
 
@@ -60,16 +59,11 @@ class MapData extends React.Component {
 
   render() {
     return (
-      <Map style={style} center={getUserPos()} zoom={13}>
+      <Map style={style} center={getUserPos()} zoom={15}>
         <TileLayer
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        <Marker position={getUserPos()}>
-          <Popup>
-            <span>You are Here!</span>
-          </Popup>
-        </Marker>
         {this.state.locations.map(event => (
           <Marker position={[event.lat, event.lng]}>
             <Popup>
