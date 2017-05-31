@@ -36,6 +36,10 @@ Explore.propTypes = {
 
 Explore.defaultProps = {
   isAuthenticated: '',
+  // staticContext: undefined,
+  // history: {},
+  // match: {},
+  // location: {},
 };
 
 const mapStateToProps = state => (
