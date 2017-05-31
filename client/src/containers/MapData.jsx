@@ -1,4 +1,4 @@
-/* global navigator window */
+/* global navigator */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,8 +11,8 @@ const style = {
 
 const getUserPos = () => {
   let pos = null;
-  if (window.navigator.geolocation) {
-    window.navigator.geolocation.getCurrentPosition((position) => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
       pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
