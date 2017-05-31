@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const endorsementSchema = new Schema({
-  endorser: String,
+  endorser_username: String,
+  endorser_img: String,
   skills: [String],
   comment: [String]
 });
