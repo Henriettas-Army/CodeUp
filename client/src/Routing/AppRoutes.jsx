@@ -1,34 +1,31 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  hashHistory
-} from 'react-router-dom';
+import { BrowserRouter, Route, Switch, hashHistory } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import PrivateRoute from './PrivateRoute';
 import codeUpApp from '../../redux/reducers/combineReducers';
-import Login from '../components/LoginComponent';
-import Events from '../containers/Events';
+import PrivateRoute from './PrivateRoute';
 import Profile from '../containers/Profile';
 import Explore from '../components/Explore';
+import Welcome from '../containers/Welcome';
 import '../styles/styles.scss';
 
-const store = createStore(codeUpApp, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const store = createStore(
+  codeUpApp,
+  undefined,
+  composeWithDevTools(applyMiddleware(thunkMiddleware)),
+);
 
 const AppRoutes = () => (
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <div>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/" component={Explore} />
-        <Route path="/profile/:username" component={Profile} />
-        <PrivateRoute path="/events" component={Events} />
-        <PrivateRoute path="/explore" component={Explore} />
-      </div>
-    </Router>
+    <BrowserRouter history={hashHistory} >
+      <Switch>
+        <PrivateRoute exact path="/profile/:username" component={Profile} />
+        <PrivateRoute exact path="/explore" component={Explore} />
+        <Route exact path="/" component={Welcome} />
+      </Switch>
+    </BrowserRouter>
   </Provider>
 );
 export default AppRoutes;

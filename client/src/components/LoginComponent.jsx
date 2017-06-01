@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import jwtDecode from 'jwt-decode';
 import SocialGithubIcon from 'grommet/components/icons/base/SocialGithub';
 import Animate from 'grommet/components/Animate';
-
+import Section from 'grommet/components/Section';
 import { loginUser } from '../../redux/actions/loginActions';
+import PreviewCarousel from './PreviewCarousel';
 
 const GITHUB_API = require('../../../server/config/github');
 
@@ -27,6 +28,9 @@ const LoginComponent = () => (
       <p style={{ textAlign: 'center' }}>
         Find a partner to code with, attend events, and get involved with the coding community
       </p>
+      <Section size="large">
+        <PreviewCarousel />
+      </Section>
       <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user,repo`}>
         <SocialGithubIcon
           size={'xlarge'}

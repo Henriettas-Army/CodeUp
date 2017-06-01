@@ -19,7 +19,7 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
     <Title>
       <Anchor
         href="#"
-        path="/"
+        path="/explore"
         className="active"
       >
         codeUp
@@ -32,10 +32,11 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
       responsive={false}
     >
       <SearchContainer />
+      <br />
       <Anchor
         icon={<InheritIcon />}
         href="#"
-        path="/"
+        path="/explore"
         className="active"
       />
       <Menu

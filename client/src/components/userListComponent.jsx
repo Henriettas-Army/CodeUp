@@ -8,6 +8,8 @@ import Accordion from 'grommet/components/Accordion';
 import AccordionPanel from 'grommet/components/AccordionPanel';
 import Heading from 'grommet/components/Heading';
 import Anchor from 'grommet/components/Anchor';
+import CliIcon from 'grommet/components/icons/base/Cli';
+import Status from 'grommet/components/icons/Status';
 
 const UserList = ({ users }) => (
   <Tiles fill flush={false}>
@@ -16,7 +18,8 @@ const UserList = ({ users }) => (
         <Card
           thumbnail={user.img}
           contentPad="small"
-          label={user.status}
+          label={user.status === 'Unavailable' ? (<span> <Status value="critical" />Unavailable</span>)
+                : (<span> {user.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{user.status}</span>)}
           heading={user.username}
           link={<Anchor
             href="#"

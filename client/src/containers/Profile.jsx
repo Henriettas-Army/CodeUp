@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import GrommetApp from 'grommet/components/App';
 import Edit from 'grommet/components/icons/base/Edit';
 import Button from 'grommet/components/Button';
@@ -10,6 +11,7 @@ import UserInfo from '../components/UserInfo';
 import EndorsementCreatorContainer from '../containers/EndorsementCreatorContainer';
 import EndorsementsContainer from '../containers/EndorsementsContainer';
 import profileActions from '../../redux/actions/profileActions';
+
 import '../styles/styles.scss';
 
 class Profile extends React.Component {
@@ -17,11 +19,13 @@ class Profile extends React.Component {
     this.state = { endorsementCreatorOpen: false };
   }
   componentDidMount() {
-    this.props.loadProfile(this.props.match.params.username);
+    this.props.loadProfile(decodeURIComponent(this.props.match.params.username));
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.username !== nextProps.match.params.username) {
-      this.props.loadProfile(nextProps.match.params.username);
+    const current = decodeURIComponent(this.props.match.params.username);
+    const next = decodeURIComponent(nextProps.match.params.username);
+    if (current !== next) {
+      this.props.loadProfile(next);
     }
   }
   closeEC() {
@@ -30,6 +34,7 @@ class Profile extends React.Component {
   render() {
     const profile = this.props.profile;
     const status = this.props.status;
+    const errMessage = this.props.errMessage;
     const updateProfile = this.props.updateProfile;
     const currentUser = this.props.isAuthenticated;
     const editing = this.props.editing;
@@ -41,6 +46,7 @@ class Profile extends React.Component {
           <UserInfo
             profile={profile}
             status={status}
+            errMessage={errMessage}
             updateProfile={updateProfile}
             currentUser={currentUser}
             editing={editing}
@@ -78,6 +84,7 @@ Profile.propTypes = {
   editProfile: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
+  errMessage: PropTypes.string,
   isAuthenticated: PropTypes.string,
   profile: PropTypes.shape({
     username: PropTypes.string,
@@ -102,6 +109,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   isAuthenticated: '',
+  errMessage: PropTypes.string,
 };
 
 const mapStateToProps = state => (
@@ -110,6 +118,7 @@ const mapStateToProps = state => (
     status: state.profile.status,
     isAuthenticated: state.auth.isAuthenticated,
     editing: state.profile.editing,
+    errMessage: state.profile.errMessage,
   })
 );
 
@@ -125,7 +134,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Profile);
+)(Profile));
