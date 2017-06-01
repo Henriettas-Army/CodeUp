@@ -1,7 +1,7 @@
 const express = require('express');
 const GITHUB_API = require('../config/github');
 const axios = require('axios');
-const jwt = require('jwt-simple');
+const jwt = require('jsonwebtoken');
 const UserController = require('../../db/controllers/UserController');
 const Utils = require('../utils');
 
@@ -17,7 +17,7 @@ router.post('/login', (req, res) => {
     const TOKEN = response.data.split('&')[0].split('=')[1];
     axios(`https://api.github.com/user?access_token=${TOKEN}`)
     .then((resp) => {
-      const token = jwt.encode(resp.data.login, 'secret');
+      const token = jwt.sign(resp.data.login, 'codeupforever');
       res.json(token);
       const newUser = {
         username: resp.data.login,
@@ -48,35 +48,56 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/list', (req, res) => {
-  UserController.getAllUsers()
-  .then((data) => {
-    const usersData = data.filter(user => user.username !== req.query.username);
-    res.status(200).json({ status: true, users: usersData });
-  })
-  .catch((err) => {
-    res.json({ status: false, error: err });
-  });
+  const token = req.headers.authorization;
+  jwt.verify(token, 'codeupforever', ((err, decoded) => {
+    if (err) {
+      res.send(`${err.name}: Please sign in again to renew your session`);
+    } else {
+      UserController.getAllUsers()
+      .then((data) => {
+        const usersData = data.filter(user => user.username !== decoded);
+        res.status(200).json({ status: true, users: usersData });
+      })
+      .catch((error) => {
+        res.json({ status: false, error });
+      });
+    }
+  }));
 });
 
 // get individual user profile
 router.get('/:username', (req, res) => {
-  Utils.grabUserInfo(req.params.username, req, res);
+  const token = req.headers.authorization;
+  jwt.verify(token, 'codeupforever', ((err) => {
+    if (err) {
+      res.send(`${err.name}: Please sign in again to renew your session`);
+    } else {
+      Utils.grabUserInfo(req.params.username, req, res);
+    }
+  }));
 });
 
 // update user profile
 router.put('/:username', (req, res) => {
-  const body = req.body;
-  const data = {};
-  body.toUpdate.forEach((update) => {
-    data[update.typeUpdate] = update.data;
-  });
-  UserController.updateUserInfo(req.params.username, data)
-  .then(() => {
-    Utils.grabUserInfo(req.params.username, req, res);
-  })
-  .catch((err) => {
-    res.status(200).json({ ok: false, err });
-  });
+  const token = req.headers.authorization;
+  jwt.verify(token, 'codeupforever', ((err, decoded) => {
+    if (err) {
+      res.send(`${err.name}: Please sign in again to renew your session`);
+    } else {
+      const body = req.body;
+      const data = {};
+      body.toUpdate.forEach((update) => {
+        data[update.typeUpdate] = update.data;
+      });
+      UserController.updateUserInfo(decoded, data)
+      .then(() => {
+        Utils.grabUserInfo(decoded, req, res);
+      })
+      .catch((error) => {
+        res.status(200).json({ ok: false, error });
+      });
+    }
+  }));
 });
 
 module.exports = router;

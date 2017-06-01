@@ -1,3 +1,4 @@
+/* global window */
 import axios from 'axios';
 
 /* Action Types */
@@ -17,8 +18,9 @@ const updateProfile = profile => ({
   profile,
 });
 
-const errorProfile = () => ({
+const errorProfile = errMessage => ({
   type: ERROR_PROFILE,
+  errMessage,
 });
 
 const profileData = profile => ({
@@ -29,8 +31,12 @@ const editProfile = () => ({
   type: EDIT_PROFILE,
 });
 
+const config = {
+  headers: { Authorization: window.localStorage.getItem('token') }
+};
+
 const fetchProfile = username => (
-  axios.get(`/api/users/${username}`)
+  axios.get(`/api/users/${username}`, config)
 );
 
 
@@ -40,7 +46,8 @@ const loadProfileAsync = username => (
     return fetchProfile(username)
     .then((response) => {
       if (!response.data.ok) {
-        dispatch(errorProfile('unable to find user'));
+        console.log(response.data);
+        dispatch(errorProfile(response.data));
       } else {
         dispatch(profileData(response.data.user));
       }
@@ -51,13 +58,13 @@ const loadProfileAsync = username => (
 // goes to server and server determines which user object item to update based on
 // typeUpdate (status, skills, learn);
 const putProfileUpdate = (updateObj) => {
-  const username = updateObj.username;
+  const username = window.localStorage.getItem('token');
   const toUpdate = updateObj.toUpdate;
   return axios.put(`/api/users/${username}`,
     {
       username,
       toUpdate,
-    });
+    }, config);
 };
 
 const updateProfileAsync = updateObj => (
@@ -66,7 +73,7 @@ const updateProfileAsync = updateObj => (
     return putProfileUpdate(updateObj)
     .then((response) => {
       if (!response.data.ok) {
-        dispatch(errorProfile('unable to update user info'));
+        dispatch(errorProfile(response.data));
       } else {
         dispatch(updateProfile(response.data.user));
       }
