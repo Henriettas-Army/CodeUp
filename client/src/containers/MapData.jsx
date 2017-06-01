@@ -4,23 +4,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import Split from 'grommet/components/Split';
+import Sidebar from 'grommet/components/Sidebar';
+import Box from 'grommet/components/Box';
 import EventsList from '../components/EventsList';
 import eventActions from '../../redux/actions/eventActions';
 
-const divStyle = {
-  height: '100%',
+const style = {
+  height: '800px',
   width: '100%',
 };
-const style = {
-  height: '100%',
-  width: '75%',
-};
 const EventStyle = {
-  'z-index': '10',
-  width: '20%',
-  height: '100%',
-  display: 'inline-block',
-  position: 'relative top right',
+  width: '350px',
+  height: '800px',
 };
 const getUserPos = () => {
   let pos = null;
@@ -84,36 +80,56 @@ class MapData extends React.Component {
     );
 
     return (
-      <div style={divStyle}>
-        <Map style={style} center={getUserPos()} zoom={15}>
-          <TileLayer
-            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          />
-          {this.state.locations.map((event) => {
-            if (!event.private) {
-              return (
-                <Marker position={[event.lat, event.lng]}>
-                  <Popup>
-                    <span>{event.title}<br />
-                      {event.address}<br />
-                      {event.time}
-                    </span>
-                  </Popup>
-                </Marker>);
+      <Split
+        flex="left"
+        style={{ height: '800px' }}
+        pad="none"
+      >
+        <Box
+          style={{ height: '800px' }}
+          pad="none"
+        >
+          <Map style={style} center={getUserPos()} zoom={15}>
+            <TileLayer
+              url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {this.state.locations.map((event) => {
+              if (!event.private) {
+                return (
+                  <Marker position={[event.lat, event.lng]}>
+                    <Popup>
+                      <span>{event.title}<br />
+                        {event.address}<br />
+                        {event.time}
+                      </span>
+                    </Popup>
+                  </Marker>
+                );
+              }
+              return (<div visibility="hidden">Private Event</div>);
             }
-            return (<div visibility="hidden">Private Event</div>);
-          }
-          )}
-        </Map>
-        <EventsList
+            )}
+          </Map>
+        </Box>
+        <Sidebar
           style={EventStyle}
-          events={events}
-          status={this.props.status}
-          deleteEvent={this.props.deleteEvent}
-          isAuthenticated={this.props.isAuthenticated}
-        />
-      </div>
+        >
+          <Box
+            style={{ height: '800px' }}
+            pad="none"
+            wrap="true"
+          >
+            <EventsList
+              style={{ height: '800px' }}
+              events={events}
+              status={this.props.status}
+              deleteEvent={this.props.deleteEvent}
+              isAuthenticated={this.props.isAuthenticated}
+            />
+          </Box>
+        </Sidebar>
+      </Split>
     );
   }
 }
