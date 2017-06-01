@@ -50,6 +50,7 @@ class MapData extends React.Component {
         obj.title = evt.title;
         obj.private = evt.private;
         obj.address = evt.location[0];
+        obj._id = evt._id;
         obj.time = `${date.toDateString()} @ ${date.toTimeString().split(' ')[0].slice(0, 5)}`;
         obj.lat = resp.lat;
         obj.lng = resp.lng;
@@ -70,7 +71,7 @@ class MapData extends React.Component {
         {this.state.locations.map((event) => {
           if (!event.private) {
             return (
-              <Marker position={[event.lat, event.lng]}>
+              <Marker key={event._id} position={[event.lat, event.lng]}>
                 <Popup>
                   <span>{event.title}<br />
                     {event.address}<br />
@@ -79,7 +80,7 @@ class MapData extends React.Component {
                 </Popup>
               </Marker>);
           }
-          return (<div visibility="hidden">Private Event</div>);
+          return (<div key={event._id} visibility="hidden">Private Event</div>);
         }
         )}
       </Map>);
