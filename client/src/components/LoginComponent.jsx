@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import jwtDecode from 'jwt-decode';
 import SocialGithubIcon from 'grommet/components/icons/base/SocialGithub';
 import Animate from 'grommet/components/Animate';
 import Section from 'grommet/components/Section';
