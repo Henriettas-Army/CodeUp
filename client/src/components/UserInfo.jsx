@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
 import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
+import SendIcon from 'grommet/components/icons/base/Send';
 import CliIcon from 'grommet/components/icons/base/Cli';
 import Status from 'grommet/components/icons/Status';
 import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
+import Button from 'grommet/components/Button';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
 import Label from 'grommet/components/Label';
 import Heading from 'grommet/components/Heading';
@@ -21,7 +23,8 @@ const UserInfo = ({
   updateProfile,
   currentUser,
   editing,
-  editProfile }) => (
+  editProfile,
+  addChatRoom }) => (
     <Section>
       {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
       {status === 'ERROR' && <p className="error">{errMessage}</p>}
@@ -51,6 +54,15 @@ const UserInfo = ({
                   : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{ profile.status}</h3>)
                 }</h2>
                 {/* add chat messaging button here */}
+                <Button
+                  style={{
+                    boxSizing: 'border-box',
+                    width: '60px',
+                    height: '60px',
+                  }}
+                  icon={<SendIcon />}
+                  onClick={() => { addChatRoom(); }}
+                />
               </Section>
             }
           </Box>
@@ -123,6 +135,7 @@ UserInfo.propTypes = {
     skills: PropTypes.arrayOf(PropTypes.string),
     meter: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
+  addChatRoom: PropTypes.func.isRequired,
 };
 
 UserInfo.defaultProps = {

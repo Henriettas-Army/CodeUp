@@ -11,6 +11,7 @@ import UserInfo from '../components/UserInfo';
 import EndorsementCreatorContainer from '../containers/EndorsementCreatorContainer';
 import EndorsementsContainer from '../containers/EndorsementsContainer';
 import profileActions from '../../redux/actions/profileActions';
+import chatActions from '../../redux/actions/chatActions';
 
 import '../styles/styles.scss';
 
@@ -39,6 +40,7 @@ class Profile extends React.Component {
     const currentUser = this.props.isAuthenticated;
     const editing = this.props.editing;
     const editProfile = this.props.editProfile;
+    const props = this.props;
     return (
       <GrommetApp>
         <NavContainer />
@@ -51,6 +53,7 @@ class Profile extends React.Component {
             currentUser={currentUser}
             editing={editing}
             editProfile={editProfile}
+            addChatRoom={() => { props.addChatRoom([currentUser, profile.username].sort().join('#')); }}
           />
           <UserRepos
             repos={profile.repos}
@@ -105,6 +108,7 @@ Profile.propTypes = {
       username: PropTypes.string,
     }),
   }).isRequired,
+  addChatRoom: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
@@ -131,6 +135,9 @@ const mapDispatchToProps = dispatch => ({
   },
   editProfile: () => {
     dispatch(profileActions.editProfile());
+  },
+  addChatRoom: (room, unread) => {
+    dispatch(chatActions.addRoom(room, unread));
   },
 });
 
