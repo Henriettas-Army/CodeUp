@@ -4,11 +4,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import EventsList from '../components/EventsList';
+import eventActions from '../../redux/actions/eventActions';
 
-const style = {
-  height: '800px'
+const divStyle = {
+  height: '100%',
+  width: '100%',
 };
-
+const style = {
+  height: '100%',
+  width: '75%',
+};
+const EventStyle = {
+  'z-index': '10',
+  width: '20%',
+  height: '100%',
+  display: 'inline-block',
+  position: 'relative top right',
+};
 const getUserPos = () => {
   let pos = null;
   if (navigator.geolocation) {
@@ -62,37 +75,66 @@ class MapData extends React.Component {
   }
 
   render() {
+    const events = this.props.events.filter(e =>
+      e.title.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      e.username.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      e.description.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(e.location).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(e.topics).toLowerCase().includes(this.props.searchQuery.toLowerCase())
+    );
+
     return (
-      <Map style={style} center={getUserPos()} zoom={15}>
-        <TileLayer
-          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {this.state.locations.map((event) => {
-          if (!event.private) {
-            return (
-              <Marker key={event._id} position={[event.lat, event.lng]}>
-                <Popup>
-                  <span>{event.title}<br />
-                    {event.address}<br />
-                    {event.time}
-                  </span>
-                </Popup>
-              </Marker>);
+      <div style={divStyle}>
+        <Map style={style} center={getUserPos()} zoom={15}>
+          <TileLayer
+            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          />
+          {this.state.locations.map((event) => {
+            if (!event.private) {
+              return (
+                <Marker position={[event.lat, event.lng]}>
+                  <Popup>
+                    <span>{event.title}<br />
+                      {event.address}<br />
+                      {event.time}
+                    </span>
+                  </Popup>
+                </Marker>);
+            }
+            return (<div visibility="hidden">Private Event</div>);
           }
-          return (<div key={event._id} visibility="hidden">Private Event</div>);
-        }
-        )}
-      </Map>);
+          )}
+        </Map>
+        <EventsList
+          style={EventStyle}
+          events={events}
+          status={this.props.status}
+          deleteEvent={this.props.deleteEvent}
+          isAuthenticated={this.props.isAuthenticated}
+        />
+      </div>
+    );
   }
 }
 
 MapData.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  status: PropTypes.string.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string.isRequired,
+  searchQuery: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   events: state.events.events,
+  searchQuery: state.search.searchQuery,
+  status: state.events.status,
+  isAuthenticated: state.auth.isAuthenticated,
 });
-
-export default connect(mapStateToProps)(MapData);
+const mapDispatchToProps = dispatch => ({
+  deleteEvent: (id) => {
+    dispatch(eventActions.deleteEventAsync(id));
+  }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(MapData);
