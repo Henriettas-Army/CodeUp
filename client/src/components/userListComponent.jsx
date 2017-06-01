@@ -19,7 +19,7 @@ const UserList = ({ users }) => (
           thumbnail={user.img}
           contentPad="small"
           label={user.status === 'Unavailable' ? (<span> <Status value="critical" />Unavailable</span>)
-                : (<span> {user.status === 'Available' ? <Status value="ok" /> : <CliIcon />}{user.status}</span>)}
+                : (<span> {user.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{user.status}</span>)}
           heading={user.username}
           link={<Anchor
             href="#"
