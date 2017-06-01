@@ -28,4 +28,28 @@ const Explore = () => (
   </div>
 );
 
-export default Explore;
+Explore.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string,
+  status: PropTypes.string.isRequired,
+};
+
+Explore.defaultProps = {
+  isAuthenticated: PropTypes.string,
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  status: state.auth.status,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: () => {
+    dispatch(loginUser(jwtDecode(window.localStorage.getItem('token')), 'Available'));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Explore);

@@ -1,3 +1,4 @@
+/* global window */
 import axios from 'axios';
 
 /* Action Types */
@@ -29,8 +30,12 @@ const editProfile = () => ({
   type: EDIT_PROFILE,
 });
 
+const config = {
+  headers: { Authorization: window.localStorage.getItem('token') }
+};
+
 const fetchProfile = username => (
-  axios.get(`/api/users/${username}`)
+  axios.get(`/api/users/${username}`, config)
 );
 
 
@@ -57,7 +62,7 @@ const putProfileUpdate = (updateObj) => {
     {
       username,
       toUpdate,
-    });
+    }, config);
 };
 
 const updateProfileAsync = updateObj => (
