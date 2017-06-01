@@ -49,18 +49,13 @@ const postEventAsync = event => (dispatch) => {
 const deleteEventAsync = id => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.post(urlDeleteEvents, { id })
+  axios.post(urlDeleteEvents, { id }, config)
     .then((response) => {
       if (!response.data.ok) {
-        throw new Error('Error deleting event');
+        dispatch(errorEvents(response.data));
+      } else {
+        dispatch(loadEventsAsync());
       }
-      return response;
-    })
-    .then(() => {
-      dispatch(loadEventsAsync());
-    })
-    .catch((err) => {
-      dispatch(errorEvents(err));
     });
 };
 
