@@ -3,7 +3,7 @@ const endorsementController = require('../../db/controllers/endorsementControlle
 const endorse = (req, res) => {
   endorsementController.postEndorsement(req.body)
   .then((endorsement) => {
-    res.status(200).json({ "Sent endorsement": endorsement });
+    res.status(200).json({ 'Sent endorsement': endorsement });
   })
   .catch((e) => {
     res.send(e);
