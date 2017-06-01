@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Layer from 'grommet/components/Layer';
 import AddIcon from 'grommet/components/icons/base/Add';
 import Anchor from 'grommet/components/Anchor';
@@ -93,4 +94,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Events);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Events));
