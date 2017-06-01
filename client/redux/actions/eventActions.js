@@ -1,3 +1,4 @@
+/* global window */
 import axios from 'axios';
 
 /* Action Types */
@@ -15,13 +16,17 @@ const urlGetEvents = '/api/events';
 const urlPostEvents = '/api/events';
 const urlDeleteEvents = '/api/events/delete';
 
+const config = {
+  headers: { Authorization: window.localStorage.getItem('token') }
+};
+
 const loadEventsAsync = () => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.get(urlGetEvents)
+  axios.get(urlGetEvents, config)
     .then((response) => {
       if (!response.data.ok) {
-        dispatch(errorEvents(response.data.error));
+        dispatch(errorEvents(response.data));
       } else {
         dispatch(dataEvents(response.data.events));
       }
@@ -31,38 +36,26 @@ const loadEventsAsync = () => (dispatch) => {
 const postEventAsync = event => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.post(urlPostEvents, event)
+  axios.post(urlPostEvents, event, config)
     .then((response) => {
       if (!response.data.ok) {
-        console.log(response.data);
-        throw new Error('Error posting event');
+        dispatch(errorEvents(response.data));
+      } else {
+        dispatch(loadEventsAsync());
       }
-      return response;
-    })
-    .then(() => {
-      dispatch(loadEventsAsync());
-    })
-    .catch((err) => {
-      console.log(err);
-      dispatch(errorEvents(err));
     });
 };
 
 const deleteEventAsync = id => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.post(urlDeleteEvents, { id })
+  axios.post(urlDeleteEvents, { id }, config)
     .then((response) => {
       if (!response.data.ok) {
-        throw new Error('Error deleting event');
+        dispatch(errorEvents(response.data));
+      } else {
+        dispatch(loadEventsAsync());
       }
-      return response;
-    })
-    .then(() => {
-      dispatch(loadEventsAsync());
-    })
-    .catch((err) => {
-      dispatch(errorEvents(err));
     });
 };
 

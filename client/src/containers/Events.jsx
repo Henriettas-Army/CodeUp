@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Layer from 'grommet/components/Layer';
 import AddIcon from 'grommet/components/icons/base/Add';
 import Anchor from 'grommet/components/Anchor';
@@ -21,11 +22,18 @@ class Events extends React.Component {
   }
 
   render() {
-    const events = this.props.events.filter(e => e.title.includes(this.props.searchQuery));
+    const events = this.props.events.filter(e =>
+      e.title.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      e.username.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      e.description.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(e.location).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(e.topics).toLowerCase().includes(this.props.searchQuery.toLowerCase())
+    );
     const status = this.props.status;
     const createEvent = this.props.createEvent;
     const deleteEvent = this.props.deleteEvent;
     const isAuthenticated = this.props.isAuthenticated;
+    const errMessage = this.props.errMessage;
 
     return (
       <div>
@@ -54,6 +62,7 @@ class Events extends React.Component {
           status={status}
           deleteEvent={deleteEvent}
           isAuthenticated={isAuthenticated}
+          errMessage={errMessage}
         />
       </div>
     );
@@ -68,6 +77,7 @@ Events.propTypes = {
   deleteEvent: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
   searchQuery: PropTypes.string.isRequired,
+  errMessage: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -75,6 +85,7 @@ const mapStateToProps = state => ({
   searchQuery: state.search.searchQuery,
   status: state.events.status,
   isAuthenticated: state.auth.isAuthenticated,
+  errMessage: state.events.error,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -87,4 +98,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Events);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Events));

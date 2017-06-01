@@ -10,11 +10,17 @@ class Users extends React.Component {
   }
   render() {
     let users = this.props.users.users;
-    users = users.filter(user => user.username !== this.props.isAuthenticated);
-    users = users.filter(u => u.username.includes(this.props.searchQuery));
+    users = users.filter(u =>
+      u.username.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(u.meter).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(u.location).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(u.skills).toLowerCase().includes(this.props.searchQuery.toLowerCase())
+    );
     return (
       <div>
-        <UserList users={users} />
+        <UserList
+          users={users}
+        />
       </div>
     );
   }
@@ -24,7 +30,7 @@ Users.propTypes = {
   users: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
   searchQuery: PropTypes.string.isRequired,
   listUsers: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.string,
+  // isAuthenticated: PropTypes.string,
 };
 
 Users.defaultProps = {

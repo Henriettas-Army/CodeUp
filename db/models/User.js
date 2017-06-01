@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const endorsementSchema = new Schema({
+  endorserUsername: String,
+  endorserImg: String,
+  skills: [String],
+  comments: String
+});
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -18,6 +25,8 @@ const userSchema = new Schema({
   languages: String,
   access_token: String,
   meter: [Schema.Types.Mixed]
+  meter: [Schema.Types.Mixed],
+  endorsements: [endorsementSchema]
 });
 
 const User = mongoose.model('user', userSchema);
