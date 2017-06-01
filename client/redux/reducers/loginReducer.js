@@ -1,11 +1,11 @@
 /* global window */
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
 import { LOGIN_USER, LOGOUT_USER, LOAD_LOGIN } from '../actions/loginActions';
 
 const auth = (state = {
   status: window.localStorage.token ? 'READY' : '',
-  isAuthenticated: window.localStorage.token ? jwtDecode(window.localStorage.getItem('token')) : '',
+  isAuthenticated: window.localStorage.token ? jwt.decode(window.localStorage.getItem('token')) : '',
 }, action) => {
   switch (action.type) {
     case LOGIN_USER:

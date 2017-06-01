@@ -1,7 +1,7 @@
 const express = require('express');
 const GITHUB_API = require('../config/github');
 const axios = require('axios');
-const jwt = require('jwt-simple');
+const jwt = require('jsonwebtoken');
 const UserController = require('../../db/controllers/UserController');
 const Utils = require('../utils');
 
@@ -17,7 +17,7 @@ router.post('/login', (req, res) => {
     const TOKEN = response.data.split('&')[0].split('=')[1];
     axios(`https://api.github.com/user?access_token=${TOKEN}`)
     .then((resp) => {
-      const token = jwt.encode(resp.data.login, 'secret');
+      const token = jwt.sign(resp.data.login, 'codeupforever');
       res.json(token);
       const newUser = {
         username: resp.data.login,
@@ -60,6 +60,7 @@ router.get('/list', (req, res) => {
 
 // get individual user profile
 router.get('/:username', (req, res) => {
+  console.log('PROFILE SENT TOKEN:', req.headers.authorization);
   Utils.grabUserInfo(req.params.username, req, res);
 });
 
