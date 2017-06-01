@@ -46,9 +46,11 @@ class MapData extends React.Component {
       latLngevt(evt.location[0])
       .then((resp) => {
         const obj = {};
+        const date = new Date(evt.date);
         obj.title = evt.title;
         obj.private = evt.private;
         obj.address = evt.location[0];
+        obj.time = `${date.toDateString()} @ ${date.toTimeString().split(' ')[0].slice(0, 5)}`;
         obj.lat = resp.lat;
         obj.lng = resp.lng;
         eventlocale.push(obj);
@@ -71,7 +73,9 @@ class MapData extends React.Component {
               <Marker position={[event.lat, event.lng]}>
                 <Popup>
                   <span>{event.title}<br />
-                    {event.address}</span>
+                    {event.address}<br />
+                    {event.time}
+                  </span>
                 </Popup>
               </Marker>);
           }

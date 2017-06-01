@@ -1,5 +1,8 @@
 import React from 'react';
-import Tabs from '../components/Tabs';
+import Tabs from 'grommet/components/Tabs';
+import Tab from 'grommet/components/Tab';
+import Events from '../containers/Events';
+import Users from '../containers/Users';
 import NavContainer from '../containers/NavContainer';
 import Map from '../containers/MapData';
 
@@ -11,9 +14,6 @@ const Explore = () => (
     <br />
     <br />
     <br />
-<<<<<<< 7deb80d8d35f9e9d07296f7fe76b28a82df4b5d3
-    <Tabs />
-=======
     <Tabs>
       <Tab title="Events">
         <Events />
@@ -25,7 +25,6 @@ const Explore = () => (
         <Map />
       </Tab>
     </Tabs>
->>>>>>> render locations on map view
   </div>
 );
 
