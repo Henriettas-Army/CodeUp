@@ -19,9 +19,18 @@ module.exports = {
     }));
   },
   getEvents: (req, res) => {
-    eventHelper.getEvents()
-    .then(evts => res.status(200).json({ events: evts.sort((a, b) => a.date - b.date), ok: true }))
-    .catch(error => res.status(200).json({ ok: false, error }));
+    const token = req.headers.authorization;
+    jwt.verify(token, 'codeupforever', ((err) => {
+      if (err) {
+        res.send(`${err.name}: Please sign in again to renew your session`);
+      } else {
+        eventHelper.getEvents()
+        .then(evts => res.status(200).json({
+          events: evts.sort((a, b) => a.date - b.date),
+          ok: true }))
+        .catch(error => res.status(200).json({ ok: false, error }));
+      }
+    }));
   },
   deleteEvent: (req, res) => {
     eventHelper.deleteEvent(req.body.id)
