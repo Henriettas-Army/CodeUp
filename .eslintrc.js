@@ -8,6 +8,7 @@ module.exports = {
     "rules": {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "comma-dangle": ["error", "only-multiline"],
-      "no-underscore-dangle": ["error", { "allow": ["_id"] }]
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+      "no-param-reassign": ["error", { "props": false }]
     }
 };

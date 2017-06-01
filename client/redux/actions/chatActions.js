@@ -16,7 +16,7 @@ const addRoom = (room, unread = 0) => ({ type: ADD_ROOM, room, unread });
 const openRoom = room => ({ type: OPEN_ROOM, room });
 const loadingRooms = username => ({ type: LOADING_ROOMS, username });
 const setSocket = socket => ({ type: SET_SOCKET, socket });
-const loadingMessages = room => ({ type: LOADING_MESSAGES, room })
+const loadingMessages = room => ({ type: LOADING_MESSAGES, room });
 
 
 const closeRoomAsync = (room, socket, username) => (dispatch) => {
