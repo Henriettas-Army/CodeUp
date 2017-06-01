@@ -80,10 +80,6 @@ Events.propTypes = {
   errMessage: PropTypes.string,
 };
 
-Events.defaultProps = {
-  errMessage: PropTypes.string,
-};
-
 const mapStateToProps = state => ({
   events: state.events.events,
   searchQuery: state.search.searchQuery,

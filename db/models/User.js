@@ -24,6 +24,7 @@ const userSchema = new Schema({
   status: String,
   languages: String,
   access_token: String,
+  meter: [Schema.Types.Mixed]
   meter: [Schema.Types.Mixed],
   endorsements: [endorsementSchema]
 });
