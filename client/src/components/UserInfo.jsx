@@ -41,7 +41,7 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
             <h2>Status:<br />{
               profile.status === 'Unavailable' ?
               (<h3><Status value="critical" />Unavailable</h3>)
-              : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon />}{ profile.status}</h3>)
+              : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{ profile.status}</h3>)
             }</h2>
             {/* add chat messaging button here */}
           </Section>

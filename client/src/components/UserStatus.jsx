@@ -10,7 +10,7 @@ const UserStatus = ({ user, updateProfile, status }) => (
     <h3>Status
     {
       status === 'Unavailable' ? (<span> <Status value="critical" /></span>)
-      : (<span> {status === 'Available' ? <Status value="ok" /> : <CliIcon />}</span>)
+      : (<span> {status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}</span>)
     }
     </h3>
     <Select
