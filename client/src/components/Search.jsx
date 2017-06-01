@@ -1,25 +1,33 @@
-import React from 'react';
+/* global window */
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GSearch from 'grommet/components/Search';
 
-const Search = (props) => {
-  const handleInputChange = (e) => {
-    props.search(e.target.value);
-  };
+class Search extends Component {
+  handleInputChange(e) {
+    this.props.search(e.target.value);
+    if (window.location.pathname !== '/explore') {
+      window.location.href = '/explore';
+    }
+  }
 
-  return (
-    <GSearch
-      size="medium"
-      fill
-      placeHolder="Search"
-      inline
-      onDOMChange={(e) => { handleInputChange(e); }}
-    />
-  );
-};
+  render() {
+    return (
+      <GSearch
+        value={this.props.searchQuery}
+        size="medium"
+        fill
+        placeHolder="Search"
+        inline
+        onDOMChange={(e) => { this.handleInputChange(e); }}
+      />
+    );
+  }
+}
 
 Search.propTypes = {
   search: PropTypes.func.isRequired,
+  searchQuery: PropTypes.string.isRequired,
 };
 
 export default Search;

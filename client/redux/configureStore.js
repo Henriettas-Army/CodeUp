@@ -1,13 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
+import { autoRehydrate, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import combineReducers from './reducers/combineReducers';
 
-function configureStore(initialState) {
-  return createStore(
-      combineReducers,
-      initialState,
-      applyMiddleware(thunk),
-  );
-}
+const store = composeWithDevTools(
+  applyMiddleware(thunk),
+  autoRehydrate(),
+)(createStore)(combineReducers);
 
-export default configureStore;
+persistStore(store);
+
+export default store;
