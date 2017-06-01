@@ -4,6 +4,7 @@ import profile from './profileReducer';
 import events from './events';
 import users from './userListReducer';
 import search from './searchReducer';
+import chat from './chatReducer';
 
 const codeUpApp = combineReducers({
   auth,
@@ -11,6 +12,7 @@ const codeUpApp = combineReducers({
   profile,
   users,
   search,
+  chat,
 });
 
 export default codeUpApp;

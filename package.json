@@ -43,7 +43,6 @@
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
     "nock": "^9.0.13",
-    "node-sass-chokidar": "0.0.1",
     "nodemon": "^1.11.0",
     "react-router": "^4.1.1",
     "react-test-renderer": "^15.5.4",
@@ -70,6 +69,7 @@
     "leaflet": "^1.0.3",
     "mongoose": "^4.10.0",
     "morgan": "^1.8.1",
+    "node-sass": "^4.5.3",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -81,6 +81,8 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.5",
+    "socket.io": "^2.0.2",
+    "socket.io-client": "^2.0.2",
     "webpack": "^2.5.1"
   }
 }

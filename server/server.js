@@ -18,9 +18,13 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../client')));
 
 /* eslint-disable no-console */
-app.listen('3034', () => {
+const server = app.listen('3034', () => {
   console.log('Listening on port 3034...');
 });
+
+const io = require('socket.io')(server);
+require('./routes/chat')(io);
+
 /* eslint-enable no-console. */
 
 // routes
