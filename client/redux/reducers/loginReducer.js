@@ -1,5 +1,6 @@
 /* global window */
 import jwtDecode from 'jwt-decode';
+import jwt from 'jsonwebtoken';
 import { LOGIN_USER, LOGOUT_USER, LOAD_LOGIN } from '../actions/loginActions';
 
 const auth = (state = {
