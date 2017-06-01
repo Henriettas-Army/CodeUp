@@ -58,7 +58,10 @@ class Profile extends React.Component {
             primary
           />
           { this.state.endorsementCreatorOpen ?
-            <EndorsementCreatorContainer closeEC={() => { this.closeEC(); }} />
+            <EndorsementCreatorContainer
+              closeEC={() => { this.closeEC(); }}
+              skillsToEndorse={profile.skills.concat(profile.desired)}
+            />
             : null
           }
           <EndorsementsContainer />
