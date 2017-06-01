@@ -72,18 +72,26 @@ router.get('/:username', (req, res) => {
 
 // update user profile
 router.put('/:username', (req, res) => {
-  const body = req.body;
-  const data = {};
-  body.toUpdate.forEach((update) => {
-    data[update.typeUpdate] = update.data;
-  });
-  UserController.updateUserInfo(req.params.username, data)
-  .then(() => {
-    Utils.grabUserInfo(req.params.username, req, res);
-  })
-  .catch((err) => {
-    res.status(200).json({ ok: false, err });
-  });
+  const token = req.headers.authorization;
+  jwt.verify(token, 'codeupforever', ((err, decoded) => {
+    console.log('DECODED:', decoded);
+    if (err) {
+      res.send(`${err.name}: Please sign in again to renew your session`);
+    } else {
+      const body = req.body;
+      const data = {};
+      body.toUpdate.forEach((update) => {
+        data[update.typeUpdate] = update.data;
+      });
+      UserController.updateUserInfo(decoded, data)
+      .then(() => {
+        Utils.grabUserInfo(decoded, req, res);
+      })
+      .catch((error) => {
+        res.status(200).json({ ok: false, error });
+      });
+    }
+  }));
 });
 
 module.exports = router;

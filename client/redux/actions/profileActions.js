@@ -58,7 +58,7 @@ const loadProfileAsync = username => (
 // goes to server and server determines which user object item to update based on
 // typeUpdate (status, skills, learn);
 const putProfileUpdate = (updateObj) => {
-  const username = updateObj.username;
+  const username = window.localStorage.getItem('token');
   const toUpdate = updateObj.toUpdate;
   return axios.put(`/api/users/${username}`,
     {
@@ -73,7 +73,7 @@ const updateProfileAsync = updateObj => (
     return putProfileUpdate(updateObj)
     .then((response) => {
       if (!response.data.ok) {
-        dispatch(errorProfile('unable to update user info'));
+        dispatch(errorProfile(response.data));
       } else {
         dispatch(updateProfile(response.data.user));
       }
