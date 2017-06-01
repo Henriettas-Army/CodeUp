@@ -73,8 +73,6 @@
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-google-map": "^3.0.1",
-    "react-google-maps-loader": "^2.0.2",
     "react-leaflet": "^1.2.0",
     "react-places-autocomplete": "^5.3.0",
     "react-redux": "^5.0.5",

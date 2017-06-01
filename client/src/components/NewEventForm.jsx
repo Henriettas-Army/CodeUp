@@ -42,12 +42,14 @@ class NewEventForm extends React.Component {
     }
   }
   handleSelect(address) {
+    console.log('Im SELECTING!', address);
     this.setState({
       location: address,
     });
   }
 
   handleChange(address) {
+    console.log('Im change GTFO!', address);
     this.setState({
       address,
     });
@@ -100,12 +102,10 @@ class NewEventForm extends React.Component {
           />
         </FormField>
         <FormField>
-          <SearchInput
+          <TextInput
             id="places"
-            onDOMChange={this.handleChange}
-            onSelect={e => this.setState({ location: e.target.value })}
+            onDOMChange={e => this.setState({ location: e.target.value })}
             placeHolder="Find Location"
-            suggestions={this.state.results}
           />
         </FormField>
         <FormField>
@@ -141,7 +141,7 @@ class NewEventForm extends React.Component {
                 duration: this.state.duration.value,
                 date: this.state.date,
                 topics: this.state.topics.split(',').map(st => st.trim()),
-                location: this.state.location,
+                location: document.querySelector('#places').value,
                 description: this.state.description,
                 private: this.state.private,
               };
