@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
 import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
+import CliIcon from 'grommet/components/icons/base/Cli';
+import Status from 'grommet/components/icons/Status';
 import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
@@ -35,9 +37,14 @@ const UserInfo = ({ profile, status, updateProfile, currentUser, editing, editPr
               updateProfile={updateProfile}
               status={profile.status}
             />
-            : <h4>Status:<br />{profile.status}
-              {/* add chat messaging button here */}
-            </h4>
+          : <Section>
+            <h2>Status:<br />{
+              profile.status === 'Unavailable' ?
+              (<h3><Status value="critical" />Unavailable</h3>)
+              : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon />}{ profile.status}</h3>)
+            }</h2>
+            {/* add chat messaging button here */}
+          </Section>
           }
         </Box>
       </Columns>
