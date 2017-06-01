@@ -1,3 +1,4 @@
+/* global google document navigator */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'grommet/components/Select';
@@ -9,7 +10,7 @@ import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
 import CheckBox from 'grommet/components/CheckBox';
-import PlacesAutocomplete from 'react-places-autocomplete';
+import SearchInput from 'grommet/components/SearchInput';
 
 const EMPTY_FORM = {
   title: '',
@@ -17,7 +18,6 @@ const EMPTY_FORM = {
   description: '',
   duration: '',
   location: 'Austin, Tx',
-  geocodeResults: null,
   topics: '',
   private: false,
 };
@@ -30,7 +30,17 @@ class NewEventForm extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const options = new google.maps.LatLngBounds(
+          new google.maps.LatLng(position.coords.latitude + 10, position.coords.longitude - 10),
+          new google.maps.LatLng(position.coords.latitude - 10, position.coords.longitude + 10));
+        const input = document.getElementById('places');
+        console.log(new google.maps.places.Autocomplete(input, options));
+      });
+    }
+  }
   handleSelect(address) {
     this.setState({
       location: address,
@@ -53,24 +63,6 @@ class NewEventForm extends React.Component {
 
   render() {
     const createEvent = this.props.createEvent;
-    const AutocompleteItem = ({ formattedSuggestion }) => (
-      <div className="Demo__suggestion-item">
-        <i className="fa fa-map-marker Demo__suggestion-icon" />
-        <strong>{formattedSuggestion.mainText}</strong>{' '}
-        <small className="text-muted">{formattedSuggestion.secondaryText}</small>
-      </div>);
-
-    const inputProps = {
-      type: 'text',
-      value: this.state.address,
-      onChange: this.handleChange,
-      onBlur: () => { console.log('Blur event!'); },
-      onFocus: () => { console.log('Focused!'); },
-      autoFocus: true,
-      placeholder: 'Search Places',
-      name: 'Demo__input',
-      id: 'my-input-id',
-    };
 
     return (
       <Form>
@@ -108,13 +100,12 @@ class NewEventForm extends React.Component {
           />
         </FormField>
         <FormField>
-          <PlacesAutocomplete
-            onSelect={this.handleSelect}
-            onEnterKeyDown={this.handleSelect}
-            autocompleteItem={AutocompleteItem}
-            inputProps={inputProps}
-            value={this.state.location}
-            onChange={e => this.setState({ location: e.target.value })}
+          <SearchInput
+            id="places"
+            onDOMChange={this.handleChange}
+            onSelect={e => this.setState({ location: e.target.value })}
+            placeHolder="Find Location"
+            suggestions={this.state.results}
           />
         </FormField>
         <FormField>
