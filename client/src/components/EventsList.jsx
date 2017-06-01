@@ -10,9 +10,9 @@ import AccordionPanel from 'grommet/components/AccordionPanel';
 import Timestamp from 'grommet/components/Timestamp';
 import Spinning from 'grommet/components/icons/Spinning';
 
-const EventsList = ({ events, status, deleteEvent, isAuthenticated }) => (<div>
+const EventsList = ({ events, status, deleteEvent, isAuthenticated, errMessage }) => (<div>
   {status === 'LOADING' && <p className="loading">Loading ...<Spinning /></p>}
-  {status === 'ERROR' && <p className="error">Error loading or posting events ...</p>}
+  {status === 'ERROR' && <p className="error">Error loading or posting events ... {errMessage}</p>}
   {
     <Tiles fill flush={false}>
       {events.map(evt =>
@@ -63,6 +63,11 @@ EventsList.propTypes = {
   status: PropTypes.string.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
+  errMessage: PropTypes.string,
+};
+
+EventsList.defaultProps = {
+  errMessage: PropTypes.string,
 };
 
 export default EventsList;

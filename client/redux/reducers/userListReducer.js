@@ -1,21 +1,23 @@
-import { LIST_USERS } from '../actions/userListAction';
+import { LIST_USERS, ERROR } from '../actions/userListAction';
 
-const firstUser = {
+const INITIAL_STATE = {
   users: [
     {
-      username: 'Fliko',
-      skills: ['HTML'],
-      desired: ['brains'],
-      location: ['Austin', 'Tx'],
-      status: 'available',
+      username: '',
+      skills: [],
+      desired: [],
+      location: [],
+      status: '',
     },
   ],
 };
 
-const listUsers = (state = firstUser, action) => {
+const listUsers = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LIST_USERS:
       return Object.assign({}, state, { users: action.users });
+    case ERROR:
+      return Object.assign({}, state, { errMessage: action.errMessage });
     default:
       return state;
   }

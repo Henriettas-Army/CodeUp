@@ -1,4 +1,5 @@
 /* global google document navigator */
+/* global window */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'grommet/components/Select';
@@ -137,7 +138,7 @@ class NewEventForm extends React.Component {
               e.preventDefault();
               const event = {
                 title: this.state.title,
-                username: this.props.isAuthenticated,
+                username: window.localStorage.getItem('token'),
                 duration: this.state.duration.value,
                 date: this.state.date,
                 topics: this.state.topics.split(',').map(st => st.trim()),
@@ -158,7 +159,6 @@ class NewEventForm extends React.Component {
 NewEventForm.propTypes = {
   createEvent: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.string.isRequired,
 };
 
 export default NewEventForm;

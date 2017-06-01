@@ -1,14 +1,22 @@
+const jwt = require('jsonwebtoken');
 const eventHelper = require('../../db/controllers/eventHelper');
 
 module.exports = {
   postEvent: (req, res) => {
-    eventHelper.addEvent(req.body)
-    .then((event) => {
-      res.status(200).json({ event, ok: true });
-    })
-    .catch((error) => {
-      res.status(200).json({ ok: false, error });
-    });
+    const token = req.headers.authorization;
+    jwt.verify(token, 'codeupforever', ((err, decoded) => {
+      if (err) {
+        res.send(`${err.name}: Please sign in again to renew your session`);
+      } else {
+        eventHelper.addEvent(req.body, decoded)
+        .then((event) => {
+          res.status(200).json({ event, ok: true });
+        })
+        .catch((error) => {
+          res.status(200).json({ ok: false, error });
+        });
+      }
+    }));
   },
   getEvents: (req, res) => {
     eventHelper.getEvents()

@@ -6,7 +6,7 @@ import userAction from '../../redux/actions/userListAction';
 
 class Users extends React.Component {
   componentWillMount() {
-    this.props.listUsers(this.props.isAuthenticated);
+    this.props.listUsers();
   }
   render() {
     let users = this.props.users.users;
@@ -18,7 +18,9 @@ class Users extends React.Component {
     );
     return (
       <div>
-        <UserList users={users} />
+        <UserList
+          users={users}
+        />
       </div>
     );
   }
@@ -28,7 +30,7 @@ Users.propTypes = {
   users: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
   searchQuery: PropTypes.string.isRequired,
   listUsers: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.string,
+  // isAuthenticated: PropTypes.string,
 };
 
 Users.defaultProps = {
@@ -42,8 +44,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  listUsers: (username) => {
-    dispatch(userAction.loadAllUsers(username));
+  listUsers: () => {
+    dispatch(userAction.loadAllUsers());
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

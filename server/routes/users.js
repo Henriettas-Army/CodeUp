@@ -48,14 +48,21 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/list', (req, res) => {
-  UserController.getAllUsers()
-  .then((data) => {
-    const usersData = data.filter(user => user.username !== req.query.username);
-    res.status(200).json({ status: true, users: usersData });
-  })
-  .catch((err) => {
-    res.json({ status: false, error: err });
-  });
+  const token = req.headers.authorization;
+  jwt.verify(token, 'codeupforever', ((err, decoded) => {
+    if (err) {
+      res.send(`${err.name}: Please sign in again to renew your session`);
+    } else {
+      UserController.getAllUsers()
+      .then((data) => {
+        const usersData = data.filter(user => user.username !== decoded);
+        res.status(200).json({ status: true, users: usersData });
+      })
+      .catch((error) => {
+        res.json({ status: false, error });
+      });
+    }
+  }));
 });
 
 // get individual user profile
@@ -74,7 +81,6 @@ router.get('/:username', (req, res) => {
 router.put('/:username', (req, res) => {
   const token = req.headers.authorization;
   jwt.verify(token, 'codeupforever', ((err, decoded) => {
-    console.log('DECODED:', decoded);
     if (err) {
       res.send(`${err.name}: Please sign in again to renew your session`);
     } else {
