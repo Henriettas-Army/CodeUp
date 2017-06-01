@@ -24,6 +24,7 @@ class Profile extends React.Component {
   render() {
     const profile = this.props.profile;
     const status = this.props.status;
+    const errMessage = this.props.errMessage;
     const updateProfile = this.props.updateProfile;
     const currentUser = this.props.isAuthenticated;
     const editing = this.props.editing;
@@ -35,6 +36,7 @@ class Profile extends React.Component {
           <UserInfo
             profile={profile}
             status={status}
+            errMessage={errMessage}
             updateProfile={updateProfile}
             currentUser={currentUser}
             editing={editing}
@@ -57,6 +59,7 @@ Profile.propTypes = {
   editProfile: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
+  errMessage: PropTypes.string,
   isAuthenticated: PropTypes.string,
   profile: PropTypes.shape({
     username: PropTypes.string,
@@ -81,6 +84,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   isAuthenticated: '',
+  errMessage: PropTypes.string,
 };
 
 const mapStateToProps = state => (
@@ -89,6 +93,7 @@ const mapStateToProps = state => (
     status: state.profile.status,
     isAuthenticated: state.auth.isAuthenticated,
     editing: state.profile.editing,
+    errMessage: state.profile.errMessage,
   })
 );
 

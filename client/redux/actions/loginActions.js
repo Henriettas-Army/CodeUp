@@ -1,6 +1,7 @@
 /* global window */
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
+import jwt from 'jsonwebtoken';
 
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
@@ -36,7 +37,7 @@ const loginUserAsync = code => (
     return postLogin(code)
     .then((token) => {
       saveToken(token);
-      const user = jwtDecode(token.data);
+      const user = jwt.decode(token.data);
       dispatch(loginUser(user, 'READY'));
     });
   }
