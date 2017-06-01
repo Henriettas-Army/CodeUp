@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import GrommetApp from 'grommet/components/App';
+import Edit from 'grommet/components/icons/base/Edit';
+import Button from 'grommet/components/Button';
 import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
+import EndorsementCreatorContainer from '../containers/EndorsementCreatorContainer';
+import EndorsementsContainer from '../containers/EndorsementsContainer';
 import profileActions from '../../redux/actions/profileActions';
 
 import '../styles/styles.scss';
 
 class Profile extends React.Component {
   componentWillMount() {
+    this.state = { endorsementCreatorOpen: false };
+  }
+  componentDidMount() {
     this.props.loadProfile(decodeURIComponent(this.props.match.params.username));
   }
   componentWillReceiveProps(nextProps) {
@@ -20,6 +27,9 @@ class Profile extends React.Component {
     if (current !== next) {
       this.props.loadProfile(next);
     }
+  }
+  closeEC() {
+    this.setState({ endorsementCreatorOpen: false });
   }
   render() {
     const profile = this.props.profile;
@@ -47,6 +57,21 @@ class Profile extends React.Component {
             status={status}
             user={profile.username}
           />
+          <Button
+            icon={<Edit />}
+            label="Endorse this person"
+            onClick={() => { this.setState({ endorsementCreatorOpen: true }); }}
+            primary
+          />
+          { this.state.endorsementCreatorOpen ?
+            <EndorsementCreatorContainer
+              closeEC={() => { this.closeEC(); }}
+              skillsToEndorse={profile.skills.concat(profile.desired)}
+              endorsed={profile.username}
+            />
+            : null
+          }
+          <EndorsementsContainer />
         </div>
       </GrommetApp>
     );

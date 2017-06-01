@@ -10,11 +10,7 @@ const NavContainer = ({ logoutUser, isAuthenticated }) => (
 
 NavContainer.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.string,
-};
-
-NavContainer.defaultProps = {
-  isAuthenticated: '',
+  isAuthenticated: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
