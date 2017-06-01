@@ -18,8 +18,9 @@ const updateProfile = profile => ({
   profile,
 });
 
-const errorProfile = () => ({
+const errorProfile = errMessage => ({
   type: ERROR_PROFILE,
+  errMessage,
 });
 
 const profileData = profile => ({
@@ -45,7 +46,8 @@ const loadProfileAsync = username => (
     return fetchProfile(username)
     .then((response) => {
       if (!response.data.ok) {
-        dispatch(errorProfile('unable to find user'));
+        console.log(response.data);
+        dispatch(errorProfile(response.data));
       } else {
         dispatch(profileData(response.data.user));
       }

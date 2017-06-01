@@ -60,8 +60,14 @@ router.get('/list', (req, res) => {
 
 // get individual user profile
 router.get('/:username', (req, res) => {
-  console.log('PROFILE SENT TOKEN:', req.headers.authorization);
-  Utils.grabUserInfo(req.params.username, req, res);
+  const token = req.headers.authorization;
+  jwt.verify(token, 'codeupforever', ((err) => {
+    if (err) {
+      res.send(`${err.name}: Please sign in again to renew your session`);
+    } else {
+      Utils.grabUserInfo(req.params.username, req, res);
+    }
+  }));
 });
 
 // update user profile
