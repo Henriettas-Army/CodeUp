@@ -102,7 +102,7 @@ class NewEventForm extends React.Component {
           />
         </FormField>
         <FormField>
-          <TextInput
+          <SearchInput
             id="places"
             onDOMChange={e => this.setState({ location: e.target.value })}
             placeHolder="Find Location"

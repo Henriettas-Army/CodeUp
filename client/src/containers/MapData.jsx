@@ -47,6 +47,7 @@ class MapData extends React.Component {
       .then((resp) => {
         const obj = {};
         obj.title = evt.title;
+        obj.private = evt.private;
         obj.address = evt.location[0];
         obj.lat = resp.lat;
         obj.lng = resp.lng;
@@ -64,13 +65,18 @@ class MapData extends React.Component {
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {this.state.locations.map(event => (
-          <Marker position={[event.lat, event.lng]}>
-            <Popup>
-              <span>{event.title}<br />
-                {event.address}</span>
-            </Popup>
-          </Marker>)
+        {this.state.locations.map((event) => {
+          if (!event.private) {
+            return (
+              <Marker position={[event.lat, event.lng]}>
+                <Popup>
+                  <span>{event.title}<br />
+                    {event.address}</span>
+                </Popup>
+              </Marker>);
+          }
+          return (<div visibility="hidden">Private Event</div>);
+        }
         )}
       </Map>);
   }
