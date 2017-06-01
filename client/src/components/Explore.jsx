@@ -1,15 +1,10 @@
-/* global window */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { connect } from 'react-redux';
+import React from 'react';
 import Tabs from 'grommet/components/Tabs';
 import Tab from 'grommet/components/Tab';
-import NavContainer from '../containers/NavContainer';
 import Events from '../containers/Events';
 import Users from '../containers/Users';
+import NavContainer from '../containers/NavContainer';
 import Map from '../containers/MapData';
-
 
 const Explore = () => (
   <div>
@@ -32,4 +27,5 @@ const Explore = () => (
     </Tabs>
   </div>
 );
- export default Explore;
+
+export default Explore;
