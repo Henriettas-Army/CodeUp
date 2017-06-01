@@ -97,7 +97,7 @@ class MapData extends React.Component {
             {this.state.locations.map((event) => {
               if (!event.private) {
                 return (
-                  <Marker position={[event.lat, event.lng]}>
+                  <Marker key={event.title} position={[event.lat, event.lng]}>
                     <Popup>
                       <span>{event.title}<br />
                         {event.address}<br />
