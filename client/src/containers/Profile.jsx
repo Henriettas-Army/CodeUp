@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import GrommetApp from 'grommet/components/App';
 import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
 import profileActions from '../../redux/actions/profileActions';
+
 import '../styles/styles.scss';
 
 class Profile extends React.Component {
   componentWillMount() {
-    console.log(this.props.match.params.username);
-    this.props.loadProfile(this.props.match.params.username);
+    this.props.loadProfile(decodeURIComponent(this.props.match.params.username));
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.match.params.username);
-    if (this.props.match.params.username !== nextProps.match.params.username) {
-      this.props.loadProfile(nextProps.match.params.username);
+    const current = decodeURIComponent(this.props.match.params.username);
+    const next = decodeURIComponent(nextProps.match.params.username);
+    if (current !== next) {
+      this.props.loadProfile(next);
     }
   }
   render() {
@@ -102,7 +104,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Profile);
+)(Profile));
