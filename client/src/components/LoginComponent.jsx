@@ -21,6 +21,7 @@ const LoginComponent = () => (
     keep
   >
     <div className="welcome" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      {console.log(window.location)}
       <p style={{ fontSize: '80px' }}>Welcome to</p><br />
       <p style={style}>codeUp</p><br />
       <p style={{ textAlign: 'center' }}>

@@ -7,7 +7,6 @@ import Anchor from 'grommet/components/Anchor';
 import Paragraph from 'grommet/components/Paragraph';
 import Accordion from 'grommet/components/Accordion';
 import AccordionPanel from 'grommet/components/AccordionPanel';
-import Heading from 'grommet/components/Heading';
 import Timestamp from 'grommet/components/Timestamp';
 import Spinning from 'grommet/components/icons/Spinning';
 
@@ -31,21 +30,13 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated }) => (<div>
                 <AccordionPanel heading={'Description'}>
                   <Paragraph>
                     {evt.description || 'No description provided for this event'}
-                  </Paragraph>
-                  <Heading tag={'h3'}>Topics</Heading>
-                  <Paragraph>
+                    <br />
                     {evt.topics ? evt.topics.join(', ') : 'No topics provided for this event'}
-                  </Paragraph>
-                  <Heading tag={'h3'}>When?</Heading>
-                  <Paragraph>
+                    <br />
                     {<Timestamp value={evt.date} /> || 'No date provided for this event'}
-                  </Paragraph>
-                  <Heading tag={'h3'}>Where?</Heading>
-                  <Paragraph>
+                    <br />
                     {evt.private ? '*Please contact event creator for location' : evt.location || 'No location provided for this event'}
-                  </Paragraph>
-                  <Heading tag={'h3'}>Estimated Duration</Heading>
-                  <Paragraph>
+                    <br />
                     {evt.duration || 'No duration provided for this event'}
                   </Paragraph>
                 </AccordionPanel>
