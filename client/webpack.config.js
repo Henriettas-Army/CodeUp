@@ -42,13 +42,21 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style-loader'
-      }, {
+      },
+      {
         test: /\.css$/,
         loader: 'css-loader',
         query: {
           modules: true,
           includePaths: ['./styles'],
         }
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
       },
     ],
   },

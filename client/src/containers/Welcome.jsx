@@ -19,7 +19,9 @@ class Welcome extends Component {
     let page;
     if (this.props.status === '') {
       page = (
-        <LoginComponent />
+        <Section>
+          <LoginComponent />
+        </Section>
       );
     } else if (this.props.status === 'LOADING') {
       page = (
