@@ -61,6 +61,7 @@ class Profile extends React.Component {
             <EndorsementCreatorContainer
               closeEC={() => { this.closeEC(); }}
               skillsToEndorse={profile.skills.concat(profile.desired)}
+              endorsed={profile.username}
             />
             : null
           }

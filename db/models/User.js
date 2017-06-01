@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const endorsementSchema = new Schema({
-  endorser_username: String,
-  endorser_img: String,
+  endorserUsername: String,
+  endorserImg: String,
   skills: [String],
-  comment: [String]
+  comments: String
 });
 
 const userSchema = new Schema({
