@@ -1,5 +1,4 @@
-/* global google document navigator */
-/* global window */
+/* global google document navigator, window */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'grommet/components/Select';
