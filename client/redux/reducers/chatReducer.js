@@ -5,7 +5,7 @@ import chat from '../actions/chatActions';
 //   username: undefined,
 //   loadingRooms: false,
 //   rooms: {}, // example state: {'user1#user2':
-//                      {messages: [...mgs], active: true, loaded: true, unread: 0, loading: false } }
+//  {messages: [...mgs], active: true, loaded: true, unread: 0, loading: false } }
 // };
 //   RECEIVE_ROOMS,
   // OPEN_ROOM,
@@ -133,7 +133,7 @@ const rooms = (state = {}, action) => { // state: state.rooms
         unread = action.rooms[i].unread;
         newState[room] = { unread, active: false, loading: false, loaded: false, messages: [] };
       }
-      console.log('newState: ', newState)
+      console.log('newState: ', newState);
       return newState;
     case chat.LOADING_MESSAGES:
       newState = Object.assign({}, state);

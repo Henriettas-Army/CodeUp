@@ -44,7 +44,6 @@ class Chat extends React.Component {
             }}
           >{this.props.chatName}</span>
           <CloseIcon style={{ cursor: 'pointer', position: 'absolute', right: 0 }} onClick={() => { this.props.onCloseChat(); }} />
-          
         </div>
         <div
           className="conversationDiv"
@@ -61,7 +60,7 @@ class Chat extends React.Component {
           {this.props.loading && 'loading...'}
           {
             this.props.messages.map((message) => {
-              let style = {
+              const style = {
                 marginTop: '5px',
                 display: 'inline-block',
                 maxWidth: '150px',
@@ -114,7 +113,7 @@ class Chat extends React.Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }
 

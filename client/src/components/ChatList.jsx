@@ -62,7 +62,7 @@ class ChatList extends React.Component {
           <CaretDown />
         </span>
         <List selectable>
-          {this.props.rooms.map((room) => (
+          {this.props.rooms.map(room => (
             <ListItem
               justify="between"
               separator="horizontal"
