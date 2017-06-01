@@ -6,13 +6,15 @@ import Search from '../components/Search';
 
 const SearchContainer = props => (<Search {...props} />);
 
+const mapStateToProps = state => ({ searchQuery: state.search.searchQuery });
 const mapDispatchToProps = dispatch => ({ search: (query) => { dispatch(search(query)); } });
 
 SearchContainer.propTypes = {
   search: PropTypes.func.isRequired,
+  searchQuery: PropTypes.string.isRequired,
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(SearchContainer);
