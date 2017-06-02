@@ -16,17 +16,21 @@ import PinIcon from 'grommet/components/icons/base/Pin';
 import EventsList from '../components/EventsList';
 import eventActions from '../../redux/actions/eventActions';
 import NewEventForm from '../components/NewEventForm';
+import EditEventForm from '../components/EditEventForm';
 
 
 class Events extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showForm: false,
       view: 'All',
+      showNewEventForm: false,
+      showEditEventForm: false,
+      editingEvent: null,
       calendar: null,
     };
     this.handleCalendarDate = this.handleCalendarDate.bind(this);
+    this.displayEditEventForm = this.displayEditEventForm.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +43,14 @@ class Events extends React.Component {
     });
   }
 
+  displayEditEventForm(event) {
+    this.setState({
+      showEditEventForm: true,
+      editingEvent: event,
+    });
+    console.log('STATE TO BE EDITED:', this.state.editingEvent);
+  }
+
   render() {
     const status = this.props.status;
     const createEvent = this.props.createEvent;
@@ -46,6 +58,7 @@ class Events extends React.Component {
     const updateEvent = this.props.updateEvent;
     const isAuthenticated = this.props.isAuthenticated;
     const errMessage = this.props.errMessage;
+    const editEvent = this.props.editEvent;
     // filter events based on what events view users choose
     let viewEvents;
     if (this.state.view === 'Created') {
@@ -85,15 +98,32 @@ class Events extends React.Component {
               onClick={(e) => { e.preventDefault(); this.setState({ showForm: true }); }}
             />
             {
-              this.state.showForm &&
+              this.state.showNewEventForm &&
               <Layer
                 closer
                 flush
-                onClose={() => { this.setState({ showForm: false }); }}
+                onClose={() => { this.setState({ showNewEventForm: false }); }}
               >
                 <NewEventForm
                   createEvent={createEvent}
-                  onSubmit={() => { this.setState({ showForm: false }); }}
+                  onSubmit={() => { this.setState({ showNewEventForm: false }); }}
+                  isAuthenticated={isAuthenticated}
+                />
+              </Layer>
+            }
+            {
+              this.state.showEditEventForm &&
+              <Layer
+                closer
+                flush
+                onClose={() => { this.setState({ showEditEventForm: false }); }}
+              >
+                <EditEventForm
+                  event={this.props.editingEvent}
+                  editEvent={editEvent}
+                  editingEvent={this.state.editingEvent}
+                  deleteEvent={deleteEvent}
+                  onSubmit={() => { this.setState({ showEditEventForm: false }); }}
                   isAuthenticated={isAuthenticated}
                 />
               </Layer>
@@ -135,8 +165,8 @@ class Events extends React.Component {
         <EventsList
           events={events}
           status={status}
-          deleteEvent={deleteEvent}
           updateEvent={updateEvent}
+          displayEditEventForm={this.displayEditEventForm}
           isAuthenticated={isAuthenticated}
           errMessage={errMessage}
         />
@@ -149,6 +179,8 @@ Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
   createEvent: PropTypes.func.isRequired,
+  editEvent: PropTypes.func.isRequired,
+  editingEvent: PropTypes.func,
   loadEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   updateEvent: PropTypes.func.isRequired,
@@ -159,6 +191,7 @@ Events.propTypes = {
 
 Events.defaultProps = {
   errMessage: '',
+  editingEvent: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -174,6 +207,7 @@ const mapDispatchToProps = dispatch => ({
   loadEvents: url => dispatch(eventActions.loadEventsAsync(url)),
   deleteEvent: id => dispatch(eventActions.deleteEventAsync(id)),
   updateEvent: eventObj => dispatch(eventActions.updateEventsAsync(eventObj)),
+  editEvent: url => dispatch(eventActions.editEventAsync(url)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Events));

@@ -12,6 +12,7 @@ const errorEvents = error => ({ type: ERROR, error });
 const loadingEvents = () => ({ type: LOADING });
 const dataEvents = events => ({ type: DATA, events });
 
+
 const urlEvents = '/api/events';
 const urlDeleteEvents = '/api/events/delete';
 
@@ -48,10 +49,23 @@ const postEventAsync = event => (dispatch) => {
     });
 };
 
+const editEventAsync = event => (dispatch) => {
+  dispatch(loadingEvents());
+
+  axios.post(urlEvents, event, config)
+    .then((response) => {
+      if (!response.data.ok) {
+        dispatch(errorEvents(response.data));
+      } else {
+        dispatch(loadEventsAsync());
+      }
+    });
+};
+
 const deleteEventAsync = id => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.delete(urlDeleteEvents, { id }, config)
+  axios.post(urlDeleteEvents, { id }, config)
     .then((response) => {
       if (!response.data.ok) {
         dispatch(errorEvents(response.data));
@@ -103,6 +117,7 @@ export default {
 
   /** Async Action Creators */
   postEventAsync,
+  editEventAsync,
   loadEventsAsync,
   deleteEventAsync,
   updateEventsAsync,
