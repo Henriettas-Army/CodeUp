@@ -127,11 +127,12 @@ const rooms = (state = {}, action) => { // state: state.rooms
       return newState;
     case chat.RECEIVE_ROOMS:
       newState = Object.assign({}, state);
-      console.log('action.rooms: ', action.rooms)
+      console.log('action.rooms: ', action.rooms);
       for (let i = 0; i < action.rooms.length; i += 1) {
         room = action.rooms[i].room;
         unread = action.rooms[i].unread;
         newState[room] = { unread, active: false, loading: false, loaded: false, messages: [] };
+        return newState;
       }
       console.log('newState: ', newState);
       return newState;
@@ -141,6 +142,7 @@ const rooms = (state = {}, action) => { // state: state.rooms
         newState[action.room] = {};
       }
       newState[action.room].loading = true;
+      return newState;
     default:
       return state;
   }
@@ -153,7 +155,7 @@ const socket = (state = null, action) => {
     default:
       return state;
   }
-}
+};
 
 const chatReducer = combineReducers({ rooms, loadingRooms, socket }); // instead of username, rooms
 

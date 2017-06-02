@@ -90,7 +90,7 @@ ChatRooms.prototype.getUser = function (socket) {
   //   console.log(this.users[user]);
   // }
   return this.users[socket.id];
-}
+};
 
 ChatRooms.prototype.addUser = function (user, socket) {
   this.sockets[user] = socket;
@@ -127,7 +127,7 @@ ChatRooms.prototype.getRooms = function (username) {
 ChatRooms.prototype.updateLastConnection = function (username, room, date) {
   return chatDB.updateLastConnection(username, room.split('#').sort().join('#'), date)
     .then(() => chatDB.getLastConnection(username, room))
-    .then((res) => console.log('last connection: ', res));
+    .then(res => console.log('last connection: ', res));
 };
 
 ChatRooms.prototype.getUnreadMessages = function (username, room) {
