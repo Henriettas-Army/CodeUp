@@ -27,5 +27,4 @@ const Explore = () => (
     </Tabs>
   </div>
 );
-
 export default Explore;
