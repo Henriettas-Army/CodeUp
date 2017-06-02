@@ -18,7 +18,7 @@ const EventStyle = {
   width: '350px',
   height: '800px',
   overflow: 'hidden',
-  'overflow-y': 'scroll',
+  overflowY: 'scroll',
 };
 const getUserPos = () => {
   let pos = null;

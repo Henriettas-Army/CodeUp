@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import Card from 'grommet/components/Card';
 import Tiles from 'grommet/components/Tiles';
 import Tile from 'grommet/components/Tile';
-import Paragraph from 'grommet/components/Paragraph';
-import Accordion from 'grommet/components/Accordion';
-import AccordionPanel from 'grommet/components/AccordionPanel';
-import Heading from 'grommet/components/Heading';
 import Anchor from 'grommet/components/Anchor';
 import CliIcon from 'grommet/components/icons/base/Cli';
 import Status from 'grommet/components/icons/Status';
+
 const imgStyle = {
   float: 'left',
   height: '80px',
