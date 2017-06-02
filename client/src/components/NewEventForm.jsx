@@ -6,11 +6,12 @@ import DateTime from 'grommet/components/DateTime';
 import Form from 'grommet/components/Form';
 import FormField from 'grommet/components/FormField';
 import TextInput from 'grommet/components/TextInput';
-import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
 import CheckBox from 'grommet/components/CheckBox';
 import SearchInput from 'grommet/components/SearchInput';
+import Section from 'grommet/components/Section';
+
 
 const EMPTY_FORM = {
   title: '',
@@ -130,8 +131,7 @@ class NewEventForm extends React.Component {
             onDOMChange={e => this.setState({ topics: e.target.value })}
           />
         </FormField>
-        <Footer pad={{ vertical: 'medium' }}>
-          <p>*Private events will not publicly display the location</p>
+        <Section basis={'small'} align={'center'}>
           <Button
             label={'Create'}
             type={'submit'}
@@ -153,7 +153,8 @@ class NewEventForm extends React.Component {
               this.props.onSubmit();
             }}
           />
-        </Footer>
+          <p>*Private events will not publicly display the location</p>
+        </Section>
       </Form>);
   }
 }

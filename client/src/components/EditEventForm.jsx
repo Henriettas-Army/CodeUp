@@ -6,11 +6,13 @@ import DateTime from 'grommet/components/DateTime';
 import Form from 'grommet/components/Form';
 import FormField from 'grommet/components/FormField';
 import TextInput from 'grommet/components/TextInput';
-import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
 import CheckBox from 'grommet/components/CheckBox';
 import SearchInput from 'grommet/components/SearchInput';
+import TrashIcon from 'grommet/components/icons/base/Trash';
+import Anchor from 'grommet/components/Anchor';
+import Section from 'grommet/components/Section';
 
 class EditEventForm extends React.Component {
 
@@ -121,8 +123,7 @@ class EditEventForm extends React.Component {
             onDOMChange={e => this.setState({ topics: e.target.value })}
           />
         </FormField>
-        <Footer pad={{ vertical: 'medium' }}>
-          <p>*Private events will not publicly display the location</p>
+        <Section basis={'small'} align={'center'}>
           <Button
             label={'Update'}
             type={'submit'}
@@ -145,7 +146,19 @@ class EditEventForm extends React.Component {
               this.props.onSubmit();
             }}
           />
-        </Footer>
+          <br /><br />
+          <Anchor
+            icon={<TrashIcon />}
+            animateIcon
+            label={'Delete this event'}
+            onClick={(e) => {
+              e.preventDefault();
+              this.props.deleteEvent(this.props.editingEvent.id);
+              this.props.onSubmit();
+            }}
+          />
+          <p>*Private events will not publicly display the location</p>
+        </Section>
       </Form>);
   }
 }
@@ -164,6 +177,7 @@ EditEventForm.propTypes = {
     private: PropTypes.bool,
   }).isRequired,
   onSubmit: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
 };
 
 export default EditEventForm;
