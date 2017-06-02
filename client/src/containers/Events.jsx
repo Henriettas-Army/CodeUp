@@ -48,7 +48,6 @@ class Events extends React.Component {
       showEditEventForm: true,
       editingEvent: event,
     });
-    console.log('STATE TO BE EDITED:', this.state.editingEvent);
   }
 
   render() {

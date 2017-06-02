@@ -124,7 +124,7 @@ class EditEventForm extends React.Component {
         <Footer pad={{ vertical: 'medium' }}>
           <p>*Private events will not publicly display the location</p>
           <Button
-            label={'Create'}
+            label={'Update'}
             type={'submit'}
             primary
             onClick={(e) => {
