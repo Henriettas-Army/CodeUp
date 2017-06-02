@@ -1,6 +1,5 @@
 /* global window */
 import axios from 'axios';
-// import jwtDecode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
 
 const LOGIN_USER = 'LOGIN_USER';

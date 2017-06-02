@@ -46,7 +46,6 @@ const loadProfileAsync = username => (
     return fetchProfile(username)
     .then((response) => {
       if (!response.data.ok) {
-        console.log(response.data);
         dispatch(errorProfile(response.data));
       } else {
         dispatch(profileData(response.data.user));
@@ -56,7 +55,7 @@ const loadProfileAsync = username => (
 );
 
 // goes to server and server determines which user object item to update based on
-// typeUpdate (status, skills, learn);
+// typeUpdate (status, skills, learn, location);
 const putProfileUpdate = (updateObj) => {
   const username = window.localStorage.getItem('token');
   const toUpdate = updateObj.toUpdate;
