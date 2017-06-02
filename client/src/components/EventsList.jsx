@@ -29,15 +29,13 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated, errMessage }
               <Accordion>
                 <AccordionPanel heading={<Timestamp value={evt.date} /> || 'No date provided for this event'}>
                   <Paragraph>
-                    {evt.description || 'No description provided for this event'}
+                    Description: {evt.description || 'No description provided for this event'}
                     <br />
-                    {evt.topics ? evt.topics.join(', ') : 'No topics provided for this event'}
+                    Topics: {evt.topics ? evt.topics.join(', ') : 'No topics provided for this event'}
                     <br />
-                    {/* {<Timestamp value={evt.date} /> || 'No date provided for this event'}
-                    <br /> */}
-                    {evt.private ? '*Please contact event creator for location' : evt.location || 'No location provided for this event'}
+                    Location: {evt.private ? '*Please contact event creator for location' : evt.location || 'No location provided for this event'}
                     <br />
-                    {evt.duration || 'No duration provided for this event'}
+                    Duration: {evt.duration || 'No duration provided for this event'}
                   </Paragraph>
                 </AccordionPanel>
               </Accordion>}
