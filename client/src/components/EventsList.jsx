@@ -21,9 +21,9 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated, errMessage }
             heading={evt.title}
             label={evt.username && evt.private ?
               <div>
-                <span><strong>*Private</strong> event created by <a href={`/profile/${evt.username}`}>{evt.username}</a></span>
+                <span><strong>*Private</strong> event created by <Anchor href={'#'} path={`/profile/${evt.username}`}>{evt.username}</Anchor></span>
               </div> :
-              <span>Created by <a href={`/profile/${evt.username}`}>{evt.username}</a></span>
+              <span>Created by <Anchor href={'#'} path={`/profile/${evt.username}`}>{evt.username}</Anchor></span>
             }
             description={
               <Accordion>

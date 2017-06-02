@@ -6,7 +6,6 @@ import Layer from 'grommet/components/Layer';
 import AddIcon from 'grommet/components/icons/base/Add';
 import Anchor from 'grommet/components/Anchor';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
@@ -37,14 +36,9 @@ class Events extends React.Component {
 
   render() {
     let calendarFilteredEvents;
-    // let calendarFilteredEvents;
-    // this.state.calendar ? const calendarEvents = this.props.events.map(e =>
-    //   console.log(e.date));
-    //   console.log
     if (this.state.calendar) {
       calendarFilteredEvents = this.props.events.filter(e =>
       e.date.split('T')[0].replace(/-/g, '') >= this.state.calendar.format().split('T')[0].replace(/-/g, ''));
-      console.log('EVENT!!!!:', this.props.events[0].date.split('T')[0].replace(/-/g, ''), this.state.calendar.format().split('T')[0].replace(/-/g, ''));
     } else {
       calendarFilteredEvents = this.props.events;
     }
@@ -112,6 +106,10 @@ Events.propTypes = {
   deleteEvent: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
   searchQuery: PropTypes.string.isRequired,
+  errMessage: PropTypes.string,
+};
+
+Events.defaultProps = {
   errMessage: PropTypes.string,
 };
 
