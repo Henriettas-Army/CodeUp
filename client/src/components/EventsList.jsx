@@ -42,7 +42,7 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated, errMessage, 
                       {evt.duration || 'No duration provided for this event'}
                       <br />
                       <PinIcon />
-                      {`  ${evt.pinned.length} users have pinned this event`}
+                      {`  Pinned by ${evt.pinned.length}`}
                     </Paragraph>
                   </AccordionPanel>
                 </Accordion>}
