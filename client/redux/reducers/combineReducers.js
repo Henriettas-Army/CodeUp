@@ -5,6 +5,7 @@ import events from './events';
 import users from './userListReducer';
 import search from './searchReducer';
 import chat from './chatReducer';
+import postEndorsement from './endorsementReducer';
 
 const codeUpApp = combineReducers({
   auth,
@@ -13,6 +14,7 @@ const codeUpApp = combineReducers({
   users,
   search,
   chat,
+  postEndorsement,
 });
 
 export default codeUpApp;

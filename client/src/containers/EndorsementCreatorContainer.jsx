@@ -1,9 +1,9 @@
 /* global window */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import EndorsementCreator from '../components/EndorsementCreator';
+import { postEndorsement } from '../../redux/actions/endorsementActions';
 
 class EndorsementCreatorContainer extends Component {
   constructor(props) {
@@ -26,12 +26,13 @@ class EndorsementCreatorContainer extends Component {
     this.setState({ comments: inputString });
   }
   sendEndorsement() {
-    axios.post('/api/endorsement', {
+    const endorsement = {
       endorserToken: window.localStorage.getItem('token'),
       endorsee: this.props.endorsed,
       skills: this.state.skills,
       comments: this.state.comments,
-    });
+    };
+    this.props.postEndorsement(endorsement);
     this.props.closeEC();
     this.props.showToast(`Thanks for endorsing ${this.props.endorsed}`);
   }
@@ -51,7 +52,15 @@ EndorsementCreatorContainer.propTypes = {
   skillsToEndorse: PropTypes.arrayOf(PropTypes.string).isRequired,
   closeEC: PropTypes.func.isRequired,
   endorsed: PropTypes.string.isRequired,
+  postEndorsement: PropTypes.func.isRequired,
   showToast: PropTypes.func.isRequired,
 };
 
-export default EndorsementCreatorContainer;
+const mapDispatchToProps = dispatch => ({
+  postEndorsement: (end) => { dispatch(postEndorsement(end)); }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(EndorsementCreatorContainer);
