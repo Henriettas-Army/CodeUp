@@ -12,18 +12,20 @@ const errorEvents = error => ({ type: ERROR, error });
 const loadingEvents = () => ({ type: LOADING });
 const dataEvents = events => ({ type: DATA, events });
 
-const urlGetEvents = '/api/events';
-const urlPostEvents = '/api/events';
+const urlEvents = '/api/events';
 const urlDeleteEvents = '/api/events/delete';
 
 const config = {
-  headers: { Authorization: window.localStorage.getItem('token') }
+  headers: {
+    Authorization: window.localStorage.getItem('token'),
+    'Content-Type': 'application/json',
+  }
 };
 
 const loadEventsAsync = () => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.get(urlGetEvents, config)
+  axios.get(urlEvents, config)
     .then((response) => {
       if (!response.data.ok) {
         dispatch(errorEvents(response.data));
@@ -36,7 +38,7 @@ const loadEventsAsync = () => (dispatch) => {
 const postEventAsync = event => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.post(urlPostEvents, event, config)
+  axios.post(urlEvents, event, config)
     .then((response) => {
       if (!response.data.ok) {
         dispatch(errorEvents(response.data));
@@ -49,13 +51,40 @@ const postEventAsync = event => (dispatch) => {
 const deleteEventAsync = id => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.post(urlDeleteEvents, { id }, config)
+  axios.delete(urlDeleteEvents, { id }, config)
     .then((response) => {
       if (!response.data.ok) {
         dispatch(errorEvents(response.data));
       } else {
         dispatch(loadEventsAsync());
       }
+    });
+};
+
+// server parses eventObj and updates DB
+const putEventUpdate = (eventObj) => {
+  const id = eventObj.id;
+  const toUpdate = eventObj.toUpdate;
+  return axios.put(urlEvents,
+    {
+      id,
+      toUpdate,
+    }, config);
+};
+
+const updateEventsAsync = eventObj => (dispatch) => {
+  dispatch(loadingEvents());
+  return putEventUpdate(eventObj)
+    .then((response) => {
+      if (!response.data.ok) {
+        dispatch(errorEvents(response.data));
+      } else {
+        // update successful --- added to pinned
+        dispatch(loadEventsAsync());
+      }
+    })
+    .catch((err) => {
+      dispatch(errorEvents(err));
     });
 };
 
@@ -76,4 +105,5 @@ export default {
   postEventAsync,
   loadEventsAsync,
   deleteEventAsync,
+  updateEventsAsync,
 };
