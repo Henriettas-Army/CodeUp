@@ -7,7 +7,14 @@ import Profile from '../containers/Profile';
 import Explore from '../components/Explore';
 import Welcome from '../containers/Welcome';
 import Chats from '../containers/Chats';
+import positionMiddleware from '../../redux/middlewares/positionMiddleware';
 import '../styles/styles.scss';
+
+const store = createStore(
+  codeUpApp,
+  undefined,
+  composeWithDevTools(applyMiddleware(thunkMiddleware, positionMiddleware))
+);
 
 const AppRoutes = () => (
   <Provider store={store}>

@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const UserController = require('../../db/controllers/UserController');
 const Utils = require('../utils');
 
+const positionHelper = require('../utils/positionHelper');
+
 const router = express.Router();
 
 const ID = GITHUB_API.CLIENT_ID;
@@ -55,7 +57,10 @@ router.get('/list', (req, res) => {
     } else {
       UserController.getAllUsers()
       .then((data) => {
-        const usersData = data.filter(user => user.username !== decoded);
+        const usersData = data.filter(user => user.username !== decoded)
+          .map(user =>
+            Object.assign({}, user, { position: positionHelper.getPosition(user.username) })
+          );
         res.status(200).json({ status: true, users: usersData });
       })
       .catch((error) => {
@@ -75,6 +80,11 @@ router.get('/:username', (req, res) => {
       Utils.grabUserInfo(req.params.username, req, res);
     }
   }));
+});
+
+router.post('/position', (req, res) => {
+  positionHelper.set(req.body.username, req.body.position);
+  res.send('ok dude');
 });
 
 // update user profile
