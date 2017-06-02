@@ -32,6 +32,8 @@ class EndorsementCreatorContainer extends Component {
       skills: this.state.skills,
       comments: this.state.comments,
     });
+    this.props.closeEC();
+    this.props.showToast(`Thanks for endorsing ${this.props.endorsed}`);
   }
   render() {
     return (
@@ -49,6 +51,7 @@ EndorsementCreatorContainer.propTypes = {
   skillsToEndorse: PropTypes.arrayOf(PropTypes.string).isRequired,
   closeEC: PropTypes.func.isRequired,
   endorsed: PropTypes.string.isRequired,
+  showToast: PropTypes.func.isRequired,
 };
 
 export default EndorsementCreatorContainer;

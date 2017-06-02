@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import GrommetApp from 'grommet/components/App';
+import Toast from 'grommet/components/Toast';
 import Edit from 'grommet/components/icons/base/Edit';
 import Button from 'grommet/components/Button';
 import NavContainer from '../containers/NavContainer';
@@ -17,7 +18,10 @@ import '../styles/styles.scss';
 
 class Profile extends React.Component {
   componentWillMount() {
-    this.state = { endorsementCreatorOpen: false };
+    this.state = {
+      endorsementCreatorOpen: false,
+      ToastMessage: false,
+    };
   }
   componentDidMount() {
     this.props.loadProfile(decodeURIComponent(this.props.match.params.username));
@@ -31,6 +35,9 @@ class Profile extends React.Component {
   }
   closeEC() {
     this.setState({ endorsementCreatorOpen: false });
+  }
+  showToast(ToastMessage) {
+    this.setState({ ToastMessage });
   }
   render() {
     const profile = this.props.profile;
@@ -71,8 +78,19 @@ class Profile extends React.Component {
               closeEC={() => { this.closeEC(); }}
               skillsToEndorse={profile.skills.concat(profile.desired)}
               endorsed={profile.username}
+              showToast={(TM) => { this.showToast(TM); }}
             />
             : null
+          }
+          {
+            this.state.ToastMessage ?
+              <Toast
+                status="ok"
+                onClose={() => { this.setState({ ToastMessage: false }); }}
+              >
+                {this.state.ToastMessage}
+              </Toast>
+              : null
           }
           <EndorsementsContainer />
         </div>
