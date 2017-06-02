@@ -17,6 +17,8 @@ const style = {
 const EventStyle = {
   width: '350px',
   height: '800px',
+  overflow: 'hidden',
+  'overflow-y': 'scroll',
 };
 const getUserPos = () => {
   let pos = null;
@@ -82,7 +84,7 @@ class MapData extends React.Component {
     return (
       <Split
         flex="left"
-        style={{ height: '800px' }}
+        style={{ height: '800px', overflow: 'hidden' }}
         pad="none"
       >
         <Box
