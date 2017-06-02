@@ -6,7 +6,6 @@ const ChatRooms = require('../utils/chatHelper');
 const chatRooms = new ChatRooms(); // in-memory representation of active chats
 
 module.exports = (io) => {
-
   const chat = io.of('/chat');
 
   chat.on('connection', (socket) => {
@@ -48,7 +47,8 @@ module.exports = (io) => {
       chatRooms.openRoom(username, room);
       // chatRooms.updateLastConnection(username, room, date)
       // .then(() => {
-      //   console.log('successfully completed operation. ', username, room, date, 'suffer bitches');
+      //   console.log('successfully completed operation. ',
+      //    username, room, date, 'suffer bitches');
       // })
       // .catch((e) => {
       //   console.log('fuckkk!!!! ', e);
