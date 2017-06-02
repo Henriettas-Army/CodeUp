@@ -26,6 +26,7 @@ class ChatList extends React.Component {
             right: 0,
             border: '3px solid #ddd',
             backgroundColor: 'white',
+            zIndex: '1007'
           }}
         >
           <span
