@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Spinner from 'grommet/components/icons/Spinning';
 import EndorsementCreator from '../components/EndorsementCreator';
 import { postEndorsement } from '../../redux/actions/endorsementActions';
 
@@ -38,12 +39,18 @@ class EndorsementCreatorContainer extends Component {
   }
   render() {
     return (
-      <EndorsementCreator
-        {...this.props}
-        toggleSkill={(s) => { this.toggleSkill(s); }}
-        writeComment={(c) => { this.writeComment(c); }}
-        sendEndorsement={() => { this.sendEndorsement(); }}
-      />
+      <div>
+        <EndorsementCreator
+          {...this.props}
+          toggleSkill={(s) => { this.toggleSkill(s); }}
+          writeComment={(c) => { this.writeComment(c); }}
+          sendEndorsement={() => { this.sendEndorsement(); }}
+        />
+        {
+          this.props.status === 'LOADING' ?
+            <Spinner /> : null
+        }
+      </div>
     );
   }
 }
@@ -54,13 +61,16 @@ EndorsementCreatorContainer.propTypes = {
   endorsed: PropTypes.string.isRequired,
   postEndorsement: PropTypes.func.isRequired,
   showToast: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = state => ({ status: state.postEndorsement.status });
 
 const mapDispatchToProps = dispatch => ({
   postEndorsement: (end) => { dispatch(postEndorsement(end)); }
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(EndorsementCreatorContainer);
