@@ -14,6 +14,11 @@ module.exports = {
     return Event.find({ date: { $gte: yesterday } });
   },
 
+  editEvent: (evt, username) => {
+    evt.username = username;
+    return Event.findOneAndUpdate({ _id: evt.id }, evt);
+  },
+
   deleteEvent: id => Event.remove({ _id: id }),
 
   getAnEvent: id => (

@@ -18,10 +18,8 @@ class EditEventForm extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('TOPICS:', this.props.editingEvent.topics.join(', '));
-    console.log('EVENTS:', this.props.editingEvent.location.join(''));
     this.state = {
-      id: this.props.editingEvent.id,
+      id: this.props.editingEvent._id,
       title: this.props.editingEvent.title,
       date: this.props.editingEvent.date,
       description: this.props.editingEvent.description,
@@ -134,7 +132,7 @@ class EditEventForm extends React.Component {
                 id: this.state.id,
                 title: this.state.title,
                 username: window.localStorage.getItem('token'),
-                duration: this.state.duration.value,
+                duration: this.state.duration,
                 date: this.state.date,
                 topics: this.state.topics.split(',').map(st => st.trim()),
                 location: document.querySelector('#places').value,
@@ -153,7 +151,7 @@ class EditEventForm extends React.Component {
             label={'Delete this event'}
             onClick={(e) => {
               e.preventDefault();
-              this.props.deleteEvent(this.props.editingEvent.id);
+              this.props.deleteEvent(this.props.editingEvent._id);
               this.props.onSubmit();
             }}
           />
@@ -166,7 +164,7 @@ class EditEventForm extends React.Component {
 EditEventForm.propTypes = {
   editEvent: PropTypes.func.isRequired,
   editingEvent: PropTypes.shape({
-    id: PropTypes.string,
+    _id: PropTypes.string,
     title: PropTypes.string,
     username: PropTypes.string,
     duration: PropTypes.string,

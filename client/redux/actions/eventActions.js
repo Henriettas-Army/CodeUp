@@ -15,6 +15,7 @@ const dataEvents = events => ({ type: DATA, events });
 
 const urlEvents = '/api/events';
 const urlDeleteEvents = '/api/events/delete';
+const urlEditEvents = '/api/events/edit';
 
 const config = {
   headers: {
@@ -52,7 +53,7 @@ const postEventAsync = event => (dispatch) => {
 const editEventAsync = event => (dispatch) => {
   dispatch(loadingEvents());
 
-  axios.post(urlEvents, event, config)
+  axios.put(urlEditEvents, event, config)
     .then((response) => {
       if (!response.data.ok) {
         dispatch(errorEvents(response.data));
