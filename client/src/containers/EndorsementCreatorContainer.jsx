@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Spinner from 'grommet/components/icons/Spinning';
 import EndorsementCreator from '../components/EndorsementCreator';
 import { postEndorsement } from '../../redux/actions/endorsementActions';
+import profileActions from '../../redux/actions/profileActions';
 
 class EndorsementCreatorContainer extends Component {
   constructor(props) {
@@ -33,7 +34,8 @@ class EndorsementCreatorContainer extends Component {
       skills: this.state.skills,
       comments: this.state.comments,
     };
-    this.props.postEndorsement(endorsement);
+    this.props.postEndorsement(endorsement)
+    .then(() => { this.props.loadProfile(this.props.endorsed); });
     this.props.closeEC();
     this.props.showToast(`Thanks for endorsing ${this.props.endorsed}`);
   }
@@ -62,12 +64,20 @@ EndorsementCreatorContainer.propTypes = {
   postEndorsement: PropTypes.func.isRequired,
   showToast: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
+  loadProfile: PropTypes.func.isRequired,
+};
+
+EndorsementCreatorContainer.defaultProps = {
+  status: '',
 };
 
 const mapStateToProps = state => ({ status: state.postEndorsement.status });
 
 const mapDispatchToProps = dispatch => ({
-  postEndorsement: (end) => { dispatch(postEndorsement(end)); }
+  postEndorsement: end => dispatch(postEndorsement(end)),
+  loadProfile: (username) => {
+    dispatch(profileActions.loadProfileAsync(username));
+  }
 });
 
 export default connect(

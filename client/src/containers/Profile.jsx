@@ -10,7 +10,7 @@ import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
 import EndorsementCreatorContainer from '../containers/EndorsementCreatorContainer';
-import EndorsementsContainer from '../containers/EndorsementsContainer';
+import EndorsementList from '../components/EndorsementList';
 import profileActions from '../../redux/actions/profileActions';
 import chatActions from '../../redux/actions/chatActions';
 
@@ -47,7 +47,8 @@ class Profile extends React.Component {
     const currentUser = this.props.isAuthenticated;
     const editing = this.props.editing;
     const editProfile = this.props.editProfile;
-    const props = this.props;
+    const endorsements = profile.endorsements;
+
     return (
       <GrommetApp>
         <NavContainer />
@@ -60,7 +61,7 @@ class Profile extends React.Component {
             currentUser={currentUser}
             editing={editing}
             editProfile={editProfile}
-            addChatRoom={() => { props.addChatRoom([currentUser, profile.username].sort().join('#')); }}
+            addChatRoom={() => { this.props.addChatRoom([currentUser, profile.username].sort().join('#')); }}
           />
           <UserRepos
             repos={profile.repos}
@@ -92,7 +93,7 @@ class Profile extends React.Component {
               </Toast>
               : null
           }
-          <EndorsementsContainer />
+          <EndorsementList endorsements={endorsements} />
         </div>
       </GrommetApp>
     );
@@ -131,7 +132,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   isAuthenticated: '',
-  errMessage: PropTypes.string,
+  errMessage: '',
 };
 
 const mapStateToProps = state => (
