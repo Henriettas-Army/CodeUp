@@ -31,6 +31,7 @@ class NewEventForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
+    console.log('I have Mounted');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const options = new google.maps.LatLngBounds(
@@ -38,6 +39,16 @@ class NewEventForm extends React.Component {
           new google.maps.LatLng(position.coords.latitude - 10, position.coords.longitude + 10));
         const input = document.getElementById('places');
         console.log(new google.maps.places.Autocomplete(input, options));
+      },
+      (error) => {
+        const defaultLatLng = { lat: 30.2672, lng: -97.7431 };
+        if (error.code === error.PERMISSION_DENIED) {
+          const options = new google.maps.LatLngBounds(
+            new google.maps.LatLng(defaultLatLng.lat + 10, defaultLatLng.lng - 10),
+            new google.maps.LatLng(defaultLatLng.lat - 10, defaultLatLng.lng + 10));
+          const input = document.getElementById('places');
+          console.log(new google.maps.places.Autocomplete(input, options));
+        }
       });
     }
   }
@@ -54,14 +65,6 @@ class NewEventForm extends React.Component {
       address,
     });
   }
-  // geocodeByAddress(address)
-  // .then((results) => getLatLng(results[0]))
-  // .then(({lat, lng}) => {
-  //   console.log('success', {lat, lng});
-  //   this.setState({geocodeResults: this.renderGeocodeSuccess(lat, lng),
-  //   loading: false,
-  //   });
-  // });
 
   render() {
     const createEvent = this.props.createEvent;
