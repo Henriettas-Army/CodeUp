@@ -148,6 +148,7 @@ MapData.propTypes = {
 
 MapData.defaultProps = {
   errMessage: '',
+  users: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 const mapStateToProps = state => ({
@@ -156,6 +157,7 @@ const mapStateToProps = state => ({
   status: state.events.status,
   isAuthenticated: state.auth.isAuthenticated,
   errMessage: state.events.errMesage,
+  users: { location: [30.2672, -97.7431], username: 'gjblanco', skills: ['puppy killing'] },
 });
 
 const mapDispatchToProps = dispatch => ({

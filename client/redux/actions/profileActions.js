@@ -63,7 +63,27 @@ const putProfileUpdate = (updateObj) => {
     {
       username,
       toUpdate,
-    }, config);
+    }, config)
+    .then((response) => {
+      console.log('me##################: ', updateObj);
+      if (
+        updateObj.toUpdate[0].typeUpdate === 'status'
+        && updateObj.toUpdate[0].data === 'Code Now'
+        && window.navigator && window.navigator.geolocation) {
+        console.log('me2##################: ', updateObj);
+        window.navigator.geolocation.getCurrentPosition((position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          axios.post('/setPosition', Object.assign({}, pos, updateObj.username))
+            .then((r) => { console.log('posted position successfully to server', r); })
+            .catch((error) => { console.log('error posting position ', error); });
+        });
+      }
+      // console.log('####################################');
+      return response;
+    });
 };
 
 const updateProfileAsync = updateObj => (

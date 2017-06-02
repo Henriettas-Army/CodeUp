@@ -44,6 +44,7 @@ const loginUserAsync = code => (
       saveToken(token);
       const user = jwt.decode(token.data);
       dispatch(loginUser(user, 'READY'));
+      return { user, token };
     });
   }
 );
