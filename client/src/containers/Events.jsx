@@ -5,7 +5,11 @@ import { withRouter } from 'react-router-dom';
 import Layer from 'grommet/components/Layer';
 import AddIcon from 'grommet/components/icons/base/Add';
 import Anchor from 'grommet/components/Anchor';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import EventsList from '../components/EventsList';
 import eventActions from '../../redux/actions/eventActions';
 import NewEventForm from '../components/NewEventForm';
@@ -14,15 +18,37 @@ import NewEventForm from '../components/NewEventForm';
 class Events extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showForm: false };
+    this.state = {
+      showForm: false,
+      calendar: null,
+    };
+    this.handleCalendarDate = this.handleCalendarDate.bind(this);
   }
 
   componentDidMount() {
     this.props.loadEvents();
   }
 
+  handleCalendarDate(date) {
+    this.setState({
+      calendar: date
+    });
+  }
+
   render() {
-    const events = this.props.events.filter(e =>
+    let calendarFilteredEvents;
+    // let calendarFilteredEvents;
+    // this.state.calendar ? const calendarEvents = this.props.events.map(e =>
+    //   console.log(e.date));
+    //   console.log
+    if (this.state.calendar) {
+      calendarFilteredEvents = this.props.events.filter(e =>
+      e.date.split('T')[0].replace(/-/g, '') >= this.state.calendar.format().split('T')[0].replace(/-/g, ''));
+      console.log('EVENT!!!!:', this.props.events[0].date.split('T')[0].replace(/-/g, ''), this.state.calendar.format().split('T')[0].replace(/-/g, ''));
+    } else {
+      calendarFilteredEvents = this.props.events;
+    }
+    const events = calendarFilteredEvents.filter(e =>
       e.title.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
       e.username.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
       e.description.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
@@ -56,7 +82,16 @@ class Events extends React.Component {
             />
           </Layer>
         }
-
+        <br /><br /><br />
+        <p>Filter events by date:</p>
+        <DatePicker
+          todayButton="Today"
+          selected={this.state.calendar}
+          placeholderText="Select a date here"
+          onChange={this.handleCalendarDate}
+          isClearable
+        />
+        <br />
         <EventsList
           events={events}
           status={status}
