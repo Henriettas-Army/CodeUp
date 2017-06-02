@@ -85,11 +85,9 @@ class MapData extends React.Component {
       <Split
         flex="left"
         style={{ height: '800px', overflow: 'hidden' }}
-        pad="none"
       >
         <Box
           style={{ height: '800px' }}
-          pad="none"
         >
           <Map style={style} center={getUserPos()} zoom={15}>
             <TileLayer
@@ -109,7 +107,7 @@ class MapData extends React.Component {
                   </Marker>
                 );
               }
-              return (<div visibility="hidden">Private Event</div>);
+              return (<div key={event.title} visibility="hidden">Private Event</div>);
             }
             )}
           </Map>
@@ -119,8 +117,7 @@ class MapData extends React.Component {
         >
           <Box
             style={{ height: '800px' }}
-            pad="none"
-            wrap="true"
+            wrap
           >
             <EventsList
               style={{ height: '800px' }}
@@ -128,6 +125,8 @@ class MapData extends React.Component {
               status={this.props.status}
               deleteEvent={this.props.deleteEvent}
               isAuthenticated={this.props.isAuthenticated}
+              updateEvent={this.props.updateEvent}
+              errMessage={this.props.errMessage}
             />
           </Box>
         </Sidebar>
@@ -140,8 +139,14 @@ MapData.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
   deleteEvent: PropTypes.func.isRequired,
+  updateEvent: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
   searchQuery: PropTypes.string.isRequired,
+  errMessage: PropTypes.string,
+};
+
+MapData.defaultProps = {
+  errMessage: '',
 };
 
 const mapStateToProps = state => ({
@@ -149,10 +154,13 @@ const mapStateToProps = state => ({
   searchQuery: state.search.searchQuery,
   status: state.events.status,
   isAuthenticated: state.auth.isAuthenticated,
+  errMessage: state.events.errMesage,
 });
+
 const mapDispatchToProps = dispatch => ({
   deleteEvent: (id) => {
     dispatch(eventActions.deleteEventAsync(id));
-  }
+  },
+  updateEvent: eventObj => dispatch(eventActions.updateEventsAsync(eventObj)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(MapData);
