@@ -1,4 +1,4 @@
-const Position = function() {
+const Position = function () {
   this.users = {}; // user -> position
 };
 
