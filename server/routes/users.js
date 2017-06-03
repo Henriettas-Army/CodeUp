@@ -51,22 +51,23 @@ router.post('/login', (req, res) => {
 
 router.get('/list', (req, res) => {
   const token = req.headers.authorization;
-  jwt.verify(token, 'codeupforever', ((err, decoded) => {
+  jwt.verify(token, 'codeupforever', ((err) => {
     if (err) {
       res.send(`${err.name}: Please sign in again to renew your session`);
     } else {
       UserController.getAllUsers()
       .then((data) => {
-        const usersData = data//.filter(user => user.username !== decoded)
+        const usersData = data
+        // filter(user => user.username !== decoded)
           .map((user) => {
             const user2 = user;
             user2.position = positionHelper.get(user.username) || null;
-            console.log('5555555555555>', positionHelper.get(user.username));
             return user2;
           });
-        console.log('sending1 ', usersData.map(user => (Object.assign({ position: user.position }, user) )) );
-        console.log('sending2 ', usersData );
-        res.status(200).json({ status: true, users: usersData.map(user => Object.assign({ position: user.position }, user._doc)) });
+        res.status(200).json({
+          status: true,
+          users: usersData.map(user => Object.assign({ position: user.position }, user._doc))
+        });
       })
       .catch((error) => {
         res.json({ status: false, error });
