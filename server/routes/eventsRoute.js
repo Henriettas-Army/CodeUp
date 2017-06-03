@@ -86,4 +86,21 @@ router.put('/', (req, res) => {
   }));
 });
 
+router.put('/edit', (req, res) => {
+  const token = req.headers.authorization;
+  jwt.verify(token, 'codeupforever', ((err, decoded) => {
+    if (err) {
+      res.send(`${err.name}: Please sign in again to renew your session`);
+    } else {
+      eventHelper.editEvent(req.body, decoded)
+      .then((event) => {
+        res.status(200).json({ event, ok: true });
+      })
+      .catch((error) => {
+        res.status(200).json({ ok: false, error });
+      });
+    }
+  }));
+});
+
 module.exports = router;

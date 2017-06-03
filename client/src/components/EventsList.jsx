@@ -9,10 +9,16 @@ import Accordion from 'grommet/components/Accordion';
 import AccordionPanel from 'grommet/components/AccordionPanel';
 import Timestamp from 'grommet/components/Timestamp';
 import PinIcon from 'grommet/components/icons/base/Pin';
-import TrashIcon from 'grommet/components/icons/base/Trash';
 import Spinning from 'grommet/components/icons/Spinning';
 
-const EventsList = ({ events, status, deleteEvent, isAuthenticated, errMessage, updateEvent }) => (
+const EventsList = ({
+  events,
+  status,
+  isAuthenticated,
+  errMessage,
+  updateEvent,
+  displayEditEventForm
+}) => (
   <div>
     {status === 'LOADING' && <p className="loading">Loading ...<Spinning /></p>}
     {status === 'ERROR' && <p className="error">Error loading or posting events ... {errMessage}</p>}
@@ -26,7 +32,7 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated, errMessage, 
                 <div>
                   <span><strong>*Private</strong> created by <Anchor href="#" path={`/profile/${evt.username}`}>{evt.username}</Anchor></span>
                 </div> :
-                <span>Created by <a href={`/profile/${evt.username}`}>{evt.username}</a></span>
+                <span>Created by <Anchor href="#" path={`/profile/${evt.username}`}>{evt.username}</Anchor></span>
               }
               description={
                 <Accordion>
@@ -48,12 +54,8 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated, errMessage, 
                 </Accordion>}
               link={evt.username === isAuthenticated ?
                 <Anchor
-                  icon={<TrashIcon />}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    deleteEvent(evt._id);
-                  }}
-                  label={'Delete this event'}
+                  onClick={() => displayEditEventForm(evt)}
+                  label={'Edit/Delete this event'}
                 /> :
                 (
                   <span>
@@ -82,8 +84,8 @@ const EventsList = ({ events, status, deleteEvent, isAuthenticated, errMessage, 
 EventsList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
-  deleteEvent: PropTypes.func.isRequired,
   updateEvent: PropTypes.func.isRequired,
+  displayEditEventForm: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
   errMessage: PropTypes.string,
 };
