@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card, CardTitle } from 'react-toolbox/lib/card';
 
 const Endorsement = ({ endorsement }) => (
-  <div>
-    Comments: {endorsement.comments}
-  </div>
+  <Card style={{ width: '350px' }}>
+    <CardTitle
+      avatar={endorsement.endorserImg}
+      title={endorsement.endorserUsername}
+    />
+    <CardTitle
+      title={endorsement.comments}
+      subtitle={endorsement.skills.map(s => s)}
+    />
+  </Card>
 );
 
 Endorsement.propTypes = {
