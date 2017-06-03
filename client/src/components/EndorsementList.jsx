@@ -23,8 +23,4 @@ EndorsementContainer.propTypes = {
   )
 };
 
-EndorsementList.defaultProps = {
-  endorsements: [],
-};
-
 export default EndorsementList;

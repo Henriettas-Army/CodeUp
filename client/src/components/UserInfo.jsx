@@ -5,6 +5,7 @@ import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
 import SendIcon from 'grommet/components/icons/base/Send';
 import CliIcon from 'grommet/components/icons/base/Cli';
+import EditIcon from 'grommet/components/icons/base/Edit';
 import Status from 'grommet/components/icons/Status';
 import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
@@ -24,7 +25,8 @@ const UserInfo = ({
   currentUser,
   editing,
   editProfile,
-  addChatRoom }) => (
+  addChatRoom,
+  openEC, }) => (
     <Section>
       {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
       {status === 'ERROR' && <p className="error">{errMessage}</p>}
@@ -59,6 +61,12 @@ const UserInfo = ({
                   label={'Message'}
                   icon={<SendIcon />}
                   onClick={() => { addChatRoom(); }}
+                />
+                <Button
+                  icon={<EditIcon />}
+                  label="Endorse this person"
+                  onClick={() => { openEC(); }}
+                  primary
                 />
               </Section>
             }
@@ -133,6 +141,7 @@ UserInfo.propTypes = {
     meter: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
   addChatRoom: PropTypes.func.isRequired,
+  openEC: PropTypes.func.isRequired,
 };
 
 UserInfo.defaultProps = {
