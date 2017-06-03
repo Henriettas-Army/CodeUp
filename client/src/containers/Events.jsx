@@ -75,7 +75,7 @@ class Events extends React.Component {
       calendarFilteredEvents = viewEvents.filter(e =>
         e.date.split('T')[0].replace(/-/g, '') >= this.state.calendar.format().split('T')[0].replace(/-/g, ''));
     } else {
-      calendarFilteredEvents = this.props.events;
+      calendarFilteredEvents = viewEvents;
     }
 
     // filter events based on search
@@ -94,7 +94,7 @@ class Events extends React.Component {
             <Anchor
               icon={<AddIcon />}
               label={'Add Event'}
-              onClick={(e) => { e.preventDefault(); this.setState({ showForm: true }); }}
+              onClick={(e) => { e.preventDefault(); this.setState({ showNewEventForm: true }); }}
             />
             {
               this.state.showNewEventForm &&
