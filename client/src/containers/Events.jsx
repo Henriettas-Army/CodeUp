@@ -71,7 +71,7 @@ class Events extends React.Component {
       viewEvents = this.props.events.filter(e =>
         JSON.stringify(e.pinned).includes(isAuthenticated));
     } else if (this.state.view === 'All') {
-      viewEvents = this.props.events.slice();
+      viewEvents = this.props.events;
     }
 
     // filters events based on calendar
@@ -80,7 +80,7 @@ class Events extends React.Component {
       calendarFilteredEvents = viewEvents.filter(e =>
         e.date.split('T')[0].replace(/-/g, '') >= this.state.calendar.format().split('T')[0].replace(/-/g, ''));
     } else {
-      calendarFilteredEvents = viewEvents.slice();
+      calendarFilteredEvents = viewEvents;
     }
 
     // filter events based on search
