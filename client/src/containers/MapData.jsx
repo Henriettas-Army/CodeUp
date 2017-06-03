@@ -112,15 +112,11 @@ class MapData extends React.Component {
               return (<div key={event.title} visibility="hidden">Private Event</div>);
             }
             )}
-            {console.log('users before rendering in map: ', this.props.users)}
-            {this.props.users.filter(user => user.position).map((user) => {
-              console.log('rendering user in map', user);
-              return (
-                <Marker key={'unique_key'} position={[user.position[0], user.position[1]]} >
-                  <Popup><span>{user.username} wants to code RIGHT NOW!</span></Popup>
-                </Marker>
-              );
-            })}
+            {this.props.users.filter(user => user.position).map(user => (
+              <Marker key={'unique_key'} position={[user.position[0], user.position[1]]} >
+                <Popup><span>{user.username} wants to code RIGHT NOW!</span></Popup>
+              </Marker>
+            ))}
           </Map>
         </Box>
         <Sidebar
@@ -149,18 +145,18 @@ class MapData extends React.Component {
 
 MapData.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   updateEvent: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
   searchQuery: PropTypes.string.isRequired,
   errMessage: PropTypes.string,
+  loadUsers: PropTypes.func.isRequired,
 };
 
 MapData.defaultProps = {
   errMessage: '',
-  users: PropTypes.arrayOf(PropTypes.object).isRequired,
-  loadUsers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

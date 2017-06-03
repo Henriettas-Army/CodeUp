@@ -9,7 +9,7 @@ class Users extends React.Component {
     this.props.listUsers();
   }
   render() {
-    let users = this.props.users.users;
+    let users = this.props.users.users.filter(user => user.username !== this.props.isAuthenticated);
     users = users.filter(u =>
       u.username.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
       JSON.stringify(u.meter).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
@@ -32,7 +32,7 @@ Users.propTypes = {
   }).isRequired,
   searchQuery: PropTypes.string.isRequired,
   listUsers: PropTypes.func.isRequired,
-  // isAuthenticated: PropTypes.string,
+  isAuthenticated: PropTypes.string,
 };
 
 Users.defaultProps = {

@@ -111,18 +111,13 @@ class Events extends React.Component {
       </Toast>);
     }
 
-    const zeroEvents = events.length > 0 ? null : (<h3>{`No ${this.state.view !== 'All' ? this.state.view : null} Events`}</h3>);
+    const zeroEvents = events.length > 0 ? null : (<h3>{`No ${this.state.view !== 'All' ? this.state.view : ''} Events`}</h3>);
 
     return (
       <div>
         {toast}
         <Split priority={'left'} showOnResponsive={'both'} flex={'left'} fixed={false}>
-          <Box pad={'medium'} align={'start'} >
-            <Anchor
-              icon={<AddIcon />}
-              label={'Add Event'}
-              onClick={(e) => { e.preventDefault(); this.setState({ showNewEventForm: true }); }}
-            />
+          <Box pad={'small'} align={'start'} >
             {
               this.state.showNewEventForm &&
               <Layer
@@ -154,7 +149,6 @@ class Events extends React.Component {
                 />
               </Layer>
             }
-            <br /><br /><br />
             <p>Filter events by date:</p>
             <DatePicker
               todayButton="Today"
@@ -184,6 +178,12 @@ class Events extends React.Component {
                 label={'My Pinned'}
                 disabled={this.state.view === 'Pinned'}
                 onClick={() => this.setState({ view: 'Pinned' })}
+              />
+              <br /><br /><br />
+              <Anchor
+                icon={<AddIcon />}
+                label={'Add Event'}
+                onClick={(e) => { e.preventDefault(); this.setState({ showNewEventForm: true }); }}
               />
             </p>
           </Box>
