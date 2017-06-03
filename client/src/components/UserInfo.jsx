@@ -28,11 +28,10 @@ const UserInfo = ({
   editing,
   editProfile,
   addChatRoom,
-  openEC,
-  endorsedSkills }) => (
+  openEC }) => (
     <Section>
       {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
-      {status === 'ERROR' && <p className="error">er</p>}
+      {status === 'ERROR' && <p className="error">{errMessage}</p>}
       {status === 'READY' &&
       <Section>
         <Columns maxCount={3} size={'medium'} justify={'start'} >
@@ -81,7 +80,6 @@ const UserInfo = ({
             <br />
             <div>
               <Label> <strong>Skills in Development: </strong></Label><br />
-
               <div>
                 {
                   profile.desired ?
@@ -90,17 +88,7 @@ const UserInfo = ({
                   )) : 'N/A'
                 }
               </div>
-            </Paragraph>
-            <Paragraph>
-              <Label> <strong>Has been endorsed in: </strong></Label><br />
-              {
-                endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map(s => (
-                  <Chip style={{ display: 'inline-block', backgroundColor: '#0a64a0', color: '#fff' }} >
-                    <strong>{`${s} · ${endorsedSkills.filter(es => (es === s)).length}`}</strong>
-                  </Chip>
-                ))
-              }
-            </Paragraph>
+            </div>
           </Box>
           <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
             <Section>
