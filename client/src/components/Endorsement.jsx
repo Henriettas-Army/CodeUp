@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardTitle } from 'react-toolbox/lib/card';
+import Chip from 'react-toolbox/lib/chip';
 
 const Endorsement = ({ endorsement }) => (
   <Card style={{ width: '350px' }}>
@@ -10,8 +11,12 @@ const Endorsement = ({ endorsement }) => (
     />
     <CardTitle
       title={endorsement.comments}
-      subtitle={endorsement.skills.map(s => s)}
     />
+    <div>
+      {endorsement.skills.map(s => (
+        <Chip style={{ display: 'inline-block' }}>{s}</Chip>
+      ))}
+    </div>
   </Card>
 );
 
