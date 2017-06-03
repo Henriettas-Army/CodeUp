@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import GrommetApp from 'grommet/components/App';
 import Toast from 'grommet/components/Toast';
-import Edit from 'grommet/components/icons/base/Edit';
-import Button from 'grommet/components/Button';
 import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
@@ -36,6 +34,9 @@ class Profile extends React.Component {
   closeEC() {
     this.setState({ endorsementCreatorOpen: false });
   }
+  openEC() {
+    this.setState({ endorsementCreatorOpen: true });
+  }
   showToast(ToastMessage) {
     this.setState({ ToastMessage });
   }
@@ -62,17 +63,12 @@ class Profile extends React.Component {
             editing={editing}
             editProfile={editProfile}
             addChatRoom={() => { this.props.addChatRoom([currentUser, profile.username].sort().join('#')); }}
+            openEC={() => { this.openEC(); }}
           />
           <UserRepos
             repos={profile.repos}
             status={status}
             user={profile.username}
-          />
-          <Button
-            icon={<Edit />}
-            label="Endorse this person"
-            onClick={() => { this.setState({ endorsementCreatorOpen: true }); }}
-            primary
           />
           { this.state.endorsementCreatorOpen ?
             <EndorsementCreatorContainer
