@@ -10,6 +10,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
   },
+  devtool: 'source-map',
   node: {
     net: 'empty',
     tls: 'empty',
