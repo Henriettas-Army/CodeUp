@@ -48,18 +48,15 @@ const UserInfo = ({
                 status={profile.status}
               />
               : <Section>
-                <h2>Status:<br />{
+                <h2>Status:<br /></h2>
+                {
                   profile.status === 'Unavailable' ?
                   (<h3><Status value="critical" />Unavailable</h3>)
                   : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{ profile.status}</h3>)
-                }</h2>
-                {/* add chat messaging button here */}
+                }
                 <Button
-                  style={{
-                    boxSizing: 'border-box',
-                    width: '60px',
-                    height: '60px',
-                  }}
+                  plain
+                  label={'Message'}
                   icon={<SendIcon />}
                   onClick={() => { addChatRoom(); }}
                 />

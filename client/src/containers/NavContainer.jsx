@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logoutUser: () => {
-    dispatch(loginActions.logoutUser('', 'Unavailable'));
+    dispatch(loginActions.logoutUser('', 'Unavailable', false));
   },
 });
 
