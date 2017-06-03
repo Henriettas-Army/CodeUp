@@ -123,7 +123,7 @@ Profile.propTypes = {
       username: PropTypes.string,
     }),
   }).isRequired,
-  addChatRoom: PropTypes.func.isRequired,
+  // addChatRoom: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {

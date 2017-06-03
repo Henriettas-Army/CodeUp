@@ -64,7 +64,7 @@ const UserInfo = ({
             }
           </Box>
         </Columns>
-        <Columns maxCount={3} size={'medium'} justify={'start'} >
+        <Columns maxCount={2} size={'medium'} justify={'start'} >
           <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
             <div>
               <Label><strong>Technical Skills: </strong></Label><br />
@@ -87,8 +87,6 @@ const UserInfo = ({
                 )) : 'N/A'
               }
             </div>
-          </Box>
-          <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
             <Section>
               { profile.username === currentUser ?
                 <TechEditForm
