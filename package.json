@@ -77,6 +77,7 @@
     "react-places-autocomplete": "^5.3.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
+    "react-toolbox": "^2.0.0-beta.12",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-persist": "^4.8.0",
