@@ -1,9 +1,11 @@
 /* global window */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import Spinner from 'grommet/components/icons/Spinning';
 import EndorsementCreator from '../components/EndorsementCreator';
+import { postEndorsement } from '../../redux/actions/endorsementActions';
+import profileActions from '../../redux/actions/profileActions';
 
 class EndorsementCreatorContainer extends Component {
   constructor(props) {
@@ -26,21 +28,31 @@ class EndorsementCreatorContainer extends Component {
     this.setState({ comments: inputString });
   }
   sendEndorsement() {
-    axios.post('/api/endorsement', {
+    const endorsement = {
       endorserToken: window.localStorage.getItem('token'),
       endorsee: this.props.endorsed,
       skills: this.state.skills,
       comments: this.state.comments,
-    });
+    };
+    this.props.postEndorsement(endorsement)
+    .then(() => { this.props.loadProfile(this.props.endorsed); });
+    this.props.closeEC();
+    this.props.showToast(`Thanks for endorsing ${this.props.endorsed}`);
   }
   render() {
     return (
-      <EndorsementCreator
-        {...this.props}
-        toggleSkill={(s) => { this.toggleSkill(s); }}
-        writeComment={(c) => { this.writeComment(c); }}
-        sendEndorsement={() => { this.sendEndorsement(); }}
-      />
+      <div>
+        <EndorsementCreator
+          {...this.props}
+          toggleSkill={(s) => { this.toggleSkill(s); }}
+          writeComment={(c) => { this.writeComment(c); }}
+          sendEndorsement={() => { this.sendEndorsement(); }}
+        />
+        {
+          this.props.status === 'LOADING' ?
+            <Spinner /> : null
+        }
+      </div>
     );
   }
 }
@@ -49,6 +61,26 @@ EndorsementCreatorContainer.propTypes = {
   skillsToEndorse: PropTypes.arrayOf(PropTypes.string).isRequired,
   closeEC: PropTypes.func.isRequired,
   endorsed: PropTypes.string.isRequired,
+  postEndorsement: PropTypes.func.isRequired,
+  showToast: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
+  loadProfile: PropTypes.func.isRequired,
 };
 
-export default EndorsementCreatorContainer;
+EndorsementCreatorContainer.defaultProps = {
+  status: '',
+};
+
+const mapStateToProps = state => ({ status: state.postEndorsement.status });
+
+const mapDispatchToProps = dispatch => ({
+  postEndorsement: end => dispatch(postEndorsement(end)),
+  loadProfile: (username) => {
+    dispatch(profileActions.loadProfileAsync(username));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EndorsementCreatorContainer);

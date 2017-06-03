@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import GrommetApp from 'grommet/components/App';
+import Toast from 'grommet/components/Toast';
 import Edit from 'grommet/components/icons/base/Edit';
 import Button from 'grommet/components/Button';
 import NavContainer from '../containers/NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
 import EndorsementCreatorContainer from '../containers/EndorsementCreatorContainer';
-import EndorsementsContainer from '../containers/EndorsementsContainer';
+import EndorsementList from '../components/EndorsementList';
 import profileActions from '../../redux/actions/profileActions';
 import chatActions from '../../redux/actions/chatActions';
 
@@ -17,7 +18,10 @@ import '../styles/styles.scss';
 
 class Profile extends React.Component {
   componentWillMount() {
-    this.state = { endorsementCreatorOpen: false };
+    this.state = {
+      endorsementCreatorOpen: false,
+      ToastMessage: false,
+    };
   }
   componentDidMount() {
     this.props.loadProfile(decodeURIComponent(this.props.match.params.username));
@@ -32,6 +36,9 @@ class Profile extends React.Component {
   closeEC() {
     this.setState({ endorsementCreatorOpen: false });
   }
+  showToast(ToastMessage) {
+    this.setState({ ToastMessage });
+  }
   render() {
     const profile = this.props.profile;
     const status = this.props.status;
@@ -40,7 +47,8 @@ class Profile extends React.Component {
     const currentUser = this.props.isAuthenticated;
     const editing = this.props.editing;
     const editProfile = this.props.editProfile;
-    const props = this.props;
+    const endorsements = profile.endorsements || [];
+
     return (
       <GrommetApp>
         <NavContainer />
@@ -53,7 +61,7 @@ class Profile extends React.Component {
             currentUser={currentUser}
             editing={editing}
             editProfile={editProfile}
-            addChatRoom={() => { props.addChatRoom([currentUser, profile.username].sort().join('#')); }}
+            addChatRoom={() => { this.props.addChatRoom([currentUser, profile.username].sort().join('#')); }}
           />
           <UserRepos
             repos={profile.repos}
@@ -71,10 +79,21 @@ class Profile extends React.Component {
               closeEC={() => { this.closeEC(); }}
               skillsToEndorse={profile.skills.concat(profile.desired)}
               endorsed={profile.username}
+              showToast={(TM) => { this.showToast(TM); }}
             />
             : null
           }
-          <EndorsementsContainer />
+          {
+            this.state.ToastMessage ?
+              <Toast
+                status="ok"
+                onClose={() => { this.setState({ ToastMessage: false }); }}
+              >
+                {this.state.ToastMessage}
+              </Toast>
+              : null
+          }
+          <EndorsementList endorsements={endorsements} />
         </div>
       </GrommetApp>
     );
@@ -113,7 +132,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   isAuthenticated: '',
-  errMessage: PropTypes.string,
+  errMessage: '',
 };
 
 const mapStateToProps = state => (
