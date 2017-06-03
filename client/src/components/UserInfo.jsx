@@ -97,12 +97,12 @@ const UserInfo = ({
           </Box>
           <Box align={'center'} colorIndex={'light-1'} textAlign={'center'} flex full={false} >
             <Section>
-              <Label>Top 5 Languages</Label>
+              <Label>Top Languages</Label>
               {profile.meter ?
                 <AnnotatedMeter
                   type={'circle'}
                   units={'%'}
-                  series={profile.meter.sort((a, b) => b.value - a.value).slice(0, 5)}
+                  series={profile.meter}
                   legend
                 /> : ''
               }

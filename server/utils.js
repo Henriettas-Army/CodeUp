@@ -184,10 +184,21 @@ const grabUserReposandSave = (username, ghToken) => {
           language.value = Math.round((languageObj[keys[i]] / byteCount) * 100);
           languageData.push(language);
         }
+        const sortedLanguageData = languageData.sort((a, b) => b.value - a.value).splice(0, 5);
+        const otherLanguageObj = {};
+        otherLanguageObj.label = 'Other';
+        let otherLanguageTotal = 0;
+        for (let i = 0; i < languageData.length; i += 1) {
+          otherLanguageTotal += languageData[i].value;
+        }
+        otherLanguageObj.value = otherLanguageTotal;
+        if (otherLanguageObj.value > 0) {
+          sortedLanguageData.push(otherLanguageObj);
+        }
         const fourRepos = getFourReposInfo(allRepos);
-        UserController.postRepos(username, fourRepos, languageData)
+        UserController.postRepos(username, fourRepos, sortedLanguageData)
         .then((res) => {
-          console.log(res);
+          console.log('POST REPOS RESULT:', res);
         });
       });
     })
