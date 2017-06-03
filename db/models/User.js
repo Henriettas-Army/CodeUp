@@ -6,6 +6,7 @@ const endorsementSchema = new Schema({
   endorserUsername: String,
   endorserImg: String,
   skills: [String],
+  title: String,
   comments: String
 });
 

@@ -4,17 +4,19 @@ import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
 import Chip from 'react-toolbox/lib/chip';
 
 const Endorsement = ({ endorsement }) => (
-  <Card style={{ width: '350px' }}>
+  <Card style={{ width: '100%', display: 'inline-block' }} >
     <CardTitle
       avatar={endorsement.endorserImg}
       title={endorsement.endorserUsername}
     />
+
+    <CardTitle title={endorsement.title} />
+    <CardText>{endorsement.comments}</CardText>
     <div>
       {endorsement.skills.map((s, k) => (
         <Chip key={+k + 1} style={{ display: 'inline-block' }}>{s}</Chip>
       ))}
     </div>
-    <CardText>{endorsement.comments}</CardText>
   </Card>
 );
 
