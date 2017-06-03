@@ -4,8 +4,6 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import positionMiddleware from './middlewares/positionMiddleware';
 
-
-
 import combineReducers from './reducers/combineReducers';
 
 const store = composeWithDevTools(
