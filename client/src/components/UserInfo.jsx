@@ -95,8 +95,8 @@ const UserInfo = ({
               <Label> <strong>Has been endorsed in: </strong></Label><br />
               {
                 endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map(s => (
-                  <Chip style={{ display: 'inline-block' }} >
-                    {`${s} · ${endorsedSkills.filter(es => (es === s)).length}`}
+                  <Chip style={{ display: 'inline-block', backgroundColor: '#0a64a0', color: '#fff' }} >
+                    <strong>{`${s} · ${endorsedSkills.filter(es => (es === s)).length}`}</strong>
                   </Chip>
                 ))
               }
