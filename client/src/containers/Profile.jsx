@@ -47,7 +47,7 @@ class Profile extends React.Component {
     const currentUser = this.props.isAuthenticated;
     const editing = this.props.editing;
     const editProfile = this.props.editProfile;
-    const endorsements = profile.endorsements;
+    const endorsements = profile.endorsements || [];
 
     return (
       <GrommetApp>

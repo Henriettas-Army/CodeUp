@@ -8,7 +8,12 @@ const Endorsement = ({ endorsement }) => (
 );
 
 Endorsement.propTypes = {
-  endorsement: PropTypes.obj,
+  endorsement: PropTypes.shape({
+    endorserUsername: PropTypes.string.isRequired,
+    endorserImg: PropTypes.string.isRequired,
+    comments: PropTypes.string.isRequired,
+    skills: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
 };
 
 export default Endorsement;
