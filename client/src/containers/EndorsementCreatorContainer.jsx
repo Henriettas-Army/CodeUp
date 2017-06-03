@@ -11,9 +11,16 @@ class EndorsementCreatorContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
       comments: '',
       skills: [],
     };
+  }
+  writeTitle(inputString) {
+    this.setState({ title: inputString });
+  }
+  writeComment(inputString) {
+    this.setState({ comments: inputString });
   }
   toggleSkill(skill) {
     const skills = this.state.skills;
@@ -24,14 +31,12 @@ class EndorsementCreatorContainer extends Component {
     }
     this.setState({ skills });
   }
-  writeComment(inputString) {
-    this.setState({ comments: inputString });
-  }
   sendEndorsement() {
     const endorsement = {
       endorserToken: window.localStorage.getItem('token'),
       endorsee: this.props.endorsed,
       skills: this.state.skills,
+      title: this.state.title,
       comments: this.state.comments,
     };
     this.props.postEndorsement(endorsement)
@@ -47,6 +52,7 @@ class EndorsementCreatorContainer extends Component {
           toggleSkill={(s) => { this.toggleSkill(s); }}
           writeComment={(c) => { this.writeComment(c); }}
           sendEndorsement={() => { this.sendEndorsement(); }}
+          writeTitle={(t) => { this.writeTitle(t); }}
         />
         {
           this.props.status === 'LOADING' ?

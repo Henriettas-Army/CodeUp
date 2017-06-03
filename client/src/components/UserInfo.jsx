@@ -31,7 +31,7 @@ const UserInfo = ({
   openEC }) => (
     <Section>
       {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
-      {status === 'ERROR' && <p className="error">{errMessage}</p>}
+      {status === 'ERROR' && <p className="error">er</p>}
       {status === 'READY' &&
       <Section>
         <Columns maxCount={3} size={'medium'} justify={'start'} >
@@ -80,13 +80,18 @@ const UserInfo = ({
             <br />
             <div>
               <Label> <strong>Skills in Development: </strong></Label><br />
-              {
-                profile.skills ?
-                profile.desired.map((s, k) => (
-                  <Chip key={+k + 1} style={{ display: 'inline-block' }} >{s}</Chip>
-                )) : 'N/A'
-              }
-            </div>
+
+              <div>
+                {
+                  profile.desired ?
+                  profile.desired.map(s => (
+                    <Chip style={{ display: 'inline-block' }} >{s}</Chip>
+                  )) : 'N/A'
+                }
+              </div>
+            </Paragraph>
+          </Box>
+          <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
             <Section>
               { profile.username === currentUser ?
                 <TechEditForm
@@ -98,7 +103,7 @@ const UserInfo = ({
                   editProfile={editProfile}
                   editing={editing}
                 />
-              : ''}
+              : null}
             </Section>
           </Box>
           <Box align={'center'} colorIndex={'light-1'} textAlign={'center'} flex full={false} >
@@ -126,7 +131,10 @@ UserInfo.propTypes = {
   editProfile: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
-  errMessage: PropTypes.string,
+  errMessage: PropTypes.shape({
+    ok: PropTypes.bool,
+    user: PropTypes.string,
+  }),
   profile: PropTypes.shape({
     username: PropTypes.string,
     name: PropTypes.string,
@@ -144,7 +152,7 @@ UserInfo.propTypes = {
 
 UserInfo.defaultProps = {
   currentUser: '',
-  errMessage: PropTypes.string,
+  errMessage: {},
 };
 
 export default UserInfo;
