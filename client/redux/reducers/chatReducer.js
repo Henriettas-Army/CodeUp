@@ -1,19 +1,6 @@
 import { combineReducers } from 'redux';
 import chat from '../actions/chatActions';
 
-// const INITIAL_STATE = {
-//   username: undefined,
-//   loadingRooms: false,
-//   rooms: {}, // example state: {'user1#user2':
-//  {messages: [...mgs], active: true, loaded: true, unread: 0, loading: false } }
-// };
-//   RECEIVE_ROOMS,
-  // OPEN_ROOM,
-  // RECEIVE_MESSAGE,
-  // RECEIVE_MESSAGES,
-  // CLOSE_ROOM,
-  // ADD_ROOM,
-//
 // Object.keys(state.rooms) is the list of chats since the beginning of time.
 // you gotta ask for it on loading.
 // active means it's being rendered, loaded means it loaded previous messages
@@ -22,7 +9,6 @@ import chat from '../actions/chatActions';
 // unread is the ammount of msgs not read. zero on close
 
 function mergeMessages(messages, newMessages) { // merges two arrays by date
-  console.log(messages, newMessages);
   const merged = [];
   if (messages === undefined) {
     return newMessages.slice(0);
@@ -52,16 +38,6 @@ function mergeMessages(messages, newMessages) { // merges two arrays by date
   return merged;
 }
 
-// const username = (state, action) => {
-//   switch (action.type) {
-//     case chat.CONNECTED:
-//       return action.username;
-//     case chat.DISCONNECTED:
-//       return null;
-//     default:
-//       return null;
-//   }
-// };
 const loadingRooms = (state = false, action) => {
   switch (action.type) {
     case chat.LOADING_ROOMS:
@@ -74,7 +50,6 @@ const loadingRooms = (state = false, action) => {
 };
 
 const rooms = (state = {}, action) => { // state: state.rooms
-  console.log('rooms called ', state, action);
   let newState;
   let room;
   let unread;
@@ -127,14 +102,12 @@ const rooms = (state = {}, action) => { // state: state.rooms
       return newState;
     case chat.RECEIVE_ROOMS:
       newState = Object.assign({}, state);
-      console.log('action.rooms: ', action.rooms);
       for (let i = 0; i < action.rooms.length; i += 1) {
         room = action.rooms[i].room;
         unread = action.rooms[i].unread;
         newState[room] = { unread, active: false, loading: false, loaded: false, messages: [] };
         return newState;
       }
-      console.log('newState: ', newState);
       return newState;
     case chat.LOADING_MESSAGES:
       newState = Object.assign({}, state);

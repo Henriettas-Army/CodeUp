@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 import Layer from 'grommet/components/Layer';
 import Split from 'grommet/components/Split';
 import Box from 'grommet/components/Box';
 import AddIcon from 'grommet/components/icons/base/Add';
+import Toast from 'grommet/components/Toast';
 import Anchor from 'grommet/components/Anchor';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -15,6 +17,7 @@ import MagicIcon from 'grommet/components/icons/base/Magic';
 import PinIcon from 'grommet/components/icons/base/Pin';
 import EventsList from '../components/EventsList';
 import eventActions from '../../redux/actions/eventActions';
+import loginActions from '../../redux/actions/loginActions';
 import NewEventForm from '../components/NewEventForm';
 import EditEventForm from '../components/EditEventForm';
 
@@ -28,6 +31,7 @@ class Events extends React.Component {
       showEditEventForm: false,
       editingEvent: null,
       calendar: null,
+      showToast: true,
     };
     this.handleCalendarDate = this.handleCalendarDate.bind(this);
     this.displayEditEventForm = this.displayEditEventForm.bind(this);
@@ -58,6 +62,7 @@ class Events extends React.Component {
     const isAuthenticated = this.props.isAuthenticated;
     const errMessage = this.props.errMessage;
     const editEvent = this.props.editEvent;
+
     // filter events based on what events view users choose
     let viewEvents;
     if (this.state.view === 'Created') {
@@ -75,7 +80,7 @@ class Events extends React.Component {
       calendarFilteredEvents = viewEvents.filter(e =>
         e.date.split('T')[0].replace(/-/g, '') >= this.state.calendar.format().split('T')[0].replace(/-/g, ''));
     } else {
-      calendarFilteredEvents = viewEvents;
+      calendarFilteredEvents = viewEvents.slice();
     }
 
     // filter events based on search
@@ -87,8 +92,23 @@ class Events extends React.Component {
       JSON.stringify(e.topics).toLowerCase().includes(this.props.searchQuery.toLowerCase())
     );
 
+    let toast = null;
+    const todayDate = new Date();
+    const formattedDate = moment(todayDate).format('YYYY-MM-DD');
+    const pinReminders = this.props.events.filter(e =>
+      JSON.stringify(e.pinned).includes(isAuthenticated)).filter(et =>
+      et.date.slice(0, 10) === formattedDate);
+    if (pinReminders.length > 0 && !this.props.reminder) {
+      const reminders = [];
+      pinReminders.forEach(pin => reminders.push(pin.title));
+      toast = (<Toast status={'ok'} onClose={this.props.loginReminder}>
+        {`Your pinned events happening today: ${reminders.join(', ')}`}
+      </Toast>);
+    }
+
     return (
       <div>
+        {toast}
         <Split priority={'left'} showOnResponsive={'both'} flex={'left'} fixed={false}>
           <Box pad={'medium'} align={'start'} >
             <Anchor
@@ -183,9 +203,11 @@ Events.propTypes = {
   loadEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   updateEvent: PropTypes.func.isRequired,
+  loginReminder: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
   searchQuery: PropTypes.string.isRequired,
   errMessage: PropTypes.string,
+  reminder: PropTypes.bool.isRequired,
 };
 
 Events.defaultProps = {
@@ -199,6 +221,7 @@ const mapStateToProps = state => ({
   status: state.events.status,
   isAuthenticated: state.auth.isAuthenticated,
   errMessage: state.events.error,
+  reminder: state.auth.reminder,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -207,6 +230,7 @@ const mapDispatchToProps = dispatch => ({
   deleteEvent: id => dispatch(eventActions.deleteEventAsync(id)),
   updateEvent: eventObj => dispatch(eventActions.updateEventsAsync(eventObj)),
   editEvent: url => dispatch(eventActions.editEventAsync(url)),
+  loginReminder: () => dispatch(loginActions.loginReminder()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Events));

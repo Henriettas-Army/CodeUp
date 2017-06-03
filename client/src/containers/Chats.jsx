@@ -10,32 +10,23 @@ import chat from '../../redux/actions/chatActions';
 
 class Chats extends React.Component {
   constructor(props) {
-    console.log('constructing chat...');
     super(props);
-    console.log('PROPS; ', props);
     window.socket = window.socket || io('/chat');
     this.state = { socket: window.socket, completedRooms: {} };
     this.state.socket.emit('authenticate', { username: this.props.username });
-    console.log('username from chats:::::::::::::::::::::::', this.props.username);
   }
 
   componentWillMount() {
     const socket = this.state.socket;
     socket.on('authenticationSuccess', (data) => {
-      console.log('authenticated ', data.username);
       this.props.loadRooms(socket, data.username);
-
-      socket.on('rooms', (data) => {
-        console.log('rooms result: ', data);
-        this.props.receiveRooms(data.rooms);
+      socket.on('rooms', (data2) => {
+        this.props.receiveRooms(data2.rooms);
       });
-
       socket.on('message', (msg) => {
-        console.log('message received!!', msg);
         this.props.addMessage(msg, socket, this.props.username);
       });
       socket.on('messages', (msgs) => {
-        console.log('received messages', msgs);
         this.props.addMessages(msgs);
       });
     });
@@ -53,8 +44,6 @@ class Chats extends React.Component {
           rooms={chatRoomNames.map(room => ({ room, unread: this.props.rooms[room].unread }))}
           showChat={room => this.props.showChat(room, this.state.socket, this.props.username)}
         />
-        {console.log('rooms chats: ', this.props.rooms, chatRoomNames)}
-        {/* {console.log('rooms from gs: ', this.props.rooms)}*/}
         {/* messages={[{message: '1', from: 'someone1'}, {message: 2, from: this.props.username}]}
             */}
         {chatRoomNames
@@ -91,9 +80,12 @@ Chats.propTypes = {
   username: PropTypes.string.isRequired,
   // addChatRoom: PropTypes.func.isRequired,
   showChat: PropTypes.func.isRequired,
+  loadRooms: PropTypes.func.isRequired,
+  receiveRooms: PropTypes.func.isRequired,
   // chatRooms: PropTypes.object,
   sendMessage: PropTypes.func.isRequired,
   hideChat: PropTypes.func.isRequired,
+  rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = state => ({

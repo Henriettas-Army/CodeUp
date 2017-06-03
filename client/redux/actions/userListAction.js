@@ -18,7 +18,6 @@ const loadAllUsers = () => (
         if (res.data.users) {
           dispatch(listUsers(res.data.users));
         } else {
-          console.log(res.data);
           dispatch(error(res.data));
         }
       });

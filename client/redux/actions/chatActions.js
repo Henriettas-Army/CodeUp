@@ -45,7 +45,6 @@ const loadRoomsAsync = (socket, username) => (dispatch) => {
   dispatch(loadingRooms());
 };
 const sendMessageAsync = (socket, message) => () => {
-  console.log('send message ', message);
   if (message.message.trim() === '') {
     return;
   }
@@ -53,14 +52,11 @@ const sendMessageAsync = (socket, message) => () => {
 };
 
 const receiveMessageAsync = (msg, socket, username) => (dispatch, getState) => {
-  console.log('inside receiveMessageAsync');
   const state = getState();
   if (!state.chat.rooms[msg.room]) {
-    console.log('opening room');
     dispatch(openRoomAsync(msg.room, socket, username));
   } else {
     dispatch(receiveMessage(msg));
-    console.log('receiving message normally, without opening the room');
   }
 };
 

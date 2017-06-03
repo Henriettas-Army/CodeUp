@@ -32,7 +32,6 @@ class NewEventForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    console.log('I have Mounted');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const options = new google.maps.LatLngBounds(
@@ -54,14 +53,12 @@ class NewEventForm extends React.Component {
     }
   }
   handleSelect(address) {
-    console.log('Im SELECTING!', address);
     this.setState({
       location: address,
     });
   }
 
   handleChange(address) {
-    console.log('Im change GTFO!', address);
     this.setState({
       address,
     });
