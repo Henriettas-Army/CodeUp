@@ -159,7 +159,6 @@ MapData.propTypes = {
 
 MapData.defaultProps = {
   errMessage: '',
-  users: PropTypes.arrayOf(PropTypes.object).isRequired
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
   loadUsers: PropTypes.func.isRequired,
 };
