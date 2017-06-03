@@ -95,8 +95,13 @@ class Events extends React.Component {
     let toast = null;
     const todayDate = new Date();
     const formattedDate = moment(todayDate).format('YYYY-MM-DD');
-    const pinReminders = this.props.events.filter(e =>
-      JSON.stringify(e.pinned).includes(isAuthenticated)).filter(et =>
+    const pinReminders = this.props.events.filter((e) => {
+      if (e.pinned !== undefined) {
+        return JSON.stringify(e.pinned).includes(isAuthenticated);
+      }
+      return e;
+    }
+    ).filter(et =>
       et.date.slice(0, 10) === formattedDate);
     if (pinReminders.length > 0 && !this.props.reminder) {
       const reminders = [];

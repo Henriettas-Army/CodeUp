@@ -43,13 +43,13 @@ class Chats extends React.Component {
         <ChatList
           rooms={chatRoomNames.map(room => ({ room, unread: this.props.rooms[room].unread }))}
           showChat={room => this.props.showChat(room, this.state.socket, this.props.username)}
+          username={this.props.username}
         />
-        {/* messages={[{message: '1', from: 'someone1'}, {message: 2, from: this.props.username}]}
-            */}
         {chatRoomNames
           .filter(room => this.props.rooms[room].active)
           .map((room, i) => (
             <Chat
+              key={+i + 1}
               loading={this.props.rooms[room].loading}
               right={(200 * i) + 210}
               chatName={room}

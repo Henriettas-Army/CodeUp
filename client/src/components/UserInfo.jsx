@@ -58,18 +58,8 @@ const UserInfo = ({
                   (<h3><Status value="critical" />Unavailable</h3>)
                   : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{ profile.status}</h3>)
                 }
-                <Button
-                  plain
-                  label={'Message'}
-                  icon={<SendIcon />}
-                  onClick={() => { addChatRoom(); }}
-                />
-                <Button
-                  icon={<EditIcon />}
-                  label="Endorse this person"
-                  onClick={() => { openEC(); }}
-                  primary
-                />
+                <Button plain label={'Message'} icon={<SendIcon />} onClick={addChatRoom} />
+                <Button plain icon={<EditIcon />} label="Endorse user" onClick={openEC} />
               </Section>
             }
           </Box>

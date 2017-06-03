@@ -51,7 +51,7 @@ const EventsList = ({
                       {evt.duration || 'No duration provided for this event'}
                       <br />
                       <PinIcon />
-                      {`  Pinned by ${evt.pinned.length}`}
+                      {`  Pinned by ${evt.pinned ? evt.pinned.length : 0}`}
                     </Paragraph>
                   </AccordionPanel>
                 </Accordion>}

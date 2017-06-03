@@ -39,10 +39,15 @@ class ChatList extends React.Component {
         </div>
       );
     }
+    const parseRoomName = (mixedName) => {
+      const chatArray = mixedName.split('#');
+      const index = chatArray.indexOf(this.props.username);
+      chatArray.splice(index, 1);
+      return chatArray[0];
+    };
     return (
       <div
         role="presentation"
-
         style={{
           width: '200px',
           height: '400px',
@@ -63,18 +68,22 @@ class ChatList extends React.Component {
           <CaretDown />
         </span>
         <List selectable>
-          {this.props.rooms.map(room => (
+          {this.props.rooms.map((room, k) => (
             <ListItem
+              key={+k + 1}
               justify="between"
               separator="horizontal"
               onClick={() => this.props.showChat(room.room)}
             >
               <span>
-                {room.room}
+                {parseRoomName(room.room)}
               </span>
-              <span className="secondary" style={{ borderRadius: '50%', color: 'white', backgroundColor: 'steelblue', width: 23, height: 23, textAlign: 'center', lineHeight: 1.5 }}>
-                {room.unread}
-              </span>
+              {room.unread === 0 ? null
+                : <span className="secondary" style={{ borderRadius: '50%', color: 'white', backgroundColor: 'steelblue', width: 23, height: 23, textAlign: 'center', lineHeight: 1.5 }}>
+                  {room.unread}
+                </span>
+
+              }
             </ListItem>
             ))}
         </List>
@@ -86,6 +95,7 @@ class ChatList extends React.Component {
 ChatList.propTypes = {
   rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
   showChat: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
 };
 
 export default ChatList;
