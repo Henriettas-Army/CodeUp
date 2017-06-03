@@ -21,6 +21,7 @@ const userSchema = new Schema({
   skills: [String],
   desired: [String],
   location: [String],
+  repos: [Schema.Types.Mixed],
   status: String,
   languages: String,
   access_token: String,

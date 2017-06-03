@@ -21,8 +21,8 @@ const EndorsementCreator = props => (
           </Heading>
         </Header>
         {
-          props.skillsToEndorse.map(skill => (
-            <FormField>
+          props.skillsToEndorse.map((skill, key) => (
+            <FormField key={+key + 1}>
               <Checkbox label={skill} onChange={() => props.toggleSkill(skill)} />
             </FormField>
           ))
@@ -45,7 +45,7 @@ const EndorsementCreator = props => (
 
 EndorsementCreator.propTypes = {
   closeEC: PropTypes.func.isRequired,
-  skillsToEndorse: PropTypes.isRequired,
+  skillsToEndorse: PropTypes.arrayOf(PropTypes.string).isRequired,
   toggleSkill: PropTypes.func.isRequired,
   writeComment: PropTypes.func.isRequired,
   sendEndorsement: PropTypes.func.isRequired,

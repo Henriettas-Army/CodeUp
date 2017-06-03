@@ -109,7 +109,7 @@ Profile.propTypes = {
     name: PropTypes.string,
     img: PropTypes.string,
     bio: PropTypes.string,
-    repos: PropTypes.arrayOf(PropTypes.string),
+    repos: PropTypes.arrayOf(PropTypes.object),
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),

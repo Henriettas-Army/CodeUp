@@ -15,21 +15,21 @@ const UserRepos = ({ repos, status, user }) => (
     {status === 'ERROR' && <p className="error">Error loading user profile</p>}
     {status === 'READY' &&
       <article>
-        <h3>{repos && repos.length > 0 && JSON.parse(repos[0]).stargazers_count > 0 ? 'Top Four Starred Repos' : 'Most Recently Pushed Repos'}</h3>
+        <h3>{repos && repos.length > 0 && repos[0].stargazers_count > 0 ? 'Top Four Starred Repos' : 'Most Recently Pushed Repos'}</h3>
         <Tiles fill flush={false} selectable size={'small'} >
           {repos && repos.length > 0 ? repos.map((repo, key) => (
             <Tile key={+key + 1}>
               <Card
-                heading={<h3>{JSON.parse(repo).name}</h3>}
+                heading={<h3>{repo.name}</h3>}
                 size={'medium'}
                 description={<Paragraph>
-                  {JSON.parse(repo).stargazers_count > 0 ?
-                    <span>{JSON.parse(repo).stargazers_count } <StarIcon /></span>
+                  {repo.stargazers_count > 0 ?
+                    <span>{repo.stargazers_count } <StarIcon /></span>
                     : ''}<br />
-                  {JSON.parse(repo).language ? JSON.parse(repo).language : ''}<br />
-                  {JSON.parse(repo).description ? JSON.parse(repo).description : ''}
+                  {repo.language ? repo.language : ''}<br />
+                  {repo.description ? repo.description : ''}
                 </Paragraph>}
-                link={<Anchor href={`https://github.com/${user}/${JSON.parse(repo).name}`} label="Link to repo" />}
+                link={<Anchor href={`https://github.com/${user}/${repo.name}`} label="Link to repo" />}
               />
             </Tile>
           )) : 'No repos' }
@@ -41,7 +41,7 @@ const UserRepos = ({ repos, status, user }) => (
 
 UserRepos.propTypes = {
   status: PropTypes.string.isRequired,
-  repos: PropTypes.arrayOf(PropTypes.string),
+  repos: PropTypes.arrayOf(PropTypes.object),
   user: PropTypes.string,
 };
 
