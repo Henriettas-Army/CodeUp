@@ -57,11 +57,16 @@ router.get('/list', (req, res) => {
     } else {
       UserController.getAllUsers()
       .then((data) => {
-        const usersData = data.filter(user => user.username !== decoded)
-          .map(user =>
-            Object.assign({}, user, { position: positionHelper.getPosition(user.username) })
-          );
-        res.status(200).json({ status: true, users: usersData });
+        const usersData = data//.filter(user => user.username !== decoded)
+          .map((user) => {
+            const user2 = user;
+            user2.position = positionHelper.get(user.username) || null;
+            console.log('5555555555555>', positionHelper.get(user.username));
+            return user2;
+          });
+        console.log('sending1 ', usersData.map(user => (Object.assign({ position: user.position }, user) )) );
+        console.log('sending2 ', usersData );
+        res.status(200).json({ status: true, users: usersData.map(user => Object.assign({ position: user.position }, user._doc)) });
       })
       .catch((error) => {
         res.json({ status: false, error });
@@ -83,8 +88,8 @@ router.get('/:username', (req, res) => {
 });
 
 router.post('/position', (req, res) => {
-  positionHelper.set(req.body.username, req.body.position);
-  res.send('ok dude');
+  positionHelper.set(req.body.username, [req.body.lat, req.body.lng]);
+  res.send('ok');
 });
 
 // update user profile
