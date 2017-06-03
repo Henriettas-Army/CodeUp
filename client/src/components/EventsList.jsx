@@ -9,7 +9,9 @@ import Accordion from 'grommet/components/Accordion';
 import AccordionPanel from 'grommet/components/AccordionPanel';
 import Timestamp from 'grommet/components/Timestamp';
 import PinIcon from 'grommet/components/icons/base/Pin';
+import EditIcon from 'grommet/components/icons/base/Edit';
 import Spinning from 'grommet/components/icons/Spinning';
+import Status from 'grommet/components/icons/Status';
 
 const EventsList = ({
   events,
@@ -17,7 +19,8 @@ const EventsList = ({
   isAuthenticated,
   errMessage,
   updateEvent,
-  displayEditEventForm
+  displayEditEventForm,
+  map,
 }) => (
   <div>
     {status === 'LOADING' && <p className="loading">Loading ...<Spinning /></p>}
@@ -52,15 +55,26 @@ const EventsList = ({
                     </Paragraph>
                   </AccordionPanel>
                 </Accordion>}
-              link={evt.username === isAuthenticated ?
-                <Anchor
-                  onClick={() => displayEditEventForm(evt)}
-                  label={'Edit/Delete this event'}
-                /> :
-                (
-                  <span>
-                    {JSON.stringify(evt.pinned).includes(isAuthenticated) ?
-                      (<span><PinIcon colorIndex={'neutral-2-a'} /> <strong> Pinned</strong></span>)
+              link={!map ? (<span>
+                {evt.username === isAuthenticated ?
+                  <Anchor
+                    icon={<EditIcon />}
+                    onClick={() => displayEditEventForm(evt)}
+                    label={'Edit/Delete this event'}
+                  /> :
+                  (
+                    <span>
+                      {JSON.stringify(evt.pinned).includes(isAuthenticated) ?
+                        (<span><PinIcon colorIndex={'neutral-2-a'} /> <strong> Pinned </strong>
+                          <Anchor
+                            icon={<Status value="warning" />}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              updateEvent({ id: evt._id, toUpdate: [{ typeUpdate: 'unpinned', data: isAuthenticated }] });
+                            }}
+                            label={'Unpin'}
+                          />
+                        </span>)
                       : <Anchor
                         icon={<PinIcon />}
                         onClick={(e) => {
@@ -69,10 +83,10 @@ const EventsList = ({
                         }}
                         label={'Pin this event'}
                       />
-                  }
-                  </span>
-                )
-              }
+                    }
+                    </span>
+                )}
+              </span>) : null}
             />
           </Tile>)
         )}
@@ -85,13 +99,15 @@ EventsList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
   updateEvent: PropTypes.func.isRequired,
-  displayEditEventForm: PropTypes.func.isRequired,
+  displayEditEventForm: PropTypes.func,
   isAuthenticated: PropTypes.string.isRequired,
   errMessage: PropTypes.string,
+  map: PropTypes.bool.isRequired,
 };
 
 EventsList.defaultProps = {
-  errMessage: PropTypes.string,
+  errMessage: '',
+  displayEditEventForm: undefined,
 };
 
 export default EventsList;

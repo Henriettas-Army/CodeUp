@@ -85,7 +85,7 @@ Chats.propTypes = {
   // chatRooms: PropTypes.object,
   sendMessage: PropTypes.func.isRequired,
   hideChat: PropTypes.func.isRequired,
-  rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
+  rooms: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = state => ({

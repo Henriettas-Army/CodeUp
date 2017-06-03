@@ -15,7 +15,7 @@ const UserRepos = ({ repos, status, user }) => (
     {status === 'ERROR' && <p className="error">Error loading user profile</p>}
     {status === 'READY' &&
       <article>
-        <h3>{repos && JSON.parse(repos[0]).stargazers_count > 0 ? 'Top Four Starred Repos' : 'Most Recently Pushed Repos'}</h3>
+        <h3>{repos && repos.length > 0 && JSON.parse(repos[0]).stargazers_count > 0 ? 'Top Four Starred Repos' : 'Most Recently Pushed Repos'}</h3>
         <Tiles fill flush={false} selectable size={'small'} >
           {repos && repos.length > 0 ? repos.map((repo, key) => (
             <Tile key={+key + 1}>
