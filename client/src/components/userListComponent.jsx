@@ -24,17 +24,17 @@ const UserList = ({ users }) => (
             href="#"
             path={`/profile/${user.username}`}
           ><img alt="Profilepic" src={`${user.img}`} style={imgStyle} />
-            <p style={headerStyle}>{user.username}</p><br />
-            <p style={headerStyle}>{user.location.length > 0 ? user.location.join(', ') : 'Not Specified'}</p></Anchor>}
+            <p style={headerStyle}><strong>{user.username}</strong><br /><br />
+              {user.location.length > 0 ? user.location.join(', ') : 'Not Specified'}</p></Anchor>}
           contentPad="none"
           link={user.status === 'Unavailable' ? (<span> <Status value="critical" />Unavailable</span>)
                 : (<span> {user.status === 'Available' ? <Status value="ok" />
                 : <CliIcon colorIndex={user.status ? 'accent-3' : 'critical'} />}{user.status || '  offline'}</span>)}
-          heading={user.skills.join(' | ') || '(╯°□°）╯︵ ┻━┻'}
+          heading={user.skills.join(' | ') || 'Skills N/A'}
           description={
             <span>
-              {`- ${user.desired.join('  |  ') || 'Does not desire to learn anything ¯\\_(ツ)_/¯'}`}<br />
-              {`- ${user.bio ? user.bio : 'Sorry, my bio is imaginary.  Try rotating your computer 90 degrees and try again'}`}
+              {`- ${user.desired.join('  |  ') || 'Skills in Development N/A'}`}<br />
+              {`- ${user.bio ? user.bio : 'Bio N/A'}`}
             </span>
           }
         />
