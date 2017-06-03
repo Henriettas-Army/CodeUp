@@ -28,10 +28,11 @@ const UserInfo = ({
   editing,
   editProfile,
   addChatRoom,
-  openEC }) => (
+  openEC,
+  endorsedSkills }) => (
     <Section>
       {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
-      {status === 'ERROR' && <p className="error">{errMessage}</p>}
+      {status === 'ERROR' && <p className="error">er</p>}
       {status === 'READY' &&
       <Section>
         <Columns maxCount={3} size={'medium'} justify={'start'} >
@@ -58,36 +59,64 @@ const UserInfo = ({
                   (<h3><Status value="critical" />Unavailable</h3>)
                   : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{ profile.status}</h3>)
                 }
-                <Button plain label={'Message'} icon={<SendIcon />} onClick={addChatRoom} />
-                <Button plain icon={<EditIcon />} label="Endorse user" onClick={openEC} />
+                <Button
+                  plain
+                  label={'Message'}
+                  icon={<SendIcon />}
+                  onClick={() => { addChatRoom(); }}
+                />
+                <Button
+                  icon={<EditIcon />}
+                  label="Endorse this person"
+                  onClick={() => { openEC(); }}
+                  primary
+                />
               </Section>
             }
           </Box>
         </Columns>
-        <Columns maxCount={2} size={'medium'} justify={'start'} >
+        <Columns maxCount={3} size={'medium'} justify={'start'} >
           <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
             <div>
               <Label><strong>Technical Skills: </strong></Label><br />
-              <span>
+              <div>
                 {
                   profile.skills ?
-                  profile.skills.map((s, k) => (
-                    <Chip key={+k + 1} style={{ display: 'inline-block' }} >{s}</Chip>
+                  profile.skills.map(s => (
+                    <Chip style={{ display: 'inline-block' }} key={Math.random()}>{s}</Chip>
                   )) : 'N/A'
                 }
-              </span>
+              </div>
             </div>
-            <br />
             <div>
-              <Label> <strong>Skills in Development: </strong></Label><br />
+              <br />
+              <br />
+              <Label> <strong>Skills in Development: </strong></Label>
+              <br />
               <div>
                 {
                   profile.desired ?
                   profile.desired.map(s => (
-                    <Chip style={{ display: 'inline-block' }} >{s}</Chip>
+                    <Chip style={{ display: 'inline-block' }} key={Math.random()}>{s}</Chip>
                   )) : 'N/A'
                 }
               </div>
+            </div>
+            <div>
+              <br />
+              <br />
+              <Label> <strong>Has been endorsed in: </strong></Label>
+              <br />
+              {
+                endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map(s => (
+                  <Chip
+                    style={{ display: 'inline-block', backgroundColor: '#00cceb', color: '#fff' }}
+                    key={Math.random()}
+                  >
+                    <strong>{`${s} · ${endorsedSkills.filter(es => (es === s)).length}`}</strong>
+                  </Chip>
+                ))
+              }
             </div>
           </Box>
           <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
@@ -139,7 +168,7 @@ UserInfo.propTypes = {
     name: PropTypes.string,
     img: PropTypes.string,
     bio: PropTypes.string,
-    repos: PropTypes.arrayOf(PropTypes.object),
+    repos: PropTypes.arrayOf(PropTypes.string),
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),

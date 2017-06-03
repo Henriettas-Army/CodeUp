@@ -49,15 +49,12 @@ class Profile extends React.Component {
     const editing = this.props.editing;
     const editProfile = this.props.editProfile;
     const endorsements = profile.endorsements || [];
-    console.log('endorsements', endorsements);
     const endorsedSkills = [];
     endorsements.forEach((e) => {
       e.skills.forEach((s) => {
         endorsedSkills.push(s);
       });
     });
-    console.log('e skills', endorsedSkills)
-
     return (
       <GrommetApp>
         <NavContainer />

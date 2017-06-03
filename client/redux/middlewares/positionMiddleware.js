@@ -39,8 +39,6 @@ const middleware = store => next => (action) => {
   if (state.profile.profile.status === 'Code Now' && positionUpdater === null) {
     sendPositionOverAndOverAgain(state.auth.isAuthenticated);
   }
-  console.log('inside middleware', action.type, state.profile.profile.status);
-
   if (action.type === profile.UPDATE_PROFILE) {
     if (action.profile.status === 'Code Now' && positionUpdater === null && window.navigator && window.navigator.geolocation) {
       sendPositionOverAndOverAgain(action.profile.username);
