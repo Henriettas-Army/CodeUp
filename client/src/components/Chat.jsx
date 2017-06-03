@@ -14,6 +14,9 @@ class Chat extends React.Component {
   }
 
   render() {
+    const chatArray = this.props.chatName.split('#');
+    const index = chatArray.indexOf(this.props.username);
+    chatArray.splice(index, 1);
     return (
       <div
         style={{
@@ -42,7 +45,7 @@ class Chat extends React.Component {
               color: '#555',
               fontWeight: 'bold',
             }}
-          >{this.props.chatName}</span>
+          >{chatArray[0]}</span>
           <CloseIcon style={{ cursor: 'pointer', position: 'absolute', right: 0 }} onClick={() => { this.props.onCloseChat(); }} />
         </div>
         <div
@@ -59,7 +62,7 @@ class Chat extends React.Component {
         >
           {this.props.loading && 'loading...'}
           {
-            this.props.messages.map((message) => {
+            this.props.messages.map((message, k) => {
               const style = {
                 marginTop: '5px',
                 display: 'inline-block',
@@ -78,7 +81,7 @@ class Chat extends React.Component {
                   float: 'right',
                 });
               }
-              return (<div style={{ display: 'block', width: '100%', overflow: 'auto' }}><div style={style}>
+              return (<div key={+k + 1} style={{ display: 'block', width: '100%', overflow: 'auto' }}><div style={style}>
                 {message.message}</div></div>);
             })
           }
@@ -125,6 +128,10 @@ Chat.propTypes = {
   username: PropTypes.string.isRequired,
   sendMessage: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+};
+
+Chat.defaultProps = {
+  isAuthenticated: '',
 };
 
 export default Chat;

@@ -30,11 +30,11 @@ const UserList = ({ users }) => (
           link={user.status === 'Unavailable' ? (<span> <Status value="critical" />Unavailable</span>)
                 : (<span> {user.status === 'Available' ? <Status value="ok" />
                 : <CliIcon colorIndex={user.status ? 'accent-3' : 'critical'} />}{user.status || '  offline'}</span>)}
-          heading={user.skills.join(' | ') || 'Skills N/A'}
+          heading={<p>{user.skills.join(' | ') || 'Skills N/A'}</p>}
           description={
             <span>
-              {`- ${user.desired.join('  |  ') || 'Skills in Development N/A'}`}<br />
-              {`- ${user.bio ? user.bio : 'Bio N/A'}`}
+              <strong>Developing: </strong>{`${user.desired.join(', ') || 'N/A'}`}<br />
+              <strong>About Me: </strong>{`-${user.bio ? user.bio : 'N/A'}`}
             </span>
           }
         />
