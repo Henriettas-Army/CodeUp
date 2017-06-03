@@ -29,9 +29,7 @@ require('./routes/chat')(io);
 
 // routes
 app.use('/api/users', users);
-app.post('/api/events', eventsRoute.postEvent);
-app.get('/api/events', eventsRoute.getEvents);
-app.post('/api/events/delete', eventsRoute.deleteEvent);
+app.use('/api/events', eventsRoute);
 app.post('/api/endorsement', endorsement);
 
 // Send the rest of the requests to React Router

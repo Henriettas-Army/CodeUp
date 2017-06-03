@@ -10,24 +10,24 @@ import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
 import CheckBox from 'grommet/components/CheckBox';
 import SearchInput from 'grommet/components/SearchInput';
+import TrashIcon from 'grommet/components/icons/base/Trash';
+import Anchor from 'grommet/components/Anchor';
 import Section from 'grommet/components/Section';
 
-
-const EMPTY_FORM = {
-  title: '',
-  date: new Date(),
-  description: '',
-  duration: '',
-  location: 'Austin, Tx',
-  topics: '',
-  private: false,
-};
-
-class NewEventForm extends React.Component {
+class EditEventForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = EMPTY_FORM;
+    this.state = {
+      id: this.props.editingEvent._id,
+      title: this.props.editingEvent.title,
+      date: this.props.editingEvent.date,
+      description: this.props.editingEvent.description,
+      duration: this.props.editingEvent.duration,
+      location: this.props.editingEvent.location.join(''),
+      topics: this.props.editingEvent.topics.join(', '),
+      private: this.props.editingEvent.private,
+    };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -39,37 +39,29 @@ class NewEventForm extends React.Component {
           new google.maps.LatLng(position.coords.latitude - 10, position.coords.longitude + 10));
         const input = document.getElementById('places');
         console.log(new google.maps.places.Autocomplete(input, options));
-      },
-      (error) => {
-        const defaultLatLng = { lat: 30.2672, lng: -97.7431 };
-        if (error.code === error.PERMISSION_DENIED) {
-          const options = new google.maps.LatLngBounds(
-            new google.maps.LatLng(defaultLatLng.lat + 10, defaultLatLng.lng - 10),
-            new google.maps.LatLng(defaultLatLng.lat - 10, defaultLatLng.lng + 10));
-          const input = document.getElementById('places');
-          console.log(new google.maps.places.Autocomplete(input, options));
-        }
       });
     }
   }
   handleSelect(address) {
+    console.log('Im SELECTING!', address);
     this.setState({
       location: address,
     });
   }
 
   handleChange(address) {
+    console.log('Im change GTFO!', address);
     this.setState({
       address,
     });
   }
 
   render() {
-    const createEvent = this.props.createEvent;
+    const editEvent = this.props.editEvent;
 
     return (
       <Form>
-        <Heading align="center">Create Event</Heading>
+        <Heading align="center">Edit Event</Heading>
         <CheckBox
           label="Make event private*"
           checked={this.state.private}
@@ -107,6 +99,7 @@ class NewEventForm extends React.Component {
             id="places"
             onDOMChange={e => this.setState({ location: e.target.value })}
             placeHolder="Find Location"
+            value={this.state.location}
           />
         </FormField>
         <FormField>
@@ -130,23 +123,35 @@ class NewEventForm extends React.Component {
         </FormField>
         <Section basis={'small'} align={'center'}>
           <Button
-            label={'Create'}
+            label={'Update'}
             type={'submit'}
             primary
             onClick={(e) => {
               e.preventDefault();
               const event = {
+                id: this.state.id,
                 title: this.state.title,
                 username: window.localStorage.getItem('token'),
-                duration: this.state.duration.value,
+                duration: this.state.duration,
                 date: this.state.date,
                 topics: this.state.topics.split(',').map(st => st.trim()),
                 location: document.querySelector('#places').value,
                 description: this.state.description,
                 private: this.state.private,
               };
-              createEvent(event);
-              this.setState(EMPTY_FORM);
+              editEvent(event);
+              // this.setState(EMPTY_FORM);
+              this.props.onSubmit();
+            }}
+          />
+          <br /><br />
+          <Anchor
+            icon={<TrashIcon />}
+            animateIcon
+            label={'Delete this event'}
+            onClick={(e) => {
+              e.preventDefault();
+              this.props.deleteEvent(this.props.editingEvent._id);
               this.props.onSubmit();
             }}
           />
@@ -156,9 +161,21 @@ class NewEventForm extends React.Component {
   }
 }
 
-NewEventForm.propTypes = {
-  createEvent: PropTypes.func.isRequired,
+EditEventForm.propTypes = {
+  editEvent: PropTypes.func.isRequired,
+  editingEvent: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    username: PropTypes.string,
+    duration: PropTypes.string,
+    date: PropTypes.string,
+    topics: PropTypes.arrayOf(PropTypes.string),
+    location: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string,
+    private: PropTypes.bool,
+  }).isRequired,
   onSubmit: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
 };
 
-export default NewEventForm;
+export default EditEventForm;

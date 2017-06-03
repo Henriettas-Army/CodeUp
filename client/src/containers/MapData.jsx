@@ -4,11 +4,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import Split from 'grommet/components/Split';
+import Sidebar from 'grommet/components/Sidebar';
+import Box from 'grommet/components/Box';
+import EventsList from '../components/EventsList';
+import eventActions from '../../redux/actions/eventActions';
 
 const style = {
-  height: '800px'
+  height: '800px',
+  width: '100%',
 };
-
+const EventStyle = {
+  width: '350px',
+  height: '800px',
+  overflow: 'hidden',
+  overflowY: 'scroll',
+};
 const getUserPos = () => {
   let pos = null;
   if (navigator.geolocation) {
@@ -62,37 +73,94 @@ class MapData extends React.Component {
   }
 
   render() {
+    const events = this.props.events.filter(e =>
+      e.title.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      e.username.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      e.description.toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(e.location).toLowerCase().includes(this.props.searchQuery.toLowerCase()) ||
+      JSON.stringify(e.topics).toLowerCase().includes(this.props.searchQuery.toLowerCase())
+    );
+
     return (
-      <Map style={style} center={getUserPos()} zoom={15}>
-        <TileLayer
-          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {this.state.locations.map((event) => {
-          if (!event.private) {
-            return (
-              <Marker key={event._id} position={[event.lat, event.lng]}>
-                <Popup>
-                  <span>{event.title}<br />
-                    {event.address}<br />
-                    {event.time}
-                  </span>
-                </Popup>
-              </Marker>);
-          }
-          return (<div key={event._id} visibility="hidden">Private Event</div>);
-        }
-        )}
-      </Map>);
+      <Split
+        flex="left"
+        style={{ height: '800px', overflow: 'hidden' }}
+      >
+        <Box
+          style={{ height: '800px' }}
+        >
+          <Map style={style} center={getUserPos()} zoom={15}>
+            <TileLayer
+              url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {this.state.locations.map((event) => {
+              if (!event.private) {
+                return (
+                  <Marker key={event.title} position={[event.lat, event.lng]}>
+                    <Popup>
+                      <span>{event.title}<br />
+                        {event.address}<br />
+                        {event.time}
+                      </span>
+                    </Popup>
+                  </Marker>
+                );
+              }
+              return (<div key={event.title} visibility="hidden">Private Event</div>);
+            }
+            )}
+          </Map>
+        </Box>
+        <Sidebar
+          style={EventStyle}
+        >
+          <Box
+            style={{ height: '800px' }}
+            wrap
+          >
+            <EventsList
+              style={{ height: '800px' }}
+              events={events}
+              status={this.props.status}
+              deleteEvent={this.props.deleteEvent}
+              isAuthenticated={this.props.isAuthenticated}
+              updateEvent={this.props.updateEvent}
+              errMessage={this.props.errMessage}
+            />
+          </Box>
+        </Sidebar>
+      </Split>
+    );
   }
 }
 
 MapData.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  status: PropTypes.string.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+  updateEvent: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.string.isRequired,
+  searchQuery: PropTypes.string.isRequired,
+  errMessage: PropTypes.string,
+};
+
+MapData.defaultProps = {
+  errMessage: '',
 };
 
 const mapStateToProps = state => ({
   events: state.events.events,
+  searchQuery: state.search.searchQuery,
+  status: state.events.status,
+  isAuthenticated: state.auth.isAuthenticated,
+  errMessage: state.events.errMesage,
 });
 
-export default connect(mapStateToProps)(MapData);
+const mapDispatchToProps = dispatch => ({
+  deleteEvent: (id) => {
+    dispatch(eventActions.deleteEventAsync(id));
+  },
+  updateEvent: eventObj => dispatch(eventActions.updateEventsAsync(eventObj)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(MapData);

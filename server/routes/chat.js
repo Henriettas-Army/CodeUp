@@ -6,15 +6,13 @@ const ChatRooms = require('../utils/chatHelper');
 const chatRooms = new ChatRooms(); // in-memory representation of active chats
 
 module.exports = (io) => {
-
   const chat = io.of('/chat');
 
   chat.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log('user connected');
 
     socket.on('authenticate', (data) => {
       if (!data || !data.username) { // very strong authentication
-        console.log(data);
         socket.disconnect('unauthorized');
         return;
       }
@@ -48,7 +46,8 @@ module.exports = (io) => {
       chatRooms.openRoom(username, room);
       // chatRooms.updateLastConnection(username, room, date)
       // .then(() => {
-      //   console.log('successfully completed operation. ', username, room, date, 'suffer bitches');
+      //   console.log('successfully completed operation. ',
+      //    username, room, date, 'suffer bitches');
       // })
       // .catch((e) => {
       //   console.log('fuckkk!!!! ', e);
@@ -62,14 +61,12 @@ module.exports = (io) => {
 
     socket.on('rooms', (data) => {
       chatRooms.getRooms(data.username).then((results) => {
-        console.log('rooms: ', results);
         socket.emit('rooms', { rooms: results });
       });
     });
 
     socket.on('allMessages', (data) => {
       const room = data.room.split('#').sort().join('#');
-      console.log('all messages for room ', room, 'requested');
       chatRooms.getMessagesForRoom(room).then((results) => {
         chat.to(room).emit('messages', { messages: results });
       });

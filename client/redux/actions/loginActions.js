@@ -1,11 +1,11 @@
 /* global window */
 import axios from 'axios';
-// import jwtDecode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
 
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
 const LOAD_LOGIN = 'LOAD_LOGIN';
+const LOGIN_REMINDER = 'LOGIN_REMINDER';
 
 const loginUser = (isAuthenticated, status) => ({
   type: LOGIN_USER,
@@ -13,14 +13,19 @@ const loginUser = (isAuthenticated, status) => ({
   status,
 });
 
-const logoutUser = (isAuthenticated, status) => ({
+const logoutUser = (isAuthenticated, status, reminder) => ({
   type: LOGOUT_USER,
   isAuthenticated,
   status,
+  reminder,
 });
 
 const loadLogin = () => ({
   type: LOAD_LOGIN,
+});
+
+const loginReminder = () => ({
+  type: LOGIN_REMINDER,
 });
 
 const postLogin = code => (
@@ -47,7 +52,9 @@ module.exports = {
   LOGIN_USER,
   LOGOUT_USER,
   LOAD_LOGIN,
+  LOGIN_REMINDER,
   loginUser,
   logoutUser,
-  loginUserAsync
+  loginUserAsync,
+  loginReminder,
 };

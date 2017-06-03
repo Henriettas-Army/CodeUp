@@ -2,7 +2,9 @@ const Event = require('../models/Event');
 
 module.exports = {
   addEvent: (evt, username) => {
-    const newEvt = new Event(Object.assign({}, evt, { username, date: new Date(evt.date) }));
+    const newEvt = new Event(
+      Object.assign({}, evt, { username, date: new Date(evt.date), pinned: [] })
+    );
     return newEvt.save();
   },
 
@@ -12,5 +14,18 @@ module.exports = {
     return Event.find({ date: { $gte: yesterday } });
   },
 
+  editEvent: (evt, username) => {
+    evt.username = username;
+    return Event.findOneAndUpdate({ _id: evt.id }, evt);
+  },
+
   deleteEvent: id => Event.remove({ _id: id }),
+
+  getAnEvent: id => (
+    Event.findOne({ _id: id })
+  ),
+
+  updateEvent: (id, data) => (
+    Event.findOneAndUpdate({ _id: id }, data)
+  ),
 };

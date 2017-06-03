@@ -48,18 +48,15 @@ const UserInfo = ({
                 status={profile.status}
               />
               : <Section>
-                <h2>Status:<br />{
+                <h2>Status:<br /></h2>
+                {
                   profile.status === 'Unavailable' ?
                   (<h3><Status value="critical" />Unavailable</h3>)
                   : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{ profile.status}</h3>)
-                }</h2>
-                {/* add chat messaging button here */}
+                }
                 <Button
-                  style={{
-                    boxSizing: 'border-box',
-                    width: '60px',
-                    height: '60px',
-                  }}
+                  plain
+                  label={'Message'}
                   icon={<SendIcon />}
                   onClick={() => { addChatRoom(); }}
                 />
@@ -100,12 +97,12 @@ const UserInfo = ({
           </Box>
           <Box align={'center'} colorIndex={'light-1'} textAlign={'center'} flex full={false} >
             <Section>
-              <Label>Top 5 Languages</Label>
+              <Label>Top Languages</Label>
               {profile.meter ?
                 <AnnotatedMeter
                   type={'circle'}
                   units={'%'}
-                  series={profile.meter.sort((a, b) => b.value - a.value).slice(0, 5)}
+                  series={profile.meter}
                   legend
                 /> : ''
               }

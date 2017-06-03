@@ -17,6 +17,7 @@ const eventSchema = new Schema({
   location: [String],
   duration: String,
   description: String,
+  pinned: [String],
   private: Boolean,
 });
 
