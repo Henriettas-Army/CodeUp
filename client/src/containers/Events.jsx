@@ -106,6 +106,8 @@ class Events extends React.Component {
       </Toast>);
     }
 
+    const zeroEvents = events.length > 0 ? null : (<h3>{`No ${this.state.view !== 'All' ? this.state.view : null} Events`}</h3>);
+
     return (
       <div>
         {toast}
@@ -181,6 +183,7 @@ class Events extends React.Component {
             </p>
           </Box>
         </Split>
+        {zeroEvents}
         <EventsList
           events={events}
           status={status}
@@ -188,6 +191,7 @@ class Events extends React.Component {
           displayEditEventForm={this.displayEditEventForm}
           isAuthenticated={isAuthenticated}
           errMessage={errMessage}
+          map={false}
         />
       </div>
     );

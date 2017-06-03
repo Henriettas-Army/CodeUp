@@ -127,6 +127,7 @@ class MapData extends React.Component {
               isAuthenticated={this.props.isAuthenticated}
               updateEvent={this.props.updateEvent}
               errMessage={this.props.errMessage}
+              map
             />
           </Box>
         </Sidebar>
