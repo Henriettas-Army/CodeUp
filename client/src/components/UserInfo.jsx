@@ -5,6 +5,7 @@ import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
 import SendIcon from 'grommet/components/icons/base/Send';
 import CliIcon from 'grommet/components/icons/base/Cli';
+import EditIcon from 'grommet/components/icons/base/Edit';
 import Status from 'grommet/components/icons/Status';
 import Section from 'grommet/components/Section';
 import Image from 'grommet/components/Image';
@@ -13,6 +14,8 @@ import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
 import Label from 'grommet/components/Label';
 import Heading from 'grommet/components/Heading';
 import Paragraph from 'grommet/components/Paragraph';
+import Chip from 'react-toolbox/lib/chip';
+
 import UserStatus from './UserStatus';
 import TechEditForm from './TechEditForm';
 
@@ -24,7 +27,8 @@ const UserInfo = ({
   currentUser,
   editing,
   editProfile,
-  addChatRoom }) => (
+  addChatRoom,
+  openEC }) => (
     <Section>
       {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
       {status === 'ERROR' && <p className="error">{errMessage}</p>}
@@ -60,6 +64,12 @@ const UserInfo = ({
                   icon={<SendIcon />}
                   onClick={() => { addChatRoom(); }}
                 />
+                <Button
+                  icon={<EditIcon />}
+                  label="Endorse this person"
+                  onClick={() => { openEC(); }}
+                  primary
+                />
               </Section>
             }
           </Box>
@@ -67,17 +77,24 @@ const UserInfo = ({
         <Columns maxCount={3} size={'medium'} justify={'start'} >
           <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
             <Paragraph>
-              <Label>Technical Skills: </Label><br />
-              {profile.skills && profile.skills.length > 0 ? profile.skills.map((skill, key) => (
-                <span key={+key + 1} > {key > 0 ? `, ${skill}` : skill }</span>
-              )) : 'N/A' }
+              <Label><strong>Technical Skills: </strong></Label><br />
+              <div>
+                {
+                  profile.skills ?
+                  profile.skills.map(s => (
+                    <Chip style={{ display: 'inline-block' }} >{s}</Chip>
+                  )) : 'N/A'
+                }
+              </div>
             </Paragraph>
             <Paragraph>
-              <Label> Skills in Development: </Label><br />
-              {profile.desired && profile.desired.length > 0 ?
-                profile.desired.map((desired, key) => (
-                  <span key={+key + 1}>{key > 0 ? `, ${desired}` : desired }</span>
-              )) : 'N/A' }
+              <Label> <strong>Skills in Development: </strong></Label><br />
+              {
+                profile.skills ?
+                profile.desired.map(s => (
+                  <Chip style={{ display: 'inline-block' }} >{s}</Chip>
+                )) : 'N/A'
+              }
             </Paragraph>
           </Box>
           <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
@@ -133,6 +150,7 @@ UserInfo.propTypes = {
     meter: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
   addChatRoom: PropTypes.func.isRequired,
+  openEC: PropTypes.func.isRequired,
 };
 
 UserInfo.defaultProps = {
