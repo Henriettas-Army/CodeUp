@@ -76,26 +76,27 @@ const UserInfo = ({
         </Columns>
         <Columns maxCount={3} size={'medium'} justify={'start'} >
           <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
-            <Paragraph>
+            <div>
               <Label><strong>Technical Skills: </strong></Label><br />
-              <div>
+              <span>
                 {
                   profile.skills ?
-                  profile.skills.map(s => (
-                    <Chip style={{ display: 'inline-block' }} >{s}</Chip>
+                  profile.skills.map((s, k) => (
+                    <Chip key={+k + 1} style={{ display: 'inline-block' }} >{s}</Chip>
                   )) : 'N/A'
                 }
-              </div>
-            </Paragraph>
-            <Paragraph>
+              </span>
+            </div>
+            <br />
+            <div>
               <Label> <strong>Skills in Development: </strong></Label><br />
               {
                 profile.skills ?
-                profile.desired.map(s => (
-                  <Chip style={{ display: 'inline-block' }} >{s}</Chip>
+                profile.desired.map((s, k) => (
+                  <Chip key={+k + 1} style={{ display: 'inline-block' }} >{s}</Chip>
                 )) : 'N/A'
               }
-            </Paragraph>
+            </div>
           </Box>
           <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
             <Section>
@@ -143,7 +144,7 @@ UserInfo.propTypes = {
     name: PropTypes.string,
     img: PropTypes.string,
     bio: PropTypes.string,
-    repos: PropTypes.arrayOf(PropTypes.string),
+    repos: PropTypes.arrayOf(PropTypes.object),
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),

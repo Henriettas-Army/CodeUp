@@ -13,8 +13,8 @@ const Endorsement = ({ endorsement }) => (
       title={endorsement.comments}
     />
     <div>
-      {endorsement.skills.map(s => (
-        <Chip style={{ display: 'inline-block' }}>{s}</Chip>
+      {endorsement.skills.map((s, k) => (
+        <Chip key={+k + 1} style={{ display: 'inline-block' }}>{s}</Chip>
       ))}
     </div>
   </Card>
