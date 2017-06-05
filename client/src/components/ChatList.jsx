@@ -43,7 +43,9 @@ class ChatList extends React.Component {
       const chatArray = mixedName.split('#');
       const index = chatArray.indexOf(this.props.username);
       chatArray.splice(index, 1);
-      return chatArray[0];
+      chatArray.unshift('You');
+      chatArray.join(', ');
+      return chatArray;
     };
     return (
       <div

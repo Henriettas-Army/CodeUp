@@ -195,7 +195,7 @@ class Events extends React.Component {
           updateEvent={updateEvent}
           displayEditEventForm={this.displayEditEventForm}
           isAuthenticated={isAuthenticated}
-          errMessage={errMessage}
+          errMessage={errMessage ? 'error somewhere' : ''}
           map={false}
         />
       </div>
