@@ -22,7 +22,6 @@ import TechEditForm from './TechEditForm';
 const UserInfo = ({
   profile,
   status,
-  errMessage,
   updateProfile,
   currentUser,
   editing,
@@ -159,10 +158,7 @@ UserInfo.propTypes = {
   editProfile: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
-  errMessage: PropTypes.shape({
-    ok: PropTypes.bool,
-    user: PropTypes.string,
-  }),
+  endorsedSkills: PropTypes.arrayOf(PropTypes.string),
   profile: PropTypes.shape({
     username: PropTypes.string,
     name: PropTypes.string,
@@ -181,6 +177,7 @@ UserInfo.propTypes = {
 UserInfo.defaultProps = {
   currentUser: '',
   errMessage: {},
+  endorsedSkills: [],
 };
 
 export default UserInfo;

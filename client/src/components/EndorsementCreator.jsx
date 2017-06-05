@@ -11,7 +11,7 @@ import TextInput from 'grommet/components/TextInput';
 import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 
-const EndorsementCreator = props => (
+const EndorsementCreator = (props) => (
   <Section>
     <Layer closer onClose={props.closeEC}>
       <Form>

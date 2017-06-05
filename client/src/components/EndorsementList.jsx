@@ -12,7 +12,7 @@ const EndorsementList = ({ endorsements }) => (
   </div>
 );
 
-EndorsementContainer.propTypes = {
+EndorsementList.propTypes = {
   endorsements: PropTypes.arrayOf(
     PropTypes.shape({
       endorserUsername: PropTypes.string.isRequired,
@@ -21,6 +21,10 @@ EndorsementContainer.propTypes = {
       skills: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   )
+};
+
+EndorsementList.defaultProps = {
+  endorsements: [],
 };
 
 export default EndorsementList;
