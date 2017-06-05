@@ -53,7 +53,7 @@ ChatRooms.prototype.addMessage = function (room, from, date, message) {
   // }
   // this.buffer[room].push({ room, from, date, message });
   room.split('#').forEach((username) => {
-    console.log(username);
+    console.log('users in message ', message, 'are', username);
     if (this.sockets[username]) {
       this.sockets[username].join(room);
       console.log('username joining to room', username, room);
