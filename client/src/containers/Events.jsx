@@ -71,7 +71,7 @@ class Events extends React.Component {
       viewEvents = this.props.events.filter(e =>
         JSON.stringify(e.pinned).includes(isAuthenticated));
     } else if (this.state.view === 'All') {
-      viewEvents = this.props.events.slice();
+      viewEvents = this.props.events;
     }
 
     // filters events based on calendar
@@ -80,7 +80,7 @@ class Events extends React.Component {
       calendarFilteredEvents = viewEvents.filter(e =>
         e.date.split('T')[0].replace(/-/g, '') >= this.state.calendar.format().split('T')[0].replace(/-/g, ''));
     } else {
-      calendarFilteredEvents = viewEvents.slice();
+      calendarFilteredEvents = viewEvents;
     }
 
     // filter events based on search
@@ -95,8 +95,13 @@ class Events extends React.Component {
     let toast = null;
     const todayDate = new Date();
     const formattedDate = moment(todayDate).format('YYYY-MM-DD');
-    const pinReminders = this.props.events.filter(e =>
-      JSON.stringify(e.pinned).includes(isAuthenticated)).filter(et =>
+    const pinReminders = this.props.events.filter((e) => {
+      if (e.pinned !== undefined) {
+        return JSON.stringify(e.pinned).includes(isAuthenticated);
+      }
+      return e;
+    }
+    ).filter(et =>
       et.date.slice(0, 10) === formattedDate);
     if (pinReminders.length > 0 && !this.props.reminder) {
       const reminders = [];
@@ -106,16 +111,13 @@ class Events extends React.Component {
       </Toast>);
     }
 
+    const zeroEvents = events.length > 0 ? null : (<h3>{`No ${this.state.view !== 'All' ? this.state.view : ''} Events`}</h3>);
+
     return (
       <div>
         {toast}
         <Split priority={'left'} showOnResponsive={'both'} flex={'left'} fixed={false}>
-          <Box pad={'medium'} align={'start'} >
-            <Anchor
-              icon={<AddIcon />}
-              label={'Add Event'}
-              onClick={(e) => { e.preventDefault(); this.setState({ showNewEventForm: true }); }}
-            />
+          <Box pad={'small'} align={'start'} >
             {
               this.state.showNewEventForm &&
               <Layer
@@ -147,7 +149,6 @@ class Events extends React.Component {
                 />
               </Layer>
             }
-            <br /><br /><br />
             <p>Filter events by date:</p>
             <DatePicker
               todayButton="Today"
@@ -178,9 +179,16 @@ class Events extends React.Component {
                 disabled={this.state.view === 'Pinned'}
                 onClick={() => this.setState({ view: 'Pinned' })}
               />
+              <br /><br /><br />
+              <Anchor
+                icon={<AddIcon />}
+                label={'Add Event'}
+                onClick={(e) => { e.preventDefault(); this.setState({ showNewEventForm: true }); }}
+              />
             </p>
           </Box>
         </Split>
+        {zeroEvents}
         <EventsList
           events={events}
           status={status}
@@ -188,6 +196,7 @@ class Events extends React.Component {
           displayEditEventForm={this.displayEditEventForm}
           isAuthenticated={isAuthenticated}
           errMessage={errMessage}
+          map={false}
         />
       </div>
     );

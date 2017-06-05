@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const UserController = require('../../db/controllers/UserController');
 const Utils = require('../utils');
 
+const positionHelper = require('../utils/positionHelper');
+
 const router = express.Router();
 
 const ID = GITHUB_API.CLIENT_ID;
@@ -49,14 +51,23 @@ router.post('/login', (req, res) => {
 
 router.get('/list', (req, res) => {
   const token = req.headers.authorization;
-  jwt.verify(token, 'codeupforever', ((err, decoded) => {
+  jwt.verify(token, 'codeupforever', ((err) => {
     if (err) {
       res.send(`${err.name}: Please sign in again to renew your session`);
     } else {
       UserController.getAllUsers()
       .then((data) => {
-        const usersData = data.filter(user => user.username !== decoded);
-        res.status(200).json({ status: true, users: usersData });
+        const usersData = data
+        // filter(user => user.username !== decoded)
+          .map((user) => {
+            const user2 = user;
+            user2.position = positionHelper.get(user.username) || null;
+            return user2;
+          });
+        res.status(200).json({
+          status: true,
+          users: usersData.map(user => Object.assign({ position: user.position }, user._doc))
+        });
       })
       .catch((error) => {
         res.json({ status: false, error });
@@ -75,6 +86,11 @@ router.get('/:username', (req, res) => {
       Utils.grabUserInfo(req.params.username, req, res);
     }
   }));
+});
+
+router.post('/position', (req, res) => {
+  positionHelper.set(req.body.username, [req.body.lat, req.body.lng]);
+  res.send('ok');
 });
 
 // update user profile

@@ -11,7 +11,7 @@ import TextInput from 'grommet/components/TextInput';
 import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 
-const EndorsementCreator = props => (
+const EndorsementCreator = (props) => (
   <Section>
     <Layer closer onClose={props.closeEC}>
       <Form>
@@ -20,15 +20,22 @@ const EndorsementCreator = props => (
             Endorse
           </Heading>
         </Header>
-        {
-          props.skillsToEndorse.map(skill => (
-            <FormField>
-              <Checkbox label={skill} onChange={() => props.toggleSkill(skill)} />
-            </FormField>
-          ))
-        }
-        <FormField label="Comments">
-          <TextInput onDOMChange={e => props.writeComment(e.target.value)} />
+        <FormField label="Title">
+          <TextInput onDOMChange={e => props.writeTitle(e.target.value)} />
+        </FormField>
+        <div>
+          {
+            props.skillsToEndorse.map(skill => (
+              <FormField>
+                <Checkbox label={skill} onChange={() => props.toggleSkill(skill)} />
+              </FormField>
+            ))
+          }
+        </div>
+        <FormField style={{ height: '60px' }} label="Comments">
+          <TextInput
+            onDOMChange={e => props.writeComment(e.target.value)}
+          />
         </FormField>
         <Footer pad={{ vertical: 'medium' }}>
           <Button
@@ -45,10 +52,16 @@ const EndorsementCreator = props => (
 
 EndorsementCreator.propTypes = {
   closeEC: PropTypes.func.isRequired,
-  skillsToEndorse: PropTypes.isRequired,
+
+  skillsToEndorse: PropTypes.arrayOf(PropTypes.string),
   toggleSkill: PropTypes.func.isRequired,
+  writeTitle: PropTypes.func.isRequired,
   writeComment: PropTypes.func.isRequired,
   sendEndorsement: PropTypes.func.isRequired,
+};
+
+EndorsementCreator.defaultProps = {
+  skillsToEndorse: [],
 };
 
 export default EndorsementCreator;

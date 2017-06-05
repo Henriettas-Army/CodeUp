@@ -14,7 +14,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
     case profile.PROFILE_DATA:
       return Object.assign({}, state, { status: 'READY' }, { profile: action.profile });
     case profile.ERROR_PROFILE:
-      return Object.assign({}, state, { status: 'ERROR' }, { errMessage: action.errMessage });
+      return Object.assign({}, state, { status: 'ERROR' }, { errMessage: action.errMessage.toString() });
     case profile.EDIT_PROFILE:
       return Object.assign({}, state, { editing: !state.editing });
     case profile.UPDATE_PROFILE:

@@ -43,14 +43,12 @@ class EditEventForm extends React.Component {
     }
   }
   handleSelect(address) {
-    console.log('Im SELECTING!', address);
     this.setState({
       location: address,
     });
   }
 
   handleChange(address) {
-    console.log('Im change GTFO!', address);
     this.setState({
       address,
     });
@@ -140,7 +138,6 @@ class EditEventForm extends React.Component {
                 private: this.state.private,
               };
               editEvent(event);
-              // this.setState(EMPTY_FORM);
               this.props.onSubmit();
             }}
           />

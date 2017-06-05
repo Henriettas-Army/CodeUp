@@ -107,7 +107,7 @@ const getFourReposInfo = (allRepos) => {
     topFour = allRepos.slice().slice(0, 4);
   }
   return topFour.map(repo => (
-    JSON.stringify({
+    ({
       name: repo.name,
       description: repo.description,
       language: repo.language,

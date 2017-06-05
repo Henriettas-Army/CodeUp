@@ -10,6 +10,8 @@ import Box from 'grommet/components/Box';
 import EventsList from '../components/EventsList';
 import eventActions from '../../redux/actions/eventActions';
 
+import userActions from '../../redux/actions/userListAction';
+
 const style = {
   height: '800px',
   width: '100%',
@@ -36,7 +38,6 @@ const getUserPos = () => {
 const latLngevt = address => (
   geocodeByAddress(address)
     .then(results => getLatLng(results[0]))
-    .then(({ lat, lng }) => ({ lat, lng }))
     .catch(err => console.log(err))
 );
 
@@ -44,6 +45,7 @@ class MapData extends React.Component {
   constructor(props) {
     super(props);
     this.state = { locations: [] };
+    this.props.loadUsers();
   }
 
   componentWillMount() {
@@ -110,6 +112,11 @@ class MapData extends React.Component {
               return (<div key={event.title} visibility="hidden">Private Event</div>);
             }
             )}
+            {this.props.users.filter(user => user.position).map(user => (
+              <Marker key={'unique_key'} position={[user.position[0], user.position[1]]} >
+                <Popup><span>{user.username} wants to code RIGHT NOW!</span></Popup>
+              </Marker>
+            ))}
           </Map>
         </Box>
         <Sidebar
@@ -127,6 +134,7 @@ class MapData extends React.Component {
               isAuthenticated={this.props.isAuthenticated}
               updateEvent={this.props.updateEvent}
               errMessage={this.props.errMessage}
+              map
             />
           </Box>
         </Sidebar>
@@ -137,12 +145,14 @@ class MapData extends React.Component {
 
 MapData.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   updateEvent: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
   searchQuery: PropTypes.string.isRequired,
   errMessage: PropTypes.string,
+  loadUsers: PropTypes.func.isRequired,
 };
 
 MapData.defaultProps = {
@@ -155,6 +165,7 @@ const mapStateToProps = state => ({
   status: state.events.status,
   isAuthenticated: state.auth.isAuthenticated,
   errMessage: state.events.errMesage,
+  users: state.users.users,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -162,5 +173,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(eventActions.deleteEventAsync(id));
   },
   updateEvent: eventObj => dispatch(eventActions.updateEventsAsync(eventObj)),
+  loadUsers: () => dispatch(userActions.loadAllUsers()),
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(MapData);

@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import GrommetApp from 'grommet/components/App';
 import Toast from 'grommet/components/Toast';
-import NavContainer from '../containers/NavContainer';
+import NavContainer from './NavContainer';
 import UserRepos from '../components/UserRepos';
 import UserInfo from '../components/UserInfo';
-import EndorsementCreatorContainer from '../containers/EndorsementCreatorContainer';
+import EndorsementCreatorContainer from './EndorsementCreatorContainer';
 import EndorsementList from '../components/EndorsementList';
 import profileActions from '../../redux/actions/profileActions';
 import chatActions from '../../redux/actions/chatActions';
@@ -49,7 +49,12 @@ class Profile extends React.Component {
     const editing = this.props.editing;
     const editProfile = this.props.editProfile;
     const endorsements = profile.endorsements || [];
-
+    const endorsedSkills = [];
+    endorsements.forEach((e) => {
+      e.skills.forEach((s) => {
+        endorsedSkills.push(s);
+      });
+    });
     return (
       <GrommetApp>
         <NavContainer />
@@ -64,6 +69,7 @@ class Profile extends React.Component {
             editProfile={editProfile}
             addChatRoom={() => { this.props.addChatRoom([currentUser, profile.username].sort().join('#')); }}
             openEC={() => { this.openEC(); }}
+            endorsedSkills={endorsedSkills}
           />
           <UserRepos
             repos={profile.repos}
@@ -102,14 +108,17 @@ Profile.propTypes = {
   editProfile: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
-  errMessage: PropTypes.string,
+  errMessage: PropTypes.shape({
+    ok: PropTypes.bool,
+    user: PropTypes.string,
+  }),
   isAuthenticated: PropTypes.string,
   profile: PropTypes.shape({
     username: PropTypes.string,
     name: PropTypes.string,
     img: PropTypes.string,
     bio: PropTypes.string,
-    repos: PropTypes.arrayOf(PropTypes.string),
+    repos: PropTypes.arrayOf(PropTypes.object),
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),
@@ -128,7 +137,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   isAuthenticated: '',
-  errMessage: '',
+  errMessage: {},
 };
 
 const mapStateToProps = state => (

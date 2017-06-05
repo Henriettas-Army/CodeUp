@@ -7,6 +7,7 @@ import Profile from '../containers/Profile';
 import Explore from '../components/Explore';
 import Welcome from '../containers/Welcome';
 import Chats from '../containers/Chats';
+
 import '../styles/styles.scss';
 
 const AppRoutes = () => (

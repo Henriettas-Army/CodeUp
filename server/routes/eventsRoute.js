@@ -60,11 +60,18 @@ router.put('/', (req, res) => {
       body.toUpdate.forEach((update) => {
         data[update.typeUpdate] = update.data;
       });
-      if (data.pinned) {
+      if (data.pinned || data.unpinned) {
         eventHelper.getAnEvent(body.id)
           .then((event) => {
-            event.pinned.push(data.pinned);
-            data.pinned = event.pinned;
+            if (data.pinned) {
+              event.pinned.push(data.pinned);
+              data.pinned = event.pinned;
+            } else if (data.unpinned) {
+              const index = event.pinned.indexOf(data.unpinned);
+              event.pinned.splice(index, 1);
+              delete data.unpinned;
+              data.pinned = event.pinned;
+            }
             eventHelper.updateEvent(body.id, data)
             .then((e) => {
               res.status(200).json({ e, ok: true });
@@ -75,8 +82,8 @@ router.put('/', (req, res) => {
           });
       } else {
         eventHelper.updateEvent(body.id, data)
-        .then((event) => {
-          res.status(200).json({ event, ok: true });
+        .then((e) => {
+          res.status(200).json({ e, ok: true });
         })
         .catch((error) => {
           res.status(200).json({ ok: false, error });

@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle } from 'react-toolbox/lib/card';
+import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
 import Chip from 'react-toolbox/lib/chip';
 
 const Endorsement = ({ endorsement }) => (
-  <Card style={{ width: '350px' }}>
+  <Card style={{ width: '100%', display: 'inline-block' }} >
     <CardTitle
       avatar={endorsement.endorserImg}
       title={endorsement.endorserUsername}
     />
-    <CardTitle
-      title={endorsement.comments}
-    />
+
+    <CardTitle title={endorsement.title} />
+    <CardText>{endorsement.comments}</CardText>
     <div>
-      {endorsement.skills.map(s => (
-        <Chip style={{ display: 'inline-block' }}>{s}</Chip>
+      {endorsement.skills.map((s, k) => (
+        <Chip key={+k + 1} style={{ display: 'inline-block' }}>{s}</Chip>
       ))}
     </div>
   </Card>

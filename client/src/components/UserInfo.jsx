@@ -22,16 +22,16 @@ import TechEditForm from './TechEditForm';
 const UserInfo = ({
   profile,
   status,
-  errMessage,
   updateProfile,
   currentUser,
   editing,
   editProfile,
   addChatRoom,
-  openEC }) => (
+  openEC,
+  endorsedSkills }) => (
     <Section>
       {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
-      {status === 'ERROR' && <p className="error">{errMessage}</p>}
+      {status === 'ERROR' && <p className="error">er</p>}
       {status === 'READY' &&
       <Section>
         <Columns maxCount={3} size={'medium'} justify={'start'} >
@@ -76,26 +76,47 @@ const UserInfo = ({
         </Columns>
         <Columns maxCount={3} size={'medium'} justify={'start'} >
           <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
-            <Paragraph>
+            <div>
               <Label><strong>Technical Skills: </strong></Label><br />
               <div>
                 {
                   profile.skills ?
                   profile.skills.map(s => (
-                    <Chip style={{ display: 'inline-block' }} >{s}</Chip>
+                    <Chip style={{ display: 'inline-block' }} key={Math.random()}>{s}</Chip>
                   )) : 'N/A'
                 }
               </div>
-            </Paragraph>
-            <Paragraph>
-              <Label> <strong>Skills in Development: </strong></Label><br />
+            </div>
+            <div>
+              <br />
+              <br />
+              <Label> <strong>Skills in Development: </strong></Label>
+              <br />
+              <div>
+                {
+                  profile.desired ?
+                  profile.desired.map(s => (
+                    <Chip style={{ display: 'inline-block' }} key={Math.random()}>{s}</Chip>
+                  )) : 'N/A'
+                }
+              </div>
+            </div>
+            <div>
+              <br />
+              <br />
+              <Label> <strong>Has been endorsed in: </strong></Label>
+              <br />
               {
-                profile.skills ?
-                profile.desired.map(s => (
-                  <Chip style={{ display: 'inline-block' }} >{s}</Chip>
-                )) : 'N/A'
+                endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map(s => (
+                  <Chip
+                    style={{ display: 'inline-block', backgroundColor: '#00cceb', color: '#fff' }}
+                    key={Math.random()}
+                  >
+                    <strong>{`${s} · ${endorsedSkills.filter(es => (es === s)).length}`}</strong>
+                  </Chip>
+                ))
               }
-            </Paragraph>
+            </div>
           </Box>
           <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
             <Section>
@@ -109,7 +130,7 @@ const UserInfo = ({
                   editProfile={editProfile}
                   editing={editing}
                 />
-              : ''}
+              : null}
             </Section>
           </Box>
           <Box align={'center'} colorIndex={'light-1'} textAlign={'center'} flex full={false} >
@@ -137,7 +158,7 @@ UserInfo.propTypes = {
   editProfile: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
-  errMessage: PropTypes.string,
+  endorsedSkills: PropTypes.arrayOf(PropTypes.string),
   profile: PropTypes.shape({
     username: PropTypes.string,
     name: PropTypes.string,
@@ -155,7 +176,8 @@ UserInfo.propTypes = {
 
 UserInfo.defaultProps = {
   currentUser: '',
-  errMessage: PropTypes.string,
+  errMessage: {},
+  endorsedSkills: [],
 };
 
 export default UserInfo;
