@@ -15,11 +15,6 @@ module.exports = {
   ),
   getLastConnection: (username, room) => LastConnection.findOne({ username, room }),
   getUnreadMessages: username => (
-    // LastConnection.find().then((results) => {
-    //   console.log('LastCOnnection table@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:');
-    //   console.log(results);
-    // });
-
     LastConnection.find({ username }).then((results) => {
       const promises = []; // = [{room: 'gjblanco', unread: 0}];
       for (let i = 0; i < results.length; i += 1) {
