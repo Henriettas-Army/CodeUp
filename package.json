@@ -24,7 +24,18 @@
   },
   "homepage": "https://github.com/Henriettas-Army/CodeUp#readme",
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "moduleNameMapper": {
+      "^js(.*)$": "<rootDir>/app/javascript/$1",
+      "^vendor(.*)$": "<rootDir>/vendor/$1"
+    }
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",

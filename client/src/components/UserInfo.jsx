@@ -25,13 +25,14 @@ const UserInfo = ({
   updateProfile,
   currentUser,
   editing,
+  errMessage,
   editProfile,
   addChatRoom,
   openEC,
   endorsedSkills }) => (
     <Section>
       {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
-      {status === 'ERROR' && <p className="error">er</p>}
+      {status === 'ERROR' && <p className="error">{errMessage}</p>}
       {status === 'READY' &&
       <Section>
         <Columns maxCount={3} size={'medium'} justify={'start'} >
@@ -159,12 +160,13 @@ UserInfo.propTypes = {
   editing: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   endorsedSkills: PropTypes.arrayOf(PropTypes.string),
+  errMessage: PropTypes.string,
   profile: PropTypes.shape({
     username: PropTypes.string,
     name: PropTypes.string,
     img: PropTypes.string,
     bio: PropTypes.string,
-    repos: PropTypes.arrayOf(PropTypes.string),
+    repos: PropTypes.arrayOf(PropTypes.object),
     location: PropTypes.arrayOf(PropTypes.string),
     desired: PropTypes.arrayOf(PropTypes.string),
     skills: PropTypes.arrayOf(PropTypes.string),
@@ -176,8 +178,8 @@ UserInfo.propTypes = {
 
 UserInfo.defaultProps = {
   currentUser: '',
-  errMessage: {},
   endorsedSkills: [],
+  errMessage: '',
 };
 
 export default UserInfo;
