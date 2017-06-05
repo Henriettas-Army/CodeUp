@@ -37,6 +37,7 @@ class Chats extends React.Component {
       return (<div />);
     }
     const chatRoomNames = Object.keys(this.props.rooms);
+    console.log('room names: ', chatRoomNames);
 
     return (
       <div>

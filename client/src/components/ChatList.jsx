@@ -40,11 +40,13 @@ class ChatList extends React.Component {
       );
     }
     const parseRoomName = (mixedName) => {
-      const chatArray = mixedName.split('#');
+      let chatArray = mixedName.split('#');
       const index = chatArray.indexOf(this.props.username);
       chatArray.splice(index, 1);
-      chatArray.unshift('You');
-      chatArray.join(', ');
+      if (chatArray.length !== 1) {
+        chatArray.unshift('You');
+        chatArray = chatArray.join(', ');
+      }
       return chatArray;
     };
     return (
