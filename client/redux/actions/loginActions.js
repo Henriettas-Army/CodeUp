@@ -54,6 +54,7 @@ module.exports = {
   LOGOUT_USER,
   LOAD_LOGIN,
   LOGIN_REMINDER,
+  loadLogin,
   loginUser,
   logoutUser,
   loginUserAsync,

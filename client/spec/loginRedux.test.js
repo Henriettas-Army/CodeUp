@@ -18,4 +18,10 @@ describe('Login action creators', () => {
     };
     expect(actions.logoutUser('', 'Unavailable')).toEqual(expectedLogout);
   });
+  it('should create an action to change login status to loading', () => {
+    const expectedStatus = {
+      type: actions.LOAD_LOGIN,
+    };
+    expect(actions.loadLogin()).toEqual(expectedStatus);
+  });
 });
