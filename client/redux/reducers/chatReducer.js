@@ -106,7 +106,6 @@ const rooms = (state = {}, action) => { // state: state.rooms
         room = action.rooms[i].room;
         unread = action.rooms[i].unread;
         newState[room] = { unread, active: false, loading: false, loaded: false, messages: [] };
-        return newState;
       }
       return newState;
     case chat.LOADING_MESSAGES:
