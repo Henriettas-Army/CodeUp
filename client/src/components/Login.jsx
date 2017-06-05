@@ -12,7 +12,7 @@ const style = {
   fontSize: '120px',
 };
 
-const LoginComponent = () => (
+const Login = () => (
   <Animate
     enter={{ animation: 'fade', duration: 5000, delay: 0 }}
     keep
@@ -36,4 +36,4 @@ const LoginComponent = () => (
   </Animate>
 );
 
-export default LoginComponent;
+export default Login;

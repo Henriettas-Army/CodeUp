@@ -6,7 +6,7 @@ import Section from 'grommet/components/Section';
 import Heading from 'grommet/components/Heading';
 import Spinning from 'grommet/components/icons/Spinning';
 import loginActions from '../../redux/actions/loginActions';
-import LoginComponent from '../components/LoginComponent';
+import Login from '../components/Login';
 
 class Welcome extends Component {
   componentWillMount() {
@@ -20,7 +20,7 @@ class Welcome extends Component {
     if (this.props.status === '') {
       page = (
         <Section>
-          <LoginComponent />
+          <Login />
         </Section>
       );
     } else if (this.props.status === 'LOADING') {
