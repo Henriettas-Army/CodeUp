@@ -29,6 +29,12 @@ require('./routes/chat')(io);
 
 // routes
 app.use('/api/users', users);
+// app.get('/api/users/list', users.getUsersList);
+// app.post('/api/users/login', users.postLogin);
+// app.get('/api/users/:username', users.getProfile);
+// app.put('/api/users/:username', users.updateProfile);
+// app.post('/api/users/position', users.postPosition);
+
 app.use('/api/events', eventsRoute);
 app.post('/api/endorsement', endorsement);
 

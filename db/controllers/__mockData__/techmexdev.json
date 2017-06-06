@@ -1,0 +1,72 @@
+{
+    "username" : "techmexdev",
+    "name" : "Rodolfo Rodriguez",
+    "img" : "https://avatars0.githubusercontent.com/u/10700721?v=3",
+    "bio" : "Coder by day, coder by night",
+    "status" : "Available",
+    "access_token" : "36081614b35918cb452f312fe5984eb29770b57a",
+    "endorsements" : [
+        {
+            "endorserUsername" : "cdcjj",
+            "endorserImg" : "https://avatars2.githubusercontent.com/u/22804375?v=3",
+            "comments" : "Great to work with. Knows React and Redux very well. Would work with again",
+            "skills" : ["React","Redux","JavaScript"]
+        }
+    ],
+    "meter" : [
+        {
+            "value" : 53,
+            "label" : "Jupyter Notebook"
+        },
+        {
+            "value" : 35,
+            "label" : "JavaScript"
+        },
+        {
+            "value" : 4,
+            "label" : "GLSL"
+        },
+        {
+            "value" : 3,
+            "label" : "Shell"
+        },
+        {
+            "value" : 2,
+            "label" : "HTML"
+        },
+        {
+            "value" : 2,
+            "label" : "Other"
+        }
+    ],
+    "location" : "Austin, Tx",
+    "desired" : ["Python","Backbone"],
+    "skills" : ["JavaScript","React","AngularJS","Redux"],
+    "__v" : 0,
+    "repos" : [
+        {
+            "stargazers_count" : 8,
+            "language" : null,
+            "description" : "🕶 🎨 🛠 Curated list of awesome personal branding tools and resources",
+            "name" : "awesome-personal-branding"
+        },
+        {
+            "stargazers_count" : 3,
+            "language" : "JavaScript",
+            "description" : "Amazon Alexa Skill that tells the user coffee facts upon request.",
+            "name" : "Alexa-the-Barista"
+        },
+        {
+            "stargazers_count" : 2,
+            "language" : null,
+            "description" : "Curated list of Computer Science Javascript resources",
+            "name" : "awesome-cs-js"
+        },
+        {
+            "stargazers_count" : 1,
+            "language" : "JavaScript",
+            "description" : null,
+            "name" : "Echoes"
+        }
+    ]
+}
