@@ -223,21 +223,22 @@ const grabUserReposandSave = (username, ghToken) => {
     });
 };
 
-const grabUserInfo = (username, req, res) => {
-  UserController.getUserInfo(username)
-  .then((resp) => {
-    if (!resp) {
-      res.status(200).json({ ok: false, user: null });
-      return;
-    }
-    const profile = Object.assign({}, { resp });
-    profile.resp.access_token = '';
-    res.status(200).json({ ok: true, user: profile.resp });
+const grabUserInfo = username => (
+  new Promise((resolve, reject) => {
+    UserController.getUserInfo(username)
+    .then((resp) => {
+      if (!resp) {
+        reject(resp);
+      }
+      const profile = Object.assign({}, { resp });
+      profile.resp.access_token = '';
+      resolve(profile.resp);
+    })
+    .catch((err) => {
+      reject(err);
+    });
   })
-  .catch((err) => {
-    res.status(200).json({ ok: false, err });
-  });
-};
+);
 
 const getAccessToken = CODE => (
   axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://localhost:3034/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)

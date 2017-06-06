@@ -78,7 +78,13 @@ router.get('/:username', (req, res) => {
     if (err) {
       res.send(`${err.name}: Please sign in again to renew your session`);
     } else {
-      Utils.grabUserInfo(req.params.username, req, res);
+      Utils.grabUserInfo(req.params.username, req, res)
+      .then((userPro) => {
+        res.status(200).json({ ok: true, user: userPro });
+      })
+      .catch((error) => {
+        res.json({ ok: false, error });
+      });
     }
   }));
 });
@@ -102,7 +108,13 @@ router.put('/:username', (req, res) => {
       });
       UserController.updateUserInfo(decoded, data)
       .then(() => {
-        Utils.grabUserInfo(decoded, req, res);
+        Utils.grabUserInfo(decoded, req, res)
+        .then((userPro) => {
+          res.status(200).json({ ok: true, user: userPro });
+        })
+        .catch((error2) => {
+          res.json({ ok: false, error2 });
+        });
       })
       .catch((error) => {
         res.status(200).json({ ok: false, error });

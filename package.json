@@ -61,7 +61,10 @@
     "react-router": "^4.1.1",
     "react-test-renderer": "^15.5.4",
     "redux-mock-store": "^1.2.3",
+    "socket-io-mock": "^1.0.1",
     "style-loader": "^0.18.1",
+    "superagent": "^3.5.2",
+    "supertest": "^3.0.0",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },

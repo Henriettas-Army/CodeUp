@@ -2,10 +2,18 @@
 
 const utils = require('../utils');
 
-jest.mock('../__mocks__/axios');
-jest.mock('../__mocks__/UserController');
 
 describe('profile handlers', () => {
+  beforeEach((done) => {
+    jest.mock('../__mocks__/axios').mockClear();
+    jest.mock('../../db/controllers/__mocks__/UserController').mockClear();
+    done();
+  });
+  afterEach((done) => {
+    jest.unmock('../__mocks__/axios');
+    jest.unmock('../../db/controllers/__mocks__/UserController');
+    done();
+  });
   it('gitUserRepos() should return user repos', () => {
     utils.gitUserRepos('cdcjj')
     .then((response) => {
@@ -19,7 +27,7 @@ describe('profile handlers', () => {
     .then((response) => {
       utils.traversePages(2, 0, response, 'JeffRisberg2')
       .then((resp) => {
-        expect(resp.length).toBe(162);
+        expect(resp.length).toBe(62);
       });
     });
   });
@@ -32,5 +40,12 @@ describe('profile handlers', () => {
       expect(fourRepos[0].name).toEqual('CodeUp');
       expect(fourRepos[2].name).toEqual('Echoes');
     });
+  });
+  it('grabUserInfo() should send back object with empty access_token', () => {
+    utils.grabUserInfo('techmexdev')
+      .then((userProfile) => {
+        expect(userProfile.username).toEqual('techmexdev');
+        expect(userProfile.access_token).toEqual('');
+      });
   });
 });
