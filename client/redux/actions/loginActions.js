@@ -36,8 +36,8 @@ const saveToken = token => (
   window.localStorage.setItem('token', token.data)
 );
 
-const loginUserAsync = code => (
-  function loadAsync(dispatch) {
+function loginUserAsync(code) {
+  return (dispatch) => {
     dispatch(loadLogin());
     return postLogin(code)
     .then((token) => {
@@ -46,8 +46,8 @@ const loginUserAsync = code => (
       dispatch(loginUser(user, 'READY'));
       return { user, token };
     });
-  }
-);
+  };
+}
 
 module.exports = {
   LOGIN_USER,
@@ -55,6 +55,8 @@ module.exports = {
   LOAD_LOGIN,
   LOGIN_REMINDER,
   loadLogin,
+  saveToken,
+  postLogin,
   loginUser,
   logoutUser,
   loginUserAsync,

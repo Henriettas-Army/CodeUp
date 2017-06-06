@@ -10,5 +10,8 @@ module.exports = {
       "comma-dangle": ["error", "only-multiline"],
       "no-underscore-dangle": ["error", { "allow": ["_id", "_doc"] }],
       "no-param-reassign": ["error", { "props": false }]
+    },
+    "env": {
+      "jest": true
     }
 };
