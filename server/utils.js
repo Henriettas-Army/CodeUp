@@ -1,6 +1,11 @@
 const axios = require('axios');
 const githubPagination = require('github-pagination');
 const UserController = require('./../db/controllers/UserController');
+const GITHUB_API = require('./config/github');
+
+const ID = GITHUB_API.CLIENT_ID;
+const SECRET = GITHUB_API.CLIENT_SECRET;
+
 
 // uncomment when using tokens, including lines 16, 57, 91;
 // need to save github token into DB
@@ -223,10 +228,20 @@ const grabUserInfo = (username, req, res) => {
   });
 };
 
+const getAccessToken = CODE => (
+  axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://localhost:3034/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
+);
+
+const gitHubUserInformation = TOKEN => (
+  axios(`https://api.github.com/user?access_token=${TOKEN}`)
+);
+
 module.exports = {
   traversePages,
   gitUserRepos,
   getFourReposInfo,
   grabUserReposandSave,
   grabUserInfo,
+  getAccessToken,
+  gitHubUserInformation,
 };

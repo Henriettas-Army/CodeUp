@@ -1,6 +1,6 @@
 const express = require('express');
-const GITHUB_API = require('../config/github');
-const axios = require('axios');
+// const GITHUB_API = require('../config/github');
+// const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const UserController = require('../../db/controllers/UserController');
 const Utils = require('../utils');
@@ -9,15 +9,15 @@ const positionHelper = require('../utils/positionHelper');
 
 const router = express.Router();
 
-const ID = GITHUB_API.CLIENT_ID;
-const SECRET = GITHUB_API.CLIENT_SECRET;
+// const ID = GITHUB_API.CLIENT_ID;
+// const SECRET = GITHUB_API.CLIENT_SECRET;
 
 router.post('/login', (req, res) => {
   const CODE = req.body.code;
-  axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://localhost:3034/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
+  Utils.getAccessToken(CODE)
   .then((response) => {
     const TOKEN = response.data.split('&')[0].split('=')[1];
-    axios(`https://api.github.com/user?access_token=${TOKEN}`)
+    Utils.gitHubUserInformation(TOKEN)
     .then((resp) => {
       const token = jwt.sign(resp.data.login, 'codeupforever');
       res.json(token);
