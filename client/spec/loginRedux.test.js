@@ -4,7 +4,7 @@
 // import thunk from 'redux-thunk';
 // import jwt from 'jsonwebtoken';
 import actions from '../redux/actions/loginActions';
-import reducers from '../redux/reducers/loginReducer';
+// import reducers from '../redux/reducers/loginReducer';
 
 
 // const middlewares = [thunk];
@@ -35,61 +35,61 @@ describe('Login action creators', () => {
   });
 });
 
-describe('login reducer', () => {
-  it('should return the initial state', () => {
-    expect(
-      reducers(undefined, {})
-    ).toEqual(
-      {
-        status: '',
-        isAuthenticated: '',
-        rehydrated: false,
-        reminder: false,
-      }
-    );
-  });
-
-  it('should handle LOGIN_USER', () => {
-    expect(
-      reducers({}, {
-        type: actions.LOGIN_USER,
-        isAuthenticated: 'tomcat123',
-        status: 'READY'
-      })
-    ).toEqual(
-      {
-        isAuthenticated: 'tomcat123',
-        status: 'READY'
-      }
-    );
-  });
-
-  it('should handle LOAD_LOGIN', () => {
-    expect(
-      reducers({}, {
-        type: actions.LOAD_LOGIN,
-        status: 'LOADING'
-      })
-    ).toEqual(
-      {
-        status: 'LOADING'
-      }
-    );
-  });
-
-  it('should handle LOGIN_REMINDER', () => {
-    expect(
-      reducers({}, {
-        type: actions.LOGIN_REMINDER,
-        reminder: true
-      })
-    ).toEqual(
-      {
-        reminder: true
-      }
-    );
-  });
-});
+// describe('login reducer', () => {
+//   it('should return the initial state', () => {
+//     expect(
+//       reducers(undefined, {})
+//     ).toEqual(
+//       {
+//         status: '',
+//         isAuthenticated: '',
+//         rehydrated: false,
+//         reminder: false,
+//       }
+//     );
+//   });
+//
+//   it('should handle LOGIN_USER', () => {
+//     expect(
+//       reducers({}, {
+//         type: actions.LOGIN_USER,
+//         isAuthenticated: 'tomcat123',
+//         status: 'READY'
+//       })
+//     ).toEqual(
+//       {
+//         isAuthenticated: 'tomcat123',
+//         status: 'READY'
+//       }
+//     );
+//   });
+//
+//   it('should handle LOAD_LOGIN', () => {
+//     expect(
+//       reducers({}, {
+//         type: actions.LOAD_LOGIN,
+//         status: 'LOADING'
+//       })
+//     ).toEqual(
+//       {
+//         status: 'LOADING'
+//       }
+//     );
+//   });
+//
+//   it('should handle LOGIN_REMINDER', () => {
+//     expect(
+//       reducers({}, {
+//         type: actions.LOGIN_REMINDER,
+//         reminder: true
+//       })
+//     ).toEqual(
+//       {
+//         reminder: true
+//       }
+//     );
+//   });
+// });
 
 // describe('async actions', () => {
 //   afterEach(() => {

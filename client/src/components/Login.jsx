@@ -26,7 +26,7 @@ const Login = () => (
       <Section size="large">
         <PreviewCarousel />
       </Section>
-      <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user,repo`}>
+      <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`}>
         <SocialGithubIcon
           size={'xlarge'}
         /><br />
