@@ -1,10 +1,10 @@
 /* global window */
-// import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { LOGIN_USER, LOGOUT_USER, LOAD_LOGIN, LOGIN_REMINDER } from '../actions/loginActions';
 
 const INITIAL_STATE = {
-  status: '',
-  isAuthenticated: '',
+  status: window.localStorage.token ? 'READY' : '',
+  isAuthenticated: window.localStorage.token ? jwt.decode(window.localStorage.getItem('token')) : '',
   rehydrated: false,
   reminder: false,
 };
