@@ -21,7 +21,7 @@ class ChatList extends React.Component {
           role="presentation"
           onClick={() => this.setState({ visible: true })}
           style={{
-            width: '200px',
+            width: this.props.width,
             height: '40px',
             position: 'fixed',
             bottom: 0,
@@ -55,7 +55,7 @@ class ChatList extends React.Component {
       <div
         role="presentation"
         style={{
-          width: '200px',
+          width: this.props.width,
           height: '400px',
           position: 'fixed',
           bottom: 0,
@@ -94,7 +94,7 @@ class ChatList extends React.Component {
             ))}
         </List>
         <SearchInput
-          style={{ width: '190px', boxSizing: 'border-box' }}
+          style={{ width: `${this.props.width - 10}px`, boxSizing: 'border-box' }}
           placeHolder="Search"
           value={this.state.searchValue}
           onDOMChange={(e) => { this.setState({ searchValue: e.target.value }); }}
@@ -108,6 +108,7 @@ ChatList.propTypes = {
   rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
   showChat: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 export default ChatList;

@@ -22,13 +22,13 @@ class Chat extends React.Component {
     return (
       <div
         style={{
-          width: '200px',
+          width: `${this.props.width}px`,
           height: '300px',
           position: 'fixed',
           bottom: 0,
           right: this.props.right, // this should be dynamic
-          //border: '3px solid #ddd',
-          border: '3px solid ' + colors.primary,
+          // border: '3px solid #ddd',
+          border: `3px solid ${colors.primary}`,
           overflow: 'auto',
           backgroundColor: colors.base,
           zIndex: 999999999,
@@ -69,7 +69,7 @@ class Chat extends React.Component {
               const style = {
                 marginTop: '5px',
                 display: 'inline-block',
-                maxWidth: '150px',
+                maxWidth: `${this.props.width * 0.8}px`,
                 borderRadius: '10px',
                 padding: '10px',
                 boxSizing: 'border-box',
@@ -115,7 +115,7 @@ class Chat extends React.Component {
         >
           <TextInput
             style={{
-              width: '160px',
+              width: `${this.props.width * 0.8}px`,
               boxSizing: 'border-box',
             }}
             id="chatTextInput"
@@ -132,8 +132,8 @@ class Chat extends React.Component {
           <Button
             style={{
               boxSizing: 'border-box',
-              width: '40px',
-              height: '40px',
+              width: `${this.props.width * 0.18}`,
+              height: `${this.props.width * 0.18}`,
             }}
             icon={<SendIcon />}
             onClick={() => {
