@@ -26,11 +26,16 @@ const closeRoomAsync = (room, socket, username) => (dispatch) => {
 const openRoomAsync = (room, socket, username) => (dispatch, getState) => {
   // TODO: substitute username by token
   const state = getState();
-  if (state.chat.rooms[room].loaded !== true && state.chat.rooms[room].loading !== true) {
+  if (state.chat.rooms[room]
+    && state.chat.rooms[room].loaded !== true
+    && state.chat.rooms[room].loading !== true) {
     dispatch(loadingMessages(room));
     socket.emit('messages', { room });
   }
   socket.emit('openRoom', { username, room });
+  if (!state.chat.rooms[room]) {
+    socket.emit('messages', { room });
+  }
   dispatch(openRoom(room));
 };
 const addRoomAsync = (room, socket, username) => (dispatch, getState) => {
@@ -54,6 +59,7 @@ const sendMessageAsync = (socket, message) => () => {
 const receiveMessageAsync = (msg, socket, username) => (dispatch, getState) => {
   const state = getState();
   if (!state.chat.rooms[msg.room]) {
+    console.log('new room');
     dispatch(openRoomAsync(msg.room, socket, username));
   } else {
     dispatch(receiveMessage(msg));

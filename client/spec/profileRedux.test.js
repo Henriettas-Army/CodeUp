@@ -1,17 +1,30 @@
-/* global describe it expect */
+/* eslint-env jest */
 // import configureMockStore from 'redux-mock-store';
 // import thunk from 'redux-thunk';
 // import nock from 'nock';
-// import actions from '../redux/actions/profileActions';
+// const actions = require('../redux/actions/profileActions');
+// const reducer = require('../redux/reducers/profileReducer');
+
+// jest.mock('../redux/__mocks__/window');
 
 // const middlewares = [thunk];
 // const mockStore = configureMockStore(middlewares);
-//
+
 describe('action creators', () => {
   it('should pass test', () => {
     const expected = 5;
     expect(5).toEqual(expected);
   });
+  // it('should return the initial state', () => {
+  //   expect(reducer(undefined, {})).toEqual([
+  //     {
+  //       profile: {},
+  //       status: 'READY',
+  //       errMessage: '',
+  //       editing: false,
+  //     }
+  //   ]);
+  // });
   // it('should create an action to change status to loading', () => {
   //   const expectedLoad = {
   //     type: actions.LOAD_PROFILE,

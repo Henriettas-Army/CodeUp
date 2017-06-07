@@ -1,0 +1,144 @@
+[
+  {
+    "id": 89101033,
+    "name": "beesbeesbees",
+    "full_name": "cdcjj/beesbeesbees",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": null,
+  },
+  {
+    "id": 91904295,
+    "name": "CodeUp",
+    "full_name": "cdcjj/CodeUp",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 4,
+    "description": null,
+    "language": "JavaScript",
+  },
+  {
+    "id": 91747171,
+    "name": "Docker-With-Continuous-Integration",
+    "full_name": "cdcjj/Docker-With-Continuous-Integration",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": " Sample node.js web app for bTree Press How To Use Docker With Continous Integration To Build A DevOps Automated Workflow",
+    "language": "JavaScript",
+  },
+  {
+    "id": 90762786,
+    "name": "Echoes",
+    "full_name": "cdcjj/Echoes",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 2,
+    "description": "Personal music journal to keep track of album impressions",
+    "language": "JavaScript",
+  },
+  {
+    "id": 79522542,
+    "name": "Games-Project2-Python",
+    "full_name": "cdcjj/Games-Project2-Python",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 3,
+    "description": "Battleship and Connect 4 games using classes in python",
+    "language": "Python",
+  },
+  {
+    "id": 91903833,
+    "name": "Learn-Redux-Starter-Files",
+    "full_name": "cdcjj/Learn-Redux-Starter-Files",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": "⚛ Starter files and solutions for the LearnRedux.com video series",
+    "language": "JavaScript",
+  },
+  {
+    "id": 86922672,
+    "name": "MomentJS-Age-Clock",
+    "full_name": "cdcjj/MomentJS-Age-Clock",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": "An Exercise to Accompany a Lecture on Reading Documentation I delivered at Hack Reactor ATX",
+    "language": "JavaScript",
+  },
+  {
+    "id": 89256937,
+    "name": "MVP",
+    "full_name": "cdcjj/MVP",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": null,
+    "language": "JavaScript",
+  },
+  {
+    "id": 79522885,
+    "name": "Prefix-Word-Game-Python",
+    "full_name": "cdcjj/Prefix-Word-Game-Python",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "language": "Python",
+    "description": "given a prefix, enter all words that start with prefix in 30 seconds. masterlist of words is provided",
+  },
+  {
+    "id": 89522630,
+    "name": "Q",
+    "full_name": "cdcjj/Q",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": "Ad-Platform for users to create events and queuers to find events to claim",
+    "language": "JavaScript",
+  },
+  {
+    "id": 88771042,
+    "name": "shortly-deploy",
+    "full_name": "cdcjj/shortly-deploy",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": null,
+    "language": "JavaScript",
+  },
+  {
+    "id": 89100056,
+    "name": "siskel",
+    "full_name": "cdcjj/siskel",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": null,
+    "language": "JavaScript",
+  },
+  {
+    "id": 92347018,
+    "name": "todos",
+    "full_name": "cdcjj/todos",
+    "owner": {
+      "login": "cdcjj",
+    },
+    "stargazers_count": 0,
+    "description": "Examples for “Idiomatic Redux”: one branch per lesson",
+    "language": "JavaScript",
+  }
+]

@@ -108,10 +108,7 @@ Profile.propTypes = {
   editProfile: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
-  errMessage: PropTypes.shape({
-    ok: PropTypes.bool,
-    user: PropTypes.string,
-  }),
+  errMessage: PropTypes.string,
   isAuthenticated: PropTypes.string,
   profile: PropTypes.shape({
     username: PropTypes.string,
@@ -137,7 +134,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   isAuthenticated: '',
-  errMessage: {},
+  errMessage: '',
 };
 
 const mapStateToProps = state => (

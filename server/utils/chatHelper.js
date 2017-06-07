@@ -1,8 +1,6 @@
 const chatDB = require('../../db/controllers/chatController');
 
 const ChatRooms = function () {
-  // this.buffer = {};
-  // this.messages = 0;
   this.sockets = {}; // user -> socket
   this.users = {}; // socket.id -> user
   this.rooms = {}; // user -> rooms
@@ -30,21 +28,17 @@ ChatRooms.prototype.closeRoom = function (username, room1) {
   }
 };
 
-ChatRooms.prototype.updateAllLastVisits = function () {
+ChatRooms.prototype.updateUserLastVisits = function (socket) {
   // console.log('come on!!!')
+  const user = this.users[socket.id];
   const lastVisit = Date.now();
-  const users = Object.keys(this.rooms);
   // console.log('users: ', users)
-  for (let i = 0; i < users.length; i += 1) {
-    const user = users[i];
-    if (this.rooms[user]) {
-      const rooms = Object.keys(this.rooms[user]);
-      // console.log('rooms: ', rooms)
-      for (let j = 0; j < rooms.length; j += 1) {
-        const room = rooms[j];
-        console.log('before closing: updating in ', user, room, lastVisit);
-        this.updateLastConnection(user, room, lastVisit);
-      }
+  if (this.rooms[user]) {
+    const rooms = Object.keys(this.rooms[user]);
+    for (let j = 0; j < rooms.length; j += 1) {
+      const room = rooms[j];
+      console.log('before closing: updating in ', user, room, lastVisit);
+      this.updateLastConnection(user, room, lastVisit);
     }
   }
 };
@@ -59,7 +53,7 @@ ChatRooms.prototype.addMessage = function (room, from, date, message) {
   // }
   // this.buffer[room].push({ room, from, date, message });
   room.split('#').forEach((username) => {
-    console.log(username);
+    console.log('users in message ', message, 'are', username);
     if (this.sockets[username]) {
       this.sockets[username].join(room);
       console.log('username joining to room', username, room);

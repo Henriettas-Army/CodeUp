@@ -1,6 +1,11 @@
 const axios = require('axios');
 const githubPagination = require('github-pagination');
 const UserController = require('./../db/controllers/UserController');
+const GITHUB_API = require('./config/github');
+
+const ID = GITHUB_API.CLIENT_ID;
+const SECRET = GITHUB_API.CLIENT_SECRET;
+
 
 // uncomment when using tokens, including lines 16, 57, 91;
 // need to save github token into DB
@@ -149,6 +154,44 @@ const asyncLanguageData = (allRepos, ghToken) => (
   })
 );
 
+const createLanguageDataObject = (languageArr, callback) => {
+  const languageObj = {};
+  const languageData = [];
+  let byteCount = 0;
+  languageArr.forEach((repo) => {
+    const keys = Object.keys(repo);
+    for (let i = 0; i < keys.length; i += 1) {
+      if (languageObj[keys[i]]) {
+        languageObj[keys[i]] += repo[keys[i]];
+        byteCount += repo[keys[i]];
+      } else {
+        languageObj[keys[i]] = repo[keys[i]];
+        byteCount += repo[keys[i]];
+      }
+    }
+  });
+  const keys = Object.keys(languageObj);
+  for (let i = 0; i < keys.length; i += 1) {
+    const language = {};
+    language.label = keys[i];
+    language.value = Math.round((languageObj[keys[i]] / byteCount) * 100);
+    languageData.push(language);
+  }
+  const sortedLanguageData = languageData.sort((a, b) => b.value - a.value).splice(0, 5);
+  const otherLanguageObj = {};
+  otherLanguageObj.label = 'Other';
+  let otherLanguageTotal = 0;
+  for (let i = 0; i < languageData.length; i += 1) {
+    otherLanguageTotal += languageData[i].value;
+  }
+  otherLanguageObj.value = otherLanguageTotal;
+  if (otherLanguageObj.value > 0) {
+    sortedLanguageData.push(otherLanguageObj);
+  }
+  console.log('SORTED LANGUAGE DATA:', sortedLanguageData);
+  callback(sortedLanguageData);
+};
+
 const grabUserReposandSave = (username, ghToken) => {
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
@@ -162,43 +205,16 @@ const grabUserReposandSave = (username, ghToken) => {
         });
       })
       .then((languageArr) => {
-        const languageObj = {};
-        const languageData = [];
-        let byteCount = 0;
-        languageArr.forEach((repo) => {
-          const keys = Object.keys(repo);
-          for (let i = 0; i < keys.length; i += 1) {
-            if (languageObj[keys[i]]) {
-              languageObj[keys[i]] += repo[keys[i]];
-              byteCount += repo[keys[i]];
-            } else {
-              languageObj[keys[i]] = repo[keys[i]];
-              byteCount += repo[keys[i]];
-            }
-          }
-        });
-        const keys = Object.keys(languageObj);
-        for (let i = 0; i < keys.length; i += 1) {
-          const language = {};
-          language.label = keys[i];
-          language.value = Math.round((languageObj[keys[i]] / byteCount) * 100);
-          languageData.push(language);
-        }
-        const sortedLanguageData = languageData.sort((a, b) => b.value - a.value).splice(0, 5);
-        const otherLanguageObj = {};
-        otherLanguageObj.label = 'Other';
-        let otherLanguageTotal = 0;
-        for (let i = 0; i < languageData.length; i += 1) {
-          otherLanguageTotal += languageData[i].value;
-        }
-        otherLanguageObj.value = otherLanguageTotal;
-        if (otherLanguageObj.value > 0) {
-          sortedLanguageData.push(otherLanguageObj);
-        }
-        const fourRepos = getFourReposInfo(allRepos);
-        UserController.postRepos(username, fourRepos, sortedLanguageData)
-        .then((res) => {
-          console.log('POST REPOS RESULT:', res);
+        createLanguageDataObject(languageArr, (sortedLanguageData) => {
+          console.log('SORTED LANGUAGED DATA AFTER:', sortedLanguageData);
+          const fourRepos = getFourReposInfo(allRepos);
+          UserController.postRepos(username, fourRepos, sortedLanguageData)
+          .then((res) => {
+            console.log('POST REPOS RESULT:', res);
+          })
+          .catch((err) => {
+            console.log('ERROR WITH SORTED LANGUAGE DATA:', err);
+          });
         });
       });
     })
@@ -207,21 +223,30 @@ const grabUserReposandSave = (username, ghToken) => {
     });
 };
 
-const grabUserInfo = (username, req, res) => {
-  UserController.getUserInfo(username)
-  .then((resp) => {
-    if (!resp) {
-      res.status(200).json({ ok: false, user: null });
-      return;
-    }
-    const profile = Object.assign({}, { resp });
-    profile.resp.access_token = '';
-    res.status(200).json({ ok: true, user: profile.resp });
+const grabUserInfo = username => (
+  new Promise((resolve, reject) => {
+    UserController.getUserInfo(username)
+    .then((resp) => {
+      if (!resp) {
+        reject(resp);
+      }
+      const profile = Object.assign({}, { resp });
+      profile.resp.access_token = '';
+      resolve(profile.resp);
+    })
+    .catch((err) => {
+      reject(err);
+    });
   })
-  .catch((err) => {
-    res.status(200).json({ ok: false, err });
-  });
-};
+);
+
+const getAccessToken = CODE => (
+  axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://localhost:3034/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
+);
+
+const gitHubUserInformation = TOKEN => (
+  axios(`https://api.github.com/user?access_token=${TOKEN}`)
+);
 
 module.exports = {
   traversePages,
@@ -229,4 +254,6 @@ module.exports = {
   getFourReposInfo,
   grabUserReposandSave,
   grabUserInfo,
+  getAccessToken,
+  gitHubUserInformation,
 };

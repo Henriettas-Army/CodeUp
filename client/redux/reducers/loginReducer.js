@@ -1,5 +1,4 @@
 /* global window */
-// import jwtDecode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
 import { LOGIN_USER, LOGOUT_USER, LOAD_LOGIN, LOGIN_REMINDER } from '../actions/loginActions';
 
@@ -30,7 +29,10 @@ const auth = (state = INITIAL_STATE, action) => {
     case LOGIN_REMINDER:
       return Object.assign({}, state, { reminder: true });
     case 'persist/REHYDRATE':
-      return { ...state, persistedState: action.payload, rehydrated: true };
+      return Object.assign({}, state, {
+        persistedState: action.payload,
+        rehydrated: true
+      });
     default:
       return state;
   }

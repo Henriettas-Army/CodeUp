@@ -25,6 +25,7 @@ module.exports = (io) => {
       const date = Date.now();
       const room = data.room.split('#').sort().join('#');
       const from = chatRooms.getUser(socket); // later on parse jwt here
+      console.log('message sent ', data);
       if (from === undefined) {
         console.log('unknown origin. sorry dude', data.username);
         return;
@@ -34,6 +35,7 @@ module.exports = (io) => {
     });
 
     socket.on('messages', (data) => { // data refers to some params, (e.g before this date etc);
+      console.log('someone requested messages for ', data.room);
       chatRooms.getMessagesForRoom(data.room).then((results) => {
         socket.emit('messages', results);
       });
@@ -44,14 +46,6 @@ module.exports = (io) => {
       const username = data.username;
       const room = data.room.split('#').sort().join('#');
       chatRooms.openRoom(username, room);
-      // chatRooms.updateLastConnection(username, room, date)
-      // .then(() => {
-      //   console.log('successfully completed operation. ',
-      //    username, room, date, 'suffer bitches');
-      // })
-      // .catch((e) => {
-      //   console.log('fuckkk!!!! ', e);
-      // });
     });
     socket.on('closeRoom', (data) => {
       const username = data.username;
@@ -73,7 +67,7 @@ module.exports = (io) => {
     });
 
     socket.on('disconnect', () => {
-      chatRooms.updateAllLastVisits();
+      chatRooms.updateUserLastVisits(socket);
       chatRooms.removeUser(socket);
       console.log('user disconnected');
     });

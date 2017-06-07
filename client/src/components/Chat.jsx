@@ -14,9 +14,10 @@ class Chat extends React.Component {
   }
 
   render() {
-    const chatArray = this.props.chatName.split('#');
+    let chatArray = this.props.chatName.split('#');
     const index = chatArray.indexOf(this.props.username);
     chatArray.splice(index, 1);
+    chatArray = chatArray.join(', ');
     return (
       <div
         style={{
@@ -28,7 +29,7 @@ class Chat extends React.Component {
           border: '3px solid #ddd',
           overflow: 'auto',
           backgroundColor: 'white',
-          zIndex: 300,
+          zIndex: 999999999,
         }}
       >
         <div
@@ -45,7 +46,7 @@ class Chat extends React.Component {
               color: '#555',
               fontWeight: 'bold',
             }}
-          >{chatArray[0]}</span>
+          >{chatArray}</span>
           <CloseIcon style={{ cursor: 'pointer', position: 'absolute', right: 0 }} onClick={() => { this.props.onCloseChat(); }} />
         </div>
         <div

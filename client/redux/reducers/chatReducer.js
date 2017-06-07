@@ -91,7 +91,7 @@ const rooms = (state = {}, action) => { // state: state.rooms
     case chat.OPEN_ROOM:
       newState = Object.assign({}, state);
       if (!newState[action.room]) {
-        newState[action.room] = {};
+        newState[action.room] = { loading: true };
       }
       newState[action.room].active = true;
       newState[action.room].unread = 0;
@@ -101,12 +101,11 @@ const rooms = (state = {}, action) => { // state: state.rooms
       newState[action.room].active = false;
       return newState;
     case chat.RECEIVE_ROOMS:
-      newState = Object.assign({}, state);
+      newState = {}; // Object.assign({}, state);
       for (let i = 0; i < action.rooms.length; i += 1) {
         room = action.rooms[i].room;
         unread = action.rooms[i].unread;
         newState[room] = { unread, active: false, loading: false, loaded: false, messages: [] };
-        return newState;
       }
       return newState;
     case chat.LOADING_MESSAGES:

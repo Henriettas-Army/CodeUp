@@ -1,11 +1,7 @@
-/* global window */
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import SocialGithubIcon from 'grommet/components/icons/base/SocialGithub';
 import Animate from 'grommet/components/Animate';
 import Section from 'grommet/components/Section';
-import { loginUser } from '../../redux/actions/loginActions';
 import PreviewCarousel from './PreviewCarousel';
 
 const GITHUB_API = require('../../../server/config/github');
@@ -16,7 +12,7 @@ const style = {
   fontSize: '120px',
 };
 
-const LoginComponent = () => (
+const Login = () => (
   <Animate
     enter={{ animation: 'fade', duration: 5000, delay: 0 }}
     keep
@@ -30,7 +26,7 @@ const LoginComponent = () => (
       <Section size="large">
         <PreviewCarousel />
       </Section>
-      <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user,repo`}>
+      <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`}>
         <SocialGithubIcon
           size={'xlarge'}
         /><br />
@@ -40,28 +36,4 @@ const LoginComponent = () => (
   </Animate>
 );
 
-LoginComponent.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.string,
-  status: PropTypes.string.isRequired,
-};
-
-LoginComponent.defaultProps = {
-  isAuthenticated: PropTypes.string,
-};
-
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  status: state.auth.status,
-});
-
-const mapDispatchToProps = dispatch => ({
-  loginUser: () => {
-    dispatch(loginUser(jwtDecode(window.localStorage.getItem('token')), 'Available'));
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LoginComponent);
+export default Login;

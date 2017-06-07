@@ -10,8 +10,8 @@
     "start": "nodemon server/server.js",
     "test": "npm run lint && npm run test-client && npm run test-server",
     "lint": "./node_modules/.bin/eslint ./*",
-    "test-client": "./node_modules/.bin/jest client/spec/*.js",
-    "test-server": "./node_modules/.bin/jest server/spec/*.js"
+    "test-client": "./node_modules/.bin/jest client/",
+    "test-server": "./node_modules/.bin/jest server/"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,18 @@
   },
   "homepage": "https://github.com/Henriettas-Army/CodeUp#readme",
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "moduleNameMapper": {
+      "^js(.*)$": "<rootDir>/app/javascript/$1",
+      "^vendor(.*)$": "<rootDir>/vendor/$1"
+    }
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",
@@ -50,7 +61,10 @@
     "react-router": "^4.1.1",
     "react-test-renderer": "^15.5.4",
     "redux-mock-store": "^1.2.3",
+    "socket-io-mock": "^1.0.1",
     "style-loader": "^0.18.1",
+    "superagent": "^3.5.2",
+    "supertest": "^3.0.0",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
