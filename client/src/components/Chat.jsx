@@ -4,6 +4,7 @@ import Button from 'grommet/components/Button';
 import TextInput from 'grommet/components/TextInput';
 import SendIcon from 'grommet/components/icons/base/Send';
 import PropTypes from 'prop-types';
+import colors from '../colorScheme';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Chat extends React.Component {
           right: this.props.right, // this should be dynamic
           border: '3px solid #ddd',
           overflow: 'auto',
-          backgroundColor: 'white',
+          backgroundColor: colors.base,
           zIndex: 999999999,
         }}
       >
@@ -72,7 +73,9 @@ class Chat extends React.Component {
                 padding: '10px',
                 boxSizing: 'border-box',
                 marginLeft: 0,
-                border: '2px solid #eee'
+                border: '2px solid #eee',
+                backgroundColor: colors.primary,
+                color: 'white',
               };
               if (message.from === this.props.username) {
                 Object.assign(style, {
@@ -80,6 +83,8 @@ class Chat extends React.Component {
                   marginRight: 0,
                   marginLeft: undefined,
                   float: 'right',
+                  backgroundColor: colors.secondary,
+                  color: 'black'
                 });
               }
               return (<div key={+k + 1} style={{ display: 'block', width: '100%', overflow: 'auto' }}><div style={style}>
@@ -102,9 +107,16 @@ class Chat extends React.Component {
               boxSizing: 'border-box',
             }}
             id="item1"
+            className="chatTextInput"
             name="item-1"
             value={this.state.textMessage}
             onDOMChange={(e) => { this.setState({ textMessage: e.target.value }); }}
+            onKeyDown={(e)=>{
+              if (e.key === 'Enter') {
+                this.props.sendMessage(this.state.textMessage, this.props.chatName);
+                this.setState({ textMessage: '' });
+              }
+            }}
           />
           <Button
             style={{
@@ -113,7 +125,10 @@ class Chat extends React.Component {
               height: '40px',
             }}
             icon={<SendIcon />}
-            onClick={() => { this.props.sendMessage(this.state.textMessage, this.props.chatName); this.setState({ textMessage: '' }); }}
+            onClick={() => {
+              this.props.sendMessage(this.state.textMessage, this.props.chatName);
+              this.setState({ textMessage: '' });
+            }}
           />
         </div>
       </div>
