@@ -1,0 +1,27 @@
+#chatTextInput:focus {
+  border: 3px solid #2E8C65;
+}
+
+.messageBubble.other::before {
+  display: block;
+  position: relative;
+  float: left;
+
+  border-bottom: 10px solid transparent;
+  border-right: 5px solid #2E8C65;
+
+  content: '';
+  margin-top: 5px;
+}
+
+.messageBubble.mine::before {
+  display: block;
+  position: relative;
+  float: right;
+
+  border-bottom: 10px solid transparent;
+  border-left: 5px solid #E2BD5D;
+
+  content: '';
+  margin-top: 5px;
+}
