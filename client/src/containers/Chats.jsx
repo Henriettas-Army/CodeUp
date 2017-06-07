@@ -59,7 +59,7 @@ class Chats extends React.Component {
               key={+i + 1}
               loading={this.props.rooms[room].loading}
               width={chatWidth}
-              right={(chatWidth * i) + chatListWidth + 10}
+              right={((chatWidth + 10) * i) + chatListWidth + 10}
               chatName={room}
               onCloseChat={() => {
                 this.props.hideChat(room, this.state.socket, this.props.username);
