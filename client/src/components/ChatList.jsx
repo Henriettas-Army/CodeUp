@@ -18,6 +18,7 @@ class ChatList extends React.Component {
     if (!this.state.visible) {
       return (
         <div
+          id="chatList"
           role="presentation"
           onClick={() => this.setState({ visible: true })}
           style={{
@@ -26,9 +27,9 @@ class ChatList extends React.Component {
             position: 'fixed',
             bottom: 0,
             right: 0,
-            border: '3px solid #ddd',
+            border: `3px solid ${colors.secondary}`,
             backgroundColor: colors.base,
-            zIndex: '1007'
+            zIndex: '99999999'
           }}
         >
           <span
@@ -60,10 +61,10 @@ class ChatList extends React.Component {
           position: 'fixed',
           bottom: 0,
           right: 0,
-          border: '3px solid #ddd',
+          border: `3px solid ${colors.secondary}`,
           overflow: 'auto',
           backgroundColor: colors.base,
-          zIndex: 300
+          zIndex: 9999999
         }}
       >
         <span
@@ -73,13 +74,14 @@ class ChatList extends React.Component {
         >
           <CaretDown />
         </span>
-        <List selectable>
+        <List>
           {this.props.rooms.filter(room => room.room.includes(this.state.searchValue)).map((room, k) => (
             <ListItem
               key={+k + 1}
               justify="between"
               separator="horizontal"
               onClick={() => this.props.showChat(room.room)}
+              className="list-item"
             >
               <span>
                 {parseRoomName(room.room)}
