@@ -1,15 +1,17 @@
 import React from 'react';
 import CaretUp from 'grommet/components/icons/base/CaretUp';
 import CaretDown from 'grommet/components/icons/base/CaretDown';
+import SearchInput from 'grommet/components/SearchInput';
 import List from 'grommet/components/List';
 import ListItem from 'grommet/components/ListItem';
 import PropTypes from 'prop-types';
+import colors from '../colorScheme';
 
 
 class ChatList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { visible: false };
+    this.state = { visible: false, searchValue: '' };
   }
 
   render() {
@@ -19,13 +21,13 @@ class ChatList extends React.Component {
           role="presentation"
           onClick={() => this.setState({ visible: true })}
           style={{
-            width: '200px',
+            width: this.props.width,
             height: '40px',
             position: 'fixed',
             bottom: 0,
             right: 0,
             border: '3px solid #ddd',
-            backgroundColor: 'white',
+            backgroundColor: colors.base,
             zIndex: '1007'
           }}
         >
@@ -53,14 +55,14 @@ class ChatList extends React.Component {
       <div
         role="presentation"
         style={{
-          width: '200px',
+          width: this.props.width,
           height: '400px',
           position: 'fixed',
           bottom: 0,
           right: 0,
           border: '3px solid #ddd',
           overflow: 'auto',
-          backgroundColor: 'white',
+          backgroundColor: colors.base,
           zIndex: 300
         }}
       >
@@ -72,7 +74,7 @@ class ChatList extends React.Component {
           <CaretDown />
         </span>
         <List selectable>
-          {this.props.rooms.map((room, k) => (
+          {this.props.rooms.filter(room => room.room.includes(this.state.searchValue)).map((room, k) => (
             <ListItem
               key={+k + 1}
               justify="between"
@@ -91,6 +93,12 @@ class ChatList extends React.Component {
             </ListItem>
             ))}
         </List>
+        <SearchInput
+          style={{ width: `${this.props.width - 10}px`, boxSizing: 'border-box' }}
+          placeHolder="Search"
+          value={this.state.searchValue}
+          onDOMChange={(e) => { this.setState({ searchValue: e.target.value }); }}
+        />
       </div>
     );
   }
@@ -100,6 +108,7 @@ ChatList.propTypes = {
   rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
   showChat: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 export default ChatList;
