@@ -1,6 +1,4 @@
 const express = require('express');
-// const GITHUB_API = require('../config/github');
-// const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const UserController = require('../../db/controllers/UserController');
 const Utils = require('../utils');
@@ -8,9 +6,6 @@ const Utils = require('../utils');
 const positionHelper = require('../utils/positionHelper');
 
 const router = express.Router();
-
-// const ID = GITHUB_API.CLIENT_ID;
-// const SECRET = GITHUB_API.CLIENT_SECRET;
 
 router.post('/login', (req, res) => {
   const CODE = req.body.code;
