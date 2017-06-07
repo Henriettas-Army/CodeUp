@@ -3,4 +3,6 @@ module.exports = {
   primary: '#2E8C65',
   secondary: '#E2BD5D',
   tertiary: '#02010A',
+
+  baseDark: '#f7eeea',
 };
