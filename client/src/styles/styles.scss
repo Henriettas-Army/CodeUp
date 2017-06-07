@@ -8,6 +8,8 @@ $tertiary-color: #02010A;
 @import './chatStyles';
 @import './events';
 @import './profile';
+@import "userList.scss";
+@import "map.scss";
 
 body {
   font-family: 'Work Sans', sans-serif;
