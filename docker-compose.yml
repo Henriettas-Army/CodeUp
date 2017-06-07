@@ -1,8 +1,7 @@
-version: "3"
+version: "2"
 services:
   web:
-    image: techmexdev/codeup:latest
-    command: "npm run production"
+    build: .
     ports:
       - "3034:3034"
     volumes:
@@ -11,16 +10,12 @@ services:
       replicas: 2
       restart_policy:
         condition: on-failure
-    ports:
-      - "80:3034"
     networks:
       - webnet
   mongo:
     image: "mongo"
     ports:
      - "27017:27017"
-    volumes:
-     - ./data:/data
     deploy:
       placement:
         constraints: [node.role == manager]
