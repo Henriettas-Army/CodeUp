@@ -7,30 +7,23 @@ import Anchor from 'grommet/components/Anchor';
 import CliIcon from 'grommet/components/icons/base/Cli';
 import Status from 'grommet/components/icons/Status';
 
-const imgStyle = {
-  float: 'left',
-  height: '80px',
-  width: '80px',
-};
-const headerStyle = {
-  marginLeft: '90px',
-};
 const UserList = ({ users }) => (
-  <Tiles fill flush={false}>
+  <Tiles className={'userTiles flex-container'} fill={false} flush={false}>
     {users.map((user, key) =>
-      (<Tile key={user._id + +key} align={'start'}>
+      (<Tile className={'userTile'} key={user._id + +key} align={'start'}>
         <Card
           label={<Anchor
+            className={'userAnchor'}
             href="#"
             path={`/profile/${user.username}`}
-          ><img alt="Profilepic" src={`${user.img}`} style={imgStyle} />
-            <p style={headerStyle}><strong>{user.username}</strong><br /><br />
+          ><img className={'profilePic'} alt="Profilepic" src={`${user.img}`} />
+            <p className={'userHeader'}><h2>{user.username}</h2>
               {user.location.length > 0 ? user.location.join(', ') : 'Not Specified'}</p></Anchor>}
           contentPad="none"
           link={user.status === 'Unavailable' ? (<span> <Status value="critical" />Unavailable</span>)
                 : (<span> {user.status === 'Available' ? <Status value="ok" />
                 : <CliIcon colorIndex={user.status ? 'accent-3' : 'critical'} />}{user.status || '  offline'}</span>)}
-          heading={<p>{user.skills.join(' | ') || 'Skills N/A'}</p>}
+          heading={<p>{user.skills.join(' | ') || 'Skills Not Available'}</p>}
           description={
             <span>
               <strong>Developing: </strong>{`${user.desired.join(', ') || 'N/A'}`}<br />

@@ -1,0 +1,34 @@
+.userTiles.flex-container {
+  -webkit-flex-flow: row wrap;
+   flex-flow: row wrap;
+  -webkit-justify-content: center;
+   justify-content: center;
+};
+
+.userAnchor {
+  color: $secondary-color;
+};
+
+.profilePic {
+  float: left;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+};
+
+.userHeader {
+  margin-left: 90px;
+  color: $secondary-color;
+};
+
+.userTile {
+  background: $primary-color;
+  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  padding-left: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.userTile:hover {
+  background: #756c6c;
+}
