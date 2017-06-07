@@ -1,23 +1,23 @@
 /* eslint-env jest */
-
 const utils = require('../utils');
 
 
 describe('profile handlers', () => {
   beforeEach((done) => {
-    jest.mock('../__mocks__/axios').mockClear();
-    jest.mock('../../db/controllers/__mocks__/UserController').mockClear();
+    jest.mock('../utils');
+    jest.mock('../../db/controllers/UserController');
     done();
   });
   afterEach((done) => {
-    jest.unmock('../__mocks__/axios');
-    jest.unmock('../../db/controllers/__mocks__/UserController');
+    jest.unmock('../utils');
+    jest.unmock('../../db/controllers/UserController');
     done();
   });
   it('gitUserRepos() should return user repos', () => {
     utils.gitUserRepos('cdcjj')
     .then((response) => {
       expect(response.data).toBeDefined();
+      expect(response.data[0].name).toEqual('beesbeesbees');
       expect(response.data[0].owner.login).toEqual('cdcjj');
     });
   });
@@ -27,6 +27,7 @@ describe('profile handlers', () => {
     .then((response) => {
       utils.traversePages(2, 0, response, 'JeffRisberg2')
       .then((resp) => {
+        expect(resp[0].name).toEqual('ANG07');
         expect(resp.length).toBe(62);
       });
     });
