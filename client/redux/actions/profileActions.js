@@ -57,7 +57,7 @@ const loadProfileAsync = username => (
 // goes to server and server determines which user object item to update based on
 // typeUpdate (status, skills, learn, location);
 const putProfileUpdate = (updateObj) => {
-  const username = window.localStorage.getItem('token');
+  const username = updateObj.username;
   const toUpdate = updateObj.toUpdate;
   return axios.put(`/api/users/${username}`,
     {
