@@ -8,6 +8,7 @@ import ChatList from '../components/ChatList';
 import Chat from '../components/Chat';
 import chat from '../../redux/actions/chatActions';
 
+
 class Chats extends React.Component {
   constructor(props) {
     super(props);
@@ -71,6 +72,7 @@ class Chats extends React.Component {
               }}
             />
         ))}
+        
       </div>);
   }
 }
@@ -92,7 +94,6 @@ Chats.propTypes = {
 const mapStateToProps = state => ({
   username: state.auth.isAuthenticated,
   rooms: state.chat.rooms,
-  socket: state.socket,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,15 +1,17 @@
 import React from 'react';
 import CaretUp from 'grommet/components/icons/base/CaretUp';
 import CaretDown from 'grommet/components/icons/base/CaretDown';
+import SearchInput from 'grommet/components/SearchInput';
 import List from 'grommet/components/List';
 import ListItem from 'grommet/components/ListItem';
 import PropTypes from 'prop-types';
+import colors from '../colorScheme';
 
 
 class ChatList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { visible: false };
+    this.state = { visible: false, searchValue: '' };
   }
 
   render() {
@@ -25,7 +27,7 @@ class ChatList extends React.Component {
             bottom: 0,
             right: 0,
             border: '3px solid #ddd',
-            backgroundColor: 'white',
+            backgroundColor: colors.base,
             zIndex: '1007'
           }}
         >
@@ -60,7 +62,7 @@ class ChatList extends React.Component {
           right: 0,
           border: '3px solid #ddd',
           overflow: 'auto',
-          backgroundColor: 'white',
+          backgroundColor: colors.base,
           zIndex: 300
         }}
       >
@@ -72,7 +74,7 @@ class ChatList extends React.Component {
           <CaretDown />
         </span>
         <List selectable>
-          {this.props.rooms.map((room, k) => (
+          {this.props.rooms.filter(room => room.room.includes(this.state.searchValue)).map((room, k) => (
             <ListItem
               key={+k + 1}
               justify="between"
@@ -91,6 +93,12 @@ class ChatList extends React.Component {
             </ListItem>
             ))}
         </List>
+        <SearchInput
+          style={{ width: '190px', boxSizing: 'border-box' }}
+          placeHolder="Search"
+          value={this.state.searchValue}
+          onDOMChange={(e) => { this.setState({ searchValue: e.target.value }); }}
+        />
       </div>
     );
   }
