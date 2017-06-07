@@ -39,6 +39,9 @@ describe('openRoomAsync', () => {
     const stateRoomEmptyButLoaded = { chat: { rooms: { room: { loaded: true } } } };
     getState.mockReturnValueOnce(stateRoomEmptyButLoaded);
   });
+  beforeEach(() => {
+    socket = {emit: jest.fn() };
+  });
 
   it('should ask the server for messages if it has none and its not loading or hasnt loaded yet', () => {
     chat.openRoomAsync(room, socket, username)(jest.fn(), getState);
@@ -52,6 +55,6 @@ describe('openRoomAsync', () => {
 
   it('should not ask the server for msgs if it has loaded before', () => {
     chat.openRoomAsync(room, socket, username)(jest.fn(), getState);
-    expect(socket.emit.mock.calls.length).toBe(5);// not 6
+    expect(socket.emit.mock.calls.length).toBe(1);// not 2 (each time it calls emit openRoom)
   });
 });
