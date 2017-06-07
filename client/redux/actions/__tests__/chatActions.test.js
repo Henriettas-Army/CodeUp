@@ -1,6 +1,6 @@
 /* global describe it jest expect beforeEach*/
 
-import chat from '../../redux/actions/chatActions';
+import chat from '../chatActions';
 
 describe('closeRoomAsync', () => {
   let dispatch;

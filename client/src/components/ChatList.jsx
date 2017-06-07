@@ -64,7 +64,7 @@ class ChatList extends React.Component {
           border: `3px solid ${colors.secondary}`,
           overflow: 'auto',
           backgroundColor: colors.base,
-          zIndex: 9999999
+          zIndex: 9999999,
         }}
       >
         <span
@@ -87,7 +87,7 @@ class ChatList extends React.Component {
                 {parseRoomName(room.room)}
               </span>
               {room.unread === 0 ? null
-                : <span className="secondary" style={{ borderRadius: '50%', color: 'white', backgroundColor: 'steelblue', width: 23, height: 23, textAlign: 'center', lineHeight: 1.5 }}>
+                : <span className="secondary" style={{ borderRadius: '50%', color: 'white', backgroundColor: colors.primary, width: 23, height: 23, textAlign: 'center', lineHeight: 1.5 }}>
                   {room.unread}
                 </span>
 

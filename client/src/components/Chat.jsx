@@ -92,7 +92,7 @@ class Chat extends React.Component {
                 Object.assign(style, { borderTopLeftRadius: 0 });
               }
               return (<div
-                className={'messageBubble' + (message.from === this.props.username ? ' mine' : ' other')}
+                className={`messageBubble${(message.from === this.props.username ? ' mine' : ' other')}`}
                 key={+k + 1}
                 style={{ display: 'block', width: '100%', overflow: 'auto' }}
               >
