@@ -1,13 +1,13 @@
 FROM node:boron
 
-# Create app directory
-ADD . /app
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+
+RUN mkdir -p /app && cp -a /tmp/node_modules /app
+
 WORKDIR /app
+ADD . /app
 
-# Install app dependencies
-COPY package.json /usr/src/app/
-RUN npm install
-RUN npm install webpack -g
+EXPOSE 3034
 
-# Bundle app source
-COPY . /usr/src/app
+CMD ["npm", " start"]
