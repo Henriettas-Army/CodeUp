@@ -21,8 +21,37 @@ describe('closeRoomAsync', () => {
   });
 });
 
-// describe('openRoomAsync', () => {
+describe('openRoomAsync', () => {
+  let room;
+  let socket;
+  let username;
+  let getState;
 
-//   beforeEach();
+  beforeAll(() => {
+    room = 'room';
+    socket = { emit: jest.fn() };
+    username = 'user';
+    getState = jest.fn();
+    const roomNoData = { chat: { rooms: { room: {} } } };
+    getState.mockReturnValueOnce(roomNoData);
+    const stateNoRoom = { chat: { rooms: {} } };
+    getState.mockReturnValueOnce(stateNoRoom);
+    const stateRoomEmptyButLoaded = { chat: { rooms: { room: { loaded: true } } } };
+    getState.mockReturnValueOnce(stateRoomEmptyButLoaded);
+  });
 
-// });
+  it('should ask the server for messages if it has none and its not loading or hasnt loaded yet', () => {
+    chat.openRoomAsync(room, socket, username)(jest.fn(), getState);
+    expect(socket.emit).toBeCalledWith('messages', { room: 'room' });
+  });
+
+  it('should ask for the server for msgs even if there is no room under that name', () => {
+    chat.openRoomAsync(room, socket, username)(jest.fn(), getState);
+    expect(socket.emit).toBeCalledWith('messages', { room: 'room' });
+  });
+
+  it('should not ask the server for msgs if it has loaded before', () => {
+    chat.openRoomAsync(room, socket, username)(jest.fn(), getState);
+    expect(socket.emit.mock.calls.length).toBe(5);// not 6
+  });
+});
