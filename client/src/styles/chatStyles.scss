@@ -1,5 +1,5 @@
-#chatTextInput {
-  border: '1px solid blue';
+#chatTextInput:focus {
+  border: 3px solid #2E8C65;
 }
 
 .messageBubble.other::before {

@@ -27,7 +27,8 @@ class Chat extends React.Component {
           position: 'fixed',
           bottom: 0,
           right: this.props.right, // this should be dynamic
-          border: '3px solid #ddd',
+          //border: '3px solid #ddd',
+          border: '3px solid ' + colors.primary,
           overflow: 'auto',
           backgroundColor: colors.base,
           zIndex: 999999999,
@@ -91,7 +92,7 @@ class Chat extends React.Component {
                 Object.assign(style, { borderTopLeftRadius: 0 });
               }
               return (<div
-                className={'messageBubble' + (message.from === this.props.username? ' mine' : ' other')}
+                className={'messageBubble' + (message.from === this.props.username ? ' mine' : ' other')}
                 key={+k + 1}
                 style={{ display: 'block', width: '100%', overflow: 'auto' }}
               >
@@ -109,7 +110,7 @@ class Chat extends React.Component {
             left: 0,
             width: '100%',
             height: '20%',
-            backgroundColor: colors.baseDark,
+            backgroundColor: colors.base,
           }}
         >
           <TextInput
@@ -117,7 +118,7 @@ class Chat extends React.Component {
               width: '160px',
               boxSizing: 'border-box',
             }}
-            id="item1"
+            id="chatTextInput"
             name="chatTextInput"
             value={this.state.textMessage}
             onDOMChange={(e) => { this.setState({ textMessage: e.target.value }); }}
