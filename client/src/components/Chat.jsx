@@ -3,6 +3,7 @@ import CloseIcon from 'grommet/components/icons/base/Close';
 import Button from 'grommet/components/Button';
 import TextInput from 'grommet/components/TextInput';
 import SendIcon from 'grommet/components/icons/base/Send';
+import Spinning from 'grommet/components/icons/Spinning';
 import PropTypes from 'prop-types';
 import colors from '../colorScheme';
 
@@ -29,12 +30,12 @@ class Chat extends React.Component {
           right: this.props.right, // this should be dynamic
           // border: '3px solid #ddd',
           border: `3px solid ${colors.primary}`,
-          //borderTop: 0,
-          //borderLeft: 0,
+          // borderTop: 0,
+          // borderLeft: 0,
           borderStyle: 'outset',
           borderRadius: '3px',
           overflow: 'auto',
-          //backgroundColor: colors.base,
+          // backgroundColor: colors.base,
           backgroundColor: 'white',
           zIndex: 999999999,
         }}
@@ -70,7 +71,10 @@ class Chat extends React.Component {
             overflow: 'auto',
           }}
         >
-          {this.props.loading && 'loading...'}
+          {this.props.loading && <Spinning /> }
+          {this.props.messages.length === 0 && !this.props.loading && 
+            <span style={{ color: '#CCC' }}>Send a message to {chatArray}!</span>
+          }
           {
             this.props.messages.map((message, k) => {
               const style = {
