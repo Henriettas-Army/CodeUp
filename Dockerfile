@@ -1,4 +1,7 @@
 FROM mhart/alpine-node:latest
+
+RUN npm install webpack -g
+
 ADD package.json /tmp/package.json
 RUN cd /tmp && npm install
 
@@ -7,6 +10,8 @@ RUN mkdir -p /app && cp -a /tmp/node_modules /app
 WORKDIR /app
 ADD . /app
 
+RUN webpack
+
 EXPOSE 3034
 
-CMD ["cd", "client", "&&", "../node_modules/.bin/webpack", "&&", "cd", "..", "&&", "npm", "start"]
+CMD ["npm", "start"]
