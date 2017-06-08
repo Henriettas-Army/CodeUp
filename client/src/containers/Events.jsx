@@ -179,6 +179,8 @@ class Events extends React.Component {
                   onClick={() => this.setState({ view: 'Pinned' })}
                 />
                 <br />
+              </div>
+              <div className="add-event">
                 <Anchor
                   label={<h3 className="addEventButton"><AddIcon />{'Add Event'}</h3>}
                   onClick={(e) => {

@@ -8,3 +8,14 @@ $tertiary-color: #02010A;
 @import './chatStyles';
 @import './events';
 @import './profile';
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: #FBF5F3;
+}
+
+.tabsContainer {
+  margin-top: 71px;
+  background-color: white;
+  margin-bottom: 0px;
+}

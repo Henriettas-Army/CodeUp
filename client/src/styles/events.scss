@@ -22,7 +22,7 @@
   justify-content: flex-end;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  width: 400px; }
+}
 
 .allEventsButton {
   color: white;
@@ -52,6 +52,10 @@
   padding: 5px 5px;
 }
 
+.add-event {
+  margin-right: 80px;
+}
+
 .eventBox {
   border-radius: 3px;
   border-style: outset;
@@ -62,6 +66,7 @@
 
 .date-label {
   font-size: 17px;
+  color: white;
 }
 
 .eventCreator {
@@ -71,7 +76,6 @@
 .eventsList {
   background-color: #FBF5F3;
   justify-content: center;
-  height: 610px;
 }
 
 .editDeleteEvent {

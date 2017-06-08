@@ -11,12 +11,7 @@ import '../styles/events.scss';
 const Explore = () => (
   <div>
     <NavContainer />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <Tabs>
+    <Tabs className="tabsContainer">
       <Tab title="Events">
         <Events />
       </Tab>
