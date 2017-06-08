@@ -59,7 +59,7 @@ class EditEventForm extends React.Component {
     const editEvent = this.props.editEvent;
 
     return (
-      <Form>
+      <Form style={{ padding: '7px 7px', margin: '7px 7px' }}>
         <Heading align="center">Edit Event</Heading>
         <CheckBox
           label="Make event private*"

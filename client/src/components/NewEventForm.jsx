@@ -68,7 +68,7 @@ class NewEventForm extends React.Component {
     const createEvent = this.props.createEvent;
 
     return (
-      <Form>
+      <Form style={{ padding: '7px 7px', margin: '7px 7px' }}>
         <Heading align="center">Create Event</Heading>
         <CheckBox
           colorIndex={'#01a982'}
