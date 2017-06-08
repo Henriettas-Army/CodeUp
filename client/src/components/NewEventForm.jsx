@@ -71,6 +71,7 @@ class NewEventForm extends React.Component {
       <Form>
         <Heading align="center">Create Event</Heading>
         <CheckBox
+          colorIndex={'#01a982'}
           label="Make event private*"
           checked={this.state.private}
           onChange={() => this.setState({ private: !this.state.private })}
@@ -131,6 +132,7 @@ class NewEventForm extends React.Component {
         <Section basis={'small'} align={'center'}>
           <Button
             label={'Create'}
+            style={{ backgroundColor: '#2E8C65', borderStyle: 'none', color: 'white' }}
             type={'submit'}
             primary
             onClick={(e) => {

@@ -14,10 +14,6 @@ import Spinning from 'grommet/components/icons/Spinning';
 import Status from 'grommet/components/icons/Status';
 import '../styles/events.scss';
 
-const listStyle = {
-  align: 'center'
-};
-
 const EventsList = ({
   events,
   status,
@@ -31,7 +27,7 @@ const EventsList = ({
     {status === 'LOADING' && <p className="loading">Loading ...<Spinning /></p>}
     {status === 'ERROR' && <p className="error">Error loading or posting events ... {errMessage}</p>}
     {
-      <Tiles fill flush={false} style={listStyle} className="eventsList">
+      <Tiles fill={false} flush={false} className="eventsList">
         {events.map(evt =>
           (<Tile key={evt._id} align={'start'} className="eventBox">
             <Card

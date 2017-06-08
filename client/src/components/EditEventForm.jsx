@@ -122,9 +122,10 @@ class EditEventForm extends React.Component {
         </FormField>
         <Section basis={'small'} align={'center'}>
           <Button
+            className="submitButton"
+            style={{ backgroundColor: '#2E8C65', borderStyle: 'none', color: 'white' }}
             label={'Update'}
             type={'submit'}
-            primary
             onClick={(e) => {
               e.preventDefault();
               const event = {

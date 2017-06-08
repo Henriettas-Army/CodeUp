@@ -1,5 +1,5 @@
 body {
-  background-color: #FBF5F3;
+  background-color: white;
 }
 
 .banner-container {
@@ -7,48 +7,50 @@ body {
 }
 
 .date-selector {
-  background-color: #FBF5F3;
+  background-color: #2E8C65;
   margin-left: 80px;
   padding: 20px;
   border-radius: 3px;
-  color: #4c4c4c;
+  color: #FBF5F3;
+  text-shadow: 1px 1px black;
 }
 
 .event-buttons {
-  color: #4c4c4c;
-  background-color: #FBF5F3;
+  color: white;
+  background-color: #2E8C65;
   border-radius: 3px;
   margin-right: 80px;
   padding: 20px;
-  // display: flex;
-  display: -webkit-flex;
-  // -webkit-align-items: flex-start;
-  align-items: -webkit-flex-start;
-  // -webkit-justify-content: space-between;
-  justify-content: -webkit-space-between;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-justify-content: space-between;
   align-self: flex-end;
 }
 
 .allEventsButton {
-  color: #4c4c4c;
+  color: white;
+  text-shadow: 1px 1px black;
   margin: 5px 5px;
   padding: 5px 5px;
 }
 
 .myEventsButton {
-  color: #4c4c4c;
+  color: white;
+  text-shadow: 1px 1px black;
   margin: 5px 5px;
   padding: 5px 5px;
 }
 
 .myPinnedButton {
-  color: #4c4c4c;
+  color: white;
+  text-shadow: 1px 1px black;
   margin: 5px 5px;
   padding: 5px 5px;
 }
 
 .addEventButton {
-  color: #4c4c4c;
+  color: white;
+  text-shadow: 1px 1px black;
   margin: 5px 5px;
   padding: 5px 5px;
 }
@@ -71,6 +73,7 @@ body {
 
 .eventsList {
   background-color: #FBF5F3;
+  justify-content: center;
 }
 
 .editDeleteEvent {

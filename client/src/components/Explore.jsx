@@ -5,6 +5,8 @@ import Events from '../containers/Events';
 import Users from '../containers/Users';
 import NavContainer from '../containers/NavContainer';
 import Map from '../containers/MapData';
+import '../styles/events.scss';
+
 
 const Explore = () => (
   <div>
@@ -15,7 +17,7 @@ const Explore = () => (
     <br />
     <br />
     <Tabs>
-      <Tab title="Events">
+      <Tab className="eventContainer" title="Events">
         <Events />
       </Tab>
       <Tab title="Users">
