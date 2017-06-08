@@ -9,7 +9,6 @@ import Button from 'grommet/components/Button';
 import FormFields from 'grommet/components/FormFields';
 import FormField from 'grommet/components/FormField';
 import Edit from 'grommet/components/icons/base/Edit';
-import Section from 'grommet/components/Section';
 import TextInput from 'grommet/components/TextInput';
 import Paragraph from 'grommet/components/Paragraph';
 
@@ -34,7 +33,7 @@ const TechEditForm = ({ user, updateProfile, skills, desired, location, editProf
     updateProfile(updateObj);
   };
   return (
-    <Section>
+    <div className="tech-edit-container">
       <Button
         icon={<Edit />}
         onClick={editProfile}
@@ -47,7 +46,7 @@ const TechEditForm = ({ user, updateProfile, skills, desired, location, editProf
         size={'small'}
       />
       { editing ?
-        <Layer>
+        <Layer closer onClose={editProfile}>
           <Form>
             <Header>
               <Heading tag={'h3'}>
@@ -89,24 +88,32 @@ const TechEditForm = ({ user, updateProfile, skills, desired, location, editProf
               </FormField>
             </FormFields>
             <Footer pad={{ vertical: 'medium' }}>
-              <Button
-                label={'Submit'}
-                type={'submit'}
-                primary
-                onClick={formSubmit}
-              />
-              <Button
-                type={'button'}
-                label={'Cancel'}
-                primary={false}
-                onClick={editProfile}
-              />
+              <span className="button-tech">
+                <Button
+                  label={'Submit'}
+                  type={'submit'}
+                  primary
+                  plain
+                  onClick={formSubmit}
+                  style={{ backgroundColor: '#2E8C65', borderStyle: 'none', color: 'white', textShadow: '0.5px 0.5px grey' }}
+                />
+              </span>
+              <span className="button-tech">
+                <Button
+                  type={'button'}
+                  label={'Cancel'}
+                  primary={false}
+                  plain
+                  style={{ backgroundColor: '#2E8C65', borderStyle: 'none', color: 'white', textShadow: '0.5px 0.5px grey' }}
+                  onClick={editProfile}
+                />
+              </span>
             </Footer>
           </Form>
         </Layer>
         : ''
       }
-    </Section>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
 import Card from 'grommet/components/Card';
 import Chip from 'react-toolbox/lib/chip';
 
