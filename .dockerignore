@@ -1,3 +1,6 @@
+.git
+.gitignore
+.editorconfig
 node_modules
-npm-debug.log
-docker-cloud.yml
+*.log
+*.md
