@@ -71,7 +71,6 @@ class NewEventForm extends React.Component {
       <Form style={{ padding: '7px 7px', margin: '7px 7px' }}>
         <Heading align="center">Create Event</Heading>
         <CheckBox
-          colorIndex={'#01a982'}
           label="Make event private*"
           checked={this.state.private}
           onChange={() => this.setState({ private: !this.state.private })}
