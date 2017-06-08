@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'grommet/components/Select';
-import Section from 'grommet/components/Section';
 import Status from 'grommet/components/icons/Status';
 import CliIcon from 'grommet/components/icons/base/Cli';
 
 const UserStatus = ({ user, updateProfile, status }) => (
-  <Section>
-    <h3>Status
-    {
-      status === 'Unavailable' ? (<span> <Status value="critical" /></span>)
-      : (<span> {status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}</span>)
-    }
+  <span>
+    <h3><strong>Status</strong>
+      {
+        status === 'Unavailable' ? (<span> <Status value="critical" /></span>)
+        : (<span> {status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}</span>)
+      }
     </h3>
     <Select
       placeHolder={user}
@@ -21,7 +20,7 @@ const UserStatus = ({ user, updateProfile, status }) => (
       value={status}
       onChange={({ value }) => (updateProfile({ username: user, toUpdate: [{ data: value, typeUpdate: 'status' }] }))}
     />
-  </Section>
+  </span>
 );
 
 UserStatus.propTypes = {
