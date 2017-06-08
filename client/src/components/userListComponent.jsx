@@ -4,7 +4,7 @@ import Card from 'grommet/components/Card';
 import Tiles from 'grommet/components/Tiles';
 import Tile from 'grommet/components/Tile';
 import Anchor from 'grommet/components/Anchor';
-import CliIcon from 'grommet/components/icons/base/Cli';
+import CodeIcon from 'grommet/components/icons/base/Code';
 import Status from 'grommet/components/icons/Status';
 
 const UserList = ({ users }) => (
@@ -21,14 +21,14 @@ const UserList = ({ users }) => (
             <p className={'userHeader'}><h2>{user.username}</h2>
               {user.location.length > 0 ? user.location.join(', ') : 'Not Specified'}</p></Anchor>}
           contentPad="none"
-          link={user.status === 'Unavailable' ? (<span> <Status value="critical" />Unavailable</span>)
-                : (<span> {user.status === 'Available' ? <Status value="ok" />
-                : <CliIcon colorIndex={user.status ? 'accent-3' : 'critical'} />}{user.status || '  offline'}</span>)}
+          link={user.status === 'Unavailable' ? (<span className="userStatus"><br /> <Status value="critical" />Unavailable</span>)
+                : (<span className="userStatus"> <br />{user.status === 'Available' ? <Status value="ok" />
+                : <CodeIcon colorIndex={'accent-3'} className="codeNow" />}<span className="userState">{user.status}</span></span>)}
           heading={<p>{user.skills.join(' | ') || 'Skills Not Available'}</p>}
           description={
             <span>
               <strong className={'userDescription'}>Developing: </strong>{`${user.desired.join(', ') || 'N/A'}`}<br />
-              <strong className={'userDescription'}>About Me: </strong>{`-${user.bio ? user.bio : 'N/A'}`}
+              <br /><strong className={'userDescription'}>About Me: </strong>{`-${user.bio ? user.bio : 'N/A'}`}
             </span>
           }
         />
