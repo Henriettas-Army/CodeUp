@@ -13,6 +13,7 @@ import SearchInput from 'grommet/components/SearchInput';
 import TrashIcon from 'grommet/components/icons/base/Trash';
 import Anchor from 'grommet/components/Anchor';
 import Section from 'grommet/components/Section';
+import '../styles/events.scss';
 
 class EditEventForm extends React.Component {
 

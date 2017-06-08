@@ -11,7 +11,7 @@ import Heading from 'grommet/components/Heading';
 import CheckBox from 'grommet/components/CheckBox';
 import SearchInput from 'grommet/components/SearchInput';
 import Section from 'grommet/components/Section';
-
+import '../styles/events.scss';
 
 const EMPTY_FORM = {
   title: '',
