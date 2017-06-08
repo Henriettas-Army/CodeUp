@@ -29,7 +29,9 @@ class ChatList extends React.Component {
             right: 0,
             border: `3px solid ${colors.secondary}`,
             backgroundColor: colors.base,
-            zIndex: '99999999'
+            zIndex: '99999999',
+            borderStyle: 'outset',
+            borderRadius: '3px',
           }}
         >
           <span
@@ -65,6 +67,8 @@ class ChatList extends React.Component {
           overflow: 'auto',
           backgroundColor: colors.base,
           zIndex: 9999999,
+          borderStyle: 'outset',
+          borderRadius: '3px',
         }}
       >
         <span
