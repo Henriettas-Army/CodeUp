@@ -9,4 +9,4 @@ ADD . /app
 
 EXPOSE 3034
 
-CMD ["npm", "start"]
+CMD ["cd", "client", "&&", "../node_modules/.bin/webpack", "&&", "cd", "..", "&&", "npm", "start"]
