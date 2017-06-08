@@ -9,7 +9,7 @@ import '../styles/events.scss';
 
 
 const Explore = () => (
-  <div>
+  <div >
     <NavContainer />
     <Tabs className="tabsContainer">
       <Tab title="Events">

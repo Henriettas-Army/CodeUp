@@ -8,7 +8,7 @@ import CodeIcon from 'grommet/components/icons/base/Code';
 import Status from 'grommet/components/icons/Status';
 
 const UserList = ({ users }) => (
-  <Tiles className={'userTiles flex-container'} fill={false} flush={false}>
+  <Tiles className={'userTiles flex-container adjustHeight'} fill={false} flush={false}>
     {users.map((user, key) =>
       (<Tile className={'userTile'} key={user._id + +key} align={'start'}>
         <Card
