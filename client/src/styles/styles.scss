@@ -8,3 +8,7 @@ $tertiary-color: #02010A;
 @import './chatStyles';
 @import './events';
 @import './profile';
+
+body {
+  font-family: 'Work Sans', sans-serif;
+}

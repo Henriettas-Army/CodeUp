@@ -1,3 +1,7 @@
+body {
+  background-color: #FBF5F3;
+}
+
 .banner-container {
   background-color: #2E8C65;
 }
@@ -22,7 +26,7 @@
   justify-content: flex-end;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  width: 400px; }
+}
 
 .allEventsButton {
   color: white;
@@ -52,6 +56,10 @@
   padding: 5px 5px;
 }
 
+.add-event {
+  margin-right: 80px;
+}
+
 .eventBox {
   border-radius: 3px;
   border-style: outset;
@@ -71,9 +79,12 @@
 .eventsList {
   background-color: #FBF5F3;
   justify-content: center;
-  height: 610px;
 }
 
 .editDeleteEvent {
   color: #2E8C65;
+}
+
+.eventsTab {
+  height: 100%;
 }

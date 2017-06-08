@@ -8,7 +8,7 @@ import combineReducers from './reducers/combineReducers';
 
 const store = composeWithDevTools(
   applyMiddleware(thunk, positionMiddleware),
-  //autoRehydrate(),
+  // autoRehydrate(),
 )(createStore)(combineReducers);
 
 persistStore(store);
