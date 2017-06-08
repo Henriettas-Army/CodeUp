@@ -1,6 +1,7 @@
 body {
   font-family: 'Work Sans', sans-serif;
 }
+
 .profile-container {
   display: -webkit-flex;
   display: flex;
@@ -98,8 +99,27 @@ body {
   height: 50px;
   width: 50px;
 }
+
 .endorsement-card {
   border-radius: 15px;
   border-style: outset;
   border-width: 1px;
+}
+
+.button-tech {
+  background-color: $primary-color;
+  border-radius: 2px;
+  margin: 2px 2px;
+  padding: 2px 2px;
+}
+
+.endorse-skills {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-margin-after: 0.5em;
+  margin-after: 0.5em;
 }

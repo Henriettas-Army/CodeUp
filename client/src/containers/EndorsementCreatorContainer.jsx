@@ -13,8 +13,13 @@ class EndorsementCreatorContainer extends Component {
     this.state = {
       title: '',
       comments: '',
-      skills: [],
+      skills: props.skillsToEndorse.slice(),
     };
+    this.writeTitle = this.writeTitle.bind(this);
+    this.writeComment = this.writeComment.bind(this);
+    this.removeSkill = this.removeSkill.bind(this);
+    this.sendEndorsement = this.sendEndorsement.bind(this);
+    this.resetSkills = this.resetSkills.bind(this);
   }
   writeTitle(inputString) {
     this.setState({ title: inputString });
@@ -22,12 +27,10 @@ class EndorsementCreatorContainer extends Component {
   writeComment(inputString) {
     this.setState({ comments: inputString });
   }
-  toggleSkill(skill) {
-    const skills = this.state.skills;
+  removeSkill(skill) {
+    const skills = this.state.skills.slice();
     if (skills.includes(skill)) {
       skills.splice(skills.indexOf(skill), 1);
-    } else {
-      skills.push(skill);
     }
     this.setState({ skills });
   }
@@ -44,15 +47,21 @@ class EndorsementCreatorContainer extends Component {
     this.props.closeEC();
     this.props.showToast(`Thanks for endorsing ${this.props.endorsed}`);
   }
+  resetSkills() {
+    const reset = this.props.skillsToEndorse.slice();
+    this.setState({ skills: reset });
+  }
   render() {
     return (
       <div>
         <EndorsementCreator
           {...this.props}
-          toggleSkill={(s) => { this.toggleSkill(s); }}
-          writeComment={(c) => { this.writeComment(c); }}
-          sendEndorsement={() => { this.sendEndorsement(); }}
-          writeTitle={(t) => { this.writeTitle(t); }}
+          skills={this.state.skills}
+          removeSkill={this.removeSkill}
+          resetSkills={this.resetSkills}
+          writeComment={this.writeComment}
+          sendEndorsement={this.sendEndorsement}
+          writeTitle={this.writeTitle}
         />
         {
           this.props.status === 'LOADING' ?
@@ -69,7 +78,7 @@ EndorsementCreatorContainer.propTypes = {
   endorsed: PropTypes.string.isRequired,
   postEndorsement: PropTypes.func.isRequired,
   showToast: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string,
   loadProfile: PropTypes.func.isRequired,
 };
 
