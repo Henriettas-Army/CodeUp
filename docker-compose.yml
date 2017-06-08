@@ -4,8 +4,6 @@ services:
     image: techmexdev/codeup:production
     ports:
       - "3034:3034"
-    volumes:
-      - .:/app
     deploy:
       replicas: 2
       restart_policy:

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = Promise;
 
-mongoose.connect('mongodb://mongo:27017');
-// mongoose.connect('mongodb://localhost/codeupdb');
+//mongoose.connect('mongodb://mongo/codeupdb);
+mongoose.connect('mongodb://localhost:27017/codeupdb');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

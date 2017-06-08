@@ -16,7 +16,7 @@ describe('endorsement creation', () => {
 
   beforeAll(async () => {
     mongoose.Promise = Promise;
-    await mongoose.connect('mongodb://localhost/codeupdb');
+    await mongoose.connect('mongodb://mongo:27017/codeupdb');
     db = mongoose.connection;
   });
 
