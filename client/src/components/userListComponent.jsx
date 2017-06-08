@@ -13,6 +13,7 @@ const UserList = ({ users }) => (
       (<Tile className={'userTile'} key={user._id + +key} align={'start'}>
         <Card
           label={<Anchor
+            style={{ color: '#2E8C65' }}
             className={'userAnchor'}
             href="#"
             path={`/profile/${user.username}`}
@@ -26,8 +27,8 @@ const UserList = ({ users }) => (
           heading={<p>{user.skills.join(' | ') || 'Skills Not Available'}</p>}
           description={
             <span>
-              <strong>Developing: </strong>{`${user.desired.join(', ') || 'N/A'}`}<br />
-              <strong>About Me: </strong>{`-${user.bio ? user.bio : 'N/A'}`}
+              <strong className={'userDescription'}>Developing: </strong>{`${user.desired.join(', ') || 'N/A'}`}<br />
+              <strong className={'userDescription'}>About Me: </strong>{`-${user.bio ? user.bio : 'N/A'}`}
             </span>
           }
         />
