@@ -7,6 +7,7 @@
 
 .userAnchor {
   color: $secondary-color;
+  padding-top: 8px;
 };
 
 .profilePic {
@@ -18,17 +19,20 @@
 
 .userHeader {
   margin-left: 90px;
-  color: $secondary-color;
+  color: $primary-color;
 };
 
 .userTile {
-  background: $primary-color;
-  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  background: $base-color;
   padding-left: 10px;
-  border-radius: 10px;
-  border: 1px solid black;
+  border: 1px outset;
+  border-radius: 3px;
 }
 
 .userTile:hover {
-  background: #756c6c;
+  background: #e0e0e0;
+}
+
+.userDescription {
+  margin: 5px;
 }
