@@ -9,4 +9,4 @@ ADD . /app
 
 EXPOSE 3034
 
-CMD ["npm", " start"]
+CMD ["npm", "start"]
