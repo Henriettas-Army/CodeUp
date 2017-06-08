@@ -17,7 +17,7 @@ const Explore = () => (
     <br />
     <br />
     <Tabs>
-      <Tab className="eventContainer" title="Events">
+      <Tab title="Events">
         <Events />
       </Tab>
       <Tab title="Users">
