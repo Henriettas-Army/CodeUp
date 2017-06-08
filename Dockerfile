@@ -14,4 +14,4 @@ RUN webpack
 
 EXPOSE 3034
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "production"]
