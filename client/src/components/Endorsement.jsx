@@ -1,23 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
+// import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
+import Card from 'grommet/components/Card';
 import Chip from 'react-toolbox/lib/chip';
 
 const Endorsement = ({ endorsement }) => (
-  <Card style={{ width: '100%', display: 'inline-block' }} >
-    <CardTitle
-      avatar={endorsement.endorserImg}
-      title={endorsement.endorserUsername}
-    />
-
-    <CardTitle title={endorsement.title} />
-    <CardText>{endorsement.comments}</CardText>
-    <div>
-      {endorsement.skills.map((s, k) => (
-        <Chip key={+k + 1} style={{ display: 'inline-block' }}>{s}</Chip>
-      ))}
-    </div>
-  </Card>
+  <Card
+    size="medium"
+    pad="none"
+    heading={(
+      <span>
+        <img className="endorse-img" src={endorsement.endorserImg} alt="endorser" />
+        <strong>{`  ${endorsement.endorserUsername}`}</strong>
+        <br />
+        <br />
+        <span className="endorse-title"><strong>{endorsement.title}</strong></span>
+      </span>
+    )}
+    description={(
+      <div>
+        <span className="description">{endorsement.comments}</span><br />
+        {endorsement.skills.map(s => (
+          <Chip key={Math.random()} style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }}>{s}</Chip>
+        ))}
+      </div>
+    )}
+  />
 );
 
 Endorsement.propTypes = {

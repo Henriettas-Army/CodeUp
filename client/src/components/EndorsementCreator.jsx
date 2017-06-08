@@ -11,7 +11,7 @@ import TextInput from 'grommet/components/TextInput';
 import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
 
-const EndorsementCreator = (props) => (
+const EndorsementCreator = props => (
   <Section>
     <Layer closer onClose={props.closeEC}>
       <Form>
@@ -52,10 +52,9 @@ const EndorsementCreator = (props) => (
 
 EndorsementCreator.propTypes = {
   closeEC: PropTypes.func.isRequired,
-
   skillsToEndorse: PropTypes.arrayOf(PropTypes.string),
-  toggleSkill: PropTypes.func.isRequired,
   writeTitle: PropTypes.func.isRequired,
+  toggleSkill: PropTypes.func.isRequired,
   writeComment: PropTypes.func.isRequired,
   sendEndorsement: PropTypes.func.isRequired,
 };
