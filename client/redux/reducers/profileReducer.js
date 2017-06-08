@@ -1,3 +1,5 @@
+/* global processSpecial */
+import { REHYDRATE } from 'redux-persist/constants';
 import profile from '../actions/profileActions';
 
 const INITIAL_STATE = {
@@ -19,6 +21,13 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { editing: !state.editing });
     case profile.UPDATE_PROFILE:
       return Object.assign({}, state, { status: 'READY' }, { profile: action.profile }, { editing: false });
+    case REHYDRATE: {
+      const incoming = action.payload.profileReducer;
+      if (incoming) {
+        return { ...state, ...incoming, specialKey: processSpecial(incoming.specialKey) };
+      }
+      return state;
+    }
     default:
       return state;
   }

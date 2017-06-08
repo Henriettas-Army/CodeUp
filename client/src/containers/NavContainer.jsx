@@ -4,13 +4,25 @@ import { connect } from 'react-redux';
 import Nav from '../components/Nav';
 import loginActions from '../../redux/actions/loginActions';
 
-const NavContainer = ({ logoutUser, isAuthenticated }) => (
-  <Nav logoutUser={logoutUser} isAuthenticated={isAuthenticated} />
+const NavContainer = ({ logoutUser, isAuthenticated, match }) => (
+  <Nav logoutUser={logoutUser} isAuthenticated={isAuthenticated} path={match.path} />
 );
 
 NavContainer.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    isExact: PropTypes.bool,
+    path: PropTypes.string,
+    url: PropTypes.string,
+    params: PropTypes.shape({
+      username: PropTypes.string,
+    }),
+  }),
+};
+
+NavContainer.defaultProps = {
+  match: {},
 };
 
 const mapStateToProps = state => ({
@@ -19,7 +31,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logoutUser: () => {
-    dispatch(loginActions.logoutUser('', 'Unavailable', false));
+    dispatch(loginActions.logoutUser('', '', false));
   },
 });
 

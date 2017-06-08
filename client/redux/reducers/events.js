@@ -1,3 +1,5 @@
+/* global processSpecial */
+import { REHYDRATE } from 'redux-persist/constants';
 import events from '../actions/eventActions';
 
 const INITIAL_STATE = {
@@ -14,6 +16,13 @@ const eventsReducer = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { status: 'ERROR', error: action.error });
     case events.DATA:
       return Object.assign({}, state, { status: 'READY' }, { events: action.events });
+    case REHYDRATE: {
+      const incoming = action.payload.eventsReducer;
+      if (incoming) {
+        return { ...state, ...incoming, specialKey: processSpecial(incoming.specialKey) };
+      }
+      return state;
+    }
     default:
       return state;
   }
