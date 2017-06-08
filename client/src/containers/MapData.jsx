@@ -12,16 +12,6 @@ import eventActions from '../../redux/actions/eventActions';
 
 import userActions from '../../redux/actions/userListAction';
 
-const style = {
-  height: '800px',
-  width: '100%',
-};
-const EventStyle = {
-  width: '350px',
-  height: '800px',
-  overflow: 'hidden',
-  overflowY: 'scroll',
-};
 const getUserPos = () => {
   let pos = null;
   if (navigator.geolocation) {
@@ -86,12 +76,10 @@ class MapData extends React.Component {
     return (
       <Split
         flex="left"
-        style={{ height: '800px', overflow: 'hidden' }}
+        className={'theSplit'}
       >
-        <Box
-          style={{ height: '800px' }}
-        >
-          <Map style={style} center={getUserPos()} zoom={15}>
+        <Box>
+          <Map className={'theMap'} center={getUserPos()} zoom={15}>
             <TileLayer
               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -120,7 +108,7 @@ class MapData extends React.Component {
           </Map>
         </Box>
         <Sidebar
-          style={EventStyle}
+          className={'mapEvents'}
         >
           <Box
             style={{ height: '800px' }}
