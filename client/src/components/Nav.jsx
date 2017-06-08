@@ -21,6 +21,8 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
         href="#"
         path="/explore"
         className="active"
+        animateIcon={false}
+        style={{ color: '#2E8C65' }}
       >
         codeUp
       </Anchor>
@@ -38,6 +40,8 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
         href="#"
         path="/explore"
         className="active"
+        animateIcon={false}
+        style={{ color: '#2E8C65' }}
       />
       <Menu
         icon={
@@ -49,11 +53,15 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
           href="#"
           path={`/profile/${isAuthenticated}`}
           className="active"
+          animateIcon={false}
+          style={{ color: '#2E8C65' }}
         >
           Profile
         </Anchor>
         <Anchor
           onClick={logoutUser}
+          animateIcon={false}
+          style={{ color: '#2E8C65' }}
         >
           Logout
         </Anchor>

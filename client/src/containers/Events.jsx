@@ -20,7 +20,7 @@ import eventActions from '../../redux/actions/eventActions';
 import loginActions from '../../redux/actions/loginActions';
 import NewEventForm from '../components/NewEventForm';
 import EditEventForm from '../components/EditEventForm';
-
+import '../styles/events.scss';
 
 class Events extends React.Component {
   constructor(props) {
@@ -115,89 +115,93 @@ class Events extends React.Component {
 
     return (
       <div>
-        {toast}
-        <Split priority={'left'} showOnResponsive={'both'} flex={'left'} fixed={false}>
-          <Box pad={'small'} align={'start'} >
-            {
-              this.state.showNewEventForm &&
-              <Layer
-                closer
-                flush
-                onClose={() => { this.setState({ showNewEventForm: false }); }}
-              >
-                <NewEventForm
-                  createEvent={createEvent}
-                  onSubmit={() => { this.setState({ showNewEventForm: false }); }}
-                  isAuthenticated={isAuthenticated}
+        <div className="banner-container">
+          {toast}
+          <Split priority={'left'} showOnResponsive={'both'} flex={'left'} fixed={false}>
+            <Box pad={'small'} align={'start'} >
+              {
+                this.state.showNewEventForm &&
+                <Layer
+                  closer
+                  flush
+                  onClose={() => { this.setState({ showNewEventForm: false }); }}
+                >
+                  <NewEventForm
+                    createEvent={createEvent}
+                    onSubmit={() => { this.setState({ showNewEventForm: false }); }}
+                    isAuthenticated={isAuthenticated}
+                  />
+                </Layer>
+              }
+              {
+                this.state.showEditEventForm &&
+                <Layer
+                  closer
+                  flush
+                  onClose={() => { this.setState({ showEditEventForm: false }); }}
+                >
+                  <EditEventForm
+                    event={this.props.editingEvent}
+                    editEvent={editEvent}
+                    editingEvent={this.state.editingEvent}
+                    deleteEvent={deleteEvent}
+                    onSubmit={() => { this.setState({ showEditEventForm: false }); }}
+                    isAuthenticated={isAuthenticated}
+                  />
+                </Layer>
+              }
+              <div className="date-selector">
+                <p className="date-label"><strong>Filter events by date:</strong></p>
+                <DatePicker
+                  todayButton="Today"
+                  selected={this.state.calendar}
+                  placeholderText="Select a date here"
+                  onChange={this.handleCalendarDate}
+                  isClearable
                 />
-              </Layer>
-            }
-            {
-              this.state.showEditEventForm &&
-              <Layer
-                closer
-                flush
-                onClose={() => { this.setState({ showEditEventForm: false }); }}
-              >
-                <EditEventForm
-                  event={this.props.editingEvent}
-                  editEvent={editEvent}
-                  editingEvent={this.state.editingEvent}
-                  deleteEvent={deleteEvent}
-                  onSubmit={() => { this.setState({ showEditEventForm: false }); }}
-                  isAuthenticated={isAuthenticated}
+              </div>
+            </Box>
+            <Box pad={'medium'} align={'end'} alignContent={'around'}>
+              <div className="event-buttons">
+                <Anchor
+                  label={<h3 className="allEventsButton"><IterationIcon />{'All'}</h3>}
+                  disabled={this.state.view === 'All'}
+                  onClick={() => this.setState({ view: 'All' })}
                 />
-              </Layer>
-            }
-            <p>Filter events by date:</p>
-            <DatePicker
-              todayButton="Today"
-              selected={this.state.calendar}
-              placeholderText="Select a date here"
-              onChange={this.handleCalendarDate}
-              isClearable
-            />
-            <br />
-          </Box>
-          <Box pad={'medium'} align={'end'} >
-            <p>
-              <Anchor
-                icon={<IterationIcon colorIndex={'neutral-4'} />}
-                label={'All'}
-                disabled={this.state.view === 'All'}
-                onClick={() => this.setState({ view: 'All' })}
-              />
-              <Anchor
-                icon={<MagicIcon colorIndex={'neutral-3'} />}
-                label={'My Events'}
-                disabled={this.state.view === 'Created'}
-                onClick={() => this.setState({ view: 'Created' })}
-              />
-              <Anchor
-                icon={<PinIcon colorIndex={'neutral-2-a'} />}
-                label={'My Pinned'}
-                disabled={this.state.view === 'Pinned'}
-                onClick={() => this.setState({ view: 'Pinned' })}
-              />
-              <br /><br /><br />
-              <Anchor
-                icon={<AddIcon />}
-                label={'Add Event'}
-                onClick={(e) => { e.preventDefault(); this.setState({ showNewEventForm: true }); }}
-              />
-            </p>
-          </Box>
-        </Split>
-        {zeroEvents}
-        <EventsList
-          events={events}
-          status={status}
-          updateEvent={updateEvent}
-          displayEditEventForm={this.displayEditEventForm}
-          isAuthenticated={isAuthenticated}
-          errMessage={errMessage ? 'error somewhere' : ''}
-          map={false}
-        />
+                <Anchor
+                  label={<h3 className="myEventsButton">{'  '}<MagicIcon />{'My Events'}</h3>}
+                  disabled={this.state.view === 'Created'}
+                  onClick={() => this.setState({ view: 'Created' })}
+                />
+                <Anchor
+                  label={<h3 className="myPinnedButton"><PinIcon />{'My Pinned'}</h3>}
+                  disabled={this.state.view === 'Pinned'}
+                  onClick={() => this.setState({ view: 'Pinned' })}
+                />
+                <br />
+                <Anchor
+                  label={<h3 className="addEventButton"><AddIcon />{'Add Event'}</h3>}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    this.setState({ showNewEventForm: true });
+                  }}
+                />
+              </div>
+            </Box>
+          </Split>
+        </div>
+        <div>
+          {zeroEvents}
+          <EventsList
+            events={events}
+            status={status}
+            updateEvent={updateEvent}
+            displayEditEventForm={this.displayEditEventForm}
+            isAuthenticated={isAuthenticated}
+            errMessage={errMessage ? 'error somewhere' : ''}
+            map={false}
+          />
+        </div>
       </div>
     );
   }

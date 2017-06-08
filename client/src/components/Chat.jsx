@@ -4,6 +4,7 @@ import Button from 'grommet/components/Button';
 import TextInput from 'grommet/components/TextInput';
 import SendIcon from 'grommet/components/icons/base/Send';
 import PropTypes from 'prop-types';
+import colors from '../colorScheme';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -21,14 +22,15 @@ class Chat extends React.Component {
     return (
       <div
         style={{
-          width: '200px',
+          width: `${this.props.width}px`,
           height: '300px',
           position: 'fixed',
           bottom: 0,
           right: this.props.right, // this should be dynamic
-          border: '3px solid #ddd',
+          // border: '3px solid #ddd',
+          border: `3px solid ${colors.primary}`,
           overflow: 'auto',
-          backgroundColor: 'white',
+          backgroundColor: colors.base,
           zIndex: 999999999,
         }}
       >
@@ -67,23 +69,37 @@ class Chat extends React.Component {
               const style = {
                 marginTop: '5px',
                 display: 'inline-block',
-                maxWidth: '150px',
-                borderRadius: '2px',
+                maxWidth: `${this.props.width * 0.8}px`,
+                borderRadius: '10px',
                 padding: '10px',
                 boxSizing: 'border-box',
                 marginLeft: 0,
-                border: '2px solid #eee'
+                // border: '2px solid #eee',
+                backgroundColor: colors.primary,
+                color: 'white',
               };
               if (message.from === this.props.username) {
                 Object.assign(style, {
-                  border: '2px solid #ddd',
+                  // border: '2px solid #ddd',
                   marginRight: 0,
                   marginLeft: undefined,
                   float: 'right',
+                  backgroundColor: colors.secondary,
+                  color: 'black',
+                  borderTopRightRadius: 0,
                 });
+              } else {
+                Object.assign(style, { borderTopLeftRadius: 0 });
               }
-              return (<div key={+k + 1} style={{ display: 'block', width: '100%', overflow: 'auto' }}><div style={style}>
-                {message.message}</div></div>);
+              return (<div
+                className={`messageBubble${(message.from === this.props.username ? ' mine' : ' other')}`}
+                key={+k + 1}
+                style={{ display: 'block', width: '100%', overflow: 'auto' }}
+              >
+                <div style={style}>
+                  {message.message}
+                </div>
+              </div>);
             })
           }
         </div>
@@ -94,26 +110,36 @@ class Chat extends React.Component {
             left: 0,
             width: '100%',
             height: '20%',
+            backgroundColor: colors.base,
           }}
         >
           <TextInput
             style={{
-              width: '160px',
+              width: `${this.props.width * 0.8}px`,
               boxSizing: 'border-box',
             }}
-            id="item1"
-            name="item-1"
+            id="chatTextInput"
+            name="chatTextInput"
             value={this.state.textMessage}
             onDOMChange={(e) => { this.setState({ textMessage: e.target.value }); }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                this.props.sendMessage(this.state.textMessage, this.props.chatName);
+                this.setState({ textMessage: '' });
+              }
+            }}
           />
           <Button
             style={{
               boxSizing: 'border-box',
-              width: '40px',
-              height: '40px',
+              width: `${this.props.width * 0.18}`,
+              height: `${this.props.width * 0.18}`,
             }}
             icon={<SendIcon />}
-            onClick={() => { this.props.sendMessage(this.state.textMessage, this.props.chatName); this.setState({ textMessage: '' }); }}
+            onClick={() => {
+              this.props.sendMessage(this.state.textMessage, this.props.chatName);
+              this.setState({ textMessage: '' });
+            }}
           />
         </div>
       </div>

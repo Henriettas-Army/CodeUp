@@ -11,7 +11,7 @@ import Heading from 'grommet/components/Heading';
 import CheckBox from 'grommet/components/CheckBox';
 import SearchInput from 'grommet/components/SearchInput';
 import Section from 'grommet/components/Section';
-
+import '../styles/events.scss';
 
 const EMPTY_FORM = {
   title: '',
@@ -68,9 +68,10 @@ class NewEventForm extends React.Component {
     const createEvent = this.props.createEvent;
 
     return (
-      <Form>
+      <Form style={{ padding: '7px 7px', margin: '7px 7px' }}>
         <Heading align="center">Create Event</Heading>
         <CheckBox
+          colorIndex={'#01a982'}
           label="Make event private*"
           checked={this.state.private}
           onChange={() => this.setState({ private: !this.state.private })}
@@ -131,6 +132,7 @@ class NewEventForm extends React.Component {
         <Section basis={'small'} align={'center'}>
           <Button
             label={'Create'}
+            style={{ backgroundColor: '#2E8C65', borderStyle: 'none', color: 'white' }}
             type={'submit'}
             primary
             onClick={(e) => {

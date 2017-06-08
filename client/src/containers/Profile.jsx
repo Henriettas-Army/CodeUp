@@ -12,8 +12,6 @@ import EndorsementList from '../components/EndorsementList';
 import profileActions from '../../redux/actions/profileActions';
 import chatActions from '../../redux/actions/chatActions';
 
-import '../styles/styles.scss';
-
 class Profile extends React.Component {
   componentWillMount() {
     this.state = {
@@ -58,7 +56,8 @@ class Profile extends React.Component {
     return (
       <GrommetApp>
         <NavContainer />
-        <div>
+        <br /><br />
+        <div className="profile-container">
           <UserInfo
             profile={profile}
             status={status}

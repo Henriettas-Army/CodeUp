@@ -8,6 +8,7 @@ import ChatList from '../components/ChatList';
 import Chat from '../components/Chat';
 import chat from '../../redux/actions/chatActions';
 
+
 class Chats extends React.Component {
   constructor(props) {
     super(props);
@@ -39,9 +40,14 @@ class Chats extends React.Component {
     }
     const chatRoomNames = Object.keys(this.props.rooms);
     console.log('roomnames in chat', chatRoomNames);
+
+    const chatListWidth = 350;
+    const chatWidth = 300;
+
     return (
       <div>
         <ChatList
+          width={chatListWidth}
           rooms={chatRoomNames.map(room => ({ room, unread: this.props.rooms[room].unread }))}
           showChat={room => this.props.showChat(room, this.state.socket, this.props.username)}
           username={this.props.username}
@@ -52,7 +58,8 @@ class Chats extends React.Component {
             <Chat
               key={+i + 1}
               loading={this.props.rooms[room].loading}
-              right={(200 * i) + 210}
+              width={chatWidth}
+              right={((chatWidth + 10) * i) + chatListWidth + 10}
               chatName={room}
               onCloseChat={() => {
                 this.props.hideChat(room, this.state.socket, this.props.username);
@@ -71,6 +78,7 @@ class Chats extends React.Component {
               }}
             />
         ))}
+        
       </div>);
   }
 }
@@ -92,7 +100,6 @@ Chats.propTypes = {
 const mapStateToProps = state => ({
   username: state.auth.isAuthenticated,
   rooms: state.chat.rooms,
-  socket: state.socket,
 });
 
 const mapDispatchToProps = dispatch => ({

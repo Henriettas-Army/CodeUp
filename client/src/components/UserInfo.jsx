@@ -1,21 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from 'grommet/components/Box';
-import Columns from 'grommet/components/Columns';
 import Spinning from 'grommet/components/icons/Spinning';
 import SendIcon from 'grommet/components/icons/base/Send';
 import CliIcon from 'grommet/components/icons/base/Cli';
 import EditIcon from 'grommet/components/icons/base/Edit';
 import Status from 'grommet/components/icons/Status';
-import Section from 'grommet/components/Section';
-import Image from 'grommet/components/Image';
 import Button from 'grommet/components/Button';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
 import Label from 'grommet/components/Label';
-import Heading from 'grommet/components/Heading';
-import Paragraph from 'grommet/components/Paragraph';
 import Chip from 'react-toolbox/lib/chip';
-
 import UserStatus from './UserStatus';
 import TechEditForm from './TechEditForm';
 
@@ -30,60 +23,66 @@ const UserInfo = ({
   addChatRoom,
   openEC,
   endorsedSkills }) => (
-    <Section>
-      {status === 'LOADING' && <p className="loading">Loading Profile... <Spinning /></p>}
-      {status === 'ERROR' && <p className="error">{errMessage}</p>}
+    <div>
+      {status === 'LOADING' && <h3>Loading Profile... <Spinning size="large" /></h3>}
+      {status === 'ERROR' && <h3>{errMessage}</h3>}
       {status === 'READY' &&
-      <Section>
-        <Columns maxCount={3} size={'medium'} justify={'start'} >
-          <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} alignContent={'start'} >
-            <Image src={profile.img} alt="user github avatar" size={'small'} />
-          </Box>
-          <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
-            <Heading tag="h2">{profile.username}</Heading>
-            <Heading tag="h4">{profile.name}</Heading>
-            <Paragraph>{profile.bio}</Paragraph>
-            <Paragraph>{profile.location ? profile.location.join(', ') : ''}</Paragraph>
-          </Box>
-          <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
+      <div className="user-container">
+        <div className="bio-container">
+          <div className="bio-child-image">
+            <img className="profile" src={profile.img} alt="user github avatar" />
+          </div>
+          <div>
+            <h2 className="header-margin">{profile.username}</h2>
+            <h3 className="description header-margin">{profile.name}</h3>
+            <span className="description">{profile.bio}</span><br />
+            <span className="description">{profile.location ? profile.location.join(', ') : ''}</span>
+          </div>
+          <div>
             {profile.username === currentUser ?
               <UserStatus
                 user={profile.username}
                 updateProfile={updateProfile}
                 status={profile.status}
               />
-              : <Section>
-                <h2>Status:<br /></h2>
+              : <span>
                 {
                   profile.status === 'Unavailable' ?
-                  (<h3><Status value="critical" />Unavailable</h3>)
-                  : (<h3>{profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{ profile.status}</h3>)
+                  (<h3 className="header-margin">
+                    <Status value="critical" /><strong> Unavailable</strong>
+                  </h3>)
+                  : (<h3 className="header-margin"><strong>
+                    {profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{`  ${profile.status}`}
+                  </strong></h3>)
                 }
                 <Button
                   plain
-                  label={'Message'}
+                  label="Message"
+                  size="small"
                   icon={<SendIcon />}
                   onClick={() => { addChatRoom(); }}
                 />
+                <br />
                 <Button
+                  size="small"
                   icon={<EditIcon />}
-                  label="Endorse this person"
+                  label="Endorse"
                   onClick={() => { openEC(); }}
-                  primary
+                  plain
                 />
-              </Section>
+              </span>
             }
-          </Box>
-        </Columns>
-        <Columns maxCount={3} size={'medium'} justify={'start'} >
-          <Box align={'start'} pad={'medium'} margin={'small'} colorIndex={'light-1'} textAlign={'left'} flex full={false} >
+          </div>
+        </div>
+        <div className="skills-container">
+          <div>
             <div>
               <Label><strong>Technical Skills: </strong></Label><br />
               <div>
                 {
                   profile.skills ?
                   profile.skills.map(s => (
-                    <Chip style={{ display: 'inline-block' }} key={Math.random()}>{s}</Chip>
+                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={Math.random()}>{s}</Chip>
                   )) : 'N/A'
                 }
               </div>
@@ -97,7 +96,7 @@ const UserInfo = ({
                 {
                   profile.desired ?
                   profile.desired.map(s => (
-                    <Chip style={{ display: 'inline-block' }} key={Math.random()}>{s}</Chip>
+                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={Math.random()}>{s}</Chip>
                   )) : 'N/A'
                 }
               </div>
@@ -110,7 +109,7 @@ const UserInfo = ({
               {
                 endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map(s => (
                   <Chip
-                    style={{ display: 'inline-block', backgroundColor: '#00cceb', color: '#fff' }}
+                    style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }}
                     key={Math.random()}
                   >
                     <strong>{`${s} · ${endorsedSkills.filter(es => (es === s)).length}`}</strong>
@@ -118,39 +117,38 @@ const UserInfo = ({
                 ))
               }
             </div>
-          </Box>
-          <Box align={'center'} pad={'medium'} margin={'small'} colorIndex={'light-1'} >
-            <Section>
-              { profile.username === currentUser ?
-                <TechEditForm
-                  user={currentUser}
-                  updateProfile={updateProfile}
-                  skills={profile.skills}
-                  desired={profile.desired}
-                  location={profile.location}
-                  editProfile={editProfile}
-                  editing={editing}
-                />
-              : null}
-            </Section>
-          </Box>
-          <Box align={'center'} colorIndex={'light-1'} textAlign={'center'} flex full={false} >
-            <Section>
-              <Label>Top Languages</Label>
+          </div>
+          <div className="edit-tech">
+            { profile.username === currentUser ?
+              <TechEditForm
+                user={currentUser}
+                updateProfile={updateProfile}
+                skills={profile.skills}
+                desired={profile.desired}
+                location={profile.location}
+                editProfile={editProfile}
+                editing={editing}
+              />
+            : null}
+          </div>
+          <div>
+            <span>
+              <Label><strong>Top Languages</strong></Label>
               {profile.meter ?
                 <AnnotatedMeter
                   type={'circle'}
                   units={'%'}
                   series={profile.meter}
                   legend
-                /> : ''
+                />
+                : ''
               }
-            </Section>
-          </Box>
-        </Columns>
-      </Section>
+            </span>
+          </div>
+        </div>
+      </div>
     }
-    </Section>
+    </div>
 );
 
 UserInfo.propTypes = {
