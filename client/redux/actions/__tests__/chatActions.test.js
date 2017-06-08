@@ -40,7 +40,7 @@ describe('openRoomAsync', () => {
     getState.mockReturnValueOnce(stateRoomEmptyButLoaded);
   });
   beforeEach(() => {
-    socket = {emit: jest.fn() };
+    socket = { emit: jest.fn() };
   });
 
   it('should ask the server for messages if it has none and its not loading or hasnt loaded yet', () => {

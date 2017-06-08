@@ -13,6 +13,7 @@ import SearchInput from 'grommet/components/SearchInput';
 import TrashIcon from 'grommet/components/icons/base/Trash';
 import Anchor from 'grommet/components/Anchor';
 import Section from 'grommet/components/Section';
+import '../styles/events.scss';
 
 class EditEventForm extends React.Component {
 
@@ -121,9 +122,10 @@ class EditEventForm extends React.Component {
         </FormField>
         <Section basis={'small'} align={'center'}>
           <Button
+            className="submitButton"
+            style={{ backgroundColor: '#2E8C65', borderStyle: 'none', color: 'white' }}
             label={'Update'}
             type={'submit'}
-            primary
             onClick={(e) => {
               e.preventDefault();
               const event = {
