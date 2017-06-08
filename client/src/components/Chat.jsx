@@ -29,8 +29,13 @@ class Chat extends React.Component {
           right: this.props.right, // this should be dynamic
           // border: '3px solid #ddd',
           border: `3px solid ${colors.primary}`,
+          //borderTop: 0,
+          //borderLeft: 0,
+          borderStyle: 'outset',
+          borderRadius: '3px',
           overflow: 'auto',
-          backgroundColor: colors.base,
+          //backgroundColor: colors.base,
+          backgroundColor: 'white',
           zIndex: 999999999,
         }}
       >
@@ -41,12 +46,14 @@ class Chat extends React.Component {
             left: 0,
             width: '100%',
             height: '10%',
+            backgroundColor: colors.base,
           }}
         >
           <span
             style={{
               color: '#555',
               fontWeight: 'bold',
+              padding: '15px',
             }}
           >{chatArray}</span>
           <CloseIcon style={{ cursor: 'pointer', position: 'absolute', right: 0 }} onClick={() => { this.props.onCloseChat(); }} />
