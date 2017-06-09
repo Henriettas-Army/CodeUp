@@ -101,7 +101,10 @@ class MapData extends React.Component {
             }
             )}
             {this.props.users.filter(user => user.position).map(user => (
-              <Marker key={'unique_key'} position={[user.position[0], user.position[1]]} >
+              <Marker
+                key={user.username + user.position[0]}
+                position={[user.position[0], user.position[1]]}
+              >
                 <Popup><span>{user.username} wants to code RIGHT NOW!</span></Popup>
               </Marker>
             ))}

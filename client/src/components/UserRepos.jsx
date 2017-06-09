@@ -18,7 +18,7 @@ const UserRepos = ({ repos, status, user }) => (
           {repos && repos.length > 0 ? repos.map(repo => (
             <Tile
               className="repo-tile"
-              key={Math.random()}
+              key={repo.name + user}
               onClick={() => { window.open(`https://github.com/${user}/${repo.name}`); }}
             >
               <Card

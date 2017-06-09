@@ -82,7 +82,7 @@ const UserInfo = ({
                 {
                   profile.skills ?
                   profile.skills.map(s => (
-                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={Math.random()}>{s}</Chip>
+                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={s}>{s}</Chip>
                   )) : 'N/A'
                 }
               </div>
@@ -95,8 +95,8 @@ const UserInfo = ({
               <div>
                 {
                   profile.desired ?
-                  profile.desired.map(s => (
-                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={Math.random()}>{s}</Chip>
+                  profile.desired.map((s, k) => (
+                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={+k + s}>{s}</Chip>
                   )) : 'N/A'
                 }
               </div>
@@ -107,10 +107,10 @@ const UserInfo = ({
               <Label> <strong>Has been endorsed in: </strong></Label>
               <br />
               {
-                endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map(s => (
+                endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map((s, k) => (
                   <Chip
                     style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }}
-                    key={Math.random()}
+                    key={s + +k}
                   >
                     <strong>{`${s} · ${endorsedSkills.filter(es => (es === s)).length}`}</strong>
                   </Chip>

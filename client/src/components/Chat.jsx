@@ -93,7 +93,7 @@ class Chat extends React.Component {
               }
               return (<div
                 className={`messageBubble${(message.from === this.props.username ? ' mine' : ' other')}`}
-                key={+k + 1}
+                key={+k + message.message}
                 style={{ display: 'block', width: '100%', overflow: 'auto' }}
               >
                 <div style={style}>
@@ -155,6 +155,7 @@ Chat.propTypes = {
   username: PropTypes.string.isRequired,
   sendMessage: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 Chat.defaultProps = {
