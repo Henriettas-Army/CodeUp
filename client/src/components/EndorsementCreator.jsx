@@ -29,7 +29,7 @@ const EndorsementCreator = props => (
           <span>
             {
               props.skills.map(skill => (
-                <Chip key={Math.random()} deletable onDeleteClick={() => props.removeSkill(skill)}>
+                <Chip key={skill} deletable onDeleteClick={() => props.removeSkill(skill)}>
                   {skill}
                 </Chip>
               ))
