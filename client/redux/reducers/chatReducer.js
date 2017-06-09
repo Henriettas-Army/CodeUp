@@ -70,11 +70,15 @@ const rooms = (state = {}, action) => { // state: state.rooms
       }
       return newState;
     case chat.RECEIVE_MESSAGES: // only one room, it must exist beforehand
-      if (action.msgs.length === 0) {
-        return state;
-      }
       newState = Object.assign({}, state);
-      room = action.msgs[0].room;
+      room = action.room;
+      newState[room].loading = false;
+      newState[room].active = true; // why active??
+      newState[room].loaded = true;
+      if (action.msgs.length === 0) {
+        return newState;
+      }
+      // room = action.msgs[0].room;
       newState[room].messages = mergeMessages(newState[room].messages, action.msgs);
       newState[room].loading = false;
       newState[room].active = true;

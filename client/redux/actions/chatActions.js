@@ -10,7 +10,7 @@ const LOADING_MESSAGES = 'LOADING_MESSAGES';
 
 const receiveRooms = rooms => ({ type: RECEIVE_ROOMS, rooms }); // erases previous rooms
 const receiveMessage = msg => ({ type: RECEIVE_MESSAGE, msg }); // msg has a lot of info
-const receiveMessages = msgs => ({ type: RECEIVE_MESSAGES, msgs }); // msgs is an array of msg
+const receiveMessages = (msgs, room) => ({ type: RECEIVE_MESSAGES, msgs, room });
 const closeRoom = room => ({ type: CLOSE_ROOM, room });
 const addRoom = (room, unread = 0) => ({ type: ADD_ROOM, room, unread });
 const openRoom = room => ({ type: OPEN_ROOM, room });

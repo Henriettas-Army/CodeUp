@@ -29,7 +29,9 @@ class ChatList extends React.Component {
             right: 0,
             border: `3px solid ${colors.secondary}`,
             backgroundColor: colors.base,
-            zIndex: '99999999'
+            zIndex: '99999999',
+            borderStyle: 'outset',
+            borderRadius: '3px',
           }}
         >
           <span
@@ -65,6 +67,8 @@ class ChatList extends React.Component {
           overflow: 'auto',
           backgroundColor: colors.base,
           zIndex: 9999999,
+          borderStyle: 'outset',
+          borderRadius: '3px',
         }}
       >
         <span
@@ -74,6 +78,14 @@ class ChatList extends React.Component {
         >
           <CaretDown />
         </span>
+        <div style={{ paddingBottom: '30px' }}>
+          <SearchInput
+            style={{ width: `${this.props.width - 10}px`, boxSizing: 'border-box' }}
+            placeHolder="Search"
+            value={this.state.searchValue}
+            onDOMChange={(e) => { this.setState({ searchValue: e.target.value }); }}
+          />
+        </div>
         <List>
           {this.props.rooms.filter(room => room.room.includes(this.state.searchValue)).map((room, k) => (
             <ListItem
@@ -95,12 +107,6 @@ class ChatList extends React.Component {
             </ListItem>
             ))}
         </List>
-        <SearchInput
-          style={{ width: `${this.props.width - 10}px`, boxSizing: 'border-box' }}
-          placeHolder="Search"
-          value={this.state.searchValue}
-          onDOMChange={(e) => { this.setState({ searchValue: e.target.value }); }}
-        />
       </div>
     );
   }

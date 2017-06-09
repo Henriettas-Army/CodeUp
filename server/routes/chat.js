@@ -34,10 +34,11 @@ module.exports = (io) => {
       chat.to(room).emit('message', { room, from, date, message: data.message });
     });
 
-    socket.on('messages', (data) => { // data refers to some params, (e.g before this date etc);
-      console.log('someone requested messages for ', data.room);
+    socket.on('messages', (data) => { // data refers (in future implementations) to some params, (e.g before this date etc);
+      console.log('@@@@@@@@@@@@@@@@@@@@@@@someone requested messages for ', data.room);
       chatRooms.getMessagesForRoom(data.room).then((results) => {
-        socket.emit('messages', results);
+        console.log('emiting', results, 'to room', data.room);
+        socket.emit('messages', results, data.room);
       });
     });
 
