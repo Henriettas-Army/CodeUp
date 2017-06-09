@@ -1,16 +1,27 @@
 .theSplit {
-  height: 830px;
+  height: 87vh;
   overflow: hidden;
 }
+
+.mapBox {
+  height: 100%;
+}
+
 .theMap {
-  height: 830px;
+  height: 90%;
   width: 100%;
   overflow: hidden;
 }
 
 .mapEvents {
   width: 25vw;
-  height: 830px;
-  overflow: hidden;
-  overflow-y: scroll;
+  height: 100vh;
+  overflow:hidden;
+  overflow-y: auto;
+}
+
+.eventBox2346 {
+  height: 100%;
+  max-width: 20.5vw;
+  position: center;
 }

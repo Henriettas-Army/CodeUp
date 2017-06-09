@@ -78,7 +78,7 @@ class MapData extends React.Component {
         flex="left"
         className={'theSplit'}
       >
-        <Box>
+        <Box className="mapBox">
           <Map className={'theMap'} center={getUserPos()} zoom={15}>
             <TileLayer
               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -114,11 +114,10 @@ class MapData extends React.Component {
           className={'mapEvents'}
         >
           <Box
-            style={{ height: '800px' }}
             wrap
+            className={'eventBox2346'}
           >
             <EventsList
-              style={{ height: '800px' }}
               events={events}
               status={this.props.status}
               deleteEvent={this.props.deleteEvent}
