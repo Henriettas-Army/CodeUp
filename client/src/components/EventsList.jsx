@@ -31,13 +31,12 @@ const EventsList = ({
         {events.map(evt =>
           (<Tile key={evt._id} align={'start'} className="eventBox">
             <Card
-              // className="eventBox"
               heading={<h2>{evt.title}</h2>}
               label={evt.username && evt.private ?
                 <div>
-                  <span><strong>*Private</strong> created by <Anchor className="eventCreator" href="#" path={`/profile/${evt.username}`}><span className="eventCreator">{evt.username}</span></Anchor></span>
+                  <span><strong>*Private</strong> created by <Anchor style={{ textDecoration: 'none' }}className="eventCreator" href="#" path={`/profile/${evt.username}`}><span className="eventCreator">{evt.username}</span></Anchor></span>
                 </div> :
-                <span>Created by <Anchor href="#" path={`/profile/${evt.username}`}><span className="eventCreator">{evt.username}</span></Anchor></span>
+                <span>Created by <Anchor style={{ textDecoration: 'none' }} href="#" path={`/profile/${evt.username}`}><span className="eventCreator">{evt.username}</span></Anchor></span>
               }
               description={
                 <Accordion>
@@ -63,6 +62,7 @@ const EventsList = ({
               link={!map ? (<span>
                 {evt.username === isAuthenticated ?
                   <Anchor
+                    style={{ textDecoration: 'none' }}
                     onClick={() => displayEditEventForm(evt)}
                     label={<h4 className="editDeleteEvent"><EditIcon />{'Edit/Delete this event'}</h4>}
                   /> :
@@ -71,6 +71,7 @@ const EventsList = ({
                       {JSON.stringify(evt.pinned).includes(isAuthenticated) ?
                         (<span><PinIcon colorIndex={'neutral-2-a'} /> <strong> Pinned </strong>
                           <Anchor
+                            style={{ textDecoration: 'none' }}
                             icon={<Status value="warning" />}
                             onClick={(e) => {
                               e.preventDefault();
@@ -80,6 +81,7 @@ const EventsList = ({
                           />
                         </span>)
                       : <Anchor
+                        style={{ textDecoration: 'none' }}
                         icon={<PinIcon />}
                         onClick={(e) => {
                           e.preventDefault();
