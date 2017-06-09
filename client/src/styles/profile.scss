@@ -12,6 +12,8 @@ body {
   background-color: $base-color;
   border-style: groove;
   border-radius: 10px;
+  -webkit-margin-top: 5px;
+  margin-top: 5px;
 }
 
 .user-container {
