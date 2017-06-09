@@ -63,6 +63,7 @@ const EventsList = ({
               link={!map ? (<span>
                 {evt.username === isAuthenticated ?
                   <Anchor
+                    style={{ textDecoration: 'none' }}
                     onClick={() => displayEditEventForm(evt)}
                     label={<h4 className="editDeleteEvent"><EditIcon />{'Edit/Delete this event'}</h4>}
                   /> :
