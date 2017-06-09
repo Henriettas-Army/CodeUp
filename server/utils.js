@@ -188,7 +188,17 @@ const createLanguageDataObject = (languageArr, callback) => {
   if (otherLanguageObj.value > 0) {
     sortedLanguageData.push(otherLanguageObj);
   }
-  console.log('SORTED LANGUAGE DATA:', sortedLanguageData);
+  let valuesTotal = 0;
+  sortedLanguageData.forEach((obj) => {
+    valuesTotal += obj.value;
+  });
+  if (valuesTotal >= 100) {
+    const diff = valuesTotal - 100;
+    sortedLanguageData[0].value -= diff;
+  } else {
+    const diff = 100 - valuesTotal;
+    sortedLanguageData[0].value += diff;
+  }
   callback(sortedLanguageData);
 };
 
@@ -206,7 +216,6 @@ const grabUserReposandSave = (username, ghToken) => {
       })
       .then((languageArr) => {
         createLanguageDataObject(languageArr, (sortedLanguageData) => {
-          console.log('SORTED LANGUAGED DATA AFTER:', sortedLanguageData);
           const fourRepos = getFourReposInfo(allRepos);
           UserController.postRepos(username, fourRepos, sortedLanguageData)
           .then((res) => {
