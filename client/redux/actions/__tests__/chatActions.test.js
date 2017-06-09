@@ -58,17 +58,3 @@ describe('openRoomAsync', () => {
     expect(socket.emit.mock.calls.length).toBe(1);// not 2 (each time it calls emit openRoom)
   });
 });
-
-describe('addRoomAsync', () => {
-  let room;
-  let socket;
-  let username;
-  let dispatch;
-
-  beforeEach(() => {
-    room = 'room';
-    socket = {};
-    username = 'user';
-    dispatch = 
-  });
-});
