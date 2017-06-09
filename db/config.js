@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = Promise;
-//Trigger Docker build
-mongoose.connect('mongodb://mongo:27017/codeupdb');
+// Trigger Docker build
+mongoose.connect('mongodb://localhost:27017/codeupdb');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

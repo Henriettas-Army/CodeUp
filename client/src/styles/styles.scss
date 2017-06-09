@@ -4,7 +4,7 @@ $secondary-color: #E2BD5D;
 $tertiary-color: #02010A;
 
 @import url('https://fonts.googleapis.com/css?family=Work+Sans');
-@import '~grommet/scss/vanilla/index';
+@import '~grommet/scss/hpe/index';
 @import './chatStyles';
 @import './events';
 @import './profile';
@@ -21,4 +21,3 @@ body {
   background-color: white;
   margin-bottom: 0px;
 }
-
