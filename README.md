@@ -20,7 +20,7 @@
 
 ## Usage
 
-> To login to codeUp, go to the landing page and click the GitHub icon to login using your GitHub credentials. Upon successful login, you will be greeted by all the upcoming local events in your area.
+To login to codeUp, go to the landing page and click the GitHub icon to login using your GitHub credentials. Upon successful login, you will be greeted by all the upcoming local events in your area.
 
 If you select the user icon in the top right, you can view your own profile in order to edit your current skillsets as well as skills you would like to develop. By clicking on the Explore icon next to the User icon, you can return to the Events/Users/Maps page.
 
