@@ -44,11 +44,11 @@ Then in seperate terminals run:
 
 >$ npm run webpack
 
-These commands start your server using nodemon, start the mongodb and start webpack in watch mode.  Now your app lives your localhost, port 3034. Have fun!
+These commands start your server using nodemon, start the mongodb and start webpack in watch mode.  Now your app lives on your localhost port 3034. Have fun!
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/Henriettas-Army/CodeUp/issues)
 
 
 ## Contributing
