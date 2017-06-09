@@ -11,8 +11,10 @@ const PreviewCarousel = () => (
   >
     <Image size="small" src="/src/images/events.png" />
     <Image size="small" src="/src/images/users.png" />
+    <Image size="small" src="/src/images/profile-1.png" />
+    <Image size="small" src="/src/images/profile-2.png" />
     <Image size="small" src="/src/images/profile-3.png" />
-    <Image size="small" src="/src/images/profile-4.png" />
+    <Image size="small" src="/src/images/chat.png" />
   </Carousel>
 );
 
