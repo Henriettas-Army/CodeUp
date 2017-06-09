@@ -32,7 +32,7 @@ Once the project moves into development, the press release can be used as a touc
   > "I trust in the vision of our company." -Guillermo
 
 ## How to Get Started ##
-  > Simply sign in with GitHub and see what's going on around you. As a new user, provide your technical skills, interests, and locations. Then, link up with users and events.
+  > Simply sign in with GitHub and see what's going on around you. As a new user, provide your technical skills, interests, and location. Then, link up with users and events.
 
 ## Customer Quote ##
   > "Being a programmer can be very lonely, so when I heard about CodeUp, I was very excited to jump on the train." -James
