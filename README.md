@@ -36,10 +36,15 @@
 
 From within the root directory:
 
-`
-$ npm install  
-$ npm i -g webpack
-`
+>$ npm install
+
+Then in seperate terminals run:
+
+>$ npm start
+
+>$ npm run webpack
+
+These commands start your server using nodemon, start the mongodb and start webpack in watch mode.  Now your app lives your localhost, port 3034. Have fun!
 
 ### Roadmap
 
