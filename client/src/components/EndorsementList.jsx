@@ -9,12 +9,12 @@ const EndorsementList = ({ endorsements }) => (
     <h2 className="header-margin">{endorsements && endorsements.length > 0 ? 'Endorsements' : ''}</h2>
     <Tiles fill flush={false} size="small" >
       {
-        endorsements.map(e => (
+        endorsements.map((e, k) => (
           <Tile
             className="endorsement-card"
-            key={Math.random()}
+            key={e.title + e.endorserUsername + +k}
           >
-            <Endorsement endorsement={e} key={Math.random()} />
+            <Endorsement endorsement={e} />
             <br />
           </Tile>
         ))
