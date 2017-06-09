@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Section from 'grommet/components/Section';
 import Heading from 'grommet/components/Heading';
 import Spinning from 'grommet/components/icons/Spinning';
 import loginActions from '../../redux/actions/loginActions';
@@ -19,27 +18,24 @@ class Welcome extends Component {
     let page;
     if (this.props.status === '') {
       page = (
-        <Section>
+        <span>
           <Login />
-        </Section>
+        </span>
       );
     } else if (this.props.status === 'LOADING') {
       page = (
-        <Section
-          align="center"
-        >
+        <div style={{ textAlign: 'center' }}>
           <Heading tag="h2">Loading Page...<br />Thank you for your patience</Heading>
-          <br />
           <Spinning size="xlarge" />
-        </Section>
+        </div>
       );
     } else if (this.props.status === 'READY') {
       window.location.href = '/explore';
     }
     return (
-      <Section>
+      <div>
         {page}
-      </Section>
+      </div>
     );
   }
 }
