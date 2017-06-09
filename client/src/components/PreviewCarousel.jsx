@@ -5,7 +5,7 @@ import Image from 'grommet/components/Image';
 const PreviewCarousel = () => (
   <Carousel
     autoplay
-    autoplaySpeed={5000}
+    autoplaySpeed={3000}
     infinite
     persistentNav
   >
