@@ -13,7 +13,7 @@ const UserList = ({ users }) => (
       (<Tile className={'userTile'} key={user._id + +key} align={'start'}>
         <Card
           label={<Anchor
-            style={{ color: '#2E8C65' }}
+            style={{ color: '#2E8C65', textDecoration: 'none' }}
             className={'userAnchor'}
             href="#"
             path={`/profile/${user.username}`}
