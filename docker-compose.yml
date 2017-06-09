@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    image: techmexdev/codeup:production
+    build: .
     ports:
       - "3034:3034"
     deploy:
