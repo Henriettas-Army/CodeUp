@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = Promise;
-//Trigger Docker build
+// Trigger Docker build
 mongoose.connect('mongodb://localhost:27017/codeupdb');
 
 const db = mongoose.connection;
