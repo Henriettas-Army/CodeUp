@@ -250,7 +250,7 @@ const grabUserInfo = username => (
 );
 
 const getAccessToken = CODE => (
-  axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://138.68.237.143/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
+  axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://codeup.life/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
 );
 
 const gitHubUserInformation = TOKEN => (
