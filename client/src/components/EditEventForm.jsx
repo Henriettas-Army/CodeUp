@@ -39,7 +39,9 @@ class EditEventForm extends React.Component {
           new google.maps.LatLng(position.coords.latitude + 10, position.coords.longitude - 10),
           new google.maps.LatLng(position.coords.latitude - 10, position.coords.longitude + 10));
         const input = document.getElementById('places');
-        console.log(new google.maps.places.Autocomplete(input, options));
+        /* eslint-disable no-new */
+        new google.maps.places.Autocomplete(input, options);
+        /* eslint-enable no-new */
       });
     }
   }

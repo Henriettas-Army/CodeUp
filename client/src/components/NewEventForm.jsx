@@ -38,7 +38,9 @@ class NewEventForm extends React.Component {
           new google.maps.LatLng(position.coords.latitude + 10, position.coords.longitude - 10),
           new google.maps.LatLng(position.coords.latitude - 10, position.coords.longitude + 10));
         const input = document.getElementById('places');
-        console.log(new google.maps.places.Autocomplete(input, options));
+        /* eslint-disable no-new */
+        new google.maps.places.Autocomplete(input, options);
+        /* eslint-enable no-new */
       },
       (error) => {
         const defaultLatLng = { lat: 30.2672, lng: -97.7431 };
@@ -47,7 +49,9 @@ class NewEventForm extends React.Component {
             new google.maps.LatLng(defaultLatLng.lat + 10, defaultLatLng.lng - 10),
             new google.maps.LatLng(defaultLatLng.lat - 10, defaultLatLng.lng + 10));
           const input = document.getElementById('places');
-          console.log(new google.maps.places.Autocomplete(input, options));
+          /* eslint-disable no-new */
+          new google.maps.places.Autocomplete(input, options);
+          /* eslint-disable no-new */
         }
       });
     }

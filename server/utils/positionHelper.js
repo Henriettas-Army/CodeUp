@@ -3,7 +3,6 @@ const Position = function () {
 };
 
 Position.prototype.set = function (username, position) {
-  console.log('positionHelper.set ', username, position);
   if (!position) {
     delete this.users[username];
   } else {
@@ -12,7 +11,6 @@ Position.prototype.set = function (username, position) {
 };
 
 Position.prototype.get = function (username) {
-  console.log('positionHelper.get ', username);
   return this.users[username];
 };
 

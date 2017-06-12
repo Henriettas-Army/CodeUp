@@ -59,7 +59,6 @@ const sendMessageAsync = (socket, message) => () => {
 const receiveMessageAsync = (msg, socket, username) => (dispatch, getState) => {
   const state = getState();
   if (!state.chat.rooms[msg.room]) {
-    console.log('new room');
     dispatch(openRoomAsync(msg.room, socket, username));
   } else {
     dispatch(receiveMessage(msg));

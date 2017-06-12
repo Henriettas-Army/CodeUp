@@ -28,7 +28,9 @@ const getUserPos = () => {
 const latLngevt = address => (
   geocodeByAddress(address)
     .then(results => getLatLng(results[0]))
-    .catch(err => console.log(err))
+    .catch(() => {
+      // error getting position
+    })
 );
 
 class MapData extends React.Component {
