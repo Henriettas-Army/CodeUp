@@ -164,22 +164,28 @@ class Events extends React.Component {
             <Box pad={'medium'} align={'end'} alignContent={'around'}>
               <div className="event-buttons">
                 <Anchor
+                  style={{ textDecoration: 'none' }}
                   label={<h3 className="allEventsButton"><IterationIcon />{'All'}</h3>}
                   disabled={this.state.view === 'All'}
                   onClick={() => this.setState({ view: 'All' })}
                 />
                 <Anchor
+                  style={{ textDecoration: 'none' }}
                   label={<h3 className="myEventsButton">{'  '}<MagicIcon />{'My Events'}</h3>}
                   disabled={this.state.view === 'Created'}
                   onClick={() => this.setState({ view: 'Created' })}
                 />
                 <Anchor
+                  style={{ textDecoration: 'none' }}
                   label={<h3 className="myPinnedButton"><PinIcon />{'My Pinned'}</h3>}
                   disabled={this.state.view === 'Pinned'}
                   onClick={() => this.setState({ view: 'Pinned' })}
                 />
                 <br />
+              </div>
+              <div className="add-event">
                 <Anchor
+                  style={{ textDecoration: 'none' }}
                   label={<h3 className="addEventButton"><AddIcon />{'Add Event'}</h3>}
                   onClick={(e) => {
                     e.preventDefault();

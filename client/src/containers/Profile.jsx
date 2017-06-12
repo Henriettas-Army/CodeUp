@@ -56,7 +56,7 @@ class Profile extends React.Component {
     return (
       <GrommetApp>
         <NavContainer />
-        <br /><br />
+        <br />
         <div className="profile-container">
           <UserInfo
             profile={profile}

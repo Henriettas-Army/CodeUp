@@ -22,13 +22,14 @@
   justify-content: flex-end;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  width: 400px; }
+}
 
 .allEventsButton {
   color: white;
   text-shadow: 1px 1px black;
   margin: 5px 5px;
   padding: 5px 5px;
+  text-decoration: none;
 }
 
 .myEventsButton {
@@ -36,6 +37,7 @@
   text-shadow: 1px 1px black;
   margin: 5px 5px;
   padding: 5px 5px;
+  text-decoration: none;
 }
 
 .myPinnedButton {
@@ -43,6 +45,7 @@
   text-shadow: 1px 1px black;
   margin: 5px 5px;
   padding: 5px 5px;
+  text-decoration: none;
 }
 
 .addEventButton {
@@ -50,6 +53,11 @@
   text-shadow: 1px 1px black;
   margin: 5px 5px;
   padding: 5px 5px;
+  text-decoration: none;
+}
+
+.add-event {
+  margin-right: 80px;
 }
 
 .eventBox {
@@ -62,6 +70,7 @@
 
 .date-label {
   font-size: 17px;
+  color: white;
 }
 
 .eventCreator {
@@ -71,7 +80,6 @@
 .eventsList {
   background-color: #FBF5F3;
   justify-content: center;
-  height: 610px;
 }
 
 .editDeleteEvent {

@@ -12,16 +12,6 @@ import eventActions from '../../redux/actions/eventActions';
 
 import userActions from '../../redux/actions/userListAction';
 
-const style = {
-  height: '800px',
-  width: '100%',
-};
-const EventStyle = {
-  width: '350px',
-  height: '800px',
-  overflow: 'hidden',
-  overflowY: 'scroll',
-};
 const getUserPos = () => {
   let pos = null;
   if (navigator.geolocation) {
@@ -86,12 +76,10 @@ class MapData extends React.Component {
     return (
       <Split
         flex="left"
-        style={{ height: '800px', overflow: 'hidden' }}
+        className={'theSplit'}
       >
-        <Box
-          style={{ height: '800px' }}
-        >
-          <Map style={style} center={getUserPos()} zoom={15}>
+        <Box className="mapBox">
+          <Map className={'theMap'} center={getUserPos()} zoom={15}>
             <TileLayer
               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -113,21 +101,23 @@ class MapData extends React.Component {
             }
             )}
             {this.props.users.filter(user => user.position).map(user => (
-              <Marker key={'unique_key'} position={[user.position[0], user.position[1]]} >
+              <Marker
+                key={user.username + user.position[0]}
+                position={[user.position[0], user.position[1]]}
+              >
                 <Popup><span>{user.username} wants to code RIGHT NOW!</span></Popup>
               </Marker>
             ))}
           </Map>
         </Box>
         <Sidebar
-          style={EventStyle}
+          className={'mapEvents'}
         >
           <Box
-            style={{ height: '800px' }}
             wrap
+            className={'eventBox2346'}
           >
             <EventsList
-              style={{ height: '800px' }}
               events={events}
               status={this.props.status}
               deleteEvent={this.props.deleteEvent}

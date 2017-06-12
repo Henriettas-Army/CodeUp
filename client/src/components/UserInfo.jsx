@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Spinning from 'grommet/components/icons/Spinning';
 import SendIcon from 'grommet/components/icons/base/Send';
-import CliIcon from 'grommet/components/icons/base/Cli';
+import CodeIcon from 'grommet/components/icons/base/Code';
 import EditIcon from 'grommet/components/icons/base/Edit';
 import Status from 'grommet/components/icons/Status';
 import Button from 'grommet/components/Button';
@@ -52,7 +52,7 @@ const UserInfo = ({
                     <Status value="critical" /><strong> Unavailable</strong>
                   </h3>)
                   : (<h3 className="header-margin"><strong>
-                    {profile.status === 'Available' ? <Status value="ok" /> : <CliIcon colorIndex="accent-3" />}{`  ${profile.status}`}
+                    {profile.status === 'Available' ? <Status value="ok" /> : <CodeIcon colorIndex={'accent-3'} className="codeNow" />}{`  ${profile.status}`}
                   </strong></h3>)
                 }
                 <Button
@@ -82,7 +82,7 @@ const UserInfo = ({
                 {
                   profile.skills ?
                   profile.skills.map(s => (
-                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={Math.random()}>{s}</Chip>
+                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={s}>{s}</Chip>
                   )) : 'N/A'
                 }
               </div>
@@ -95,8 +95,8 @@ const UserInfo = ({
               <div>
                 {
                   profile.desired ?
-                  profile.desired.map(s => (
-                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={Math.random()}>{s}</Chip>
+                  profile.desired.map((s, k) => (
+                    <Chip style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }} key={+k + s}>{s}</Chip>
                   )) : 'N/A'
                 }
               </div>
@@ -107,10 +107,10 @@ const UserInfo = ({
               <Label> <strong>Has been endorsed in: </strong></Label>
               <br />
               {
-                endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map(s => (
+                endorsedSkills.filter((s, i) => (endorsedSkills.indexOf(s) === i)).map((s, k) => (
                   <Chip
                     style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }}
-                    key={Math.random()}
+                    key={s + +k}
                   >
                     <strong>{`${s} · ${endorsedSkills.filter(es => (es === s)).length}`}</strong>
                   </Chip>

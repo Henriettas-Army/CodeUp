@@ -20,7 +20,7 @@ const Endorsement = ({ endorsement }) => (
       <div>
         <span className="description">{endorsement.comments}</span><br />
         {endorsement.skills.map(s => (
-          <Chip key={Math.random()} style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }}>{s}</Chip>
+          <Chip key={s} style={{ display: 'inline-block', backgroundColor: '#2E8C65', color: '#fff' }}>{s}</Chip>
         ))}
       </div>
     )}

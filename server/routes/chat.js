@@ -9,8 +9,6 @@ module.exports = (io) => {
   const chat = io.of('/chat');
 
   chat.on('connection', (socket) => {
-    console.log('user connected');
-
     socket.on('authenticate', (data) => {
       if (!data || !data.username) { // very strong authentication
         socket.disconnect('unauthorized');
@@ -25,19 +23,16 @@ module.exports = (io) => {
       const date = Date.now();
       const room = data.room.split('#').sort().join('#');
       const from = chatRooms.getUser(socket); // later on parse jwt here
-      console.log('message sent ', data);
       if (from === undefined) {
-        console.log('unknown origin. sorry dude', data.username);
         return;
       }
       chatRooms.addMessage(room, from, date, data.message);
       chat.to(room).emit('message', { room, from, date, message: data.message });
     });
 
-    socket.on('messages', (data) => { // data refers to some params, (e.g before this date etc);
-      console.log('someone requested messages for ', data.room);
+    socket.on('messages', (data) => { // data refers (in future implementations) to some params, (e.g before this date etc);
       chatRooms.getMessagesForRoom(data.room).then((results) => {
-        socket.emit('messages', results);
+        socket.emit('messages', results, data.room);
       });
     });
 
@@ -69,7 +64,6 @@ module.exports = (io) => {
     socket.on('disconnect', () => {
       chatRooms.updateUserLastVisits(socket);
       chatRooms.removeUser(socket);
-      console.log('user disconnected');
     });
   });
 };

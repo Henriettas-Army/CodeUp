@@ -28,8 +28,8 @@ class Chats extends React.Component {
       socket.on('message', (msg) => {
         this.props.addMessage(msg, socket, this.props.username);
       });
-      socket.on('messages', (msgs) => {
-        this.props.addMessages(msgs);
+      socket.on('messages', (msgs, room) => {
+        this.props.addMessages(msgs, room);
       });
     });
   }
@@ -39,7 +39,7 @@ class Chats extends React.Component {
       return (<div />);
     }
     const chatRoomNames = Object.keys(this.props.rooms);
-    console.log('roomnames in chat', chatRoomNames);
+    // console.log('roomnames in chat', chatRoomNames);
 
     const chatListWidth = 350;
     const chatWidth = 300;
@@ -116,7 +116,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(chat.closeRoomAsync(room, socket, username));
   },
   addMessage: (msg, socket, username) => dispatch(chat.receiveMessageAsync(msg, socket, username)),
-  addMessages: msgs => dispatch(chat.receiveMessages(msgs)),
+  addMessages: (msgs, room) => dispatch(chat.receiveMessages(msgs, room)),
   sendMessage: (socket, msg) => dispatch(chat.sendMessageAsync(socket, msg)),
 });
 

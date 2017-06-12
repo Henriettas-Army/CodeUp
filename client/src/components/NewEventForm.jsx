@@ -68,10 +68,9 @@ class NewEventForm extends React.Component {
     const createEvent = this.props.createEvent;
 
     return (
-      <Form style={{ padding: '7px 7px', margin: '7px 7px' }}>
+      <Form className="eventForm" style={{ padding: '7px 7px', margin: '7px 7px' }}>
         <Heading align="center">Create Event</Heading>
         <CheckBox
-          colorIndex={'#01a982'}
           label="Make event private*"
           checked={this.state.private}
           onChange={() => this.setState({ private: !this.state.private })}
@@ -137,6 +136,10 @@ class NewEventForm extends React.Component {
             primary
             onClick={(e) => {
               e.preventDefault();
+              if (this.state.title.length === 0) {
+                document.querySelector('.eventForm').prepend('Event Must Contain A Title');
+                return;
+              }
               const event = {
                 title: this.state.title,
                 username: window.localStorage.getItem('token'),
