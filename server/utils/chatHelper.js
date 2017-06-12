@@ -37,7 +37,6 @@ ChatRooms.prototype.updateUserLastVisits = function (socket) {
     const rooms = Object.keys(this.rooms[user]);
     for (let j = 0; j < rooms.length; j += 1) {
       const room = rooms[j];
-      console.log('before closing: updating in ', user, room, lastVisit);
       this.updateLastConnection(user, room, lastVisit);
     }
   }
@@ -53,10 +52,8 @@ ChatRooms.prototype.addMessage = function (room, from, date, message) {
   // }
   // this.buffer[room].push({ room, from, date, message });
   room.split('#').forEach((username) => {
-    console.log('users in message ', message, 'are', username);
     if (this.sockets[username]) {
       this.sockets[username].join(room);
-      console.log('username joining to room', username, room);
     }
   });
   chatDB.saveMessage({ room, from, date, message });
@@ -89,7 +86,6 @@ ChatRooms.prototype.getUser = function (socket) {
 ChatRooms.prototype.addUser = function (user, socket) {
   this.sockets[user] = socket;
   this.users[socket.id] = user;
-  console.log('user added', user);
   // const rooms = Object.keys(this.buffer);
   // for (let i = 0; i < rooms.length; i += 1) {
   //   const userInRoom = rooms[i].split('#').indexOf(user) !== -1;
@@ -107,7 +103,6 @@ ChatRooms.prototype.removeUser = function (socket) {
 
 ChatRooms.prototype.getMessagesForRoom = function (room1) {
   const room = room1.split('#').sort().join('#');
-  console.log('target room: ', room);
   // return this.buffer[room];
   return chatDB.getRoomMessages(room);
 };
