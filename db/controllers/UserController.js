@@ -29,11 +29,12 @@ const postUser = (userObj) => {
   });
 };
 
-
+// retrieve user info from db
 const getUserInfo = username => (
   User.findOne({ username })
 );
 
+// posts top four repo information and language data info in db
 const postRepos = (username, fourRepos, languageData) => (
   // console.log('IN POST REPOS:', fourRepos, languageData);
   User.findOneAndUpdate({ username }, { repos: fourRepos, meter: languageData })
