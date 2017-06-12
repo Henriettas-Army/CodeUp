@@ -29,10 +29,8 @@ ChatRooms.prototype.closeRoom = function (username, room1) {
 };
 
 ChatRooms.prototype.updateUserLastVisits = function (socket) {
-  // console.log('come on!!!')
   const user = this.users[socket.id];
   const lastVisit = Date.now();
-  // console.log('users: ', users)
   if (this.rooms[user]) {
     const rooms = Object.keys(this.rooms[user]);
     for (let j = 0; j < rooms.length; j += 1) {
@@ -43,32 +41,12 @@ ChatRooms.prototype.updateUserLastVisits = function (socket) {
 };
 
 ChatRooms.prototype.addMessage = function (room, from, date, message) {
-  // this.messages += 1;
-  // // save to db
-  // let isNewRoom = false;
-  // if (!this.buffer[room]) {
-  //   this.buffer[room] = [];
-  //   isNewRoom = true;
-  // }
-  // this.buffer[room].push({ room, from, date, message });
   room.split('#').forEach((username) => {
     if (this.sockets[username]) {
       this.sockets[username].join(room);
     }
   });
   chatDB.saveMessage({ room, from, date, message });
-
-  // if (isNewRoom) {
-  //   // connect corresponding users to new Room
-  //   const users = room.split('#');
-  //   for (let i = 0; i < users.length; i += 1) {
-  //     const s = this.sockets[users[i]];
-  //     if (s !== undefined) {
-  //       s.join(room);
-  //     }
-  //   }
-  //   console.log('new room created: ', room);
-  // }
 };
 
 ChatRooms.prototype.getSocket = function (user) {
@@ -76,23 +54,12 @@ ChatRooms.prototype.getSocket = function (user) {
 };
 
 ChatRooms.prototype.getUser = function (socket) {
-  // console.log('trying to find ', socket.id);
-  // for(var user in this.users) {
-  //   console.log(this.users[user]);
-  // }
   return this.users[socket.id];
 };
 
 ChatRooms.prototype.addUser = function (user, socket) {
   this.sockets[user] = socket;
   this.users[socket.id] = user;
-  // const rooms = Object.keys(this.buffer);
-  // for (let i = 0; i < rooms.length; i += 1) {
-  //   const userInRoom = rooms[i].split('#').indexOf(user) !== -1;
-  //   if (userInRoom) {
-  //     socket.join(rooms[i]);
-  //   }
-  // }
 };
 
 ChatRooms.prototype.removeUser = function (socket) {
@@ -103,13 +70,10 @@ ChatRooms.prototype.removeUser = function (socket) {
 
 ChatRooms.prototype.getMessagesForRoom = function (room1) {
   const room = room1.split('#').sort().join('#');
-  // return this.buffer[room];
   return chatDB.getRoomMessages(room);
 };
 
 ChatRooms.prototype.getRooms = function (username) {
-  // TODO return all different rooms for a given user, and the number of unread messages
-  // return [{ room: 'asdf', unread: 4 }];
   return chatDB.getUnreadMessages(username);
 };
 
