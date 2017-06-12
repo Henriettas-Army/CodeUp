@@ -1,6 +1,3 @@
-// const socketIO = require('socket.io');
-// const http = require('http');
-
 const ChatRooms = require('../utils/chatHelper');
 
 const chatRooms = new ChatRooms(); // in-memory representation of active chats
