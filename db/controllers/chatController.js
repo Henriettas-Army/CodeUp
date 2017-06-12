@@ -5,7 +5,7 @@ module.exports = {
   saveMessage: (message) => {
     const msg = new Message(message);
 
-    msg.save().catch((e) => { console.log('error saving msg', msg, e, 'too bad :`('); console.log(msg, message); });
+    msg.save();
   },
   getRoomMessages: room => Message.find({ room }),
   updateLastConnection: (username, room, date) => LastConnection.findOneAndUpdate(

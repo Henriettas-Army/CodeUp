@@ -22,7 +22,6 @@ class Chats extends React.Component {
     socket.on('authenticationSuccess', (data) => {
       this.props.loadRooms(socket, data.username);
       socket.on('rooms', (data2) => {
-        console.log('rooms received: ', data2.rooms);
         this.props.receiveRooms(data2.rooms);
       });
       socket.on('message', (msg) => {
@@ -39,7 +38,6 @@ class Chats extends React.Component {
       return (<div />);
     }
     const chatRoomNames = Object.keys(this.props.rooms);
-    // console.log('roomnames in chat', chatRoomNames);
 
     const chatListWidth = 350;
     const chatWidth = 300;
@@ -78,7 +76,7 @@ class Chats extends React.Component {
               }}
             />
         ))}
-        
+
       </div>);
   }
 }

@@ -31,16 +31,16 @@ router.post('/login', (req, res) => {
       .then((user) => {
         Utils.grabUserReposandSave(user.username, user.access_token);
       })
-      .catch((err) => {
-        console.log('ERROR LOGGING IN:', err);
+      .catch(() => {
+        // console.log('ERROR LOGGING IN:', err);
       });
     })
     .catch((err) => {
-      console.log('ERROR GETTING ACCESS TOKEN:', err);
+      res.json('Error logging in', err);
     });
   })
   .catch((err) => {
-    console.log('ERROR GETTING TOKEN:', err);
+    res.json('Error logging in', err);
   });
 });
 
