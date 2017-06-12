@@ -12,6 +12,7 @@ const UserStatus = ({ user, updateProfile, status }) => (
         : (<span> {status === 'Available' ? <Status value="ok" /> : <CodeIcon colorIndex={'accent-3'} className="codeNow" />}</span>)
       }
     </h3>
+    {/* user sets their own status: Available, Unavailable, Code Now */}
     <Select
       placeHolder={user}
       inline={false}

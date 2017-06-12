@@ -72,7 +72,7 @@ class Chat extends React.Component {
           }}
         >
           {this.props.loading && <Spinning /> }
-          {this.props.messages.length === 0 && !this.props.loading && 
+          {this.props.messages.length === 0 && !this.props.loading &&
             <span style={{ color: '#CCC' }}>Send a message to {chatArray}!</span>
           }
           {

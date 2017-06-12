@@ -6,11 +6,6 @@ const GITHUB_API = require('./config/github');
 const ID = GITHUB_API.CLIENT_ID;
 const SECRET = GITHUB_API.CLIENT_SECRET;
 
-
-// uncomment when using tokens, including lines 16, 57, 91;
-// need to save github token into DB
-// const GITHUB_TOKEN = '';
-
 const config = {
   headers: {
     'User-Agent': 'CodeUp',
@@ -19,7 +14,6 @@ const config = {
 
 // if user has over 100 repos then traverse through remaining repos pages
 // with Github API
-// const traversePages = (page, remainingPages, repos, username) => (
 const traversePages = (page, remainingPages, repos, username, ghToken) => (
   new Promise((resolve, reject) => {
     axios.get(`https://api.github.com/users/${username}/repos`, {
@@ -58,9 +52,7 @@ const traversePages = (page, remainingPages, repos, username, ghToken) => (
   })
 );
 
-// grab all of user's repos
-// parameters should be (username, ghToken)
-// const gitUserRepos = username => (
+// grab all of user's repos from GH
 const gitUserRepos = (username, ghToken) => (
   new Promise((resolve, reject) => {
     let userRepos;
