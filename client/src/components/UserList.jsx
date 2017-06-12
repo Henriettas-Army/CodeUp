@@ -17,9 +17,11 @@ const UserList = ({ users }) => (
             className={'userAnchor'}
             href="#"
             path={`/profile/${user.username}`}
-          ><img className={'profilePic'} alt="Profilepic" src={`${user.img}`} />
+          >
+            <img className={'profilePic'} alt="Profilepic" src={`${user.img}`} />
             <p className={'userHeader'}><h2>{user.username}</h2>
-              {user.location.length > 0 ? user.location.join(', ') : 'Not Specified'}</p></Anchor>}
+              {user.location.length > 0 ? user.location.join(', ') : 'Not Specified'}</p>
+          </Anchor>}
           contentPad="none"
           link={user.status === 'Unavailable' ? (<span className="userStatus"><br /> <Status value="critical" />Unavailable</span>)
                 : (<span className="userStatus"> <br />{user.status === 'Available' ? <Status value="ok" />
