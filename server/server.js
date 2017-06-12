@@ -1,5 +1,5 @@
 const express = require('express');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -12,7 +12,7 @@ const endorsement = require('./routes/endorsement');
 const app = express();
 
 app.use(cookieParser());
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../client')));
@@ -29,12 +29,6 @@ require('./routes/chat')(io);
 
 // routes
 app.use('/api/users', users);
-// app.get('/api/users/list', users.getUsersList);
-// app.post('/api/users/login', users.postLogin);
-// app.get('/api/users/:username', users.getProfile);
-// app.put('/api/users/:username', users.updateProfile);
-// app.post('/api/users/position', users.postPosition);
-
 app.use('/api/events', eventsRoute);
 app.post('/api/endorsement', endorsement);
 
