@@ -1,9 +1,9 @@
 version: "3"
 services:
   web:
-    build: .
+    image: techmexdev/codeup:production
     ports:
-      - "3034:3034"
+      - "80:80"
     deploy:
       replicas: 2
       restart_policy:
