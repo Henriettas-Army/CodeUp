@@ -10,7 +10,7 @@ RUN npm i -g webpack
 WORKDIR /app
 ADD . /app
 
-RUN webpack
+RUN cd client && webpack
 
 EXPOSE 80
 
