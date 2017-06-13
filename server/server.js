@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
 
 const db = require('./../db/config.js');
 const eventsRoute = require('./routes/eventsRoute');
@@ -10,6 +11,14 @@ const users = require('./routes/users');
 const endorsement = require('./routes/endorsement');
 
 const app = express();
+
+const IN_PRODUCTION_ENV = true;
+if (IN_PRODUCTION_ENV) {
+  console.log('in production environment');
+  const access = fs.createWriteStream(path.join(__dirname, 'consoles.log'));
+  process.stderr.write = access.write.bind(access);
+  process.stdout.write = process.stderr.write;
+}
 
 app.use(cookieParser());
 // app.use(morgan('dev'));
