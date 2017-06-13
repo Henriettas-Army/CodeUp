@@ -8,7 +8,7 @@ const prod = {
   secret: '962dccc1a55b4aa757131712e3a9d5276cf917c3',
 };
 
-const env = 'dev';
+const env = 'not-dev';
 
 module.exports = {
   CLIENT_ID: env === 'dev' ? dev.id : prod.id,
