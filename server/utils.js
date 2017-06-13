@@ -256,7 +256,7 @@ const grabUserInfo = username => (
 // upon user's authorization of Github this request sends code received from GH back to them
 // to receive access_token in return
 const getAccessToken = CODE => (
-  axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://codeup.life/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
+  axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://localhost:3034/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
 );
 
 // uses user's access_token to then get user's general GH profile/bio information

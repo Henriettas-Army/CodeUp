@@ -97,7 +97,7 @@ const rooms = (state = {}, action) => { // state: state.rooms
     case chat.OPEN_ROOM:
       newState = Object.assign({}, state);
       if (!newState[action.room]) {
-        newState[action.room] = { loading: true };
+        newState[action.room] = { loading: true, messages: [] };
       }
       newState[action.room].active = true;
       newState[action.room].unread = 0;
