@@ -1,0 +1,52 @@
+.userTiles.flex-container {
+  -webkit-flex-flow: row wrap;
+   flex-flow: row wrap;
+  -webkit-justify-content: center;
+   justify-content: center;
+   height: 100%;
+   background: $base-color;
+};
+
+.userAnchor {
+  color: $secondary-color;
+  padding-top: 8px;
+};
+
+.profilePic {
+  float: left;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+};
+
+.userHeader {
+  margin-left: 90px;
+  color: $primary-color;
+};
+
+.userTile {
+  background: $base-color;
+  padding-left: 10px;
+  border: 1px outset;
+  border-radius: 3px;
+}
+
+.userTile:hover {
+  background: #e0e0e0;
+}
+
+.userDescription {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.userStatus {
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+.userState {
+  padding-bottom: 150px;
+}
+.codeNow {
+  margin-right: 5px;
+}

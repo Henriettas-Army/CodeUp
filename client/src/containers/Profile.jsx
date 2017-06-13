@@ -56,7 +56,7 @@ class Profile extends React.Component {
     return (
       <GrommetApp>
         <NavContainer />
-        <br /><br />
+        <br />
         <div className="profile-container">
           <UserInfo
             profile={profile}
@@ -66,7 +66,7 @@ class Profile extends React.Component {
             currentUser={currentUser}
             editing={editing}
             editProfile={editProfile}
-            addChatRoom={() => { this.props.addChatRoom([currentUser, profile.username].sort().join('#')); }}
+            addChatRoom={() => { this.props.addChatRoom([currentUser, profile.username].sort().join('#'), currentUser); }}
             openEC={() => { this.openEC(); }}
             endorsedSkills={endorsedSkills}
           />
@@ -156,8 +156,8 @@ const mapDispatchToProps = dispatch => ({
   editProfile: () => {
     dispatch(profileActions.editProfile());
   },
-  addChatRoom: (room, unread) => {
-    dispatch(chatActions.addRoom(room, unread));
+  addChatRoom: (room, username) => {
+    dispatch(chatActions.openRoomAsync(room, window.socket, username));
   },
 });
 

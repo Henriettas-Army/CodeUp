@@ -9,7 +9,7 @@ import InheritIcon from 'grommet/components/icons/base/Inherit';
 import Anchor from 'grommet/components/Anchor';
 import SearchContainer from '../containers/SearchContainer';
 
-const Nav = ({ logoutUser, isAuthenticated }) => (
+const Nav = ({ logoutUser, isAuthenticated, path }) => (
   <Header
     fixed
     float
@@ -33,8 +33,7 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
       direction="row"
       responsive={false}
     >
-      <SearchContainer />
-      <br />
+      {path !== '/explore' ? '' : <SearchContainer />}
       <Anchor
         icon={<InheritIcon />}
         href="#"
@@ -73,10 +72,12 @@ const Nav = ({ logoutUser, isAuthenticated }) => (
 Nav.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.string,
+  path: PropTypes.string,
 };
 
 Nav.defaultProps = {
   isAuthenticated: '',
+  path: '',
 };
 
 export default Nav;

@@ -1,3 +1,5 @@
+/* global processSpecial */
+import { REHYDRATE } from 'redux-persist/constants';
 import { LIST_USERS, ERROR } from '../actions/userListAction';
 
 const INITIAL_STATE = {
@@ -18,6 +20,13 @@ const listUsers = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { users: action.users });
     case ERROR:
       return Object.assign({}, state, { errMessage: action.errMessage });
+    case REHYDRATE: {
+      const incoming = action.payload.userListReducer;
+      if (incoming) {
+        return { ...state, ...incoming, specialKey: processSpecial(incoming.specialKey) };
+      }
+      return state;
+    }
     default:
       return state;
   }

@@ -1,8 +1,9 @@
 const express = require('express');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
 
 const db = require('./../db/config.js');
 const eventsRoute = require('./routes/eventsRoute');
@@ -11,8 +12,16 @@ const endorsement = require('./routes/endorsement');
 
 const app = express();
 
+const IN_PRODUCTION_ENV = true;
+if (IN_PRODUCTION_ENV) {
+  console.log('in production environment');
+  const access = fs.createWriteStream(path.join(__dirname, 'consoles.log'));
+  process.stderr.write = access.write.bind(access);
+  process.stdout.write = process.stderr.write;
+}
+
 app.use(cookieParser());
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../client')));
@@ -29,12 +38,6 @@ require('./routes/chat')(io);
 
 // routes
 app.use('/api/users', users);
-// app.get('/api/users/list', users.getUsersList);
-// app.post('/api/users/login', users.postLogin);
-// app.get('/api/users/:username', users.getProfile);
-// app.put('/api/users/:username', users.updateProfile);
-// app.post('/api/users/position', users.postPosition);
-
 app.use('/api/events', eventsRoute);
 app.post('/api/endorsement', endorsement);
 

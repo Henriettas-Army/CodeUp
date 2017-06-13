@@ -16,7 +16,6 @@ const loadAllUsers = () => (
     return axios.get('/api/users/list', config)
       .then((res) => {
         if (res.data.users) {
-          console.log('asdfasdfsadf>', res.data.users.map(user => ({ username: user.username, position: user.position })));
           dispatch(listUsers(res.data.users));
         } else {
           dispatch(error(res.data));

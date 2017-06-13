@@ -7,6 +7,10 @@ const positionHelper = require('../utils/positionHelper');
 
 const router = express.Router();
 
+// receives callback from login action containing code received Github that is sent
+// back to receive access_token which is sent back to receive general user profile info.
+// route then signs and send JWT creates a user object which is sent to be stored/updated
+// in db, including getting user's repos and language data and storing
 router.post('/login', (req, res) => {
   const CODE = req.body.code;
   Utils.getAccessToken(CODE)
@@ -31,16 +35,16 @@ router.post('/login', (req, res) => {
       .then((user) => {
         Utils.grabUserReposandSave(user.username, user.access_token);
       })
-      .catch((err) => {
-        console.log('ERROR LOGGING IN:', err);
+      .catch(() => {
+        // console.log('ERROR LOGGING IN:', err);
       });
     })
     .catch((err) => {
-      console.log('ERROR GETTING ACCESS TOKEN:', err);
+      res.json('Error logging in', err);
     });
   })
   .catch((err) => {
-    console.log('ERROR GETTING TOKEN:', err);
+    res.json('Error logging in', err);
   });
 });
 

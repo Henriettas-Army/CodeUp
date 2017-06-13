@@ -38,7 +38,9 @@ class NewEventForm extends React.Component {
           new google.maps.LatLng(position.coords.latitude + 10, position.coords.longitude - 10),
           new google.maps.LatLng(position.coords.latitude - 10, position.coords.longitude + 10));
         const input = document.getElementById('places');
-        console.log(new google.maps.places.Autocomplete(input, options));
+        /* eslint-disable no-new */
+        new google.maps.places.Autocomplete(input, options);
+        /* eslint-enable no-new */
       },
       (error) => {
         const defaultLatLng = { lat: 30.2672, lng: -97.7431 };
@@ -47,7 +49,9 @@ class NewEventForm extends React.Component {
             new google.maps.LatLng(defaultLatLng.lat + 10, defaultLatLng.lng - 10),
             new google.maps.LatLng(defaultLatLng.lat - 10, defaultLatLng.lng + 10));
           const input = document.getElementById('places');
-          console.log(new google.maps.places.Autocomplete(input, options));
+          /* eslint-disable no-new */
+          new google.maps.places.Autocomplete(input, options);
+          /* eslint-disable no-new */
         }
       });
     }
@@ -68,10 +72,9 @@ class NewEventForm extends React.Component {
     const createEvent = this.props.createEvent;
 
     return (
-      <Form style={{ padding: '7px 7px', margin: '7px 7px' }}>
+      <Form className="eventForm" style={{ padding: '7px 7px', margin: '7px 7px' }}>
         <Heading align="center">Create Event</Heading>
         <CheckBox
-          colorIndex={'#01a982'}
           label="Make event private*"
           checked={this.state.private}
           onChange={() => this.setState({ private: !this.state.private })}
@@ -137,6 +140,10 @@ class NewEventForm extends React.Component {
             primary
             onClick={(e) => {
               e.preventDefault();
+              if (this.state.title.length === 0) {
+                document.querySelector('.eventForm').prepend('Event Must Contain A Title');
+                return;
+              }
               const event = {
                 title: this.state.title,
                 username: window.localStorage.getItem('token'),

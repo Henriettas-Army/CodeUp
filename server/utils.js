@@ -6,11 +6,6 @@ const GITHUB_API = require('./config/github');
 const ID = GITHUB_API.CLIENT_ID;
 const SECRET = GITHUB_API.CLIENT_SECRET;
 
-
-// uncomment when using tokens, including lines 16, 57, 91;
-// need to save github token into DB
-// const GITHUB_TOKEN = '';
-
 const config = {
   headers: {
     'User-Agent': 'CodeUp',
@@ -19,7 +14,6 @@ const config = {
 
 // if user has over 100 repos then traverse through remaining repos pages
 // with Github API
-// const traversePages = (page, remainingPages, repos, username) => (
 const traversePages = (page, remainingPages, repos, username, ghToken) => (
   new Promise((resolve, reject) => {
     axios.get(`https://api.github.com/users/${username}/repos`, {
@@ -58,9 +52,7 @@ const traversePages = (page, remainingPages, repos, username, ghToken) => (
   })
 );
 
-// grab all of user's repos
-// parameters should be (username, ghToken)
-// const gitUserRepos = username => (
+// grab all of user's repos from GH
 const gitUserRepos = (username, ghToken) => (
   new Promise((resolve, reject) => {
     let userRepos;
@@ -121,6 +113,8 @@ const getFourReposInfo = (allRepos) => {
   ));
 };
 
+// send request for language data for individual repos
+// called from asyncLanguageData below
 const getLanguageData = (repo, ghToken) => (
   new Promise((resolve, reject) => {
     axios.get(repo.languages_url, { params: { access_token: ghToken }, config })
@@ -133,6 +127,8 @@ const getLanguageData = (repo, ghToken) => (
   })
 );
 
+// set of promises to send language data request from languages_url from
+// each repo. Called in grabUserReposandSave
 const asyncLanguageData = (allRepos, ghToken) => (
   new Promise((resolve, reject) => {
     const languageArr = [];
@@ -154,6 +150,9 @@ const asyncLanguageData = (allRepos, ghToken) => (
   })
 );
 
+// takes all the languages returned from all repos in asyncLanguageData() and
+// consolidates into one object containing top 5 languages and their percentages.
+// Accounts for rounding not equaling a total of 100% and adds an "other" field
 const createLanguageDataObject = (languageArr, callback) => {
   const languageObj = {};
   const languageData = [];
@@ -188,10 +187,24 @@ const createLanguageDataObject = (languageArr, callback) => {
   if (otherLanguageObj.value > 0) {
     sortedLanguageData.push(otherLanguageObj);
   }
-  console.log('SORTED LANGUAGE DATA:', sortedLanguageData);
+  let valuesTotal = 0;
+  sortedLanguageData.forEach((obj) => {
+    valuesTotal += obj.value;
+  });
+  if (valuesTotal >= 100) {
+    const diff = valuesTotal - 100;
+    sortedLanguageData[0].value -= diff;
+  } else {
+    const diff = 100 - valuesTotal;
+    sortedLanguageData[0].value += diff;
+  }
   callback(sortedLanguageData);
 };
 
+
+// gets all user's repos and calls asyncLanguageData to get language data object and
+// getFourReposInfo to get top four repos' infos. Then calls UserController.postRepos to store
+// the info to the database
 const grabUserReposandSave = (username, ghToken) => {
   gitUserRepos(username, ghToken)
     .then((allRepos) => {
@@ -206,7 +219,6 @@ const grabUserReposandSave = (username, ghToken) => {
       })
       .then((languageArr) => {
         createLanguageDataObject(languageArr, (sortedLanguageData) => {
-          console.log('SORTED LANGUAGED DATA AFTER:', sortedLanguageData);
           const fourRepos = getFourReposInfo(allRepos);
           UserController.postRepos(username, fourRepos, sortedLanguageData)
           .then((res) => {
@@ -223,6 +235,7 @@ const grabUserReposandSave = (username, ghToken) => {
     });
 };
 
+// uses username to grab user's information from database
 const grabUserInfo = username => (
   new Promise((resolve, reject) => {
     UserController.getUserInfo(username)
@@ -240,10 +253,13 @@ const grabUserInfo = username => (
   })
 );
 
+// upon user's authorization of Github this request sends code received from GH back to them
+// to receive access_token in return
 const getAccessToken = CODE => (
   axios(`https://github.com/login/oauth/access_token?client_id=${ID}&redirect_uri=http://localhost:3034/oauth_redirect&client_secret=${SECRET}&code=${CODE}`)
 );
 
+// uses user's access_token to then get user's general GH profile/bio information
 const gitHubUserInformation = TOKEN => (
   axios(`https://api.github.com/user?access_token=${TOKEN}`)
 );

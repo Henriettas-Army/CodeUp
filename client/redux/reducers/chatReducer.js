@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+/* global processSpecial */
+import { REHYDRATE } from 'redux-persist/constants';
 import chat from '../actions/chatActions';
 
 // Object.keys(state.rooms) is the list of chats since the beginning of time.
@@ -68,11 +70,15 @@ const rooms = (state = {}, action) => { // state: state.rooms
       }
       return newState;
     case chat.RECEIVE_MESSAGES: // only one room, it must exist beforehand
-      if (action.msgs.length === 0) {
-        return state;
-      }
       newState = Object.assign({}, state);
-      room = action.msgs[0].room;
+      room = action.room;
+      newState[room].loading = false;
+      newState[room].active = true; // why active??
+      newState[room].loaded = true;
+      if (action.msgs.length === 0) {
+        return newState;
+      }
+      // room = action.msgs[0].room;
       newState[room].messages = mergeMessages(newState[room].messages, action.msgs);
       newState[room].loading = false;
       newState[room].active = true;
@@ -91,7 +97,7 @@ const rooms = (state = {}, action) => { // state: state.rooms
     case chat.OPEN_ROOM:
       newState = Object.assign({}, state);
       if (!newState[action.room]) {
-        newState[action.room] = { loading: true };
+        newState[action.room] = { loading: true, messages: [] };
       }
       newState[action.room].active = true;
       newState[action.room].unread = 0;
@@ -115,6 +121,13 @@ const rooms = (state = {}, action) => { // state: state.rooms
       }
       newState[action.room].loading = true;
       return newState;
+    case REHYDRATE: {
+      const incoming = action.payload.chatReducer;
+      if (incoming) {
+        return { ...state, ...incoming, specialKey: processSpecial(incoming.specialKey) };
+      }
+      return state;
+    }
     default:
       return state;
   }

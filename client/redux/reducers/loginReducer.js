@@ -1,11 +1,11 @@
-/* global window */
+/* global window processSpecial */
 import jwt from 'jsonwebtoken';
+import { REHYDRATE } from 'redux-persist/constants';
 import { LOGIN_USER, LOGOUT_USER, LOAD_LOGIN, LOGIN_REMINDER } from '../actions/loginActions';
 
 const INITIAL_STATE = {
   status: window.localStorage.token ? 'READY' : '',
   isAuthenticated: window.localStorage.token ? jwt.decode(window.localStorage.getItem('token')) : '',
-  rehydrated: false,
   reminder: false,
 };
 
@@ -28,11 +28,13 @@ const auth = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { status: 'LOADING' });
     case LOGIN_REMINDER:
       return Object.assign({}, state, { reminder: true });
-    case 'persist/REHYDRATE':
-      return Object.assign({}, state, {
-        persistedState: action.payload,
-        rehydrated: true
-      });
+    case REHYDRATE: {
+      const incoming = action.payload.loginReducer;
+      if (incoming) {
+        return { ...state, ...incoming, specialKey: processSpecial(incoming.specialKey) };
+      }
+      return state;
+    }
     default:
       return state;
   }

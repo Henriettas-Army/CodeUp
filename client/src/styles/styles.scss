@@ -4,7 +4,20 @@ $secondary-color: #E2BD5D;
 $tertiary-color: #02010A;
 
 @import url('https://fonts.googleapis.com/css?family=Work+Sans');
-@import '~grommet/scss/vanilla/index';
+@import '~grommet/scss/hpe/index';
 @import './chatStyles';
 @import './events';
 @import './profile';
+@import "userList.scss";
+@import "map.scss";
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: #FBF5F3;
+}
+
+.tabsContainer {
+  margin-top: 71px;
+  background-color: white;
+  margin-bottom: 0px;
+}
