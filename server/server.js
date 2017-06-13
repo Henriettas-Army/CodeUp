@@ -27,8 +27,8 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../client')));
 
 /* eslint-disable no-console */
-const server = app.listen('3034', () => {
-  console.log('Listening on port 3034...');
+const server = app.listen('80', () => {
+  console.log('Listening on port 80...');
 });
 
 const io = require('socket.io')(server);
