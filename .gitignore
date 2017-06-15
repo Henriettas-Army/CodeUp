@@ -2,5 +2,4 @@
 /server/config
 npm-debug.log
 docker-cloud.yml
-/db/config.js
 *bundle*
