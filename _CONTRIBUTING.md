@@ -26,6 +26,17 @@
    new commit.
 1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
 
+## Updated Dev Workflow
+1) Rebase
+2) Copy/paste Dev secret/ID
+3) Change callback in utils.js
+4) Code, add, commit, repeat
+5) Rebase
+6) Delete secret/ID
+7) Change callback
+8) Push to origin branch
+9) Merge
+
 ## Detailed Workflow
 
 ### Fork the repo
