@@ -40,7 +40,6 @@ If you select the Map heading at the top, you will be taken to a map displaying 
 From within the root directory:
 
 >$ npm install
->$ npm install -g grommet-cli
 
 Then in seperate terminals run:
 
